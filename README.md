@@ -1,2 +1,1 @@
-# BiciAmiga_JAVA
-TP FINAL JAVA: BiciAmiga
+# TP FINAL JAVA 2018: BiciAmiga
