@@ -1,8 +1,8 @@
 {
-    "title": "Shop Homepage",
-    "name": "startbootstrap-shop-homepage",
+    "title": "Business Casual",
+    "name": "startbootstrap-business-casual",
     "version": "4.0.0",
-    "description": "A shop homepage HTML template built with Bootstrap",
+    "description": "A casual HTML website theme for businesses built with Bootstrap",
     "keywords": [
         "css",
         "sass",
@@ -11,9 +11,9 @@
         "theme",
         "template"
     ],
-    "homepage": "https://startbootstrap.com/template-overviews/shop-homepage",
+    "homepage": "https://startbootstrap.com/template-overviews/business-casual",
     "bugs": {
-        "url": "https://github.com/BlackrockDigital/startbootstrap-shop-homepage/issues",
+        "url": "https://github.com/BlackrockDigital/startbootstrap-business-casual/issues",
         "email": "feedback@startbootstrap.com"
     },
     "license": "MIT",
@@ -23,7 +23,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/BlackrockDigital/startbootstrap-shop-homepage.git"
+        "url": "https://github.com/BlackrockDigital/startbootstrap-business-casual.git"
     },
     "dependencies": {
         "bootstrap": "4.0.0",
@@ -31,6 +31,10 @@
     },
     "devDependencies": {
         "browser-sync": "2.23.6",
-        "gulp": "^3.9.1"
+        "gulp": "^3.9.1",
+        "gulp-clean-css": "3.9.2",
+        "gulp-header": "2.0.1",
+        "gulp-rename": "^1.2.2",
+        "gulp-sass": "^3.1.0"
     }
 }
