@@ -170,4 +170,35 @@ public class CatalogoUsuarios {
       }
     }
   }
+
+  public Usuarios getUsuarioXUsr(String usr) {
+    PreparedStatement sentencia = null;
+    ResultSet rs = null;
+    Usuarios u = null;
+    String sql = "select * from usuarios where usuario=?";
+    
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setString(1, usr);
+      rs = sentencia.executeQuery();
+      
+      if (rs.next()) {
+        u = new Usuarios();
+        u.setId(rs.getInt("id"));
+        u.setApynom(rs.getString("apynom"));
+        u.setUsuario(rs.getString("usuario"));
+        u.setContrasenia(rs.getString("contrasenia"));
+        u.setDocumento(rs.getString("documento"));
+        u.setDomicilio(rs.getString("domicilio"));
+        u.setAdm(rs.getBoolean("admin"));
+        u.setEmail(rs.getString("email"));
+        u.setHabilitado(rs.getBoolean("habilitado"));
+        u.setTelefono(rs.getString("telefono"));        
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+    return u;
+  }
 }

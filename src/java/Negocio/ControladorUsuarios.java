@@ -2,7 +2,10 @@ package Negocio;
 
 import Datos.CatalogoUsuarios;
 import Entidades.Usuarios;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import javax.xml.bind.DatatypeConverter;
 
 public class ControladorUsuarios {
   CatalogoUsuarios cu;
@@ -29,5 +32,24 @@ public class ControladorUsuarios {
 
   public void modificarUsuario(Usuarios u){
     cu.modificarUsuarios(u);
+  }
+
+  public Usuarios validarUsuario(String usuario, String password) throws NoSuchAlgorithmException {
+    MessageDigest md = MessageDigest.getInstance("MD5");
+    md.update(password.getBytes());
+    byte[] digest = md.digest();
+    String myChecksum = DatatypeConverter.printHexBinary(digest).toUpperCase();
+    
+    Usuarios usrActual = cu.getUsuarioXUsr(usuario);
+    
+    if(usrActual!=null)
+    {
+      if(myChecksum.equals(usrActual.getContrasenia().toUpperCase()))
+        return usrActual;
+      else
+        return null;
+    }
+    else 
+      return null;    
   }
 }
