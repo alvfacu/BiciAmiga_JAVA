@@ -35,21 +35,23 @@ public class ControladorUsuarios {
   }
 
   public Usuarios validarUsuario(String usuario, String password) throws NoSuchAlgorithmException {
-    MessageDigest md = MessageDigest.getInstance("MD5");
-    md.update(password.getBytes());
-    byte[] digest = md.digest();
-    String myChecksum = DatatypeConverter.printHexBinary(digest).toUpperCase();
+    
+    String encriptado = new Util.Seguridad().md5(password);
     
     Usuarios usrActual = cu.getUsuarioXUsr(usuario);
     
     if(usrActual!=null)
     {
-      if(myChecksum.equals(usrActual.getContrasenia().toUpperCase()))
+      if(encriptado.equals(usrActual.getContrasenia().toUpperCase()))
         return usrActual;
       else
         return null;
     }
     else 
       return null;    
+  }
+
+  public int existeUsuario(String usr) {
+    return cu.existeUsuario(usr);
   }
 }

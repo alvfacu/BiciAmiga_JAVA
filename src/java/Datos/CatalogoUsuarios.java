@@ -30,6 +30,7 @@ public class CatalogoUsuarios {
         u.setEmail(rs.getString("email"));
         u.setHabilitado(rs.getBoolean("habilitado"));
         u.setTelefono(rs.getString("telefono"));        
+        u.setMecanico(rs.getBoolean("mecanico"));
         usuarios.add(u);
       }
     } catch (SQLException e1) {
@@ -72,7 +73,8 @@ public class CatalogoUsuarios {
         u.setAdm(rs.getBoolean("admin"));
         u.setEmail(rs.getString("email"));
         u.setHabilitado(rs.getBoolean("habilitado"));
-        u.setTelefono(rs.getString("telefono"));        
+        u.setTelefono(rs.getString("telefono")); 
+        u.setMecanico(rs.getBoolean("mecanico"));
       }
 
     } catch (SQLException sqle) {
@@ -84,8 +86,8 @@ public class CatalogoUsuarios {
   public void altaUsuario(Usuarios u) {
     PreparedStatement sentencia = null;
     ResultSet rs=null;
-    String sql = "insert into usuarios(apynom,usuario,contrasenia,documento,domicilio,admin,email,habilitado,telefono) "
-            + "values(?,?,?,?,?,?,?,?,?)";
+    String sql = "insert into usuarios(apynom,usuario,contrasenia,documento,domicilio,admin,email,habilitado,telefono,mecanico) "
+            + "values(?,?,?,?,?,?,?,?,?,?)";
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
       sentencia.setString(1,u.getApynom());
@@ -97,6 +99,7 @@ public class CatalogoUsuarios {
       sentencia.setString(7,u.getEmail());
       sentencia.setBoolean(8,u.isHabilitado());
       sentencia.setString(9,u.getTelefono());
+      sentencia.setBoolean(10,u.isMecanico());
       sentencia.execute();
       rs=sentencia.getGeneratedKeys();
       if(rs!=null && rs.next()){
@@ -143,7 +146,7 @@ public class CatalogoUsuarios {
   public void modificarUsuarios(Usuarios u) {
     PreparedStatement sentencia = null;
     String sql = "update usuarios set apynom=?, usuario=?, contrasenia=?, documento=?, domicilio=?, admin=? "
-            +" email=?, habilitado=?, telefono=? where id=?";
+            +" email=?, habilitado=?, telefono=?, mecanico=? where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setString(1, u.getApynom());
@@ -155,7 +158,8 @@ public class CatalogoUsuarios {
       sentencia.setString(7, u.getEmail());
       sentencia.setBoolean(8, u.isHabilitado());
       sentencia.setString(9, u.getTelefono());
-      sentencia.setDouble(10, u.getId());
+      sentencia.setBoolean(10,u.isMecanico());
+      sentencia.setDouble(11, u.getId());
       sentencia.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -193,12 +197,34 @@ public class CatalogoUsuarios {
         u.setAdm(rs.getBoolean("admin"));
         u.setEmail(rs.getString("email"));
         u.setHabilitado(rs.getBoolean("habilitado"));
-        u.setTelefono(rs.getString("telefono"));        
+        u.setTelefono(rs.getString("telefono"));
+        u.setMecanico(rs.getBoolean("mecanico"));
       }
 
     } catch (SQLException sqle) {
       sqle.printStackTrace();
     }
     return u;
+  }
+
+  public int existeUsuario(String usr) {
+    PreparedStatement sentencia = null;
+    ResultSet rs = null;
+    Usuarios u = null;
+    String sql = "select * from usuarios where usuario=?";
+    int cont = 0;
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setString(1, usr);
+      rs = sentencia.executeQuery();
+      
+      if (rs.next()) {
+        ++cont;       
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+    return cont;
   }
 }

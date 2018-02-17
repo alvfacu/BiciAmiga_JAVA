@@ -12,7 +12,7 @@
     <title>BiciAmiga - Rosario</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -31,132 +31,91 @@
 
     <h1 class="site-heading text-center text-white d-none d-lg-block">
       <span class="site-heading-upper text-primary mb-3">Recorre Rosario de la manera más cómoda</span>
-      <a class="site-heading-lower" href="index.html" style="color:#ffff; text-decoration: none" >BiciAmiga</a>
+      <a class="site-heading-lower" href="index.jsp" style="color:#ffff; text-decoration: none" >BiciAmiga</a>
     </h1>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="index.html">BiciAmiga</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="index.html">Inicio
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="#como">¿Cómo funciona?</a>
-            </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="bicicletas.html">Nuestras Bicis</a>
-            </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="reserva.html" style="color: #ffc107;">Reservar</a>
-            </li>            
-            <li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="login.jsp">Ingresa / Registrate</a>
-            </li>
-            <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="contacto.html">Contacto</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <%@include file="nav_bar.jsp"%>
 
     <!-- Body -->
     <h1 class="site-heading text-center text-white d d-lg-block">
-      <span class="site-heading-upper text-primary mb-3">Completar formulario</span>
+      <span class="site-heading-upper text-primary mb-3">Formulario de registro</span>
     </h1> 
-    <div class="container">
-      <div class="col-lg-12 well">
-        <form class="form-text" method="post" action="#">
-          <div class="col-lg-12 well">
-            <div class="row">
-                <div class="col-sm-12">
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>First Name</label>
-                      <input type="text" placeholder="Enter First Name Here.." class="form-control">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                      <label>Last Name</label>
-                      <input type="text" placeholder="Enter Last Name Here.." class="form-control">
-                    </div>
-                  </div>					
-                  <div class="form-group">
-                    <label>Address</label>
-                    <textarea placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
-                  </div>	
-                  <div class="row">
-                    <div class="col-sm-4 form-group">
-                      <label>City</label>
-                      <input type="text" placeholder="Enter City Name Here.." class="form-control">
-                    </div>	
-                    <div class="col-sm-4 form-group">
-                      <label>State</label>
-                      <input type="text" placeholder="Enter State Name Here.." class="form-control">
-                    </div>	
-                    <div class="col-sm-4 form-group">
-                      <label>Zip</label>
-                      <input type="text" placeholder="Enter Zip Code Here.." class="form-control">
-                    </div>		
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-6 form-group">
-                      <label>Title</label>
-                      <input type="text" placeholder="Enter Designation Here.." class="form-control">
-                    </div>		
-                    <div class="col-sm-6 form-group">
-                      <label>Company</label>
-                      <input type="text" placeholder="Enter Company Name Here.." class="form-control">
-                    </div>	
-                  </div>						
-                  <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="text" placeholder="Enter Phone Number Here.." class="form-control">
-                  </div>		
-                  <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="text" placeholder="Enter Email Address Here.." class="form-control">
-                  </div>	
-                  <div class="form-group">
-                    <label>Website</label>
-                    <input type="text" placeholder="Enter Website Name Here.." class="form-control">
-                  </div>
-                  <button type="button" class="btn btn-lg btn-info">Submit</button>					
-                </div> 
-            </div>
+    <div class="container text-center">
+      <form class="form-text" method="POST" action="AltaUsuario">
+        <div class="col-lg-7 col-centered well">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <input type="text" name="usuario" id="usuario" placeholder="Usuario" class="form-control" autofocus="true" required="true">
+                <p id="mensajeDisponibilidad"></p>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 form-group">
+                  <input type="password" name="pass" id="pass" placeholder="Contraseña" class="form-control" onmouseover="this.setAttribute('type', 'text')"               
+                         onmouseout="this.setAttribute('type', 'password')" autofocus="true" required="true">
+                </div>	
+                <div class="col-sm-6 form-group">
+                  <input type="password" id="repass" placeholder="Repita Contraseña" class="form-control" onmouseover="this.setAttribute('type', 'text')"               
+                         onmouseout="this.setAttribute('type', 'password')" autofocus="true" required="true">
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" name="apenom" id="apenom" placeholder="Apellido y Nombre" class="form-control" autofocus="true" required="true">
+              </div>			
+              <div class="form-group">
+                <input type="text" name="domicilio" id="domicilio" placeholder="Domicilio" class="form-control" autofocus="true" required="true">
+              </div>
+              <div class="form-group">
+                <input type="text" name="documento" id="documento" placeholder="Documento de Identidad" class="form-control" autofocus="true" required="true">
+              </div>
+              <div class="form-group">
+                <input type="text" name="telefono" id="telefono" placeholder="Teléfono de contacto" class="form-control" autofocus="true" required="true">
+              </div>		
+              <div class="form-group">
+                <input type="email" name="email" id="email" placeholder="Email de contacto" class="form-control" autofocus="true" required="true">
+              </div>
+              <button type="submit" id="enviar" class="btn btn-lg btn-primary btn-block">Registrarse a BiciAmiga</button>
+            </div>              
           </div>
-        </form>
-      </div>            
-    </div>          
-
-  <!-- Footer -->
-  <footer class="footer text-faded text-center py-5">
-    <div class="container">
-      <p class="m-0 small"> TP FINAL JAVA &copy; | BiciAmiga &reg; | Alvarez | 2018</p>
+        </div>
+      </form>
     </div>
-  </footer>
+    <br>
+    <br>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script>
-    //validate password
-    function validarPassword() {
-      var c1 = document.formAltaCliente.clave.value;
-      var c2 = document.formAltaCliente.clave2.value;
+    <!-- Footer -->
+    <%@include file="footer.jsp"%>
 
-      if (c1 !== c2) {
-        alert("Las contraseñas deben de coincidir");
-      }
-    }
-  </script>
-</body>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/existeUsuario.js"></script>
+    <script>
+        $(document).ready(function () {
+          handleEvents();
+        });
+
+        function handleEvents() {                   
+          $("#repass").keyup(function (event) {
+            //Store the password field objects into variables ...
+            var pass1 = $('#pass').val();
+            var pass2 = $('#repass');
+            //Set the colors we will be using ...
+            var goodColor = "#66cc66";
+            var badColor = "#ff6666";
+            //Compare the values in the password field 
+            //and the confirmation field
+            if (pass1 === pass2.val()) {
+              $("#enviar").removeAttr('disabled');                 
+              pass2.css("backgroundColor", goodColor);            
+            } else {
+              $("#enviar").attr('disabled', 'disabled');
+              pass2.css("backgroundColor", badColor);
+            }
+          }) ;
+        }
+    </script>
+  </body>
 
 </html>

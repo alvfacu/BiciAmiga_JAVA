@@ -4,12 +4,16 @@ public class Usuarios {
   
   private int id;
   private String apynom, usuario, contrasenia, email, domicilio, telefono, documento;
-  private boolean adm, habilitado;
+  private boolean adm, habilitado, mecanico;
 
-  public Usuarios() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public boolean isMecanico() {
+    return mecanico;
   }
 
+  public void setMecanico(boolean mecanico) {
+    this.mecanico = mecanico;
+  }
+  
   public int getId() {
     return id;
   }
@@ -90,7 +94,23 @@ public class Usuarios {
     this.habilitado = habilitado;
   }
 
-  public Usuarios(int id, String apynom, String usuario, String contrasenia, String email, String domicilio, String telefono, String documento, boolean adm, boolean habilitado) {
+  public Usuarios() {
+  }
+
+  public Usuarios(String apynom, String usuario, String contrasenia, String email, String domicilio, String telefono, String documento, boolean adm, boolean habilitado, boolean mecanico) {
+    this.apynom = apynom;
+    this.usuario = usuario;
+    this.contrasenia = contrasenia;
+    this.email = email;
+    this.domicilio = domicilio;
+    this.telefono = telefono;
+    this.documento = documento;
+    this.adm = adm;
+    this.habilitado = habilitado;
+    this.mecanico = mecanico;
+  }
+
+  public Usuarios(int id, String apynom, String usuario, String contrasenia, String email, String domicilio, String telefono, String documento, boolean adm, boolean habilitado, boolean mecanico) {
     this.id = id;
     this.apynom = apynom;
     this.usuario = usuario;
@@ -101,8 +121,9 @@ public class Usuarios {
     this.documento = documento;
     this.adm = adm;
     this.habilitado = habilitado;
+    this.mecanico = mecanico;
   }
-
+  
   
   
 }
