@@ -1,4 +1,4 @@
-<%@page import="Entidades.Usuarios"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +36,7 @@
 
   <body>
     <h1 class="site-heading text-center text-white d-none d-lg-block">
-      <span class="site-heading-upper text-primary mb-3">Recorre Rosario de la manera m醩 c髆oda</span>
+      <span class="site-heading-upper text-primary mb-3">Recorre Rosario de la manera m谩s c贸moda</span>
       <a class="site-heading-lower" href="index.jsp" style="color:#ffff; text-decoration: none" >BiciAmiga</a>
     </h1>
 
@@ -54,7 +54,7 @@
               <span class="section-heading-lower">BiciAmiga</span>
               <span class="section-heading-upper">Nosotros</span>
             </h2>
-            <p class="mb-3"><b>BiciAmiga</b> es una empresa de turismo y de alquiler de bicicletas, emplazada en el microcentro de la ciudad de Rosario, provincia de Santa Fe.<br><br>Somos un centro de informaci髇 tur韘tico, en el que extranjeros y locales pueden acercarse y obtener informaci髇 para facilitar su paso por la ciudad.</p>
+            <p class="mb-3"><b>BiciAmiga</b> es una empresa de turismo y de alquiler de bicicletas, emplazada en el microcentro de la ciudad de Rosario, provincia de Santa Fe.<br><br>Somos un centro de informaci贸n tur铆stico, en el que extranjeros y locales pueden acercarse y obtener informaci贸n para facilitar su paso por la ciudad.</p>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">緾髆o funciona?</h2>
+            <h2 class="section-heading text-uppercase">驴C贸mo funciona?</h2>
             <p class="mb-3">Reserva en BiciAmiga en tres simples pasos</p>
           </div>
         </div>
@@ -74,7 +74,7 @@
               <i class="fa fa-mouse-pointer fa-stack-1x fa-inverse"></i>
             </span> 
             <h4 class="service-heading">1er PASO</h4>
-            <p class="mb-3">Haz click en el bot髇 <a href="reservar.jsp">"Reservar"</a></p>
+            <p class="mb-3">Haz click en el bot贸n <a href="reservar.jsp">"Reservar"</a></p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
@@ -90,7 +90,7 @@
               <i class="fa fa-bicycle fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">3er PASO</h4>
-            <p class="mb-3">Confirma tu reserva. El d韆 reservado acercate con tu comprobante y tu identificaci髇</p>                        
+            <p class="mb-3">Confirma tu reserva. El d铆a reservado acercate con tu comprobante y tu identificaci贸n</p>                        
           </div>
         </div>
       </div>

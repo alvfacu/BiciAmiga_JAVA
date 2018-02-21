@@ -22,7 +22,7 @@ public class CatalogoMantenimientos {
       while (rs.next()) {
         Mantenimientos m = new Mantenimientos();
         m.setId(rs.getInt("id"));
-        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("patente"));
+        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("id_bici"));
         m.setBici(b);
         TiposMantenimiento tm = new CatalogoTiposMantenimiento().getTipo(rs.getInt("id_tipo"));
         m.setTipo(tm);
@@ -65,7 +65,7 @@ public class CatalogoMantenimientos {
       if (rs.next()) {
         m = new Mantenimientos();
         m.setId(rs.getInt("id"));
-        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("patente"));
+        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("id_bici"));
         m.setBici(b);
         TiposMantenimiento tm = new CatalogoTiposMantenimiento().getTipo(rs.getInt("id_tipo"));
         m.setTipo(tm);
@@ -89,7 +89,7 @@ public class CatalogoMantenimientos {
             + "values(?,?,?,?,?,?,?)";
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-      sentencia.setInt(1,m.getBici().getPatente());
+      sentencia.setInt(1,m.getBici().getId());
       sentencia.setInt(2,m.getTipo().getId());
       sentencia.setDate(3, m.getFechaIngreso());
       sentencia.setDouble(4, m.getKmIngreso());
@@ -145,7 +145,7 @@ public class CatalogoMantenimientos {
             +" km_egreso=?, obs=? where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
-      sentencia.setInt(1, m.getBici().getPatente());
+      sentencia.setInt(1, m.getBici().getId());
       sentencia.setInt(2, m.getTipo().getId());
       sentencia.setDate(3, m.getFechaIngreso());
       sentencia.setDouble(4, m.getKmIngreso());

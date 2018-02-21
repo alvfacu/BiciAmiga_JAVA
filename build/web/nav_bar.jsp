@@ -1,4 +1,4 @@
-<%@page import="Entidades.Usuarios"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,7 +26,8 @@
 
   </head>
 
-  <body>    
+  <body>
+    <%@page import="Entidades.Usuarios"%>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
       <div class="container">
@@ -42,13 +43,13 @@
               </a>
             </li>
             <li class="nav-item px-lg-4" id="comofun">
-              <a class="nav-link text-uppercase text-expanded" href="index.jsp#como">¿Cómo funciona?</a>
+              <a class="nav-link text-uppercase text-expanded" href="index.jsp#como">Â¿CÃ³mo funciona?</a>
             </li>
-            <li class="nav-item px-lg-4" id="bicicletas">
-              <a class="nav-link text-uppercase text-expanded" href="bicicletas.jsp">Nuestras Bicis</a>
+            <li class="nav-item px-lg-4" id="nuestras_bicicletas">
+              <a class="nav-link text-uppercase text-expanded" href="nuestras_bicicletas.jsp">Nuestras Bicis</a>
             </li>
-            <li class="nav-item px-lg-4" id="reserva">
-              <a class="nav-link text-uppercase text-expanded" href="reserva.jsp" style="color: #ffc107;">Reservar</a>
+            <li class="nav-item px-lg-4" id="reservar">
+              <a class="nav-link text-uppercase text-expanded" href="reservar.jsp" style="color: #ffc107;">Reservar</a>
             </li>                        
             <li class="nav-item px-lg-4" id="contacto">
               <a class="nav-link text-uppercase text-expanded" href="contacto.jsp">Contacto</a>
@@ -76,24 +77,30 @@
         </button>
         <div class="collapse navbar-collapse" id="sesbarResponsive">
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item px-lg-4" id="cuenta">
-              <a class="nav-link text-uppercase text-expanded" href="mi_cuenta.jsp">Mi Cuenta</a>
-            </li>
             <% if(usrActual.isAdm()){%>
-            <li class="nav-item px-lg-4" id="reserva">
-              <a class="nav-link text-uppercase text-expanded" href="listar_reservas.jsp">Reservas</a>
+            <li class="nav-item px-lg-4" id="admbici">
+              <a class="nav-link text-uppercase text-expanded" href="admbici.jsp">Bicicletas</a>
+            </li>    
+            <li class="nav-item px-lg-4" id="admusr">
+              <a class="nav-link text-uppercase text-expanded" href="admusr.jsp">Usuarios</a>
             </li>
-            <%if(usrActual.isMecanico()){%>
-            <li class="nav-item px-lg-4" id="mantenimiento">
-              <a class="nav-link text-uppercase text-expanded" href="listar_mantenimientos.jsp">Mantenimientos</a>
+            <li class="nav-item px-lg-4" id="admres">
+              <a class="nav-link text-uppercase text-expanded" href="admres.jsp">Reservas</a>
             </li>
-            <%}} else {%>
-            <li class="nav-item px-lg-4" id="reserva">
+            <%}if(usrActual.isMecanico()){%>
+            <li class="nav-item px-lg-4" id="admmant">
+              <a class="nav-link text-uppercase text-expanded" href="admmant.jsp">Mantenimientos</a>
+            </li>
+            <%}if(!usrActual.isAdm() && !usrActual.isMecanico()){%>
+            <li class="nav-item px-lg-4" id="mis_reservas">
               <a class="nav-link text-uppercase text-expanded" href="mis_reservas.jsp">Mis reservas</a>
             </li>
             <%}%>
+            <li class="nav-item px-lg-4" id="mi_cuenta">
+              <a class="nav-link text-uppercase text-expanded" href="mi_cuenta.jsp">Mi Cuenta</a>
+            </li>
             <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="Logout">Cerrar Sesión</a>
+              <a class="nav-link text-uppercase text-expanded" href="Logout">Cerrar SesiÃ³n</a>
             </li>
           </ul>
         </div>

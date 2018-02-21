@@ -16,23 +16,23 @@ $(function () {
     //  url: 'ValidaUsuario',
     //  data: {"usuario": $('#usuario').val()}          
     //    });
-    $.post('ValidaUsuario', 
+    $.post('ValidaPatente', 
           {
-            patente : $('#usuario').val()
+            patente : $('#patente').val()
           }, 
           function(responseText) 
           {
             //VALIDO
             if(responseText==="0")
             {
-              $("#enviar").removeAttr('disabled');                 
-              $('#usuario').css("backgroundColor", "#66cc66"); 
+              $("#guardar").removeAttr('disabled');                 
+              $('#patente').css("backgroundColor", "#66cc66"); 
             }
             //INVALIDO
             else
             {
-              $("#enviar").attr('disabled', 'disabled');
-              $('#usuario').css("backgroundColor", "#ff6666");
+              $("#guardar").attr('disabled', 'disabled');
+              $('#patente').css("backgroundColor", "#ff6666");
             }
               
           });

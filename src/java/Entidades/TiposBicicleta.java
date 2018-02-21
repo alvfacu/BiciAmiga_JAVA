@@ -7,6 +7,11 @@ public class TiposBicicleta {
   private double precioXHr;
   private double precioXDia;
 
+  public TiposBicicleta(String tipo, double preciohr, double preciodia) {
+    this.tipo = tipo;
+    this.precioXHr = preciohr;
+    this.precioXDia = preciodia;  }
+
   public double getPrecioXHr() {
     return precioXHr;
   }

@@ -23,7 +23,7 @@ public class CatalogoReservas {
       while (rs.next()) {
         Reservas r = new Reservas();        
         r.setId(rs.getInt("id"));
-        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("patente"));
+        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("id_bici"));
         r.setBici(b);
         Usuarios u = new CatalogoUsuarios().getUsuario(rs.getInt("id_usr"));
         r.setCliente(u);
@@ -68,7 +68,7 @@ public class CatalogoReservas {
       if (rs.next()) {
         r = new Reservas();        
         r.setId(rs.getInt("id"));
-        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("patente"));
+        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("id_bici"));
         r.setBici(b);
         Usuarios u = new CatalogoUsuarios().getUsuario(rs.getInt("id_usr"));
         r.setCliente(u);
@@ -94,7 +94,7 @@ public class CatalogoReservas {
             + "values(?,?,?,?,?,?,?,?,?)";
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-      sentencia.setInt(1,r.getBici().getPatente());
+      sentencia.setInt(1,r.getBici().getId());
       sentencia.setInt(2,r.getCliente().getId());
       sentencia.setInt(3,r.getEstado().getId());
       sentencia.setDate(4, r.getFechaSolicitud());
@@ -152,7 +152,7 @@ public class CatalogoReservas {
             +"importe=?, km_totales=?, obs=? where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
-      sentencia.setInt(1, r.getBici().getPatente());
+      sentencia.setInt(1, r.getBici().getId());
       sentencia.setInt(2, r.getCliente().getId());
       sentencia.setInt(3, r.getEstado().getId());
       sentencia.setDate(4, r.getFechaSolicitud());

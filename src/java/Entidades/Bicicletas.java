@@ -1,32 +1,68 @@
 package Entidades;
 
+import java.text.DecimalFormat;
+
 public class Bicicletas {
   
-  private int patente;
+  private String patente;
+  private int id;
   private String descripcion;
   private TiposBicicleta tipo;
   private boolean disponible;
-  private double kmRecorridosEnViaje;
-  private double kmRecorridosDsdMantenimeinto;
+  private double kmEnViaje;
+  private double kmDsdMantenimiento;  
+  private final DecimalFormat df2 = new DecimalFormat("0.00");
 
-  public Bicicletas(int placa, String descripcion, TiposBicicleta tipo, boolean disponible, double kmRecorridosEnViaje, double kmRecorridosDsdMantenimeinto) {
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+  
+  public double getKmEnViaje() {
+    return kmEnViaje;
+    
+  }
+  
+  public String getKmViaje()
+  {
+    return df2.format(kmEnViaje);
+  }
+
+  public void setKmEnViaje(double kmRecorridosEnViaje) {
+    this.kmEnViaje = kmRecorridosEnViaje;
+  }
+
+  public double getKmDsdMantenimiento() {
+    return kmDsdMantenimiento;
+  }
+
+  public String getKmMantenimiento()
+  {
+    return df2.format(kmDsdMantenimiento);
+  }
+  public void setKmDsdMantenimiento(double kmRecorridosDsdMantenimiento) {
+    this.kmDsdMantenimiento = kmRecorridosDsdMantenimiento;
+  }
+
+  public Bicicletas(String placa, String descripcion, TiposBicicleta tipo, boolean disponible, double kmRecorridosEnViaje, double kmRecorridosDsdMantenimeinto) {
     this.patente = placa;
     this.descripcion = descripcion;
     this.tipo = tipo;
     this.disponible = disponible;
-    this.kmRecorridosEnViaje = kmRecorridosEnViaje;
-    this.kmRecorridosDsdMantenimeinto = kmRecorridosDsdMantenimeinto;
+    this.kmEnViaje = kmRecorridosEnViaje;
+    this.kmDsdMantenimiento = kmRecorridosDsdMantenimeinto;
   }
 
-  public Bicicletas() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
+  public Bicicletas() {  }
 
-  public int getPatente() {
+  public String getPatente() {
     return patente;
   }
 
-  public void setPatente(int placa) {
+  public void setPatente(String placa) {
     this.patente = placa;
   }  
 
@@ -53,23 +89,5 @@ public class Bicicletas {
   public void setDisponible(boolean disponible) {
     this.disponible = disponible;
   }
-
-  public double getKmRecorridosEnViaje() {
-    return kmRecorridosEnViaje;
-  }
-
-  public void setKmRecorridosEnViaje(double kmRecorridosEnViaje) {
-    this.kmRecorridosEnViaje = kmRecorridosEnViaje;
-  }
-
-  public double getKmRecorridosDsdMantenimeinto() {
-    return kmRecorridosDsdMantenimeinto;
-  }
-
-  public void setKmRecorridosDsdMantenimeinto(double kmRecorridosDsdMantenimeinto) {
-    this.kmRecorridosDsdMantenimeinto = kmRecorridosDsdMantenimeinto;
-  }
   
-  
-
 }

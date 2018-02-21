@@ -21,11 +21,12 @@ public class CatalogoBicicletas {
 
       while (rs.next()) {
         Bicicletas b = new Bicicletas();
+        b.setId(rs.getInt("id"));
         b.setDescripcion(rs.getString("descripcion"));
-        b.setPatente(rs.getInt("patente"));
+        b.setPatente(rs.getString("patente"));
         b.setDisponible(rs.getBoolean("disponible"));
-        b.setKmRecorridosDsdMantenimeinto(rs.getDouble("km_dsd_mantenimiento"));
-        b.setKmRecorridosEnViaje(rs.getDouble("km_viaje"));
+        b.setKmDsdMantenimiento(rs.getDouble("km_dsd_mantenimiento"));
+        b.setKmEnViaje(rs.getDouble("km_viaje"));
         TiposBicicleta tipo = new CatalogoTiposBicicletas().getTipo(rs.getInt("id_tipo"));
         b.setTipo(tipo);
         bicicletas.add(b);
@@ -61,11 +62,12 @@ public class CatalogoBicicletas {
       
       if (rs.next()) {
         b = new Bicicletas();
+        b.setId(rs.getInt("id"));
         b.setDescripcion(rs.getString("descripcion"));
-        b.setPatente(rs.getInt("patente"));
+        b.setPatente(rs.getString("patente"));
         b.setDisponible(rs.getBoolean("disponible"));
-        b.setKmRecorridosDsdMantenimeinto(rs.getDouble("km_dsd_mantenimiento"));
-        b.setKmRecorridosEnViaje(rs.getDouble("km_viaje"));
+        b.setKmDsdMantenimiento(rs.getDouble("km_dsd_mantenimiento"));
+        b.setKmEnViaje(rs.getDouble("km_viaje"));
         TiposBicicleta tipo = new CatalogoTiposBicicletas().getTipo(rs.getInt("id_tipo"));
         b.setTipo(tipo);
       }
@@ -78,17 +80,22 @@ public class CatalogoBicicletas {
 
   public void altaBicicleta(Bicicletas b) {
     PreparedStatement sentencia = null;
+    ResultSet rs=null;
     String sql = "insert into bicicletas(patente,descripcion,disponible,km_dsd_mantenimiento,km_viaje,id_tipo) "
             + "values(?,?,?,?,?,?)";
     try {
-      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
-      sentencia.setInt(1,b.getPatente());
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+      sentencia.setString(1,b.getPatente());
       sentencia.setString(2,b.getDescripcion());
       sentencia.setBoolean(3,b.isDisponible());
-      sentencia.setDouble(4,b.getKmRecorridosDsdMantenimeinto());
-      sentencia.setDouble(5,b.getKmRecorridosEnViaje());
+      sentencia.setDouble(4,b.getKmDsdMantenimiento());
+      sentencia.setDouble(5,b.getKmEnViaje());
       sentencia.setInt(6,b.getTipo().getId());
       sentencia.execute();
+      rs=sentencia.getGeneratedKeys();
+      if(rs!=null && rs.next()){
+        b.setId(rs.getInt(1));
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -105,10 +112,10 @@ public class CatalogoBicicletas {
 
   public void bajaBicicleta(Bicicletas b) {
     PreparedStatement sentencia = null;
-    String sql = "delete from bicicletas where patente=?";
+    String sql = "delete from bicicletas where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
-      sentencia.setInt(1, b.getPatente());
+      sentencia.setInt(1, b.getId());
       sentencia.execute();
 
     } catch (SQLException e) {
@@ -129,16 +136,17 @@ public class CatalogoBicicletas {
 
   public void modificarBicicleta(Bicicletas b) {
     PreparedStatement sentencia = null;
-    String sql = "update bicicletas set descripcion=?,disponible=?,km_dsd_mantenimiento=?,km_viaje=?,id_tipo=?"
-            + " where patente=?";
+    String sql = "update bicicletas set descripcion=?,disponible=?,km_dsd_mantenimiento=?,km_viaje=?,id_tipo=?, patente=?"
+            + " where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setString(1, b.getDescripcion());
       sentencia.setBoolean(2, b.isDisponible());
-      sentencia.setDouble(3, b.getKmRecorridosDsdMantenimeinto());
-      sentencia.setDouble(4, b.getKmRecorridosEnViaje());
+      sentencia.setDouble(3, b.getKmDsdMantenimiento());
+      sentencia.setDouble(4, b.getKmEnViaje());
       sentencia.setInt(5, b.getTipo().getId());
-      sentencia.setInt(7, b.getPatente());
+      sentencia.setString(6, b.getPatente());
+      sentencia.setInt(7, b.getId());
       sentencia.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -152,5 +160,26 @@ public class CatalogoBicicletas {
         e2.printStackTrace();
       }
     }
+  }
+
+  public int existeBicicleta(String patente) {
+    PreparedStatement sentencia = null;
+    ResultSet rs = null;
+    Bicicletas u = null;
+    String sql = "select * from bicicletas where patente=?";
+    int cont = 0;
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setString(1, patente);
+      rs = sentencia.executeQuery();
+      
+      if (rs.next()) {
+        ++cont;       
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+    return cont;
   }
 }
