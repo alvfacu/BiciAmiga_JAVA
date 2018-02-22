@@ -13,6 +13,16 @@ public class Bicicletas {
   private double kmDsdMantenimiento;  
   private final DecimalFormat df2 = new DecimalFormat("0.00");
 
+  public Bicicletas(int id, String patente, String descripcion, TiposBicicleta tb, Boolean disp, double kmViaje, double kmMant) {
+    this.id = id;
+    this.patente = patente;
+    this.descripcion = descripcion;
+    this.tipo = tb;
+    this.disponible = disp;
+    this.kmEnViaje = kmViaje;
+    this.kmDsdMantenimiento = kmMant;
+  }
+
   public int getId() {
     return id;
   }

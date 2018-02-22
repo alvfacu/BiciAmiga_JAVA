@@ -25,7 +25,7 @@ public class ValidaPatente extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String patente = request.getParameter("patente").trim();
+    String patente = request.getParameter("patente").toUpperCase().trim();
     String rdo;
     if ("".equals(patente)) {
       rdo = "1";

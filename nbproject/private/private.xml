@@ -6,13 +6,12 @@
             <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Datos/CatalogoBicicletas.java</file>
             <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Negocio/ControladorBicicletas.java</file>
             <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/admbici.jsp</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/Login.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/ModificarBicicleta.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/ModificarTipoBici.java</file>
             <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Entidades/Bicicletas.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/index.jsp</file>
             <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/ValidaPatente.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Negocio/ControladorTiposBicicletas.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/AltaTipoBici.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/login.jsp</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/EliminarTipoBici.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/EliminarBicicleta.java</file>
         </group>
     </open-files>
 </project-private>

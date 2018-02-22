@@ -1,39 +1,47 @@
 package Servlets;
 
-import Entidades.TiposBicicleta;
 import Negocio.ControladorBicicletas;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "AltaTipoBici", urlPatterns = {"/AltaTipoBici"})
-public class AltaTipoBici extends HttpServlet {
+
+@WebServlet(name = "ExistenBicicletasXTipo", urlPatterns = {"/ExistenBicicletasXTipo"})
+public class ExistenBicicletasXTipo extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {{
-    }
+          throws ServletException, IOException {
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
+    processRequest(request, response);
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String tipo = request.getParameter("tipo");
-    double preciohr = Double.valueOf(request.getParameter("preciohr"));
-    double preciodia = Double.valueOf(request.getParameter("preciodia"));
-    TiposBicicleta tb = new TiposBicicleta(tipo, preciohr, preciodia);
-    new ControladorBicicletas().altaTipoBicicleta(tb);
-    response.sendRedirect("admbici.jsp");
+    
+    String idTipo = request.getParameter("id").trim();
+    String rdo;
+    int cant = new ControladorBicicletas().existenBicicletasXTipo(idTipo);
+
+      if (cant > 0) {
+        rdo = "1";
+      } else {
+        rdo = "0";
+      }
+
+    response.setContentType("text/plain");
+    response.getWriter().write(rdo);
   }
 
-   @Override
+  @Override
   public String getServletInfo() {
     return "Short description";
   }// </editor-fold>

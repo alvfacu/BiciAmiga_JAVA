@@ -1,5 +1,8 @@
 package Servlets;
 
+import Entidades.Bicicletas;
+import Entidades.TiposBicicleta;
+import Negocio.ControladorBicicletas;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -24,8 +27,17 @@ public class AltaBicicleta extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    processRequest(request, response);
-    Entidades.Bicicletas b = new Entidades.Bicicletas();
+    
+    int tipo = Integer.parseInt(request.getParameter("clr"));
+    TiposBicicleta tb = new ControladorBicicletas().getTipo(tipo);
+    String patente = request.getParameter("patente").toUpperCase().trim();
+    Boolean disp = Boolean.getBoolean(request.getParameter("disponible"));
+    double kmMant = Double.valueOf(request.getParameter("kmMantenimiento"));
+    double kmViaje = Double.valueOf(request.getParameter("kmViajados"));
+    String descripcion = request.getParameter("descrip").trim();
+    Bicicletas b = new Bicicletas(patente, descripcion, tb, disp, kmViaje, kmMant);
+    new ControladorBicicletas().altaBicicleta(b);
+    response.sendRedirect("admbici.jsp");
             
   }
 

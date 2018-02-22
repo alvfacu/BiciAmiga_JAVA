@@ -49,15 +49,15 @@ public class CatalogoBicicletas {
     return bicicletas;
   }
 
-  public Bicicletas getBicicleta(int patente) {    
+  public Bicicletas getBicicleta(int id) {    
     PreparedStatement sentencia = null;
     ResultSet rs = null;
     Bicicletas b = null;
-    String sql = "select * from bicicletas where patente=?";
+    String sql = "select * from bicicletas where id=?";
     
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
-      sentencia.setInt(1, patente);
+      sentencia.setInt(1, id);
       rs = sentencia.executeQuery();
       
       if (rs.next()) {
@@ -171,6 +171,27 @@ public class CatalogoBicicletas {
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setString(1, patente);
+      rs = sentencia.executeQuery();
+      
+      if (rs.next()) {
+        ++cont;       
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+    return cont;
+  }
+
+  public int existenBicicletasXTipo(String idTipo) {
+    PreparedStatement sentencia = null;
+    ResultSet rs = null;
+    Bicicletas u = null;
+    String sql = "select * from bicicletas where id_tipo=?";
+    int cont = 0;
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setString(1, idTipo);
       rs = sentencia.executeQuery();
       
       if (rs.next()) {

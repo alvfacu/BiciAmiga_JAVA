@@ -51,10 +51,14 @@
           <label for="inputEmail" class="sr-only">Usuario</label>
           <input type="text" name="user" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus>
           <label for="inputPassword" class="sr-only">Contraseña</label>
-          <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+          <div class="password">
+            <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+            <span class="fa fa-eye"></span>
+          </div>
           <%if(session.getAttribute("Msj") != null){ %>
             <p class="error">Usuario o contraseña incorrecto/s</p>
 		      		<% } %>
+          <br>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
           <a href="registrar.jsp">Aún no estoy registrado<br><br></a>
         </form>
@@ -66,7 +70,24 @@
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+      $("#inputPassword").on("keyup",function(){
+        if($(this).val())
+          $(".fa-eye").show();
+        else
+          $(".fa-eye").hide();
+      });
+      
+      $(".fa-eye").mousedown(function(){
+        $("#inputPassword").attr('type','text');
+      }).mouseup(function(){
+        $("#inputPassword").attr('type','password');
+      }).mouseout(function(){
+        $("#inputPassword").attr('type','password');
+            });
+            
+    </script>
   </body>
 
 </html>

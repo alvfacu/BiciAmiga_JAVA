@@ -51,13 +51,13 @@
                 <p id="mensajeDisponibilidad"></p>
               </div>
               <div class="row">
-                <div class="col-sm-6 form-group">
-                  <input type="password" name="pass" id="pass" placeholder="Contraseña" class="form-control" onmouseover="this.setAttribute('type', 'text')"               
-                         onmouseout="this.setAttribute('type', 'password')" autofocus="true" required="true">
+                <div class="password col-sm-6 form-group">
+                  <input type="password" name="pass" id="pass" placeholder="Contraseña" class="form-control" autofocus="true" required="true">
+                  <span id="ojopas" class="fa fa-eye" style="right: 23px"></span>
                 </div>	
-                <div class="col-sm-6 form-group">
-                  <input type="password" id="repass" placeholder="Repita Contraseña" class="form-control" onmouseover="this.setAttribute('type', 'text')"               
-                         onmouseout="this.setAttribute('type', 'password')" autofocus="true" required="true">
+                <div class="password col-sm-6 form-group">
+                  <input type="password" id="repass" placeholder="Repita Contraseña" class="form-control" autofocus="true" required="true">
+                  <span id="ojore" class="fa fa-eye" style="right: 23px"></span>
                 </div>
               </div>
               <div class="form-group">
@@ -115,6 +115,36 @@
             }
           }) ;
         }
+        
+        $("#pass").on("keyup",function(){
+        if($(this).val())
+          $("#ojopas").show();
+        else
+          $("#ojopas").hide();
+      });
+      
+      $("#ojopas").mousedown(function(){
+        $("#pass").attr('type','text');
+      }).mouseup(function(){
+        $("#pass").attr('type','password');
+      }).mouseout(function(){
+        $("#pass").attr('type','password');
+            });
+            
+      $("#repass").on("keyup",function(){
+        if($(this).val())
+          $("#ojore").show();
+        else
+          $("#ojore").hide();
+      });
+      
+      $("#ojore").mousedown(function(){
+        $("#repass").attr('type','text');
+      }).mouseup(function(){
+        $("#repass").attr('type','password');
+      }).mouseout(function(){
+        $("#repass").attr('type','password');
+            });
     </script>
   </body>
 
