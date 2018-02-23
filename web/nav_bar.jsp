@@ -27,6 +27,12 @@
   </head>
 
   <body>
+    
+    <h1 class="site-heading text-center text-white d-none d-lg-block">
+      <span class="site-heading-upper text-primary mb-3">Recorre Rosario de la manera más cómoda</span>
+      <a class="site-heading-lower" href="index.jsp" style="color:#ffff; text-decoration: none" >BiciAmiga</a>
+    </h1>
+    
     <%@page import="Entidades.Usuarios"%>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">

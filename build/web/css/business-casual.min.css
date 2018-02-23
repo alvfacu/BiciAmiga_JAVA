@@ -3,10 +3,13 @@ body{font-family:Lora;background:linear-gradient(rgba(47,23,15,.65),rgba(47,23,1
 .btn-nuevo{background-color:#48c312;border-color:#48c312}
 .btn-editar{background-color:#ffcc00;border-color:#ffcc00}
 .btn-eliminar{background-color:#ff0000;border-color:#ff0000}
+.btn-admin{background-color:#92006c;border-color:#92006c}
+.btn-mecanico{background-color:#ffc300;border-color:#ffc300}
+.btn-cliente{background-color:#009193;border-color:#009193}
 
 .label {
     display: inline;
-    padding: .2em .6em .3em;
+    padding: .3em .6em .3em;
     font-size: 75%;
     font-weight: 700;
     line-height: 1;
@@ -14,12 +17,23 @@ body{font-family:Lora;background:linear-gradient(rgba(47,23,15,.65),rgba(47,23,1
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
-    border-radius: .25em; }
+    border-radius: .25em; 
+}
+
 .label-success {
-    background-color: #5cb85c;
+    background-color: #48c312;
 }
 .label-danger {
-    background-color: #d9534f;
+    background-color: #ff0000;
+}
+.label-adm {
+  background-color: #92006c;
+}
+.label-mecanico {
+  background-color: #ffc300;
+}
+.label-cliente {
+  background-color: #009193;
 }
 
 /* Style tab links */
@@ -76,4 +90,30 @@ body{font-family:Lora;background:linear-gradient(rgba(47,23,15,.65),rgba(47,23,1
     position: absolute;
     top: 12px;
     cursor:pointer;
+}
+
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd
+}
+
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.panel-body {
+    padding: 15px;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }

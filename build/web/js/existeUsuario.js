@@ -18,7 +18,7 @@ $(function () {
     //    });
     $.post('ValidaUsuario', 
           {
-            patente : $('#usuario').val()
+            usuario : $('#usuario').val()
           }, 
           function(responseText) 
           {
@@ -38,5 +38,5 @@ $(function () {
           });
   }
 
-  $('#patente').focusout(peticion); // Registrar evento al boton "Calcular" con la funcion "peticion"
+  $('#usuario').focusout(peticion); // Registrar evento al boton "Calcular" con la funcion "peticion"
 });

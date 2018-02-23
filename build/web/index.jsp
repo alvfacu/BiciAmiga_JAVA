@@ -35,11 +35,6 @@
   </head>
 
   <body>
-    <h1 class="site-heading text-center text-white d-none d-lg-block">
-      <span class="site-heading-upper text-primary mb-3">Recorre Rosario de la manera más cómoda</span>
-      <a class="site-heading-lower" href="index.jsp" style="color:#ffff; text-decoration: none" >BiciAmiga</a>
-    </h1>
-
     <!-- Navigation -->
     <%@include file="nav_bar.jsp"%>
     

@@ -37,7 +37,9 @@ public class AltaUsuario extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    try {      
+    try {  
+      
+      //uso NAME no ID
       String apenom = request.getParameter("apenom");
       String domi = request.getParameter("domicilio");
       String usuario = request.getParameter("usuario");
@@ -45,8 +47,21 @@ public class AltaUsuario extends HttpServlet {
       String clave = new Seguridad().md5(request.getParameter("pass"));
       String telefono = request.getParameter("telefono");
       String mail = request.getParameter("email");
+            
+      boolean admin = false;
+      if(Boolean.valueOf(request.getParameter("admin")))
+        admin = true;
       
-      Usuarios u = new Usuarios(apenom, usuario, clave, mail, domi, telefono, documento, false, true, false);
+      boolean meca = false;
+      if(Boolean.valueOf(request.getParameter("meca")))
+        meca = true;
+
+      boolean habilitado = false;     
+      
+      if(Boolean.valueOf(request.getParameter("habilitado")))
+        habilitado = true;
+      
+      Usuarios u = new Usuarios(apenom, usuario, clave, mail, domi, telefono, documento, admin, habilitado, meca);
       ControladorUsuarios cu = new ControladorUsuarios();
       cu.altaUsuario(u);
       response.sendRedirect("registro_exitoso.jsp");

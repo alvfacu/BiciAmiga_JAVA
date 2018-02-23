@@ -28,12 +28,6 @@
   </head>
 
   <body>
-
-    <h1 class="site-heading text-center text-white d-none d-lg-block">
-      <span class="site-heading-upper text-primary mb-3">Recorre Rosario de la manera más cómoda</span>
-      <a class="site-heading-lower" href="index.jsp" style="color:#ffff; text-decoration: none" >BiciAmiga</a>
-    </h1>
-
     <!-- Navigation -->
     <%@include file="nav_bar.jsp"%>
 
@@ -46,34 +40,38 @@
         <div class="col-lg-7 col-centered well">
           <div class="row">
             <div class="col-sm-12">
+              <input type="hidden" name="admin" value="false">
+              <input type="hidden" name="meca" value="false">
+              <input type="hidden" name="cli" value="true">
+              <input type="hidden" name="habilitado" value="true">
               <div class="form-group">
-                <input type="text" name="usuario" id="usuario" placeholder="Usuario" class="form-control" autofocus="true" required="true">
+                <input type="text" name="usuario" id="usuario" placeholder="Usuario" title="Ingrese nombre de usuario" class="form-control" autofocus="true" required="true">
                 <p id="mensajeDisponibilidad"></p>
               </div>
               <div class="row">
                 <div class="password col-sm-6 form-group">
-                  <input type="password" name="pass" id="pass" placeholder="Contraseña" class="form-control" autofocus="true" required="true">
+                  <input type="password" name="pass" id="pass" placeholder="Contraseña" title="Ingrese una contraseña" class="form-control" autofocus="true" required="true">
                   <span id="ojopas" class="fa fa-eye" style="right: 23px"></span>
                 </div>	
                 <div class="password col-sm-6 form-group">
-                  <input type="password" id="repass" placeholder="Repita Contraseña" class="form-control" autofocus="true" required="true">
+                  <input type="password" id="repass" placeholder="Repita Contraseña" title="Repita contraseña" class="form-control" autofocus="true" required="true">
                   <span id="ojore" class="fa fa-eye" style="right: 23px"></span>
                 </div>
               </div>
               <div class="form-group">
-                <input type="text" name="apenom" id="apenom" placeholder="Apellido y Nombre" class="form-control" autofocus="true" required="true">
+                <input type="text" name="apenom" id="apenom" placeholder="Apellido y Nombre" title="Ingrese su apellido y nombre" class="form-control" autofocus="true" required="true">
               </div>			
               <div class="form-group">
-                <input type="text" name="domicilio" id="domicilio" placeholder="Domicilio" class="form-control" autofocus="true" required="true">
+                <input type="text" name="domicilio" id="domicilio" placeholder="Domicilio" title="Ingrese su Domicilio" class="form-control" autofocus="true" required="true">
               </div>
               <div class="form-group">
-                <input type="text" name="documento" id="documento" placeholder="Documento de Identidad" class="form-control" autofocus="true" required="true">
+                <input type="text" name="documento" id="documento" placeholder="Documento de Identidad" title="Ingrese su documento de identidad" class="form-control" autofocus="true" required="true">
               </div>
               <div class="form-group">
-                <input type="text" name="telefono" id="telefono" placeholder="Teléfono de contacto" class="form-control" autofocus="true" required="true">
+                <input type="text" name="telefono" id="telefono" placeholder="Teléfono de contacto" title="Ingrese un número de contacto" class="form-control" autofocus="true" required="true">
               </div>		
               <div class="form-group">
-                <input type="email" name="email" id="email" placeholder="Email de contacto" class="form-control" autofocus="true" required="true">
+                <input type="email" name="email" id="email" placeholder="Email de contacto" title="Ingrese su email" class="form-control" autofocus="true" required="true">
               </div>
               <button type="submit" id="enviar" class="btn btn-lg btn-primary btn-block">Registrarse a BiciAmiga</button>
             </div>              
@@ -91,61 +89,7 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/existeUsuario.js"></script>
-    <script>
-        $(document).ready(function () {
-          handleEvents();
-        });
-
-        function handleEvents() {                   
-          $("#repass").keyup(function (event) {
-            //Store the password field objects into variables ...
-            var pass1 = $('#pass').val();
-            var pass2 = $('#repass');
-            //Set the colors we will be using ...
-            var goodColor = "#66cc66";
-            var badColor = "#ff6666";
-            //Compare the values in the password field 
-            //and the confirmation field
-            if (pass1 === pass2.val()) {
-              $("#enviar").removeAttr('disabled');                 
-              pass2.css("backgroundColor", goodColor);            
-            } else {
-              $("#enviar").attr('disabled', 'disabled');
-              pass2.css("backgroundColor", badColor);
-            }
-          }) ;
-        }
-        
-        $("#pass").on("keyup",function(){
-        if($(this).val())
-          $("#ojopas").show();
-        else
-          $("#ojopas").hide();
-      });
-      
-      $("#ojopas").mousedown(function(){
-        $("#pass").attr('type','text');
-      }).mouseup(function(){
-        $("#pass").attr('type','password');
-      }).mouseout(function(){
-        $("#pass").attr('type','password');
-            });
-            
-      $("#repass").on("keyup",function(){
-        if($(this).val())
-          $("#ojore").show();
-        else
-          $("#ojore").hide();
-      });
-      
-      $("#ojore").mousedown(function(){
-        $("#repass").attr('type','text');
-      }).mouseup(function(){
-        $("#repass").attr('type','password');
-      }).mouseout(function(){
-        $("#repass").attr('type','password');
-            });
-    </script>
+    <script src="js/registroNuevoUsr.js"></script>
   </body>
 
 </html>

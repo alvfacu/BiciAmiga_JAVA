@@ -29,11 +29,6 @@
   </head>
 
   <body>
-    <h1 class="site-heading text-center text-white d-none d-lg-block">
-      <span class="site-heading-upper text-primary mb-3">Recorre Rosario de la manera más cómoda</span>
-      <a class="site-heading-lower" href="index.jsp" style="color:#ffff; text-decoration: none" >BiciAmiga</a>
-    </h1>
-
     <!-- Navigation -->
     <%@include file="nav_bar.jsp"%>
 
@@ -175,7 +170,7 @@
                   <input type="number" step="any" name="preciodia" id="preciodia" placeholder="Precio x Día" title="Precio x Día" class="form-control" autofocus="true" required="true">
                 </div>
               </div>              
-              <button type="submit" id="guardar" class="btn btn-lg btn-nuevo btn-block">Guardar</button>
+              <button type="submit" id="guardar" class="btn btn-lg btn-nuevo btn-block">Guardar Nuevo</button>
             </div>              
           </div>
         </div>         
@@ -251,7 +246,7 @@
                   <input type="text" name="patente" maxlength="10" id="patente" style="text-transform:uppercase" placeholder="Patente Bicicleta" title="Patente Bicicleta" class="form-control" autofocus="true" required="true">
                 </div>
                 <div class="col-sm-2 form-group">
-                  <select class="form-control" name="disponible" id="disponible">
+                  <select class="form-control" name="disponible" id="disponible" title="¿Bicicleta disponible?">
                     <option value="true">SI</option>
                     <option value="false">NO</option> 
                   </select>
@@ -268,7 +263,7 @@
                   <input type="number" step="any" name="kmViajados" id="kmViajados" placeholder="Kms totales" title="Kms totales" class="form-control" autofocus="true" required="true">
                 </div>
               </div>              
-              <button type="submit" id="guardar" class="btn btn-lg btn-nuevo btn-block">Guardar</button>
+              <button type="submit" id="guardar" class="btn btn-lg btn-nuevo btn-block">Guardar Nuevo</button>
             </div>              
           </div>
         </div>         
@@ -294,7 +289,7 @@
                   <input type="text" name="edipatente" maxlength="10" id="edipatente" style="text-transform:uppercase" placeholder="Patente Bicicleta" title="Patente Bicicleta" class="form-control" autofocus="true" required="true">
                 </div>
                 <div class="col-sm-2 form-group">
-                  <select class="form-control" name="edidisponible" id="edidisponible">
+                  <select class="form-control" name="edidisponible" id="edidisponible" title="¿Bicicleta disponible?">
                     <option value="true">SI</option>
                     <option value="false">NO</option> 
                   </select>
@@ -328,7 +323,7 @@
               <div class="row">
                 <div class="col-sm-4 form-group" title="Seleccione Tipo de Bicicleta">
                   <input type="hidden" name="eliid_b" id="eliid_b">
-                  <select class="form-control" name="ediclr" id="eliclr" disabled="true">
+                  <select class="form-control" name="ediclr" id="eliclr" title="¿Bicicleta disponible?" disabled="true">
                     <% for (TiposBicicleta t : tipos) {%>
                     <option value="<%=t.getId()%>"><%=t.getNombre()%></option>
                     <%}%>

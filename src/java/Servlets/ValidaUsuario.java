@@ -23,7 +23,7 @@ public class ValidaUsuario extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String userName = request.getParameter("userName").trim();
+    String userName = request.getParameter("usuario").trim();
     String rdo;
     if ("".equals(userName)) {
       rdo = "1";
