@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "AltaUsuario", urlPatterns = {"/AltaUsuario"})
 public class AltaUsuario extends HttpServlet {
@@ -26,14 +27,6 @@ public class AltaUsuario extends HttpServlet {
           throws ServletException, IOException {
   }
 
-  /**
-   * Handles the HTTP <code>POST</code> method.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -64,7 +57,13 @@ public class AltaUsuario extends HttpServlet {
       Usuarios u = new Usuarios(apenom, usuario, clave, mail, domi, telefono, documento, admin, habilitado, meca);
       ControladorUsuarios cu = new ControladorUsuarios();
       cu.altaUsuario(u);
-      response.sendRedirect("registro_exitoso.jsp");
+      
+      HttpSession session = request.getSession(true);
+      Usuarios usrActual = (Usuarios)session.getAttribute("Usuario");
+      if(usrActual.isAdm())
+        response.sendRedirect("admusr.jsp");
+      else
+        response.sendRedirect("registro_exitoso.jsp");
     } catch (NoSuchAlgorithmException ex) {
       Logger.getLogger(AltaUsuario.class.getName()).log(Level.SEVERE, null, ex);
       response.sendRedirect("error.jsp");

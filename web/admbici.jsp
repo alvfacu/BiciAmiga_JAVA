@@ -25,6 +25,7 @@
     <!-- Custom styles for this template -->
     <link href="css/business-casual.min.css" rel="stylesheet">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
   </head>
 
@@ -45,20 +46,16 @@
 
       <button class="tablink" onclick="openPage('tipos', this)" id="defaultOpen">Tipos</button>
       <button class="tablink" onclick="openPage('bicis', this)">Bicicletas</button>
+      
       <!-- TIPO BICICLETA -->
       <div id="tipos" class="tabcontent">
         <div>
-          <a style="float:left;" class="btn btn-nuevo" data-title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevotipo()"><span class="fa fa-plus-square"></span></a></p>
-          <div align="right">          
-            <i class="fa fa-search"></i>
-            <input type="text" id="desctipo" class="myInput" onkeyup="buscartipo()" placeholder="Buscar Tipo de Bicicleta..." title="Ingresar nombre">
-          </div>
+          <a class="btn btn-nuevo" data-title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevotipo()"><span class="fa fa-plus-square"></span></a></p>
         </div>
         <div style="overflow-x:auto;">
-          <table class="table" id="tiposbici">
+          <table class="table display" id="tiposbici">
             <thead style="color: #fff;background-color: #373a3c;">
               <tr align="center">
-                <th>#</th>
                 <th>TIPO</th>
                 <th>PRECIO X HORA</th>
                 <th>PRECIO X DÍA</th>
@@ -72,7 +69,6 @@
                 if (tipos.size() > 0) {
                   for (TiposBicicleta tipo : tipos) {%>
               <tr align="center" >
-                <td style="vertical-align:middle"><%= tipo.getId()%></td>
                 <td style="vertical-align:middle"><%= tipo.getNombre()%></td>
                 <td style="vertical-align:middle">$ <%= df2.format(tipo.getPrecioXHr())%></td>
                 <td style="vertical-align:middle">$ <%= df2.format(tipo.getPrecioXDia())%></td>
@@ -97,17 +93,13 @@
       <!-- BICICLETA -->
       <div id="bicis" class="tabcontent">
         <div>
-          <a style="float:left;" class="btn btn-nuevo" data-title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevabici()"><span class="fa fa-plus-square"></span></a></p>
-          <div align="right">          
-            <i class="fa fa-search"></i>
-            <input type="text" id="descbici" onkeyup="buscarbici()" class="myInput"  placeholder="Buscar Bicicleta..." title="Ingresar nombre">
-          </div>
+          <a class="btn btn-nuevo" data-title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevabici()"><span class="fa fa-plus-square"></span></a></p>
         </div>
+        
         <div style="overflow-x:auto;">
-          <table class="table" id="bicicletas">
+          <table class="table display" id="bicicletas">
             <thead style="color: #fff;background-color: #373a3c;">
               <tr align="center">
-                <th>#</th>
                 <th>PATENTE</th>
                 <th>TIPO</th>
                 <th>DESCRIPCION</th>              
@@ -123,7 +115,6 @@
                 if (bicicletas.size() > 0) {
                   for (Bicicletas b : bicicletas) {%>
               <tr align="center" >
-                <td style="vertical-align:middle"><%= b.getId()%></td>
                 <td style="vertical-align:middle"><%= b.getPatente()%></td>
                 <td style="vertical-align:middle"><%= b.getTipo().getNombre()%></td>
                 <td style="vertical-align:middle"><%= b.getDescripcion()%></td>       
@@ -392,8 +383,70 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>    
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="js/existePatente.js"></script>
     <script>
+      
+    $(document).ready(function() {
+        $('#tiposbici').DataTable( {
+          "language": {
+            "decimal": ",",
+            "search": "Buscar ",
+            "emptyTable": "No se encontraron registros",
+            "lengthMenu": "Registros por página _MENU_",
+            "zeroRecords": "No se encontraron registros",
+            "info": " _PAGE_ de _PAGES_ ",
+            "infoEmpty": "",
+            "infoFiltered": " (Filtrados de un total de _MAX_ registros)",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior" }
+          },
+          "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+          "pagingType": "simple_numbers",
+          "columns": [            
+              null,
+              null,
+              null,
+              { "orderable": false },
+              { "orderable": false }
+            ]
+          } );
+          
+        $('#bicicletas').DataTable( {
+          "language": {
+            "decimal": ",",
+            "search": "Buscar ",
+            "emptyTable": "No se encontraron registros",
+            "lengthMenu": "Registros por página _MENU_",
+            "zeroRecords": "No se encontraron registros",
+            "info": " _PAGE_ de _PAGES_ ",
+            "infoEmpty": "",
+            "infoFiltered": " (Filtrados de un total de _MAX_ registros)",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior" }
+          },
+          "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+          "pagingType": "simple_numbers",
+          "columns": [            
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              { "orderable": false },
+              { "orderable": false }
+            ]
+          } );
+      } );
+      
     function openPage(pageName, elmnt) {
       var i;
       var badColor = "#e6a756";
@@ -506,6 +559,7 @@
       x = document.getElementById("nuevabici");
       if (x.style.display === "none") {
         x.style.display = "block";
+        document.getElementById('disponible').value = true;
       } else {
         x.style.display = "none";
       }

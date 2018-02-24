@@ -36,6 +36,9 @@
     <h1 class="site-heading text-center text-white d d-lg-block">
       <span class="site-heading-upper text-primary mb-3 error">¡Error!</span>
     </h1>
+    <% if (session.getAttribute("Msj") != null) {%>
+      <p class="warning text-center"><%=session.getAttribute("Msj")%></p>
+    <%}%>    
     <br>
     <button class="btn btn-lg btn-primary btn-block col-centered col-md-3 col-sm-4" onclick="goBack()">Volver</button>
     <br>

@@ -1,6 +1,7 @@
 package Datos;
 
 import Entidades.Usuarios;
+import static java.lang.System.out;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -145,7 +146,7 @@ public class CatalogoUsuarios {
 
   public void modificarUsuarios(Usuarios u) {
     PreparedStatement sentencia = null;
-    String sql = "update usuarios set apynom=?, usuario=?, contrasenia=?, documento=?, domicilio=?, admin=? "
+    String sql = "update usuarios set apynom=?, usuario=?, contrasenia=?, documento=?, domicilio=?, admin=?, "
             +" email=?, habilitado=?, telefono=?, mecanico=? where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
@@ -159,9 +160,10 @@ public class CatalogoUsuarios {
       sentencia.setBoolean(8, u.isHabilitado());
       sentencia.setString(9, u.getTelefono());
       sentencia.setBoolean(10,u.isMecanico());
-      sentencia.setDouble(11, u.getId());
+      sentencia.setInt(11, u.getId());
       sentencia.executeUpdate();
     } catch (SQLException e) {
+      out.print(e.toString());
       e.printStackTrace();
     } finally {
       try {
