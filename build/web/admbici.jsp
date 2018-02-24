@@ -54,42 +54,44 @@
             <input type="text" id="desctipo" class="myInput" onkeyup="buscartipo()" placeholder="Buscar Tipo de Bicicleta..." title="Ingresar nombre">
           </div>
         </div>
-        <table class="table" id="tiposbici">
-          <thead style="color: #fff;background-color: #373a3c;">
-            <tr align="center">
-              <th>#</th>
-              <th>TIPO</th>
-              <th>PRECIO X HORA</th>
-              <th>PRECIO X DÍA</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>            
-            <% DecimalFormat df2 = new DecimalFormat("0.00");
-              ArrayList<TiposBicicleta> tipos = new ControladorBicicletas().getTiposBicicleta();
-              if (tipos.size() > 0) {
-                for (TiposBicicleta tipo : tipos) {%>
-            <tr align="center" >
-              <td style="vertical-align:middle"><%= tipo.getId()%></td>
-              <td style="vertical-align:middle"><%= tipo.getNombre()%></td>
-              <td style="vertical-align:middle">$ <%= df2.format(tipo.getPrecioXHr())%></td>
-              <td style="vertical-align:middle">$ <%= df2.format(tipo.getPrecioXDia())%></td>
-              <td style="vertical-align:middle">
-                <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" onclick="editartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%= df2.format(tipo.getPrecioXHr())%>', '<%= df2.format(tipo.getPrecioXDia())%>')">
-                  <span class="fa fa-edit"></span>
-                </button>
-              </td>
-              <td style="vertical-align:middle">
-                <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" onclick="eliminartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%= df2.format(tipo.getPrecioXHr())%>', '<%= df2.format(tipo.getPrecioXDia())%>')">
-                  <span class="fa fa-trash-o"></span>
-                </button>
-              </td>
-            </tr>                
-            <% }
+        <div style="overflow-x:auto;">
+          <table class="table" id="tiposbici">
+            <thead style="color: #fff;background-color: #373a3c;">
+              <tr align="center">
+                <th>#</th>
+                <th>TIPO</th>
+                <th>PRECIO X HORA</th>
+                <th>PRECIO X DÍA</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>            
+              <% DecimalFormat df2 = new DecimalFormat("0.00");
+                ArrayList<TiposBicicleta> tipos = new ControladorBicicletas().getTiposBicicleta();
+                if (tipos.size() > 0) {
+                  for (TiposBicicleta tipo : tipos) {%>
+              <tr align="center" >
+                <td style="vertical-align:middle"><%= tipo.getId()%></td>
+                <td style="vertical-align:middle"><%= tipo.getNombre()%></td>
+                <td style="vertical-align:middle">$ <%= df2.format(tipo.getPrecioXHr())%></td>
+                <td style="vertical-align:middle">$ <%= df2.format(tipo.getPrecioXDia())%></td>
+                <td style="vertical-align:middle">
+                  <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" onclick="editartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%= df2.format(tipo.getPrecioXHr())%>', '<%= df2.format(tipo.getPrecioXDia())%>')">
+                    <span class="fa fa-edit"></span>
+                  </button>
+                </td>
+                <td style="vertical-align:middle">
+                  <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" onclick="eliminartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%= df2.format(tipo.getPrecioXHr())%>', '<%= df2.format(tipo.getPrecioXDia())%>')">
+                    <span class="fa fa-trash-o"></span>
+                  </button>
+                </td>
+              </tr>                
+              <% }
               }%>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- BICICLETA -->
@@ -101,55 +103,57 @@
             <input type="text" id="descbici" onkeyup="buscarbici()" class="myInput"  placeholder="Buscar Bicicleta..." title="Ingresar nombre">
           </div>
         </div>
-        <table class="table" id="bicicletas">
-          <thead style="color: #fff;background-color: #373a3c;">
-            <tr align="center">
-              <th>#</th>
-              <th>PATENTE</th>
-              <th>TIPO</th>
-              <th>DESCRIPCION</th>              
-              <th>KM MANT</th>
-              <th>KM ACUM</th>
-              <th>DISPONIBLE</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>            
-            <%ArrayList<Bicicletas> bicicletas = new ControladorBicicletas().getBicicletas();
-              if (bicicletas.size() > 0) {
-                for (Bicicletas b : bicicletas) {%>
-            <tr align="center" >
-              <td style="vertical-align:middle"><%= b.getId()%></td>
-              <td style="vertical-align:middle"><%= b.getPatente()%></td>
-              <td style="vertical-align:middle"><%= b.getTipo().getNombre()%></td>
-              <td style="vertical-align:middle"><%= b.getDescripcion()%></td>       
-              <td style="vertical-align:middle"><%= df2.format(b.getKmDsdMantenimiento())%></td>
-              <td style="vertical-align:middle"><%= df2.format(b.getKmEnViaje())%></td>
-              <td style="vertical-align:middle">
-                <% if (b.isDisponible()) {%>
-                <span class="label label-success">SI</span>
-                <% } else { %>
-                <span class="label label-danger">NO</span>
-                <% }%>
-              </td>                
-              <td style="vertical-align:middle">
-                <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
-                        onclick="editarbici('<%= b.getId()%>','<%= b.getPatente()%>', '<%= b.getTipo().getId()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>')">
-                  <span class="fa fa-edit"></span>
-                </button>
-              </td>
-              <td style="vertical-align:middle">
-                <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
-                        onclick="eliminarbici('<%= b.getId()%>','<%= b.getPatente()%>', '<%= b.getTipo().getId()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>')">
-                  <span class="fa fa-trash-o"></span>
-                </button>
-              </td>
-            </tr>        
-            <% }
+        <div style="overflow-x:auto;">
+          <table class="table" id="bicicletas">
+            <thead style="color: #fff;background-color: #373a3c;">
+              <tr align="center">
+                <th>#</th>
+                <th>PATENTE</th>
+                <th>TIPO</th>
+                <th>DESCRIPCION</th>              
+                <th>KM MANT</th>
+                <th>KM ACUM</th>
+                <th>DISPONIBLE</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>            
+              <%ArrayList<Bicicletas> bicicletas = new ControladorBicicletas().getBicicletas();
+                if (bicicletas.size() > 0) {
+                  for (Bicicletas b : bicicletas) {%>
+              <tr align="center" >
+                <td style="vertical-align:middle"><%= b.getId()%></td>
+                <td style="vertical-align:middle"><%= b.getPatente()%></td>
+                <td style="vertical-align:middle"><%= b.getTipo().getNombre()%></td>
+                <td style="vertical-align:middle"><%= b.getDescripcion()%></td>       
+                <td style="vertical-align:middle"><%= df2.format(b.getKmDsdMantenimiento())%></td>
+                <td style="vertical-align:middle"><%= df2.format(b.getKmEnViaje())%></td>
+                <td style="vertical-align:middle">
+                  <% if (b.isDisponible()) {%>
+                  <span class="label label-success">SI</span>
+                  <% } else { %>
+                  <span class="label label-danger">NO</span>
+                  <% }%>
+                </td>                
+                <td style="vertical-align:middle">
+                  <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
+                          onclick="editarbici('<%= b.getId()%>', '<%= b.getPatente()%>', '<%= b.getTipo().getId()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>')">
+                    <span class="fa fa-edit"></span>
+                  </button>
+                </td>
+                <td style="vertical-align:middle">
+                  <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
+                          onclick="eliminarbici('<%= b.getId()%>', '<%= b.getPatente()%>', '<%= b.getTipo().getId()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>')">
+                    <span class="fa fa-trash-o"></span>
+                  </button>
+                </td>
+              </tr>        
+              <% }
               }%>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -159,6 +163,9 @@
         <div class="col-lg-7 col-centered well">
           <div class="row">
             <div class="col-sm-12">
+              <div class="form-group float-sm-right">
+                <span id="cruzNuevoTB" class="fa fa-close" style="right: 50px"></span>
+              </div>
               <div class="form-group">
                 <input type="text" name="tipo" id="tipo" maxlength="50" placeholder="Nombre del Tipo de Bicicleta" title="Nombre del Tipo de Bicicleta" class="form-control" autofocus="true" required="true">
               </div>
@@ -183,6 +190,9 @@
         <div class="col-lg-7 col-centered well">
           <div class="row">
             <div class="col-sm-12">
+              <div class="form-group float-sm-right">
+                <span id="cruzEditarTB" class="fa fa-close" style="right: 50px"></span>
+              </div>
               <div class="form-group">
                 <input type="hidden" name="ediid" id="ediid">
                 <input type="text" name="editipo" id="editipo" maxlength="50" placeholder="Nombre del Tipo de Bicicleta" title="Nombre del Tipo de Bicicleta" class="form-control" autofocus="true" required="true">
@@ -208,6 +218,9 @@
         <div class="col-lg-7 col-centered well">
           <div class="row">
             <div class="col-sm-12">
+              <div class="form-group float-sm-right">
+                <span id="cruzEliminarTB" class="fa fa-close" style="right: 50px"></span>
+              </div>
               <label class="error" id="msj" style="display: none"></label>
               <div class="form-group">
                 <input type="hidden" name="eliid" id="eliid">                
@@ -234,6 +247,9 @@
         <div class="col-lg-8 col-centered well">
           <div class="row">
             <div class="col-sm-12">
+              <div class="form-group float-sm-right">
+                <span id="cruzNuevoB" class="fa fa-close" style="right: 50px"></span>
+              </div>
               <div class="row">
                 <div class="col-sm-4 form-group" title="Seleccione Tipo de Bicicleta">
                   <select class="form-control" name="clr" id="clr">
@@ -276,6 +292,9 @@
         <div class="col-lg-8 col-centered well">
           <div class="row">
             <div class="col-sm-12">
+              <div class="form-group float-sm-right">
+                <span id="cruzEditarB" class="fa fa-close" style="right: 50px"></span>
+              </div>
               <div class="row">
                 <div class="col-sm-4 form-group" title="Seleccione Tipo de Bicicleta">
                   <input type="hidden" name="ediid_b" id="ediid_b">
@@ -315,10 +334,13 @@
 
     <!-- ELIMINAR BICICLETA -->
     <div class="container text-center" id="eliminarbici" style="display: none">
-    <form class="form-text" method="POST" action="EliminarBicicleta">
+      <form class="form-text" method="POST" action="EliminarBicicleta">
         <div class="col-lg-8 col-centered well">
           <div class="row">
             <div class="col-sm-12">
+              <div class="form-group float-sm-right">
+                <span id="cruzEliminarB" class="fa fa-close" style="right: 50px"></span>
+              </div>
               <label class="error" id="msjBici" style="display: none"></label>
               <div class="row">
                 <div class="col-sm-4 form-group" title="Seleccione Tipo de Bicicleta">
@@ -372,273 +394,299 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/existePatente.js"></script>
     <script>
-      function openPage(pageName, elmnt) {
-        var i;
-        var badColor = "#e6a756";
-         
-        var x = document.getElementById("eliminartipo");
-        x.style.display = "none";
-        x = document.getElementById("nuevotipo");
-        x.style.display = "none";
-        x = document.getElementById("editartipo");
-        x.style.display = "none";
-        x = document.getElementById("eliminarbici");
-        x.style.display = "none";
-        x = document.getElementById("editarbici");
-        x.style.display = "none";
-        x = document.getElementById("nuevabici");
-        x.style.display = "none";
+    function openPage(pageName, elmnt) {
+      var i;
+      var badColor = "#e6a756";
 
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablink");
-        for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].style.backgroundColor = "";
-        }
-        document.getElementById(pageName).style.display = "block";
-        elmnt.style.backgroundColor = badColor;
+      var x = document.getElementById("eliminartipo");
+      x.style.display = "none";
+      x = document.getElementById("nuevotipo");
+      x.style.display = "none";
+      x = document.getElementById("editartipo");
+      x.style.display = "none";
+      x = document.getElementById("eliminarbici");
+      x.style.display = "none";
+      x = document.getElementById("editarbici");
+      x.style.display = "none";
+      x = document.getElementById("nuevabici");
+      x.style.display = "none";
+
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
       }
+      tablinks = document.getElementsByClassName("tablink");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+      }
+      document.getElementById(pageName).style.display = "block";
+      elmnt.style.backgroundColor = badColor;
+    }
 
-      // Get the element with id="defaultOpen" and click on it
-      document.getElementById("defaultOpen").click();
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
 
-      function buscartipo() {
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("desctipo");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("tiposbici");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td")[1];
-          if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-              tr[i].style.display = "";
-            } else {
-              tr[i].style.display = "none";
-            }
+    function buscartipo() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("desctipo");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("tiposbici");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
           }
         }
       }
+    }
 
-      function buscarbici() {
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("descbici");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("bicicletas");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-          td1 = tr[i].getElementsByTagName("td")[0];
-          td2 = tr[i].getElementsByTagName("td")[1];
-          td3 = tr[i].getElementsByTagName("td")[2];
-          td4 = tr[i].getElementsByTagName("td")[3];
-          if (td1 || td2 || td3 || td4) {
-            if (td1.innerHTML.toUpperCase().indexOf(filter) > -1 ||
-                    td2.innerHTML.toUpperCase().indexOf(filter) > -1 ||
-                    td3.innerHTML.toUpperCase().indexOf(filter) > -1 ||
-                    td4.innerHTML.toUpperCase().indexOf(filter) > -1) {
-              tr[i].style.display = "";
-            } else {
-              tr[i].style.display = "none";
-            }
+    function buscarbici() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("descbici");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("bicicletas");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td1 = tr[i].getElementsByTagName("td")[0];
+        td2 = tr[i].getElementsByTagName("td")[1];
+        td3 = tr[i].getElementsByTagName("td")[2];
+        td4 = tr[i].getElementsByTagName("td")[3];
+        if (td1 || td2 || td3 || td4) {
+          if (td1.innerHTML.toUpperCase().indexOf(filter) > -1 ||
+                  td2.innerHTML.toUpperCase().indexOf(filter) > -1 ||
+                  td3.innerHTML.toUpperCase().indexOf(filter) > -1 ||
+                  td4.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
           }
         }
       }
+    }
 
-      function nuevotipo() {
-        var x = document.getElementById("eliminartipo");
-        x.style.display = "none";
-        x = document.getElementById("editartipo");
-        x.style.display = "none";
-        x = document.getElementById("eliminarbici");
-        x.style.display = "none";
-        x = document.getElementById("editarbici");
-        x.style.display = "none";
-        x = document.getElementById("nuevabici");
-        x.style.display = "none";
+    function nuevotipo() {
+      var x = document.getElementById("eliminartipo");
+      x.style.display = "none";
+      x = document.getElementById("editartipo");
+      x.style.display = "none";
+      x = document.getElementById("eliminarbici");
+      x.style.display = "none";
+      x = document.getElementById("editarbici");
+      x.style.display = "none";
+      x = document.getElementById("nuevabici");
+      x.style.display = "none";
 
-        x = document.getElementById("nuevotipo");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-          document.getElementById('tipo').value = '';
-          document.getElementById('preciodia').value = '';
-          document.getElementById('preciohr').value = '';
-        }
+      x = document.getElementById("nuevotipo");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+        document.getElementById('tipo').value = '';
+        document.getElementById('preciodia').value = '';
+        document.getElementById('preciohr').value = '';
+      }
+    }
+
+    function nuevabici() {
+      var x = document.getElementById("eliminartipo");
+      x.style.display = "none";
+      x = document.getElementById("editartipo");
+      x.style.display = "none";
+      x = document.getElementById("nuevotipo");
+      x.style.display = "none";
+      x = document.getElementById("eliminarbici");
+      x.style.display = "none";
+      x = document.getElementById("editarbici");
+      x.style.display = "none";
+
+      x = document.getElementById("nuevabici");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+
+    function editartipo(id, nombre, preciohr, preciodia) {
+      var x = document.getElementById("nuevotipo");
+      x.style.display = "none";
+      x = document.getElementById("eliminartipo");
+      x.style.display = "none";
+      x = document.getElementById("editarbici");
+      x.style.display = "none";
+      x = document.getElementById("nuevabici");
+      x.style.display = "none";
+      x = document.getElementById("eliminarbici");
+      x.style.display = "none";
+
+      x = document.getElementById("editartipo");
+      if (x.style.display === "none" || document.getElementById('ediid').value !== id) {
+        //abre form
+        x.style.display = "block";
+        document.getElementById('ediid').value = id;
+        document.getElementById('editipo').value = nombre;
+        document.getElementById('edipreciohr').value = parseFloat(preciohr.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+        document.getElementById('edipreciodia').value = parseFloat(preciodia.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+      } else {
+        //cerrar form
+        x.style.display = "none";
+        document.getElementById('ediid').value = '';
+        document.getElementById('editipo').value = '';
+        document.getElementById('edipreciohr').value = '';
+        document.getElementById('edipreciodia').value = '';
+      }
+    }
+
+    function editarbici(id, patente, tipo, descrip, dispo, kmMant, kmViaje) {
+      var x = document.getElementById("nuevotipo");
+      x.style.display = "none";
+      x = document.getElementById("eliminartipo");
+      x.style.display = "none";
+      x = document.getElementById("editartipo");
+      x.style.display = "none";
+      x = document.getElementById("nuevabici");
+      x.style.display = "none";
+      x = document.getElementById("eliminarbici");
+      x.style.display = "none";
+
+      x = document.getElementById("editarbici");
+      if (x.style.display === "none" || document.getElementById('ediid_b').value !== id) {
+        //abre form
+        x.style.display = "block";
+        document.getElementById('ediid_b').value = id;
+        document.getElementById('ediclr').value = tipo;
+        document.getElementById('edipatente').value = patente;
+        document.getElementById('edidisponible').value = dispo;
+        document.getElementById('edidescrip').value = descrip;
+        document.getElementById('edikmMantenimiento').value = parseFloat(kmMant.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+        document.getElementById('edikmViajados').value = parseFloat(kmViaje.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+      } else {
+        //cerrar form
+        x.style.display = "none";
+        document.getElementById('ediid_b').value = '';
+        document.getElementById('ediclr').value = '';
+        document.getElementById('edipatente').value = '';
+        document.getElementById('edidescrip').value = '';
+        document.getElementById('edidisponible').value = '';
+        document.getElementById('edikmMantenimiento').value = '';
+        document.getElementById('edikmViajados').value = '';
+      }
+    }
+
+    function eliminartipo(id, nombre, preciohr, preciodia) {
+      var x = document.getElementById("nuevotipo");
+      x.style.display = "none";
+      x = document.getElementById("editartipo");
+      x.style.display = "none";
+      x = document.getElementById("nuevabici");
+      x.style.display = "none";
+      x = document.getElementById("editarbici");
+      x.style.display = "none";
+      x = document.getElementById("eliminarbici");
+      x.style.display = "none";
+
+      x = document.getElementById("eliminartipo");
+      if (x.style.display === "none" || document.getElementById('eliid').value !== id) {
+        //abre form
+        x.style.display = "block";
+        document.getElementById('eliid').value = id;
+        document.getElementById('elitipo').value = nombre;
+        document.getElementById('elipreciohr').value = parseFloat(preciohr.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+        document.getElementById('elipreciodia').value = parseFloat(preciodia.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+      } else {
+        //cerrar form
+        x.style.display = "none";
+        document.getElementById('eliid').value = '';
+        document.getElementById('elitipo').value = '';
+        document.getElementById('elipreciohr').value = '';
+        document.getElementById('elipreciodia').value = '';
       }
 
-      function nuevabici() {
-        var x = document.getElementById("eliminartipo");
-        x.style.display = "none";
-        x = document.getElementById("editartipo");
-        x.style.display = "none";
-        x = document.getElementById("nuevotipo");
-        x.style.display = "none";
-        x = document.getElementById("eliminarbici");
-        x.style.display = "none";
-        x = document.getElementById("editarbici");
-        x.style.display = "none";
+      $.post('ExistenBicicletasXTipo',
+              {
+                id: $('#eliid').val()
+              },
+              function (responseText)
+              {
+                //VALIDO
+                if (responseText === "0")
+                {
+                  document.getElementById('msj').style.display = "none";
+                }
+                //INVALIDO
+                else
+                {
+                  document.getElementById('msj').style.display = "block";
+                  document.getElementById('msj').innerHTML = "<b>¡ATENCIÓN!</b> Existen bicicletas registradas de este tipo.<br>Al eliminarlo, se eliminarán automaticamente todas las bicicletas del mismo tipo.";
+                }
+              });
+    }
 
-        x = document.getElementById("nuevabici");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
+    function eliminarbici(id, patente, tipo, descrip, dispo, kmMant, kmViaje) {
+      var x = document.getElementById("nuevotipo");
+      x.style.display = "none";
+      x = document.getElementById("eliminartipo");
+      x.style.display = "none";
+      x = document.getElementById("editartipo");
+      x.style.display = "none";
+      x = document.getElementById("nuevabici");
+      x.style.display = "none";
+      x = document.getElementById("editarbici");
+      x.style.display = "none";
+
+      x = document.getElementById("eliminarbici");
+      if (x.style.display === "none" || document.getElementById('eliid_b').value !== id) {
+        //abre form
+        x.style.display = "block";
+        document.getElementById('eliid_b').value = id;
+        document.getElementById('eliclr').value = tipo;
+        document.getElementById('elipatente').value = patente;
+        document.getElementById('elidisponible').value = dispo;
+        document.getElementById('elidescrip').value = descrip;
+        document.getElementById('elikmMantenimiento').value = parseFloat(kmMant.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+        document.getElementById('elikmViajados').value = parseFloat(kmViaje.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+      } else {
+        //cerrar form
+        x.style.display = "none";
+        document.getElementById('eliid_b').value = '';
+        document.getElementById('eliclr').value = '';
+        document.getElementById('elipatente').value = '';
+        document.getElementById('elidescrip').value = '';
+        document.getElementById('elidisponible').value = '';
+        document.getElementById('elikmMantenimiento').value = '';
+        document.getElementById('elikmViajados').value = '';
       }
+    }
+    
+    $("#cruzNuevoTB").mousedown(function(){
+        document.getElementById("nuevotipo").style.display = "none"; 
+      });
+      
+    $("#cruzEditarTB").mousedown(function(){
+      document.getElementById("editartipo").style.display = "none"; 
+    });
 
-      function editartipo(id, nombre, preciohr, preciodia) {
-        var x = document.getElementById("nuevotipo");
-        x.style.display = "none";
-        x = document.getElementById("eliminartipo");
-        x.style.display = "none";
-        x = document.getElementById("editarbici");
-        x.style.display = "none";
-        x = document.getElementById("nuevabici");
-        x.style.display = "none";
-        x = document.getElementById("eliminarbici");
-        x.style.display = "none";
+    $("#cruzEliminarTB").mousedown(function(){
+      document.getElementById("eliminartipo").style.display = "none"; 
+    });
 
-        x = document.getElementById("editartipo");
-        if (x.style.display === "none" || document.getElementById('ediid').value !== id) {
-          //abre form
-          x.style.display = "block";
-          document.getElementById('ediid').value = id;
-          document.getElementById('editipo').value = nombre;
-          document.getElementById('edipreciohr').value = parseFloat(preciohr.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-          document.getElementById('edipreciodia').value = parseFloat(preciodia.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-        } else {
-          //cerrar form
-          x.style.display = "none";
-          document.getElementById('ediid').value = '';
-          document.getElementById('editipo').value = '';
-          document.getElementById('edipreciohr').value = '';
-          document.getElementById('edipreciodia').value = '';
-        }
-      }
+    $("#cruzNuevoB").mousedown(function(){
+      document.getElementById("nuevabici").style.display = "none"; 
+    });
 
-      function editarbici(id, patente, tipo, descrip, dispo, kmMant, kmViaje) {
-        var x = document.getElementById("nuevotipo");
-        x.style.display = "none";
-        x = document.getElementById("eliminartipo");
-        x.style.display = "none";
-        x = document.getElementById("editartipo");
-        x.style.display = "none";
-        x = document.getElementById("nuevabici");
-        x.style.display = "none";
-        x = document.getElementById("eliminarbici");
-        x.style.display = "none";
+    $("#cruzEditarB").mousedown(function(){
+      document.getElementById("editarbici").style.display = "none"; 
+    });
 
-        x = document.getElementById("editarbici");
-        if (x.style.display === "none" || document.getElementById('ediid_b').value !== id) {
-          //abre form
-          x.style.display = "block";
-          document.getElementById('ediid_b').value = id;     
-          document.getElementById('ediclr').value = tipo;
-          document.getElementById('edipatente').value = patente;
-          document.getElementById('edidisponible').value = dispo;
-          document.getElementById('edidescrip').value = descrip;
-          document.getElementById('edikmMantenimiento').value = parseFloat(kmMant.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-          document.getElementById('edikmViajados').value = parseFloat(kmViaje.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-          } else {
-          //cerrar form
-          x.style.display = "none";
-          document.getElementById('ediid_b').value = '';
-          document.getElementById('ediclr').value = '';
-          document.getElementById('edipatente').value = '';
-          document.getElementById('edidescrip').value = '';
-          document.getElementById('edidisponible').value = '';
-          document.getElementById('edikmMantenimiento').value = '';
-          document.getElementById('edikmViajados').value = '';
-        }
-      }
-
-      function eliminartipo(id, nombre, preciohr, preciodia) {
-        var x = document.getElementById("nuevotipo");
-        x.style.display = "none";
-        x = document.getElementById("editartipo");
-        x.style.display = "none";
-        x = document.getElementById("nuevabici");
-        x.style.display = "none";
-        x = document.getElementById("editarbici");
-        x.style.display = "none";
-        x = document.getElementById("eliminarbici");
-        x.style.display = "none";
-
-        x = document.getElementById("eliminartipo");
-        if (x.style.display === "none" || document.getElementById('eliid').value !== id) {
-          //abre form
-          x.style.display = "block";
-          document.getElementById('eliid').value = id;
-          document.getElementById('elitipo').value = nombre;
-          document.getElementById('elipreciohr').value = parseFloat(preciohr.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-          document.getElementById('elipreciodia').value = parseFloat(preciodia.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-        } else {
-          //cerrar form
-          x.style.display = "none";
-          document.getElementById('eliid').value = '';
-          document.getElementById('elitipo').value = '';
-          document.getElementById('elipreciohr').value = '';
-          document.getElementById('elipreciodia').value = '';
-        }
-        
-        $.post('ExistenBicicletasXTipo', 
-          {
-            id : $('#eliid').val()
-          }, 
-          function(responseText) 
-          {
-            //VALIDO
-            if(responseText==="0")
-            {
-              document.getElementById('msj').style.display = "none";              
-            }
-            //INVALIDO
-            else
-            {
-              document.getElementById('msj').style.display = "block";
-              document.getElementById('msj').innerHTML = "<b>¡ATENCIÓN!</b> Existen bicicletas registradas de este tipo.<br>Al eliminarlo, se eliminarán automaticamente todas las bicicletas del mismo tipo.";
-            }              
-          });
-      }
-
-      function eliminarbici(id, patente, tipo, descrip, dispo, kmMant, kmViaje) {
-        var x = document.getElementById("nuevotipo");
-        x.style.display = "none";
-        x = document.getElementById("eliminartipo");
-        x.style.display = "none";
-        x = document.getElementById("editartipo");
-        x.style.display = "none";
-        x = document.getElementById("nuevabici");
-        x.style.display = "none";
-        x = document.getElementById("editarbici");
-        x.style.display = "none";
-
-        x = document.getElementById("eliminarbici");
-        if (x.style.display === "none" || document.getElementById('eliid_b').value !== id) {
-          //abre form
-          x.style.display = "block";
-          document.getElementById('eliid_b').value = id;     
-          document.getElementById('eliclr').value = tipo;
-          document.getElementById('elipatente').value = patente;
-          document.getElementById('elidisponible').value = dispo;
-          document.getElementById('elidescrip').value = descrip;
-          document.getElementById('elikmMantenimiento').value = parseFloat(kmMant.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-          document.getElementById('elikmViajados').value = parseFloat(kmViaje.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-          } else {
-          //cerrar form
-          x.style.display = "none";
-          document.getElementById('eliid_b').value = '';
-          document.getElementById('eliclr').value = '';
-          document.getElementById('elipatente').value = '';
-          document.getElementById('elidescrip').value = '';
-          document.getElementById('elidisponible').value = '';
-          document.getElementById('elikmMantenimiento').value = '';
-          document.getElementById('elikmViajados').value = '';
-        }
-      }
+    $("#cruzEliminarB").mousedown(function(){
+      document.getElementById("eliminarbici").style.display = "none"; 
+    });
+    
+    
     </script>
   </body>
 

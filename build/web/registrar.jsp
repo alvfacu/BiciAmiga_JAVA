@@ -42,7 +42,7 @@
             <div class="col-sm-12">
               <input type="hidden" name="admin" value="false">
               <input type="hidden" name="meca" value="false">
-              <input type="hidden" name="cli" value="true">
+              <input type="hidden" name="cliente" value="true">
               <input type="hidden" name="habilitado" value="true">
               <div class="form-group">
                 <input type="text" name="usuario" id="usuario" placeholder="Usuario" title="Ingrese nombre de usuario" class="form-control" autofocus="true" required="true">

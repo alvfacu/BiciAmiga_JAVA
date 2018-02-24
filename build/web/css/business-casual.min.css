@@ -6,6 +6,7 @@ body{font-family:Lora;background:linear-gradient(rgba(47,23,15,.65),rgba(47,23,1
 .btn-admin{background-color:#92006c;border-color:#92006c}
 .btn-mecanico{background-color:#ffc300;border-color:#ffc300}
 .btn-cliente{background-color:#009193;border-color:#009193}
+.btn-reset{background-color:#6c757d;border-color:#6c757d;color:white}
 
 .label {
     display: inline;
