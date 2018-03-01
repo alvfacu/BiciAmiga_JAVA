@@ -25,10 +25,10 @@ public class AltaTipoBici extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String tipo = request.getParameter("tipo");
-    double preciohr = Double.valueOf(request.getParameter("preciohr"));
-    double preciodia = Double.valueOf(request.getParameter("preciodia"));
-    TiposBicicleta tb = new TiposBicicleta(tipo, preciohr, preciodia);
+    String nombre = request.getParameter("nombretb");
+    String descripcion = request.getParameter("descriptb");
+    
+    TiposBicicleta tb = new TiposBicicleta(nombre, descripcion);
     new ControladorBicicletas().altaTipoBicicleta(tb);
     response.sendRedirect("admbici.jsp");
   }

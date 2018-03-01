@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 public class CatalogoTiposBicicletas {
   
+  //id	nombre_gral	nombre_det	descripcion	precio_dia	precio_hr
+  
   public ArrayList<TiposBicicleta> getTipos() {
     ArrayList<TiposBicicleta> tipos = new ArrayList<>();
     Statement sentencia = null;
@@ -21,9 +23,8 @@ public class CatalogoTiposBicicletas {
       while (rs.next()) {
         TiposBicicleta tb = new TiposBicicleta();
         tb.setId(rs.getInt("id"));
+        tb.setDescripcion(rs.getString("descripcion"));
         tb.setNombre(rs.getString("nombre"));
-        tb.setPrecioXDia(rs.getDouble("precio_dia"));
-        tb.setPrecioXHr(rs.getDouble("precio_hr"));
         tipos.add(tb);
       }
     } catch (SQLException e1) {
@@ -45,8 +46,8 @@ public class CatalogoTiposBicicletas {
   }
 
   public TiposBicicleta getTipo(int id) {    
-    PreparedStatement sentencia = null;
-    ResultSet rs = null;
+    PreparedStatement sentencia;
+    ResultSet rs;
     TiposBicicleta tb = null;
     String sql = "select * from tipos_bicicleta where id=?";
     
@@ -57,10 +58,9 @@ public class CatalogoTiposBicicletas {
       
       if (rs.next()) {
         tb = new TiposBicicleta();
-        tb.setId(id);
+        tb.setId(rs.getInt("id"));
+        tb.setDescripcion(rs.getString("descripcion"));
         tb.setNombre(rs.getString("nombre"));
-        tb.setPrecioXDia(rs.getDouble("precio_dia"));
-        tb.setPrecioXHr(rs.getDouble("precio_hr"));
       }
 
     } catch (SQLException sqle) {
@@ -71,14 +71,13 @@ public class CatalogoTiposBicicletas {
 
   public void altaTipoBicicleta(TiposBicicleta tb) {
     PreparedStatement sentencia = null;
-    ResultSet rs=null;
-    String sql = "insert into tipos_bicicleta(nombre,precio_dia,precio_hr) "
-            + "values(?,?,?)";
+    ResultSet rs;
+    String sql = "insert into tipos_bicicleta(nombre,descripcion) "
+            + "values(?,?)";
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
       sentencia.setString(1,tb.getNombre());
-      sentencia.setDouble(2,tb.getPrecioXDia());
-      sentencia.setDouble(3,tb.getPrecioXHr());
+      sentencia.setString(2,tb.getDescripcion());
       sentencia.execute();
       rs=sentencia.getGeneratedKeys();
       if(rs!=null && rs.next()){
@@ -124,14 +123,13 @@ public class CatalogoTiposBicicletas {
 
   public void modificarTipoBicicleta(TiposBicicleta tb) {
     PreparedStatement sentencia = null;
-    String sql = "update tipos_bicicleta set nombre=?, precio_dia=?, precio_hr=?"
+    String sql = "update tipos_bicicleta set nombre=?, descripcion=?"
             + " where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setString(1, tb.getNombre());
-      sentencia.setDouble(2, tb.getPrecioXDia());
-      sentencia.setDouble(3, tb.getPrecioXHr());
-      sentencia.setDouble(4, tb.getId());
+      sentencia.setString(2, tb.getDescripcion());
+      sentencia.setDouble(3, tb.getId());
       sentencia.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();

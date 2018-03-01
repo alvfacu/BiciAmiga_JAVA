@@ -279,7 +279,7 @@
                 </div>
                 <div class="col-sm-2 form-group">
                   <select class="form-control" name="elihab" disabled="true" id="elihab" title="¿Usuario Habilitado?">
-                    <option value="true" selected="true">SI</option>
+                    <option value="true">SI</option>
                     <option value="false">NO</option> 
                   </select>
                 </div>                  

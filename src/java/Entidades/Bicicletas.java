@@ -1,26 +1,21 @@
 package Entidades;
 
-import java.text.DecimalFormat;
-
 public class Bicicletas {
   
-  private String patente;
   private int id;
+  private String patente;  
   private String descripcion;
-  private TiposBicicleta tipo;
+  private Modelos modelo;
   private boolean disponible;
   private double kmEnViaje;
-  private double kmDsdMantenimiento;  
-  private final DecimalFormat df2 = new DecimalFormat("0.00");
+  private double kmDsdMantenimiento; 
 
-  public Bicicletas(int id, String patente, String descripcion, TiposBicicleta tb, Boolean disp, double kmViaje, double kmMant) {
-    this.id = id;
+  public String getPatente() {
+    return patente;
+  }
+
+  public void setPatente(String patente) {
     this.patente = patente;
-    this.descripcion = descripcion;
-    this.tipo = tb;
-    this.disponible = disp;
-    this.kmEnViaje = kmViaje;
-    this.kmDsdMantenimiento = kmMant;
   }
 
   public int getId() {
@@ -30,51 +25,6 @@ public class Bicicletas {
   public void setId(int id) {
     this.id = id;
   }
-  
-  public double getKmEnViaje() {
-    return kmEnViaje;
-    
-  }
-  
-  public String getKmViaje()
-  {
-    return df2.format(kmEnViaje);
-  }
-
-  public void setKmEnViaje(double kmRecorridosEnViaje) {
-    this.kmEnViaje = kmRecorridosEnViaje;
-  }
-
-  public double getKmDsdMantenimiento() {
-    return kmDsdMantenimiento;
-  }
-
-  public String getKmMantenimiento()
-  {
-    return df2.format(kmDsdMantenimiento);
-  }
-  public void setKmDsdMantenimiento(double kmRecorridosDsdMantenimiento) {
-    this.kmDsdMantenimiento = kmRecorridosDsdMantenimiento;
-  }
-
-  public Bicicletas(String placa, String descripcion, TiposBicicleta tipo, boolean disponible, double kmRecorridosEnViaje, double kmRecorridosDsdMantenimeinto) {
-    this.patente = placa;
-    this.descripcion = descripcion;
-    this.tipo = tipo;
-    this.disponible = disponible;
-    this.kmEnViaje = kmRecorridosEnViaje;
-    this.kmDsdMantenimiento = kmRecorridosDsdMantenimeinto;
-  }
-
-  public Bicicletas() {  }
-
-  public String getPatente() {
-    return patente;
-  }
-
-  public void setPatente(String placa) {
-    this.patente = placa;
-  }  
 
   public String getDescripcion() {
     return descripcion;
@@ -84,12 +34,12 @@ public class Bicicletas {
     this.descripcion = descripcion;
   }
 
-  public TiposBicicleta getTipo() {
-    return tipo;
+  public Modelos getModelo() {
+    return modelo;
   }
 
-  public void setTipo(TiposBicicleta tipo) {
-    this.tipo = tipo;
+  public void setModelo(Modelos modelo) {
+    this.modelo = modelo;
   }
 
   public boolean isDisponible() {
@@ -99,5 +49,44 @@ public class Bicicletas {
   public void setDisponible(boolean disponible) {
     this.disponible = disponible;
   }
+
+  public double getKmEnViaje() {
+    return kmEnViaje;
+  }
+
+  public void setKmEnViaje(double kmEnViaje) {
+    this.kmEnViaje = kmEnViaje;
+  }
+
+  public double getKmDsdMantenimiento() {
+    return kmDsdMantenimiento;
+  }
+
+  public void setKmDsdMantenimiento(double kmDsdMantenimiento) {
+    this.kmDsdMantenimiento = kmDsdMantenimiento;
+  }
+
+  public Bicicletas() {
+  }
+
+  public Bicicletas(int id, String patente, String descripcion, Modelos modelo, boolean disponible, double kmEnViaje, double kmDsdMantenimiento) {
+    this.id = id;
+    this.patente = patente;
+    this.descripcion = descripcion;
+    this.modelo = modelo;
+    this.disponible = disponible;
+    this.kmEnViaje = kmEnViaje;
+    this.kmDsdMantenimiento = kmDsdMantenimiento;
+  }
+
+  public Bicicletas(String patente, String descripcion, Modelos modelo, boolean disponible, double kmEnViaje, double kmDsdMantenimiento) {
+    this.patente = patente;
+    this.descripcion = descripcion;
+    this.modelo = modelo;
+    this.disponible = disponible;
+    this.kmEnViaje = kmEnViaje;
+    this.kmDsdMantenimiento = kmDsdMantenimiento;
+  }
+  
   
 }

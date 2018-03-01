@@ -54,6 +54,7 @@
         </div>
       </div>
     </section>
+    <br>
     <section class="page-section cta" id="como">
       <div class="container">
         <div class="row">
@@ -69,7 +70,7 @@
               <i class="fa fa-mouse-pointer fa-stack-1x fa-inverse"></i>
             </span> 
             <h4 class="service-heading">1er PASO</h4>
-            <p class="mb-3">Haz click en el botón <a href="reservar.jsp">"Reservar"</a></p>
+            <p class="mb-3">Haz click en <a class="label label-reserva" style="text-decoration: none;color: #FFFFFF;" href="reservar.jsp">Reservar</a></p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
@@ -77,7 +78,7 @@
               <i class="fa fa-pencil-square-o fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">2do PASO</h4>
-            <p class="mb-3">Elige el tipo de bicicleta, la fecha y <br> la cantidad de horas que queres usarla</p>            
+            <p class="mb-3">Selecciona la bicicleta, la fecha y <br> la cantidad de horas que queres usarla</p>            
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
@@ -85,11 +86,12 @@
               <i class="fa fa-bicycle fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">3er PASO</h4>
-            <p class="mb-3">Confirma tu reserva. El día reservado acercate con tu comprobante y tu identificación</p>                        
+            <p class="mb-3">Confirma tu reserva. El día elegido acercate con tu comprobante y tu identificación</p>                        
           </div>
         </div>
       </div>
     </section>
+    <br>
     <section class="page-section clearfix">
       <div class="container">
         <h1 class="site-heading text-center text-white d d-lg-block">

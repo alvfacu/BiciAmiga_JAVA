@@ -25,7 +25,7 @@ public class EliminarTipoBici extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    int id = Integer.valueOf(request.getParameter("eliid"));
+    int id = Integer.valueOf(request.getParameter("idtb"));
     TiposBicicleta tb = new ControladorBicicletas().getTipo(id);
     new ControladorBicicletas().bajaTipoBicicleta(tb);
     response.sendRedirect("admbici.jsp");

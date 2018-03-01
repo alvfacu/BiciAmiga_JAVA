@@ -1,18 +1,22 @@
 package Negocio;
 
 import Datos.CatalogoBicicletas;
+import Datos.CatalogoModelos;
 import Datos.CatalogoTiposBicicletas;
 import Entidades.Bicicletas;
 import Entidades.TiposBicicleta;
+import Entidades.Modelos;
 import java.util.ArrayList;
 
 public class ControladorBicicletas {
   CatalogoBicicletas cb;
   CatalogoTiposBicicletas ctb;
+  CatalogoModelos cm;
 
   public ControladorBicicletas() {
     this.cb = new CatalogoBicicletas();
     this.ctb = new CatalogoTiposBicicletas();
+    this.cm = new CatalogoModelos();
   }
 
   public ArrayList<Bicicletas> getBicicletas() {
@@ -34,7 +38,6 @@ public class ControladorBicicletas {
   public void modificarBicicleta(Bicicletas b) {
     cb.modificarBicicleta(b);
   }
-
 
   public int existePatente(String patente) {
     return cb.existeBicicleta(patente);
@@ -60,8 +63,36 @@ public class ControladorBicicletas {
     ctb.modificarTipoBicicleta(tb);
   }
 
-  public int existenBicicletasXTipo(String idTipo) {
-    return cb.existenBicicletasXTipo(idTipo);
+  public int existenBicicletasXTipo(String idModelo) {
+    return cb.existenBicicletasXModelo(idModelo);
+  }
+
+  public ArrayList<Modelos> getModelos(){
+    return cm.getModelos();
+  }
+  
+  public Modelos getModelo(int id){
+    return cm.getModelo(id);
+  }
+  
+  public void altaModelo(Modelos m){
+    cm.altaModelo(m);
+  }
+
+  public void bajaModelo(Modelos m){
+    cm.bajaModelo(m);
+  }
+  
+  public void modificarModelo(Modelos m){
+    cm.modificarModelo(m);
+  }
+  
+  public int existenModelosXTipo(String id){
+    return cm.existenModelosXTipo(id);
+  }
+  
+  public String dameUrl(String idModelo){
+    return cm.dameUrl(idModelo);
   }
 
 }

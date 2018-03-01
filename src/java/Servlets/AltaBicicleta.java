@@ -1,10 +1,10 @@
 package Servlets;
 
 import Entidades.Bicicletas;
+import Entidades.Modelos;
 import Entidades.TiposBicicleta;
 import Negocio.ControladorBicicletas;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,17 +28,20 @@ public class AltaBicicleta extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     
-    int tipo = Integer.parseInt(request.getParameter("clr"));
-    TiposBicicleta tb = new ControladorBicicletas().getTipo(tipo);
+    int idmodelo = Integer.parseInt(request.getParameter("modelobici"));
+    Modelos m = new ControladorBicicletas().getModelo(idmodelo);
     String patente = request.getParameter("patente").toUpperCase().trim();
-    Boolean disp = Boolean.getBoolean(request.getParameter("disponible"));
+    
+    boolean disp = false;
+    if(Boolean.valueOf(request.getParameter("disponible")))
+      disp = true;
+      
     double kmMant = Double.valueOf(request.getParameter("kmMantenimiento"));
     double kmViaje = Double.valueOf(request.getParameter("kmViajados"));
-    String descripcion = request.getParameter("descrip").trim();
-    Bicicletas b = new Bicicletas(patente, descripcion, tb, disp, kmViaje, kmMant);
+    String descripcion = request.getParameter("descripb").trim();
+    Bicicletas b = new Bicicletas(patente, descripcion, m, disp, kmViaje, kmMant);
     new ControladorBicicletas().altaBicicleta(b);
-    response.sendRedirect("admbici.jsp");
-            
+    response.sendRedirect("admbici.jsp");            
   }
 
   @Override

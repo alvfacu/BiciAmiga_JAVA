@@ -1,6 +1,5 @@
 package Servlets;
 
-import Entidades.Bicicletas;
 import Entidades.Modelos;
 import Entidades.TiposBicicleta;
 import Negocio.ControladorBicicletas;
@@ -12,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ModificarBicicleta", urlPatterns = {"/ModificarBicicleta"})
-public class ModificarBicicleta extends HttpServlet {
+@WebServlet(name = "AltaModelo", urlPatterns = {"/AltaModelo"})
+public class AltaModelo extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -28,24 +27,20 @@ public class ModificarBicicleta extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    int id = Integer.valueOf(request.getParameter("idb"));
-    Bicicletas biciAct = new ControladorBicicletas().getBicicleta(id);
     
-    int idmodelo = Integer.parseInt(request.getParameter("modelobici"));
-    Modelos m = new ControladorBicicletas().getModelo(idmodelo);
-        
-    boolean disp = false;
-    if(Boolean.valueOf(request.getParameter("disponible")))
-      disp = true;
-      
-    double kmMant = Double.valueOf(request.getParameter("kmMantenimiento"));
-    double kmViaje = Double.valueOf(request.getParameter("kmViajados"));
+    int idTipo = Integer.valueOf(request.getParameter("clr"));
+    TiposBicicleta tb = new ControladorBicicletas().getTipo(idTipo);
     
-    String descripcion = request.getParameter("descripb").trim();
+    String nombre = request.getParameter("nombrem");
+    String descrip = request.getParameter("descripm");
+    double preciohr = Double.valueOf(request.getParameter("precioHr"));
+    double preciodia = Double.valueOf(request.getParameter("precioDia"));
+    String url1 = request.getParameter("url1");
+    String url2 = request.getParameter("url2");
+    String url3 = request.getParameter("url3");
     
-    Bicicletas b = new Bicicletas(id,biciAct.getPatente(), descripcion, m, disp, kmViaje, kmMant);
-    new ControladorBicicletas().modificarBicicleta(b);
-    
+    Modelos m = new Modelos(nombre, descrip, preciohr, preciodia, url1, url2, url3, tb);
+    new ControladorBicicletas().altaModelo(m);
     response.sendRedirect("admbici.jsp");
   }
 

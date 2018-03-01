@@ -1,7 +1,5 @@
-
 package Servlets;
 
-import Entidades.TiposBicicleta;
 import Negocio.ControladorBicicletas;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,14 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ModificarTipoBici", urlPatterns = {"/ModificarTipoBici"})
-public class ModificarTipoBici extends HttpServlet {
+
+@WebServlet(name = "ExistenModelosXTipo", urlPatterns = {"/ExistenModelosXTipo"})
+public class ExistenModelosXTipo extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    
   }
-
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,14 +25,19 @@ public class ModificarTipoBici extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    int id = Integer.valueOf(request.getParameter("idtb"));
-    String nombre = request.getParameter("nombretb");
-    String descripcion = request.getParameter("descriptb");
     
-    TiposBicicleta tb = new TiposBicicleta(id, nombre, descripcion);
-    
-    new ControladorBicicletas().modificarTipoBicicleta(tb);
-    response.sendRedirect("admbici.jsp");
+    String idTipo = request.getParameter("id").trim();
+    String rdo;
+    int cant = new ControladorBicicletas().existenModelosXTipo(idTipo);
+
+      if (cant > 0) {
+        rdo = "1";
+      } else {
+        rdo = "0";
+      }
+
+    response.setContentType("text/plain");
+    response.getWriter().write(rdo);
   }
 
   @Override

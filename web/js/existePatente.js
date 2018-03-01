@@ -3,7 +3,7 @@
 $(function () {
 
   $(document).on("keypress", "form", function (event) {
-    return event.keyCode != 13;
+    return event.keyCode !== 13;
   });
 
   function siError(e) {
@@ -11,11 +11,6 @@ $(function () {
   }
 
   function peticion(e) {
-    // Realizar la petición
-    // $.ajax({type: "POST",
-    //  url: 'ValidaUsuario',
-    //  data: {"usuario": $('#usuario').val()}          
-    //    });
     $.post('ValidaPatente', 
           {
             patente : $('#patente').val()
@@ -25,18 +20,18 @@ $(function () {
             //VALIDO
             if(responseText==="0")
             {
-              $("#guardar").removeAttr('disabled');                 
+              $("#guardarb").removeAttr('disabled');                 
               $('#patente').css("backgroundColor", "#66cc66"); 
             }
             //INVALIDO
             else
             {
-              $("#guardar").attr('disabled', 'disabled');
+              $("#guardarb").attr('disabled', 'disabled');
               $('#patente').css("backgroundColor", "#ff6666");
             }
               
           });
   }
-
-  $('#patente').focusout(peticion); // Registrar evento al boton "Calcular" con la funcion "peticion"
+  
+  $('#patente').focusout(peticion);
 });

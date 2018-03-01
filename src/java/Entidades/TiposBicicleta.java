@@ -3,31 +3,9 @@ package Entidades;
 public class TiposBicicleta {
   
   private int id;
-  private String tipo;
-  private double precioXHr;
-  private double precioXDia;
+  private String nombre;
+  private String descripcion;
 
-  public TiposBicicleta(String tipo, double preciohr, double preciodia) {
-    this.tipo = tipo;
-    this.precioXHr = preciohr;
-    this.precioXDia = preciodia;  }
-
-  public double getPrecioXHr() {
-    return precioXHr;
-  }
-
-  public void setPrecioXHr(double precioXHr) {
-    this.precioXHr = precioXHr;
-  }
-
-  public double getPrecioXDia() {
-    return precioXDia;
-  }
-
-  public void setPrecioXDia(double precioXDia) {
-    this.precioXDia = precioXDia;
-  }
-    
   public int getId() {
     return id;
   }
@@ -37,23 +15,33 @@ public class TiposBicicleta {
   }
 
   public String getNombre() {
-    return tipo;
+    return nombre;
   }
 
-  public void setNombre(String tipo) {
-    this.tipo = tipo;
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
+
+  public String getDescripcion() {
+    return descripcion;
+  }
+
+  public void setDescripcion(String descripcion) {
+    this.descripcion = descripcion;
   }
 
   public TiposBicicleta() {
   }
 
-  public TiposBicicleta(int id, String tipo, double precioXHr, double precioXDia) {
+  public TiposBicicleta(int id, String nombre, String descripcion) {
     this.id = id;
-    this.tipo = tipo;
-    this.precioXHr = precioXHr;
-    this.precioXDia = precioXDia;
+    this.nombre = nombre;
+    this.descripcion = descripcion;
   }
 
-  
+  public TiposBicicleta(String nombre, String descripcion) {
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+  }
   
 }

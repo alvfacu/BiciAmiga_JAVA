@@ -3,7 +3,6 @@ package Servlets;
 import Entidades.Bicicletas;
 import Negocio.ControladorBicicletas;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +26,7 @@ public class EliminarBicicleta extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    int id = Integer.valueOf(request.getParameter("eliid_b"));
+    int id = Integer.valueOf(request.getParameter("idb"));
     Bicicletas b = new ControladorBicicletas().getBicicleta(id);
     new ControladorBicicletas().bajaBicicleta(b);
     response.sendRedirect("admbici.jsp");
