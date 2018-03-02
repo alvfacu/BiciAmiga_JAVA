@@ -2,7 +2,6 @@ package Servlets;
 
 import Entidades.Bicicletas;
 import Entidades.Modelos;
-import Entidades.TiposBicicleta;
 import Negocio.ControladorBicicletas;
 import java.io.IOException;
 import javax.servlet.ServletException;

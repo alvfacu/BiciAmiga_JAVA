@@ -228,9 +228,11 @@
               <div class="form-group float-sm-right">
                 <span id="cruzNuevoM" class="fa fa-close" style="right: 50px"></span>
               </div>
+              <div class="form-group">
+                <label class="error" id="msj2" style="display: none"></label>
+              </div>
               <div class="row">
-                <div class="col-sm-6 form-group">
-                  <label class="error" id="msj2" style="display: none"></label>
+                <div class="col-sm-6 form-group">                  
                   <input type="hidden" name="idm" id="idm">
                   <select class="form-control" name="clr" id="clr" placeholder="Tipo de Bicicleta" title="Tipo de Bicicleta" required="true">
                     <option value="" disabled selected>Tipo de Bicicleta</option>
@@ -254,28 +256,24 @@
                   <input type="number" step="any" name="precioDia" id="precioDia" placeholder="Precio x Día" title="Precio x Día" class="form-control" autofocus="true" required="true">
                 </div>
               </div>
-              <div class="form-group">
-                <button class="btn" type="button" style="float: right" onclick="window.open(document.getElementById('url1').value, '_blank');">
-                  <i class="fa fa-eye"></i>
-                </button>
-                <div style="overflow: hidden; padding-right: .5em;">
-                  <input type="url" class="form-control" name="url1" id="url1" placeholder="Link de la imagen del Modelo de la Bicicleta (PRINCIPAL)" title="Link de la imagen del Modelo de la Bicicleta (PRINCIPAL)"  class="form-control" autofocus="true" required="true" style="width: 100%;" />
+              <div class="row">
+                <div class="col-sm-4 form-group">
+                  <figure class="figure">
+                    <img id="imgbici1" name="imgbici1" src="img/imagen-vacia.jpg" width="150" height="150" title="Imagen principal" style="border-style: solid; border-width: 1px;">
+                    <figcaption class="figure-caption text-right"><input type="url" class="form-control" name="url1" id="url1" placeholder="Link imagen principal" title="Link imagen principal"  class="form-control" autofocus="true" required="true" style="width: 100%; font-size: 10px" /></figcaption>
+                  </figure>
+                </div>	
+                <div class="col-sm-4 form-group">
+                  <figure class="figure">
+                    <img id="imgbici2" name="imgbici2" src="img/imagen-vacia.jpg" width="150" height="150" title="Imagen secundaria" style="border-style: solid; border-width: 1px;">
+                    <figcaption class="figure-caption text-right"><input type="url" class="form-control" name="url2" id="url2" placeholder="Link imagen secundaria" title="Link imagen secundaria"  class="form-control" autofocus="true" style="width: 100%; font-size: 10px" /></figcaption>
+                  </figure>
                 </div>
-              </div>
-              <div class="form-group">
-                <button class="btn" type="button" style="float: right" onclick="window.open(document.getElementById('url2').value, '_blank');">
-                  <i class="fa fa-eye"></i>
-                </button>
-                <div style="overflow: hidden; padding-right: .5em;">
-                  <input type="url" class="form-control" name="url2" id="url2" placeholder="Link de la imagen del Modelo de la Bicicleta" title="Link de la imagen del Modelo de la Bicicleta"  class="form-control" autofocus="true" style="width: 100%;" />
-                </div>
-              </div>
-              <div class="form-group">
-                <button class="btn" type="button" style="float: right" onclick="window.open(document.getElementById('url3').value, '_blank');">
-                  <i class="fa fa-eye"></i>
-                </button>
-                <div style="overflow: hidden; padding-right: .5em;">
-                  <input type="url" class="form-control" name="url3" id="url3" placeholder="Link de la imagen del Modelo de la Bicicleta" title="Link de la imagen del Modelo de la Bicicleta"  class="form-control" autofocus="true" style="width: 100%;" />
+                <div class="col-sm-4 form-group">
+                  <figure class="figure">
+                    <img id="imgbici3" name="imgbici3" src="img/imagen-vacia.jpg" width="150" height="150" title="Imagen secundaria" style="border-style: solid; border-width: 1px;">
+                    <figcaption class="figure-caption text-right"><input type="url" class="form-control" name="url3" id="url3" placeholder="Link imagen secundaria" title="Link imagen secundaria"  class="form-control" autofocus="true" style="width: 100%; font-size: 10px" /></figcaption>
+                  </figure>
                 </div>
               </div>
               <input type="submit" id="guardarm" class="btn btn-lg btn-nuevo btn-block" value="Guardar" onclick="javascript:form.action = 'AltaModelo';">
@@ -300,12 +298,12 @@
                 <img id="imgbici" name="imgbici" src="img/imagen-vacia.jpg" width="200" height="200" style="border-style: solid; border-width: 1px;">
               </div>
               <div class="row" style="margin-top:1px;">
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
                   <label class="error" id="msj3" style="display: none"></label>
                   <input type="hidden" name="idb" id="idb">
                   <input type="text" class="form-control" disabled="true" name="tipob" id="tipob" placeholder="Tipo de Bicicleta" title="Tipo de Bicicleta" required="false">
                 </div>	
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
                   <select class="form-control" name="modelobici" id="modelobici" placeholder="Modelo de Bicicleta" title="Modelo de Bicicleta" required="true" onchange="dameImagen()" autofocus="true">
                     <option value="" disabled selected>Modelo Bicicleta</option>
                     <% for (Modelos m : new ControladorBicicletas().getModelos()) {%>                    
@@ -313,29 +311,25 @@
                     <%}%>
                   </select>
                 </div>
+                <div class="col-sm-4 form-group">
+                  <input type="hidden" name="disponible" id="disponible" value="true">
+                  <span id="disponibleS" name="disponibleS" class="form-control label label-disponibilidad label-success" >DISPONIBLE</span>
+                  <span id="disponibleN" name="disponibleN" class="form-control label label-disponibilidad label-danger" style="display:none">NO DISPONIBLE</span>
+                </div>
               </div>
               <div class="row">
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
                   <input type="text" name="patente" maxlength="10" id="patente" style="text-transform:uppercase" placeholder="Patente Bicicleta" title="Patente Bicicleta" class="form-control" autofocus="true" required="true">                  
                 </div>
-                <div class="col-sm-6 form-group">
-                  <select class="form-control" name="disponible" id="disponible" title="¿Bicicleta disponible?">
-                    <option value="" disabled selected>Disponibilidad</option>
-                    <option value="true">SI</option>
-                    <option value="false">NO</option> 
-                  </select>
+                <div class="col-sm-4 form-group">
+                  <input type="number" step="any" name="kmMantenimiento" id="kmMantenimiento" placeholder="Kms desde el últ mantenimiento" title="Kms desde el último mantenimiento" class="form-control" autofocus="true" required="true">
                 </div>	
+                <div class="col-sm-4 form-group">
+                  <input type="number" step="any" name="kmViajados" id="kmViajados" placeholder="Kms totales" title="Kms totales recorridos" class="form-control" autofocus="true" required="true">
+                </div>
               </div>
               <div class="form-group">
                 <textarea name="descripb" id="descripb" maxlength="250" placeholder="Comentarios/Referencias sobre la Bicicleta" title="Comentarios/Referencias sobre la Bicicleta"  class="form-control" autofocus="true" required="true"></textarea>
-              </div>
-              <div class="row">
-                <div class="col-sm-6 form-group">
-                  <input type="number" step="any" name="kmMantenimiento" id="kmMantenimiento" placeholder="Kms desde el últ mantenimiento" title="Kms desde el últ mantenimiento" class="form-control" autofocus="true" required="true">
-                </div>	
-                <div class="col-sm-6 form-group">
-                  <input type="number" step="any" name="kmViajados" id="kmViajados" placeholder="Kms totales" title="Kms totales" class="form-control" autofocus="true" required="true">
-                </div>
               </div>
               <input type="submit" id="guardarb" class="btn btn-lg btn-nuevo btn-block" value="Guardar" onclick="javascript:form.action = 'AltaBicicleta';">
               <input type="submit" id="editarb" class="btn btn-lg btn-editar btn-block" style="display: none" value="Modificar" onclick="javascript:form.action = 'ModificarBicicleta';">
@@ -390,8 +384,8 @@
                     "pagingType": "simple_numbers",
                     "columns": [
                       null,
-                      {"orderable": false},
-                      {"orderable": false}
+                      {"orderable": false },
+                      {"orderable": false }
                     ]
                   });
 
@@ -610,6 +604,10 @@
                   document.getElementById('url1').disabled = false;
                   document.getElementById('url2').disabled = false;
                   document.getElementById('url3').disabled = false;
+                  document.getElementById('imgbici1').src = "img/imagen-vacia.jpg";
+                  document.getElementById('imgbici2').src = "img/imagen-vacia.jpg";
+                  document.getElementById('imgbici3').src = "img/imagen-vacia.jpg";
+                  
                   document.getElementById('clr').value = '';
                   document.getElementById('nombrem').value = '';
                   document.getElementById('descripm').value = '';
@@ -661,9 +659,37 @@
                     document.getElementById('descripm').value = caract;
                     document.getElementById('precioHr').value = parseFloat(preciohr.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
                     document.getElementById('precioDia').value = parseFloat(preciodia.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-                    document.getElementById('url1').value = url1;
-                    document.getElementById('url2').value = url2;
-                    document.getElementById('url3').value = url3;
+                    
+                    if(url1)
+                    {  
+                      document.getElementById('url1').value = url1;
+                      document.getElementById('imgbici1').src = url1;
+                    }
+                    else
+                    {
+                      document.getElementById('url1').value = url1;
+                      document.getElementById('imgbici1').src = "img/imagen-vacia.jpg";
+                    }
+                    if(url2)
+                    {  
+                      document.getElementById('url2').value = url2;
+                      document.getElementById('imgbici2').src = url2;
+                    }
+                    else
+                    {
+                      document.getElementById('url2').value = url2;
+                      document.getElementById('imgbici2').src = "img/imagen-vacia.jpg";
+                    }
+                    if(url3)
+                    {  
+                      document.getElementById('url3').value = url3;
+                      document.getElementById('imgbici3').src = url3;
+                    }
+                    else
+                    {
+                      document.getElementById('url3').value = url3;
+                      document.getElementById('imgbici3').src = "img/imagen-vacia.jpg";
+                    }
                     document.getElementById('clr').focus();
                   } else {
                     //cerrar form
@@ -678,6 +704,9 @@
                     document.getElementById('url1').value = '';
                     document.getElementById('url2').value = '';
                     document.getElementById('url3').value = '';
+                    document.getElementById('imgbici1').src = "img/imagen-vacia.jpg";
+                    document.getElementById('imgbici2').src = "img/imagen-vacia.jpg";
+                    document.getElementById('imgbici3').src = "img/imagen-vacia.jpg";
                   }
                 }
 
@@ -702,9 +731,6 @@
                     document.getElementById('descripm').value = caract;
                     document.getElementById('precioHr').value = parseFloat(preciohr.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
                     document.getElementById('precioDia').value = parseFloat(preciodia.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-                    document.getElementById('url1').value = url1;
-                    document.getElementById('url2').value = url2;
-                    document.getElementById('url3').value = url3;
                     document.getElementById('clr').disabled = true;
                     document.getElementById('nombrem').disabled = true;
                     document.getElementById('descripm').disabled = true;
@@ -713,6 +739,37 @@
                     document.getElementById('url1').disabled = true;
                     document.getElementById('url2').disabled = true;
                     document.getElementById('url3').disabled = true;
+                    
+                    if(url1)
+                    {  
+                      document.getElementById('url1').value = url1;
+                      document.getElementById('imgbici1').src = url1;
+                    }
+                    else
+                    {
+                      document.getElementById('url1').value = url1;
+                      document.getElementById('imgbici1').src = "img/imagen-vacia.jpg";
+                    }
+                    if(url2)
+                    {  
+                      document.getElementById('url2').value = url2;
+                      document.getElementById('imgbici2').src = url2;
+                    }
+                    else
+                    {
+                      document.getElementById('url2').value = url2;
+                      document.getElementById('imgbici2').src = "img/imagen-vacia.jpg";
+                    }
+                    if(url3)
+                    {  
+                      document.getElementById('url3').value = url3;
+                      document.getElementById('imgbici3').src = url3;
+                    }
+                    else
+                    {
+                      document.getElementById('url3').value = url3;
+                      document.getElementById('imgbici3').src = "img/imagen-vacia.jpg";
+                    }                    
                     document.getElementById('eliminarm').focus();
                   } else {
                     //cerrar form
@@ -735,6 +792,9 @@
                     document.getElementById('url1').disabled = false;
                     document.getElementById('url2').disabled = false;
                     document.getElementById('url3').disabled = false;
+                    document.getElementById('imgbici1').src = "img/imagen-vacia.jpg";
+                    document.getElementById('imgbici2').src = "img/imagen-vacia.jpg";
+                    document.getElementById('imgbici3').src = "img/imagen-vacia.jpg";
                   }
 
                   $.post('ExistenBicicletasXModelo',
@@ -772,16 +832,18 @@
                   document.getElementById('kmMantenimiento').disabled = false;
                   document.getElementById('kmViajados').disabled = false;
                   document.getElementById('descripb').disabled = false;
-                  document.getElementById('disponible').disabled = false;
 
                   document.getElementById('tipob').value = '';
                   document.getElementById('modelobici').value = '';
                   document.getElementById('imgbici').src = "img/imagen-vacia.jpg";
                   document.getElementById('patente').value = '';
-                  document.getElementById('precioDia').value = '';
-                  document.getElementById('kmMantenimiento').value = '';
-                  document.getElementById('kmViajados').value = '';
+                  document.getElementById('kmMantenimiento').value = parseFloat('0'.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+                  document.getElementById('kmViajados').value = parseFloat('0'.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
                   document.getElementById('descripb').value = '';
+
+                  document.getElementById('disponibleS').style.display = "block";
+                  document.getElementById('disponibleN').style.display = "none";
+                  document.getElementById('disponible').value = "true";
 
                   document.getElementById('guardarb').disabled = false;
                   document.getElementById('patente').style.backgroundColor = "white";
@@ -825,7 +887,6 @@
                   document.getElementById('kmMantenimiento').disabled = false;
                   document.getElementById('kmViajados').disabled = false;
                   document.getElementById('descripb').disabled = false;
-                  document.getElementById('disponible').disabled = false;
                   document.getElementById('patente').disabled = true;
 
                   document.getElementById('guardarb').style.display = "none";
@@ -842,6 +903,20 @@
                     document.getElementById('patente').value = patente;
                     document.getElementById('tipob').value = tipo;
                     document.getElementById('descripb').value = descripcion;
+                    
+                    if(disponible==="true")
+                    {
+                      document.getElementById('disponibleS').style.display = "block";
+                      document.getElementById('disponibleN').style.display = "none";
+                      document.getElementById('disponible').value = "true";
+                    }
+                    else
+                    {
+                      document.getElementById('disponibleS').style.display = "none";
+                      document.getElementById('disponibleN').style.display = "block";
+                      document.getElementById('disponible').value = "false";
+                    }
+                      
                     document.getElementById('disponible').value = disponible;
                     document.getElementById('kmMantenimiento').value = parseFloat(kmMant.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
                     document.getElementById('kmViajados').value = parseFloat(kmTot.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
@@ -857,10 +932,12 @@
                     document.getElementById('patente').value = '';
                     document.getElementById('tipob').value = '';
                     document.getElementById('descripb').value = '';
-                    document.getElementById('disponible').value = '';
                     document.getElementById('kmMantenimiento').value = '';
                     document.getElementById('kmViajados').value = '';
                     document.getElementById('imgbici').src = "img/imagen-vacia.jpg";
+                    document.getElementById('disponibleS').style.display = "none";
+                    document.getElementById('disponibleN').style.display = "block";
+                    document.getElementById('disponible').value = "false";
                   }
                 }
 
@@ -891,10 +968,23 @@
                     document.getElementById('patente').value = patente;
                     document.getElementById('tipob').value = tipo;
                     document.getElementById('descripb').value = descripcion;
-                    document.getElementById('disponible').value = disponible;
                     document.getElementById('kmMantenimiento').value = parseFloat(kmMant.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
                     document.getElementById('kmViajados').value = parseFloat(kmTot.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
                     document.getElementById('imgbici').src = url;
+                    
+                    if(disponible)
+                    {
+                      document.getElementById('disponibleS').style.display = "block";
+                      document.getElementById('disponibleN').style.display = "none";
+                      document.getElementById('disponible').value = "true";
+                    }
+                    else
+                    {
+                      document.getElementById('disponibleS').style.display = "none";
+                      document.getElementById('disponibleN').style.display = "block";
+                      document.getElementById('disponible').value = "false";
+                    }                    
+                    
                     document.getElementById('eliminarb').focus();
                   } else {
                     //cerrar form
@@ -926,6 +1016,66 @@
                 $("#cruzNuevoB").mousedown(function () {
                   document.getElementById("nuevabici").style.display = "none";
                   abmb = '';
+                });
+                
+                $("#url1").focusout(function () {
+                  var url = document.getElementById('url1').value;
+                  if(url)
+                  {
+                    if(url.match(/\.(jpeg|jpg|gif|png)$/) !== null)
+                    {
+                      document.getElementById('imgbici1').src = url;
+                    }
+                    else
+                    {
+                      document.getElementById('url1').value = '';
+                      document.getElementById('imgbici1').src = "img/imagen-vacia.jpg";
+                    }
+                  }
+                  else
+                  {
+                    document.getElementById('imgbici1').src = "img/imagen-vacia.jpg";
+                  }
+                });
+                
+                $("#url2").focusout(function () {
+                  var url = document.getElementById('url2').value;
+                  if(url)
+                  {
+                    if(url.match(/\.(jpeg|jpg|gif|png)$/) !== null)
+                    {
+                      document.getElementById('imgbici2').src = url;
+                    }
+                    else
+                    {
+                      document.getElementById('url2').value = '';
+                      document.getElementById('imgbici2').src = "img/imagen-vacia.jpg";
+                    }
+                  }
+                  else
+                  {
+                    document.getElementById('imgbici2').src = "img/imagen-vacia.jpg";
+                  }
+                });
+                
+                $("#url3").focusout(function () {
+                  var url = document.getElementById('url3').value;
+                  if(url)
+                  {
+                    if(url.match(/\.(jpeg|jpg|gif|png)$/) !== null)
+                    {
+                      document.getElementById('imgbici3').src = url;
+                    }
+                    else
+                    {
+                      document.getElementById('url3').value = '';
+                      document.getElementById('imgbici3').src = "img/imagen-vacia.jpg";
+                    }
+                  }
+                  else
+                  {
+                    document.getElementById('imgbici3').src = "img/imagen-vacia.jpg";
+                  }
                 });
 
 
