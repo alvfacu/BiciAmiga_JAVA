@@ -31,8 +31,9 @@ public class ModificarTipoBici extends HttpServlet {
     int id = Integer.valueOf(request.getParameter("idtb"));
     String nombre = request.getParameter("nombretb");
     String descripcion = request.getParameter("descriptb");
+    String url = request.getParameter("urlPortada");
     
-    TiposBicicleta tb = new TiposBicicleta(id, nombre, descripcion);
+    TiposBicicleta tb = new TiposBicicleta(id,nombre, descripcion,url);
     
     new ControladorBicicletas().modificarTipoBicicleta(tb);
     response.sendRedirect("admbici.jsp");

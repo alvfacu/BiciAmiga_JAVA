@@ -6,10 +6,7 @@ public class TiposMantenimiento {
   private double kmParaMantenimiento;
   private boolean obligatorio;
   private String descripcion;
-
-  public TiposMantenimiento() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
+  private String nombre;
 
   public double getKmParaMantenimiento() {
     return kmParaMantenimiento;
@@ -43,11 +40,30 @@ public class TiposMantenimiento {
     this.descripcion = descripcion;
   }
 
-  public TiposMantenimiento(int id, double kmParaMantenimiento, boolean obligatorio, String descripcion) {
+  public String getNombre() {
+    return nombre;
+  }
+
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
+
+  public TiposMantenimiento() {
+  }
+
+  public TiposMantenimiento(double kmParaMantenimiento, boolean obligatorio, String descripcion, String nombre) {
+    this.kmParaMantenimiento = kmParaMantenimiento;
+    this.obligatorio = obligatorio;
+    this.descripcion = descripcion;
+    this.nombre = nombre;
+  }
+
+  public TiposMantenimiento(int id, double kmParaMantenimiento, boolean obligatorio, String descripcion, String nombre) {
     this.id = id;
     this.kmParaMantenimiento = kmParaMantenimiento;
     this.obligatorio = obligatorio;
     this.descripcion = descripcion;
+    this.nombre = nombre;
   }
   
   

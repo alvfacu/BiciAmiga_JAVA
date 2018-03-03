@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/js/abmmant.js</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/ModificarTipoMantenimiento.java</file>
             <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/admmant.jsp</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/admbici.jsp</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/css/business-casual.min.css</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/admusr.jsp</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/AltaTipoMantenimento.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/EliminarTipoMantenimiento.java</file>
         </group>
     </open-files>
 </project-private>

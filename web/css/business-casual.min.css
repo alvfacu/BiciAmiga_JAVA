@@ -148,8 +148,8 @@ body{font-family:Lora;background:linear-gradient(rgba(47,23,15,.65),rgba(47,23,1
 }
 /* Slider */
 #slider{
-  max-width: 750px;
-  max-height: 450px;
+  max-width: 700px;
+  max-height: 400px;
   width: 100%;
   height: 100%;
   position: relative;

@@ -24,6 +24,7 @@ public class CatalogoTiposMantenimiento {
         tm.setDescripcion(rs.getString("descripcion"));
         tm.setKmParaMantenimiento(rs.getDouble("km"));
         tm.setObligatorio(rs.getBoolean("obligatorio"));
+        tm.setNombre(rs.getString("nombre"));
         tipos.add(tm);
       }
     } catch (SQLException e1) {
@@ -45,8 +46,8 @@ public class CatalogoTiposMantenimiento {
   }
 
   public TiposMantenimiento getTipo(int id) {    
-    PreparedStatement sentencia = null;
-    ResultSet rs = null;
+    PreparedStatement sentencia;
+    ResultSet rs;
     TiposMantenimiento tm = null;
     String sql = "select * from tipos_mantenimiento where id=?";
     
@@ -60,6 +61,7 @@ public class CatalogoTiposMantenimiento {
         tm.setDescripcion(rs.getString("descripcion"));
         tm.setKmParaMantenimiento(rs.getDouble("km"));
         tm.setObligatorio(rs.getBoolean("obligatorio"));
+        tm.setNombre(rs.getString("nombre"));
       }
 
     } catch (SQLException sqle) {
@@ -70,14 +72,15 @@ public class CatalogoTiposMantenimiento {
 
   public void altaTipoMantenimiento(TiposMantenimiento tm) {
     PreparedStatement sentencia = null;
-    ResultSet rs=null;
-    String sql = "insert into tipos_mantenimiento(descripcion,km,obligatorio) "
+    ResultSet rs;
+    String sql = "insert into tipos_mantenimiento(descripcion,km,obligatorio,nombre) "
             + "values(?,?,?)";
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
       sentencia.setString(1,tm.getDescripcion());
       sentencia.setDouble(2,tm.getKmParaMantenimiento());
       sentencia.setBoolean(3,tm.isObligatorio());
+      sentencia.setString(4,tm.getNombre());
       sentencia.execute();
       rs=sentencia.getGeneratedKeys();
       if(rs!=null && rs.next()){
@@ -123,14 +126,15 @@ public class CatalogoTiposMantenimiento {
 
   public void modificarTipoMantenimiento(TiposMantenimiento tm) {
     PreparedStatement sentencia = null;
-    String sql = "update tipos_mantenimiento set descripcion=?, km=?, obligatorio=?"
+    String sql = "update tipos_mantenimiento set descripcion=?, km=?, obligatorio=?, nombre=?"
             + " where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setString(1, tm.getDescripcion());
       sentencia.setDouble(2, tm.getKmParaMantenimiento());
       sentencia.setBoolean(3, tm.isObligatorio());
-      sentencia.setInt(4, tm.getId());
+      sentencia.setString(4, tm.getNombre());
+      sentencia.setInt(5, tm.getId());
       sentencia.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();

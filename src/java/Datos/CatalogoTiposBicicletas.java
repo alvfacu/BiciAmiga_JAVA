@@ -25,6 +25,7 @@ public class CatalogoTiposBicicletas {
         tb.setId(rs.getInt("id"));
         tb.setDescripcion(rs.getString("descripcion"));
         tb.setNombre(rs.getString("nombre"));
+        tb.setUrl(rs.getString("url_portada"));
         tipos.add(tb);
       }
     } catch (SQLException e1) {
@@ -61,6 +62,7 @@ public class CatalogoTiposBicicletas {
         tb.setId(rs.getInt("id"));
         tb.setDescripcion(rs.getString("descripcion"));
         tb.setNombre(rs.getString("nombre"));
+        tb.setUrl(rs.getString("url_portada"));
       }
 
     } catch (SQLException sqle) {
@@ -72,12 +74,13 @@ public class CatalogoTiposBicicletas {
   public void altaTipoBicicleta(TiposBicicleta tb) {
     PreparedStatement sentencia = null;
     ResultSet rs;
-    String sql = "insert into tipos_bicicleta(nombre,descripcion) "
-            + "values(?,?)";
+    String sql = "insert into tipos_bicicleta(nombre,descripcion,url_portada) "
+            + "values(?,?,?)";
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
       sentencia.setString(1,tb.getNombre());
       sentencia.setString(2,tb.getDescripcion());
+      sentencia.setString(3,tb.getUrl());
       sentencia.execute();
       rs=sentencia.getGeneratedKeys();
       if(rs!=null && rs.next()){
@@ -123,13 +126,14 @@ public class CatalogoTiposBicicletas {
 
   public void modificarTipoBicicleta(TiposBicicleta tb) {
     PreparedStatement sentencia = null;
-    String sql = "update tipos_bicicleta set nombre=?, descripcion=?"
+    String sql = "update tipos_bicicleta set nombre=?, descripcion=?, url_portada=?"
             + " where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setString(1, tb.getNombre());
       sentencia.setString(2, tb.getDescripcion());
-      sentencia.setDouble(3, tb.getId());
+      sentencia.setString(3,tb.getUrl());
+      sentencia.setDouble(4, tb.getId());
       sentencia.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();

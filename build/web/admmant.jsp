@@ -47,7 +47,7 @@
       <button class="tablink2" onclick="openPage('mants', this)" id="defaultOpen">Mantenimientos</button>
       <button class="tablink2" onclick="openPage('tipos', this)">Tipos Mantenimientos</button>
 
-      <!-- BICICLETA -->
+      <!-- MANTENIMIENTOS -->
       <div id="mants" class="tabcontent">
         <div>
           <a class="btn btn-nuevo" data-title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevomantenimiento()"><span class="fa fa-plus-square"></span></a></p>
@@ -56,43 +56,43 @@
           <table class="table display" id="mantenimientos">
             <thead style="color: #fff;background-color: #373a3c;">
               <tr align="center">
-                <th>TIPO</th>
-                <th>MODELO</th>
-                <th>PATENTE</th>            
-                <th>KM MANT</th>
-                <th>KM ACUM</th>
-                <th>DISPONIBLE</th>
+                <th>BICICLETA</th>
+                <th>MANTENIMIENTO</th>
+                <th>INGRESO</th>
+                <th>KM INGRESO</th>
+                <th>EGRESO</th>
+                <th>KM EGRESO</th>
+                <th></th>
                 <th></th>
                 <th></th>
               </tr>
             </thead>
             <tbody>            
               <%DecimalFormat df2 = new DecimalFormat("0.00");
-                ArrayList<Bicicletas> bicicletas = new ControladorBicicletas().getBicicletas();
-                if (bicicletas.size() > 0) {
-                  for (Bicicletas b : bicicletas) {%>
+                ArrayList<Mantenimientos> mantenimientos = new ControladorMantenimientos().getMantenimientos();
+                if (mantenimientos.size() > 0) {
+                  for (Mantenimientos m : mantenimientos) {%>
               <tr align="center" >
-                <td style="vertical-align:middle"><%= b.getModelo().getTipo().getNombre()%></td>
-                <td style="vertical-align:middle"><%= b.getModelo().getNombre()%></td>
-                <td style="vertical-align:middle"><%= b.getPatente()%></td>          
-                <td style="vertical-align:middle"><%= df2.format(b.getKmDsdMantenimiento())%></td>
-                <td style="vertical-align:middle"><%= df2.format(b.getKmEnViaje())%></td>
+                <td style="vertical-align:middle"><%= m.getBici().getPatente() %></td>
+                <td style="vertical-align:middle"><%= m.getTipo().getNombre() %></td>
+                <td style="vertical-align:middle"><%= m.getFechaIngreso() %></td>          
+                <td style="vertical-align:middle"><%= df2.format(m.getKmIngreso())%></td>
+                <td style="vertical-align:middle"><%= m.getFechaEgreso()%></td>
+                <td style="vertical-align:middle"><%= df2.format(m.getKmEgreso())%></td>
                 <td style="vertical-align:middle">
-                  <% if (b.isDisponible()) {%>
-                  <span class="label label-success">SI</span>
-                  <% } else { %>
-                  <span class="label label-danger">NO</span>
-                  <% }%>
-                </td>                
+                  <% if(!(m.getObservacion().isEmpty())) { %>
+                  *
+                  <% } %>
+                </td>               
                 <td style="vertical-align:middle">
                   <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
-                          onclick="editarbici('<%= b.getId()%>', '<%= b.getPatente()%>', '<%= b.getModelo().getId()%>', '<%= b.getModelo().getTipo().getNombre()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>', '<%= b.getModelo().getUrl1()%>')">
+                          onclick="">
                     <span class="fa fa-edit"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
                   <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
-                          onclick="eliminarbici('<%= b.getId()%>', '<%= b.getPatente()%>', '<%= b.getModelo().getId()%>', '<%= b.getModelo().getTipo().getNombre()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>', '<%= b.getModelo().getUrl1()%>')">
+                          onclick="">
                     <span class="fa fa-trash-o"></span>
                   </button>
                 </td>
@@ -104,7 +104,7 @@
         </div>
       </div>
 
-      <!-- TIPO BICICLETA -->
+      <!-- TIPOS -->
       <div id="tipos" class="tabcontent">
         <div>
           <a class="btn btn-nuevo" data-title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevotipo()"><span class="fa fa-plus-square"></span></a></p>
@@ -114,25 +114,33 @@
             <thead style="color: #fff;background-color: #373a3c;">
               <tr align="center">
                 <th>NOMBRE</th>
+                <th>OBLIGATORIO</th>
                 <th></th>
                 <th></th>
               </tr>
             </thead>
             <tbody>            
-              <% ArrayList<TiposBicicleta> tipos = new ControladorBicicletas().getTiposBicicleta();
+              <% ArrayList<TiposMantenimiento> tipos = new ControladorMantenimientos().getTiposMantenimientos();
                 if (tipos.size() > 0) {
-                  for (TiposBicicleta tipo : tipos) {%>
+                  for (TiposMantenimiento tipo : tipos) {%>
               <tr align="center" >
                 <td style="vertical-align:middle"><%= tipo.getNombre()%></td>
                 <td style="vertical-align:middle">
+                  <% if (tipo.isObligatorio()) {%>
+                  <span class="label label-success">SI</span>
+                  <% } else { %>
+                  <span class="label label-danger">NO</span>
+                  <% }%>
+                </td>  
+                <td style="vertical-align:middle">
                   <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
-                          onclick="editartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>')">
+                          onclick="editartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.isObligatorio()%>', '<%=tipo.getKmParaMantenimiento()%>')">
                     <span class="fa fa-edit"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
                   <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
-                          onclick="eliminartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>')">
+                          onclick="eliminartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.isObligatorio()%>', '<%=tipo.getKmParaMantenimiento()%>')">
                     <span class="fa fa-trash-o"></span>
                   </button>
                 </td>
@@ -156,15 +164,27 @@
               </div>
               <div class="form-group">
                 <label class="error" id="msj1" style="display: none"></label>
-                <input type="hidden" name="idtb" id="idtb">
-                <input name="nombretb" id="nombretb" maxlength="50" placeholder="Nombre del Tipo de Bicicleta" title="Nombre del Tipo de Bicicleta"  class="form-control" autofocus="true" required="true">
+                <input type="hidden" name="idtm" id="idtm">
+                <input name="nombretm" id="nombretm" maxlength="50" placeholder="Nombre del Tipo de Mantenimiento" title="Nombre del Tipo de Mantenimiento"  class="form-control" autofocus="true" required="true">
               </div>
               <div class="form-group">
-                <textarea name="descriptb" id="descriptb" maxlength="250" placeholder="Descripcion del Tipo de Bicicleta" title="Descripcion del Tipo de Bicicleta"  class="form-control" autofocus="true" required="true"></textarea>
+                <textarea name="descriptm" id="descriptm" maxlength="250" placeholder="Descripcion del Tipo de Mantenimiento" title="Descripcion del Tipo de Mantenimiento"  class="form-control" autofocus="true" required="true"></textarea>
               </div>
-              <input type="submit" id="guardartb" class="btn btn-lg btn-nuevo btn-block" value="Guardar" onclick="javascript:form.action = 'AltaTipoBici';">
-              <input type="submit" id="editartb" class="btn btn-lg btn-editar btn-block" style="display: none" value="Modificar" onclick="javascript:form.action = 'ModificarTipoBici';">
-              <input type="submit" id="eliminartb" class="btn btn-lg btn-eliminar btn-block" style="display: none" value="Eliminar" onclick="javascript:form.action = 'EliminarTipoBici';">
+              <div class="row">
+                <div class="col-sm-4 form-group">
+                  <select class="form-control" name="obligatorio" id="obligatorio" title="¿Obligatorio?">
+                    <option disabled selected>¿Obligatorio?</option>
+                    <option value="true" selected="true">SI</option>
+                    <option value="false">NO</option> 
+                  </select>
+                </div>	
+                <div class="col-sm-8 form-group">
+                  <input type="number" step="any" name="km" id="km" placeholder="Kms necesarios" title="Kms necesarios para realizar el matenimiento" class="form-control" autofocus="true" required="true">
+                </div>
+              </div>
+              <input type="submit" id="guardartm" class="btn btn-lg btn-nuevo btn-block" value="Guardar" onclick="javascript:form.action = 'AltaTipoMantenimento';">
+              <input type="submit" id="editartm" class="btn btn-lg btn-editar btn-block" style="display: none" value="Modificar" onclick="javascript:form.action = 'ModificarTipoMantenimento';">
+              <input type="submit" id="eliminartm" class="btn btn-lg btn-eliminar btn-block" style="display: none" value="Eliminar" onclick="javascript:form.action = 'EliminarTipoMantenimento';">
             </div>              
           </div>
         </div>         
@@ -242,213 +262,7 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script>
-
-                var abmtm = '';
-                var abmm = '';
-
-                $(document).ready(function () {
-                  $('#tipos_mant').DataTable({
-                    "language": {
-                      "decimal": ",",
-                      "search": "Buscar ",
-                      "emptyTable": "No se encontraron registros",
-                      "lengthMenu": "Registros por página _MENU_",
-                      "zeroRecords": "No se encontraron registros",
-                      "info": " _PAGE_ de _PAGES_ ",
-                      "infoEmpty": "",
-                      "infoFiltered": " (Filtrados de un total de _MAX_ registros)",
-                      "paginate": {
-                        "first": "Primero",
-                        "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"}
-                    },
-                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
-                    "pagingType": "simple_numbers",
-                    "columns": [
-                      null,
-                      {"orderable": false },
-                      {"orderable": false }
-                    ]
-                  });
-
-                  $('#mantenimientos').DataTable({
-                    "language": {
-                      "decimal": ",",
-                      "search": "Buscar ",
-                      "emptyTable": "No se encontraron registros",
-                      "lengthMenu": "Registros por página _MENU_",
-                      "zeroRecords": "No se encontraron registros",
-                      "info": " _PAGE_ de _PAGES_ ",
-                      "infoEmpty": "",
-                      "infoFiltered": " (Filtrados de un total de _MAX_ registros)",
-                      "paginate": {
-                        "first": "Primero",
-                        "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"}
-                    },
-                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
-                    "pagingType": "simple_numbers",
-                    "columns": [
-                      null,
-                      null,
-                      null,
-                      null,
-                      null,
-                      null,
-                      {"orderable": false},
-                      {"orderable": false}
-                    ]
-                  });
-                });
-
-                function openPage(pageName, elmnt) {
-                  var i;
-                  var badColor = "#e6a756";
-                  abmtm = '';
-                  abmm = '';
-
-                  var x = document.getElementById("nuevomantenimiento");
-                  x.style.display = "none";
-                  x = document.getElementById("nuevotipo");
-                  x.style.display = "none";
-
-                  tabcontent = document.getElementsByClassName("tabcontent");
-                  for (i = 0; i < tabcontent.length; i++) {
-                    tabcontent[i].style.display = "none";
-                  }
-                  tablinks = document.getElementsByClassName("tablink2");
-                  for (i = 0; i < tablinks.length; i++) {
-                    tablinks[i].style.backgroundColor = "";
-                  }
-                  document.getElementById(pageName).style.display = "block";
-                  elmnt.style.backgroundColor = badColor;
-                }
-
-                // Get the element with id="defaultOpen" and click on it
-                document.getElementById("defaultOpen").click();
-
-                function nuevotipo() {
-                  var x = document.getElementById("nuevomantenimiento");
-                  x.style.display = "none";
-
-                  document.getElementById('editartb').style.display = "none";
-                  document.getElementById('eliminartb').style.display = "none";
-                  document.getElementById('guardartb').style.display = "block";
-                  document.getElementById('nombretb').disabled = false;
-                  document.getElementById('descriptb').disabled = false;
-                  document.getElementById('nombretb').value = '';
-                  document.getElementById('descriptb').value = '';
-                  document.getElementById('idtb').value = '';
-                  document.getElementById('msj1').style.display = "none";
-
-                  x = document.getElementById("nuevotipo");
-                  if (abmtb !== 'A') {
-                    x.style.display = "block";
-                    abmtb = 'A';
-                    document.getElementById('nombretb').focus();
-                  } else {
-                    x.style.display = "none";
-                    abmtb = '';
-                  }
-                }
-
-                function editartipo(id, nombre, descrip) {
-                  var x = document.getElementById("nuevomodelo");
-                  x.style.display = "none";
-                  x = document.getElementById("nuevabici");
-                  x.style.display = "none";
-
-                  document.getElementById('msj1').style.display = "none";
-                  document.getElementById('nombretb').disabled = false;
-                  document.getElementById('descriptb').disabled = false;
-                  document.getElementById('guardartb').style.display = "none";
-                  document.getElementById('editartb').style.display = "block";
-                  document.getElementById('eliminartb').style.display = "none";
-
-                  x = document.getElementById("nuevotipo");
-                  if (abmtb !== 'M' || document.getElementById('idtb').value !== id) {
-                    //abre form
-                    abmtb = 'M';
-                    x.style.display = "block";
-                    document.getElementById('idtb').value = id;
-                    document.getElementById('nombretb').value = nombre;
-                    document.getElementById('descriptb').value = descrip;
-                    document.getElementById('nombretb').focus();
-                  } else {
-                    //cerrar form
-                    abmtb = '';
-                    x.style.display = "none";
-                    document.getElementById('idtb').value = '';
-                    document.getElementById('nombretb').value = '';
-                    document.getElementById('descriptb').value = '';
-                  }
-                }
-
-                function eliminartipo(id, nombre, descrip) {
-                  var x = document.getElementById("nuevomodelo");
-                  x.style.display = "none";
-                  x = document.getElementById("nuevabici");
-                  x.style.display = "none";
-                  x = document.getElementById("nuevotipo");
-                  document.getElementById('guardartb').style.display = "none";
-                  document.getElementById('editartb').style.display = "none";
-                  document.getElementById('eliminartb').style.display = "block";
-
-                  if (abmtb !== 'B' || document.getElementById('idtb').value !== id) {
-                    //abre form
-                    x.style.display = "block";
-                    abmtb = 'B';
-                    document.getElementById('idtb').value = id;
-                    document.getElementById('nombretb').value = nombre;
-                    document.getElementById('descriptb').value = descrip;
-                    document.getElementById('nombretb').disabled = true;
-                    document.getElementById('descriptb').disabled = true;
-                    document.getElementById('eliminartb').focus();
-                  } else {
-                    //cerrar form
-                    x.style.display = "none";
-                    abmtb = '';
-                    document.getElementById('idtb').value = '';
-                    document.getElementById('nombretb').value = '';
-                    document.getElementById('descriptb').value = '';
-                    document.getElementById('nombretb').disabled = false;
-                    document.getElementById('descriptb').disabled = false;
-                  }
-                  $.post('ExistenModelosXTipo',
-                          {
-                            id: $('#idtb').val()
-                          },
-                          function (responseText)
-                          {
-                            //VALIDO
-                            if (responseText === "0")
-                            {
-                              document.getElementById('msj1').style.display = "none";
-                            }
-                            //INVALIDO
-                            else
-                            {
-                              document.getElementById('msj1').style.display = "block";
-                              document.getElementById('msj1').innerHTML = "<b>¡ATENCIÓN!</b> Existen modelos de bicicletas registradas para este tipo.<br>Al eliminarlo, se eliminarán automaticamente todos los modelos de este tipo.";
-                            }
-                          });
-                }
-
-                $("#cruzNuevoTM").mousedown(function () {
-                  document.getElementById("nuevotipo").style.display = "none";
-                  abmtb = '';
-                });
-
-                $("#cruzNuevoM").mousedown(function () {
-                  document.getElementById("nuevomodelo").style.display = "none";
-                  abmm = '';
-                });
-
-
-    </script>
+    <script src="js/abmmant.js"></script>
   </body>
 
 </html>
