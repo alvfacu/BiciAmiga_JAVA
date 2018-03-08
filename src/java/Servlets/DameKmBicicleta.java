@@ -1,7 +1,7 @@
 package Servlets;
 
-import Entidades.TiposMantenimiento;
-import Negocio.ControladorMantenimientos;
+import Entidades.Bicicletas;
+import Negocio.ControladorBicicletas;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "EliminarTipoMantenimiento", urlPatterns = {"/EliminarTipoMantenimiento"})
-public class EliminarTipoMantenimiento extends HttpServlet {
+@WebServlet(name = "DameKmBicicleta", urlPatterns = {"/DameKmBicicleta"})
+public class DameKmBicicleta extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -26,10 +26,13 @@ public class EliminarTipoMantenimiento extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    int id = Integer.valueOf(request.getParameter("idtm"));
-    TiposMantenimiento tm = new ControladorMantenimientos().getTiposMantenimiento(id);
-    new ControladorMantenimientos().bajaTipoMantenimiento(tm);
-    response.sendRedirect("admmant.jsp");
+    String idBici = request.getParameter("idbici");
+    Bicicletas b = new ControladorBicicletas().getBicicleta(Integer.valueOf(idBici));
+    
+    String rdo =  String.format("%.2f", b.getKmEnViaje());
+    
+    response.setContentType("text/plain");
+    response.getWriter().write(rdo);
   }
 
   @Override

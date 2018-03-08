@@ -204,4 +204,66 @@ public class CatalogoBicicletas {
     return cont;
   }
 
+  public ArrayList<Bicicletas> getBicicletasParaMantenimiento() {
+    ArrayList<Bicicletas> bicicletas = new ArrayList<>();
+    Statement sentencia = null;
+    ResultSet rs = null;
+    String sql = "select * from bicicletas where disponible=true";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().createStatement();
+      rs = sentencia.executeQuery(sql);
+
+      while (rs.next()) {
+        Bicicletas b = new Bicicletas();
+        b.setId(rs.getInt("id"));
+        b.setDescripcion(rs.getString("descripcion"));
+        b.setPatente(rs.getString("patente"));
+        b.setDisponible(rs.getBoolean("disponible"));
+        b.setKmDsdMantenimiento(rs.getDouble("km_dsd_mantenimiento"));
+        b.setKmEnViaje(rs.getDouble("km_viaje"));
+        Modelos modelo = new CatalogoModelos().getModelo(rs.getInt("id_modelo"));
+        b.setModelo(modelo);
+        bicicletas.add(b);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null) {
+          sentencia.close();
+        }
+        if (rs != null) {
+          rs.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+    return bicicletas;
+  }
+
+  public void habilitarBicicleta(boolean estado, Bicicletas bici) {
+    PreparedStatement sentencia = null;
+    String sql = "update bicicletas set disponible=?"
+            + " where id=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setBoolean(1, estado);
+      sentencia.setInt(2, bici.getId());
+      sentencia.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null && !sentencia.isClosed()) {
+          sentencia.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+  }
+
 }

@@ -1,10 +1,8 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+
 
   <head>
 
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -34,11 +32,11 @@
     <!-- Body -->
     <br>
     <h1 class="site-heading text-center text-white d d-lg-block">
-      <span class="site-heading-upper text-primary mb-3">Â¡Registro exitoso!</span> 
+      <span class="site-heading-upper text-primary mb-3">¡Registro exitoso!</span> 
     </h1>
     <br>
     <form action="login.jsp" method="post">
-      <button class="btn btn-lg btn-primary btn-block col-centered col-md-3 col-sm-4">Iniciar SesiÃ³n</button>
+      <button class="btn btn-lg btn-primary btn-block col-centered col-md-3 col-sm-4">Iniciar Sesión</button>
     </form>
     <br>
     <br>
@@ -51,5 +49,3 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>
-
-</html>

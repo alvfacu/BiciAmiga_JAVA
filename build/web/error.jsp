@@ -1,10 +1,9 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html lang="en">
+
 
   <head>
 
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -34,7 +33,7 @@
     <!-- Body -->
     <br>
     <h1 class="site-heading text-center text-white d d-lg-block">
-      <span class="site-heading-upper text-primary mb-3 error">Â¡Error!</span>
+      <span class="site-heading-upper text-primary mb-3 error">¡Error!</span>
     </h1>
     <% if (session.getAttribute("Msj") != null) {%>
       <p class="warning text-center"><%=session.getAttribute("Msj")%></p>
@@ -57,5 +56,3 @@
       }
     </script>
   </body>
-
-</html>

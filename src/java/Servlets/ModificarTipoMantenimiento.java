@@ -1,7 +1,8 @@
 package Servlets;
 
+import Entidades.TiposMantenimiento;
+import Negocio.ControladorMantenimientos;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +25,22 @@ public class ModificarTipoMantenimiento extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    processRequest(request, response);
+    int id = Integer.valueOf(request.getParameter("idtm"));
+    String nombre = request.getParameter("nombretm");
+    String descripcion = request.getParameter("descriptm");
+        
+    Boolean oblig = false;
+    if(Boolean.valueOf(request.getParameter("obligatorio")))
+      oblig = true;
+    
+    double km = 0;
+    if(request.getParameter("km")!=null)
+      km = Double.valueOf(request.getParameter("km"));
+    
+    TiposMantenimiento tm = new TiposMantenimiento(id, km, oblig, descripcion, nombre);
+    
+    new ControladorMantenimientos().modificarTipoMantenimiento(tm);
+    response.sendRedirect("admmant.jsp");
   }
 
   @Override

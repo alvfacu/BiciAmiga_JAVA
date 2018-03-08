@@ -1,12 +1,8 @@
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.text.DecimalFormat,Entidades.*,Negocio.*"%>
 <!DOCTYPE html>
-<html lang="en">
-
   <head>
 
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -118,7 +114,7 @@
                 <th>TIPO</th>
                 <th>NOMBRE</th>
                 <th>PRECIO X HORA</th>
-                <th>PRECIO X D√çA</th>
+                <th>PRECIO X DÕA</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -211,8 +207,8 @@
                 <textarea name="descriptb" id="descriptb" maxlength="250" placeholder="Descripcion del Tipo de Bicicleta" title="Descripcion del Tipo de Bicicleta"  class="form-control" autofocus="true" required="true"></textarea>
               </div>
               <div class="form-group">
-                <label style="font-size: 12px;">Imagen que se utilizar√° como portada de este Tipo en la secci√≥n <b>"Nuestras bicis"</b>. 
-                       <br><i>Se recomienda seleccionar imagen de tama√±o cercano a <b>700x400px</b>.</i></label>
+                <label style="font-size: 12px;">Imagen que se utilizar· como portada de este Tipo en la secciÛn <b>"Nuestras bicis"</b>. 
+                       <br><i>Se recomienda seleccionar imagen de tamaÒo cercano a <b>700x400px</b>.</i></label>
                 <figure class="figure">
                   <img id="portada" name="portada" src="img/imagen-vacia.jpg" width="250" height="250" title="Portada" style="border-style: solid; border-width: 1px;">
                   <figcaption class="figure-caption text-right"><input type="url" maxlength="250" class="form-control" name="urlPortada" id="urlPortada" placeholder="Link imagen portada" title="Link imagen portada"  class="form-control" autofocus="true" style="width: 100%" /></figcaption>
@@ -261,7 +257,7 @@
                   <input type="number" step="any" name="precioHr" id="precioHr" placeholder="Precio x Hora" title="Precio x Hora" class="form-control" autofocus="true" required="true">
                 </div>	
                 <div class="col-sm-6 form-group">
-                  <input type="number" step="any" name="precioDia" id="precioDia" placeholder="Precio x D√≠a" title="Precio x D√≠a" class="form-control" autofocus="true" required="true">
+                  <input type="number" step="any" name="precioDia" id="precioDia" placeholder="Precio x DÌa" title="Precio x DÌa" class="form-control" autofocus="true" required="true">
                 </div>
               </div>
               <div class="row">
@@ -330,7 +326,7 @@
                   <input type="text" name="patente" maxlength="10" id="patente" style="text-transform:uppercase" placeholder="Patente Bicicleta" title="Patente Bicicleta" class="form-control" autofocus="true" required="true">                  
                 </div>
                 <div class="col-sm-4 form-group">
-                  <input type="number" step="any" name="kmMantenimiento" id="kmMantenimiento" placeholder="Kms desde el √∫lt mantenimiento" title="Kms desde el √∫ltimo mantenimiento" class="form-control" autofocus="true" required="true">
+                  <input type="number" step="any" name="kmMantenimiento" id="kmMantenimiento" placeholder="Kms desde el ˙lt mantenimiento" title="Kms desde el ˙ltimo mantenimiento" class="form-control" autofocus="true" required="true">
                 </div>	
                 <div class="col-sm-4 form-group">
                   <input type="number" step="any" name="kmViajados" id="kmViajados" placeholder="Kms totales" title="Kms totales recorridos" class="form-control" autofocus="true" required="true">
@@ -368,5 +364,3 @@
     <script src="js/abmbici.js"></script>
    
   </body>
-
-</html>

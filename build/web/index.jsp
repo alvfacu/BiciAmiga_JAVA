@@ -1,10 +1,7 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
 
   <head>
 
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -49,7 +46,7 @@
               <span class="section-heading-lower">BiciAmiga</span>
               <span class="section-heading-upper">Nosotros</span>
             </h2>
-            <p class="mb-3"><b>BiciAmiga</b> es una empresa de turismo y de alquiler de bicicletas, emplazada en el microcentro de la ciudad de Rosario, provincia de Santa Fe.<br><br>Somos un centro de informaci贸n tur铆stico, en el que extranjeros y locales pueden acercarse y obtener informaci贸n para facilitar su paso por la ciudad.</p>
+            <p class="mb-3"><b>BiciAmiga</b> es una empresa de turismo y de alquiler de bicicletas, emplazada en el microcentro de la ciudad de Rosario, provincia de Santa Fe.<br><br>Somos un centro de informaci髇 tur韘tico, en el que extranjeros y locales pueden acercarse y obtener informaci髇 para facilitar su paso por la ciudad.</p>
           </div>
         </div>
       </div>
@@ -59,7 +56,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">驴C贸mo funciona?</h2>
+            <h2 class="section-heading text-uppercase">緾髆o funciona?</h2>
             <p class="mb-3">Reserva en BiciAmiga en tres simples pasos</p>
           </div>
         </div>
@@ -86,7 +83,7 @@
               <i class="fa fa-bicycle fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">3er PASO</h4>
-            <p class="mb-3">Confirma tu reserva. El d铆a elegido acercate con tu comprobante y tu identificaci贸n</p>                        
+            <p class="mb-3">Confirma tu reserva. El d韆 elegido acercate con tu comprobante y tu identificaci髇</p>                        
           </div>
         </div>
       </div>
@@ -146,5 +143,3 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBy52O248NVTAreNPSQnH_Khbt7pYI-go&callback=initMap">
     </script>  
   </body>
-
-</html>

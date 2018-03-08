@@ -94,5 +94,13 @@ public class ControladorBicicletas {
   public String dameUrl(String idModelo){
     return cm.dameUrl(idModelo);
   }
+  
+  public ArrayList<Bicicletas> getBicicletasParaMantenimiento(){
+    return cb.getBicicletasParaMantenimiento();
+  }
+
+  public void habilitarBicicleta(boolean estado, Bicicletas bici) {
+    cb.habilitarBicicleta(estado,bici);
+  }
 
 }

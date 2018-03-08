@@ -1,8 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
   <head>
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -29,7 +26,7 @@
   <body>
     
     <h1 class="site-heading text-center text-white d-none d-lg-block">
-      <span class="site-heading-upper text-primary mb-3">Recorre Rosario de la manera mÃ¡s cÃ³moda</span>
+      <span class="site-heading-upper text-primary mb-3">Recorre Rosario de la manera más cómoda</span>
       <a class="site-heading-lower" href="index.jsp" style="text-decoration: none;color: #FFFFFF;" >BiciAmiga</a>
     </h1>
     
@@ -49,7 +46,7 @@
               </a>
             </li>
             <li class="nav-item px-lg-4" id="comofun">
-              <a class="nav-link text-uppercase text-expanded" href="index.jsp#como">Â¿CÃ³mo funciona?</a>
+              <a class="nav-link text-uppercase text-expanded" href="index.jsp#como">¿Cómo funciona?</a>
             </li>
             <li class="nav-item px-lg-4" id="nuestras_bicicletas">
               <a class="nav-link text-uppercase text-expanded" href="nuestras_bicicletas.jsp">Nuestras Bicis</a>
@@ -106,7 +103,7 @@
               <a class="nav-link text-uppercase text-expanded" href="mi_cuenta.jsp">Mi Cuenta</a>
             </li>
             <li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="Logout">Cerrar SesiÃ³n</a>
+              <a class="nav-link text-uppercase text-expanded" href="Logout">Cerrar Sesión</a>
             </li>
           </ul>
         </div>
@@ -137,5 +134,3 @@
       });
     </script>
   </body>
-
-</html>

@@ -1,12 +1,9 @@
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.text.DecimalFormat,Entidades.*,Negocio.*"%>
 <!DOCTYPE html>
-<html lang="en">
 
   <head>
 
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -57,7 +54,7 @@
               <th>DOCUMENTO</th>
               <th>EMAIL</th>
               <th>ROL</th>
-              <th>Â¿HABILITADO?</th>
+              <th>¿HABILITADO?</th>
               <th></th>
               <th></th>
               <th></th>
@@ -103,7 +100,7 @@
                 </button>
               </td>
               <td style="vertical-align:middle">
-                <button class="btn btn-reset" data-title="Reestablecer ContraseÃ±a" title="Reestablecer ContraseÃ±a" data-toggle="modal" data-target="#reset" onclick="reset('<%= u.getId()%>')">
+                <button class="btn btn-reset" data-title="Reestablecer Contraseña" title="Reestablecer Contraseña" data-toggle="modal" data-target="#reset" onclick="reset('<%= u.getId()%>')">
                   <span class="fa fa-refresh"></span>
                 </button>
               </td>
@@ -129,7 +126,7 @@
                   <input type="text" title="Nombre de Usuario" name="usuario" id="usuario" placeholder="Usuario" class="form-control" autofocus="true" required="true">
                 </div>
                 <div class="col-sm-3 form-group">
-                  <select class="form-control" name="habilitado" id="habilitado" title="Â¿Usuario Habilitado?">
+                  <select class="form-control" name="habilitado" id="habilitado" title="¿Usuario Habilitado?">
                     <option value="true" selected="true">SI</option>
                     <option value="false">NO</option> 
                   </select>
@@ -137,11 +134,11 @@
               </div>
               <div class="row">
                 <div class="password col-sm-6 form-group">
-                  <input type="password" name="pass" id="pass" placeholder="ContraseÃ±a" title="ContraseÃ±a" class="form-control" autofocus="true" required="true">
+                  <input type="password" name="pass" id="pass" placeholder="Contraseña" title="Contraseña" class="form-control" autofocus="true" required="true">
                   <span id="ojopas" class="fa fa-eye" style="right: 23px"></span>
                 </div>	
                 <div class="password col-sm-6 form-group">
-                  <input type="password" id="repass" name="repass" placeholder="Repita ContraseÃ±a" title="Repita ContraseÃ±a" class="form-control" autofocus="true" required="true">
+                  <input type="password" id="repass" name="repass" placeholder="Repita Contraseña" title="Repita Contraseña" class="form-control" autofocus="true" required="true">
                   <span id="ojore" class="fa fa-eye" style="right: 23px"></span>
                 </div>
               </div>
@@ -155,7 +152,7 @@
                 <input type="text" name="documento" id="documento" placeholder="Documento de Identidad" title="Documento de Identidad" class="form-control" autofocus="true" required="true">
               </div>
               <div class="form-group">
-                <input type="text" name="telefono" id="telefono" placeholder="TelÃ©fono de contacto" title="TelÃ©fono de contacto" class="form-control" autofocus="true" required="true">
+                <input type="text" name="telefono" id="telefono" placeholder="Teléfono de contacto" title="Teléfono de contacto" class="form-control" autofocus="true" required="true">
               </div>		
               <div class="form-group">
                 <input type="email" name="email" id="email" placeholder="Email de contacto" title="Email de contacto" class="form-control" autofocus="true" required="true">
@@ -207,7 +204,7 @@
                   <input type="text" title="Nombre de Usuario" disabled="true" name="ediusr" id="ediusr" placeholder="Usuario" class="form-control" autofocus="true" required="true">
                 </div>
                 <div class="col-sm-2 form-group">
-                  <select class="form-control" name="edihab" id="edihab" title="Â¿Usuario Habilitado?">
+                  <select class="form-control" name="edihab" id="edihab" title="¿Usuario Habilitado?">
                     <option value="true">SI</option>
                     <option value="false">NO</option> 
                   </select>
@@ -223,7 +220,7 @@
                 <input type="text" name="edidocu" id="edidocu" placeholder="Documento de Identidad" title="Documento de Identidad" class="form-control" autofocus="true" required="true">
               </div>
               <div class="form-group">
-                <input type="text" name="editel" id="editel" placeholder="TelÃ©fono de contacto" title="TelÃ©fono de contacto" class="form-control" autofocus="true" required="true">
+                <input type="text" name="editel" id="editel" placeholder="Teléfono de contacto" title="Teléfono de contacto" class="form-control" autofocus="true" required="true">
               </div>		
               <div class="form-group">
                 <input type="email" name="ediemail" id="ediemail" placeholder="Email de contacto" title="Email de contacto" class="form-control" autofocus="true" required="true">
@@ -253,7 +250,7 @@
                   </div> 
                 </div>                                 
                 <div class="form-group">
-                  <button type="button" id="r" title="Reestablacer contraseÃ±a" onclick="resetear()" class="btn btn-lg btn-reset btn-block">Reestablecer ContraseÃ±a</button>
+                  <button type="button" id="r" title="Reestablacer contraseña" onclick="resetear()" class="btn btn-lg btn-reset btn-block">Reestablecer Contraseña</button>
                 </div>
               </div>
               <button type="submit" id="guardar" class="btn btn-lg btn-editar btn-block">Editar</button>
@@ -278,7 +275,7 @@
                   <input type="text" title="Nombre de Usuario" disabled="true" name="eliusr" id="eliusr" placeholder="Usuario" class="form-control" autofocus="true" required="true">
                 </div>
                 <div class="col-sm-2 form-group">
-                  <select class="form-control" name="elihab" disabled="true" id="elihab" title="Â¿Usuario Habilitado?">
+                  <select class="form-control" name="elihab" disabled="true" id="elihab" title="¿Usuario Habilitado?">
                     <option value="true">SI</option>
                     <option value="false">NO</option> 
                   </select>
@@ -294,7 +291,7 @@
                 <input type="text" name="elidocu" disabled="true" id="elidocu" placeholder="Documento de Identidad" title="Documento de Identidad" class="form-control" autofocus="true" required="true">
               </div>
               <div class="form-group">
-                <input type="text" name="elitel" disabled="true" id="elitel" placeholder="TelÃ©fono de contacto" title="TelÃ©fono de contacto" class="form-control" autofocus="true" required="true">
+                <input type="text" name="elitel" disabled="true" id="elitel" placeholder="Teléfono de contacto" title="Teléfono de contacto" class="form-control" autofocus="true" required="true">
               </div>		
               <div class="form-group">
                 <input type="email" name="eliemail" disabled="true" id="eliemail" placeholder="Email de contacto" title="Email de contacto" class="form-control" autofocus="true" required="true">
@@ -348,5 +345,3 @@
     <script src="js/abmusr.js"></script>
     
   </body>
-
-</html>

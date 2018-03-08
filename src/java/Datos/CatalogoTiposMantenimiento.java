@@ -13,7 +13,7 @@ public class CatalogoTiposMantenimiento {
     ArrayList<TiposMantenimiento> tipos = new ArrayList<>();
     Statement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from tipos_mantenimiento";
+    String sql = "select * from tipos_mantenimiento order by nombre";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -62,6 +62,7 @@ public class CatalogoTiposMantenimiento {
         tm.setKmParaMantenimiento(rs.getDouble("km"));
         tm.setObligatorio(rs.getBoolean("obligatorio"));
         tm.setNombre(rs.getString("nombre"));
+        tm.setId(rs.getInt("id"));
       }
 
     } catch (SQLException sqle) {
@@ -74,7 +75,7 @@ public class CatalogoTiposMantenimiento {
     PreparedStatement sentencia = null;
     ResultSet rs;
     String sql = "insert into tipos_mantenimiento(descripcion,km,obligatorio,nombre) "
-            + "values(?,?,?)";
+            + "values(?,?,?,?)";
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
       sentencia.setString(1,tm.getDescripcion());
@@ -148,5 +149,26 @@ public class CatalogoTiposMantenimiento {
         e2.printStackTrace();
       }
     }
+  }
+
+  public int existenMantenXTipo(String id) {
+    PreparedStatement sentencia;
+    ResultSet rs;
+    
+    String sql = "select count(*) from mantenimientos where id_tipo=? and fecha_egreso is null";
+    int cont = 0;
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setString(1, id);
+      rs = sentencia.executeQuery();
+      
+      if (rs.next()) {
+        cont = rs.getInt(1);     
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+    return cont;
   }
 }

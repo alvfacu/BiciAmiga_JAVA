@@ -7,7 +7,7 @@ $(function () {
   });
 
   function siError(e) {
-    alert('Ocurrió un error al realizar la petición: ' + e.statusText);
+    alert('Ocurri\u00f3 un error al realizar la petici\u00f3n: ' + e.statusText);
   }
 
   function peticion(e) {

@@ -1,10 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
   <head>
 
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -50,11 +46,11 @@
               </div>
               <div class="row">
                 <div class="password col-sm-6 form-group">
-                  <input type="password" name="pass" id="pass" placeholder="ContraseÃ±a" title="Ingrese una contraseÃ±a" class="form-control" autofocus="true" required="true">
+                  <input type="password" name="pass" id="pass" placeholder="Contraseña" title="Ingrese una contraseña" class="form-control" autofocus="true" required="true">
                   <span id="ojopas" class="fa fa-eye" style="right: 23px"></span>
                 </div>	
                 <div class="password col-sm-6 form-group">
-                  <input type="password" id="repass" placeholder="Repita ContraseÃ±a" title="Repita contraseÃ±a" class="form-control" autofocus="true" required="true">
+                  <input type="password" id="repass" placeholder="Repita Contraseña" title="Repita contraseña" class="form-control" autofocus="true" required="true">
                   <span id="ojore" class="fa fa-eye" style="right: 23px"></span>
                 </div>
               </div>
@@ -68,7 +64,7 @@
                 <input type="text" name="documento" id="documento" placeholder="Documento de Identidad" title="Ingrese su documento de identidad" class="form-control" autofocus="true" required="true">
               </div>
               <div class="form-group">
-                <input type="text" name="telefono" id="telefono" placeholder="TelÃ©fono de contacto" title="Ingrese un nÃºmero de contacto" class="form-control" autofocus="true" required="true">
+                <input type="text" name="telefono" id="telefono" placeholder="Teléfono de contacto" title="Ingrese un número de contacto" class="form-control" autofocus="true" required="true">
               </div>		
               <div class="form-group">
                 <input type="email" name="email" id="email" placeholder="Email de contacto" title="Ingrese su email" class="form-control" autofocus="true" required="true">
@@ -91,5 +87,3 @@
     <script src="js/existeUsuario.js"></script>
     <script src="js/registroNuevoUsr.js"></script>
   </body>
-
-</html>

@@ -2,6 +2,7 @@ package Negocio;
 
 import Datos.CatalogoMantenimientos;
 import Datos.CatalogoTiposMantenimiento;
+import Entidades.DetallesMantenimiento;
 import Entidades.Mantenimientos;
 import Entidades.TiposMantenimiento;
 import java.util.ArrayList;
@@ -55,4 +56,19 @@ public class ControladorMantenimientos {
     ctm.modificarTipoMantenimiento(tm);
   }
 
+  public int existenMantenimientosXTipo(String id) {
+    return ctm.existenMantenXTipo(id);
+  }
+  
+  public ArrayList<Mantenimientos> getMantenimientosActivos(){
+    return cm.getMantenimientosActivos();
+  }
+  
+  public ArrayList<Mantenimientos> getMantenimientosFinalizados(){
+    return cm.getMantenimientosFinalizados();
+  }
+
+  public void altaDetalleMant(DetallesMantenimiento det) {
+    cm.altaDetalleMant(det);
+  }
 }

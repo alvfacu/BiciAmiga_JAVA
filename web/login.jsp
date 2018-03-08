@@ -1,11 +1,8 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Entidades.*" %>
 <!DOCTYPE html>
-<html lang="en">
 
   <head>
 
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -40,21 +37,21 @@
         <!--Login-->   
         <form class="form-signin col-centered" action="Login" method="POST">
           <h1 class="site-heading text-center text-white d d-lg-block">
-            <span class="site-heading-upper text-primary mb-3">Iniciar SesiÃ³n</span>
+            <span class="site-heading-upper text-primary mb-3">Iniciar Sesión</span>
           </h1>          
           <label for="inputEmail" class="sr-only">Usuario</label>
           <input type="text" name="user" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus>
-          <label for="inputPassword" class="sr-only">ContraseÃ±a</label>
+          <label for="inputPassword" class="sr-only">Contraseña</label>
           <div class="password">
-            <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="ContraseÃ±a" required>
+            <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Contraseña" required>
             <span class="fa fa-eye"></span>
           </div>
           <%if(session.getAttribute("Msj") != null){ %>
-            <p class="error" style="margin-bottom: 0rem;" >Usuario o contraseÃ±a incorrecto/s</p>
+            <p class="error" style="margin-bottom: 0rem;" >Usuario o contraseña incorrecto/s</p>
 		      		<% } %>
           <br>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-          <a href="registrar.jsp">AÃºn no estoy registrado<br><br></a>
+          <a href="registrar.jsp">Aún no estoy registrado<br><br></a>
         </form>
       </div>
     </div>
@@ -84,5 +81,4 @@
     </script>
   </body>
 
-</html>
 

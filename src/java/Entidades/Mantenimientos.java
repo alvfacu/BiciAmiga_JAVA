@@ -1,9 +1,8 @@
 package Entidades;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Mantenimientos {
-  private TiposMantenimiento tipo;
   private Bicicletas bici;
   private Date fechaIngreso;
   private Date fechaEgreso;
@@ -20,14 +19,6 @@ public class Mantenimientos {
     this.id = id;
   }
   
-  public TiposMantenimiento getTipo() {
-    return tipo;
-  }
-
-  public void setTipo(TiposMantenimiento tipo) {
-    this.tipo = tipo;
-  }
-
   public Bicicletas getBici() {
     return bici;
   }
@@ -75,13 +66,11 @@ public class Mantenimientos {
   public void setKmEgreso(double kmEgreso) {
     this.kmEgreso = kmEgreso;
   }
-
+  
   public Mantenimientos() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
-  public Mantenimientos(TiposMantenimiento tipo, Bicicletas bici, Date fechaIngreso, Date fechaEgreso, String observacion, double kmIngreso, double kmEgreso, int id) {
-    this.tipo = tipo;
+  public Mantenimientos(Bicicletas bici, Date fechaIngreso, Date fechaEgreso, String observacion, double kmIngreso, double kmEgreso, int id) {
     this.bici = bici;
     this.fechaIngreso = fechaIngreso;
     this.fechaEgreso = fechaEgreso;
@@ -90,6 +79,16 @@ public class Mantenimientos {
     this.kmEgreso = kmEgreso;
     this.id = id;
   }
+
+  public Mantenimientos(Bicicletas bici, Date fechaIngreso, Date fechaEgreso, String observacion, double kmIngreso, double kmEgreso) {
+    this.bici = bici;
+    this.fechaIngreso = fechaIngreso;
+    this.fechaEgreso = fechaEgreso;
+    this.observacion = observacion;
+    this.kmIngreso = kmIngreso;
+    this.kmEgreso = kmEgreso;
+  }
+
   
   
 }

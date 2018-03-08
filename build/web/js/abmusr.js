@@ -5,14 +5,14 @@ $(document).ready(function () {
       "decimal": ",",
       "search": "Buscar ",
       "emptyTable": "No se encontraron registros",
-      "lengthMenu": "Registros por página _MENU_",
+      "lengthMenu": "Registros por p\u00e1gina _MENU_",
       "zeroRecords": "No se encontraron registros",
       "info": " _PAGE_ de _PAGES_ ",
       "infoEmpty": "",
       "infoFiltered": " (Filtrados de un total de _MAX_ registros)",
       "paginate": {
         "first": "Primero",
-        "last": "Último",
+        "last": "\u00daltimo",
         "next": "Siguiente",
         "previous": "Anterior"}
     },
@@ -168,7 +168,7 @@ function reset(id) {
             //VALIDO
             if (responseText === "0")
             {
-              alert("¡Contraseña reestablecida! Nueva contraseña: 12345");
+              alert("¡Contrase\u00f1a reestablecida! Nueva contrase\u00f1a: 12345");
               location.reload();
             }
             //INVALIDO
@@ -190,13 +190,13 @@ function resetear() {
             //VALIDO
             if (responseText === "0")
             {
-              alert("¡Contraseña reestablecida! Nueva contraseña: 12345");
+              alert("¡Contrase\u00f1a reestablecida! Nueva contrase\u00f1a: 12345");
               location.reload();
             }
             //INVALIDO
             else
             {
-              alert("¡No ha sido posible reestrablecer la cotnraseña!");
+              alert("¡No ha sido posible reestrablecer la cotnrase\u00f1a!");
               location.reload();
             }
           });

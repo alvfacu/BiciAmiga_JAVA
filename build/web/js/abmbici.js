@@ -8,14 +8,14 @@ $(document).ready(function () {
       "decimal": ",",
       "search": "Buscar ",
       "emptyTable": "No se encontraron registros",
-      "lengthMenu": "Registros por página _MENU_",
+      "lengthMenu": "Registros por p\u00e1gina _MENU_",
       "zeroRecords": "No se encontraron registros",
       "info": " _PAGE_ de _PAGES_ ",
       "infoEmpty": "",
       "infoFiltered": " (Filtrados de un total de _MAX_ registros)",
       "paginate": {
         "first": "Primero",
-        "last": "Último",
+        "last": "\u00daltimo",
         "next": "Siguiente",
         "previous": "Anterior"}
     },
@@ -33,14 +33,14 @@ $(document).ready(function () {
       "decimal": ",",
       "search": "Buscar ",
       "emptyTable": "No se encontraron registros",
-      "lengthMenu": "Registros por página _MENU_",
+      "lengthMenu": "Registros por p\u00e1gina _MENU_",
       "zeroRecords": "No se encontraron registros",
       "info": " _PAGE_ de _PAGES_ ",
       "infoEmpty": "",
       "infoFiltered": " (Filtrados de un total de _MAX_ registros)",
       "paginate": {
         "first": "Primero",
-        "last": "Último",
+        "last": "\u00daltimo",
         "next": "Siguiente",
         "previous": "Anterior"}
     },
@@ -63,14 +63,14 @@ $(document).ready(function () {
       "decimal": ",",
       "search": "Buscar ",
       "emptyTable": "No se encontraron registros",
-      "lengthMenu": "Registros por página _MENU_",
+      "lengthMenu": "Registros por p\u00e1gina _MENU_",
       "zeroRecords": "No se encontraron registros",
       "info": " _PAGE_ de _PAGES_ ",
       "infoEmpty": "",
       "infoFiltered": " (Filtrados de un total de _MAX_ registros)",
       "paginate": {
         "first": "Primero",
-        "last": "Último",
+        "last": "\u00daltimo",
         "next": "Siguiente",
         "previous": "Anterior"}
     },
@@ -246,7 +246,7 @@ function eliminartipo(id, nombre, descrip, url) {
             else
             {
               document.getElementById('msj1').style.display = "block";
-              document.getElementById('msj1').innerHTML = "<b>¡ATENCIÓN!</b> Existen modelos de bicicletas registradas para este tipo.<br>Al eliminarlo, se eliminarán automaticamente todos los modelos de este tipo.";
+              document.getElementById('msj1').innerHTML = "<b>¡ATENCI\u00d3N!</b> Existen modelos de bicicletas registradas para este tipo.<br>Al eliminarlo, se eliminar\u00e1n automaticamente todos los modelos de este tipo.";
             }
           });
 }
@@ -471,7 +471,7 @@ function eliminarmodelo(id, idTipo, nombre, caract, preciohr, preciodia, url1, u
             else
             {
               document.getElementById('msj2').style.display = "block";
-              document.getElementById('msj2').innerHTML = "<b>¡ATENCIÓN!</b> Existen bicicletas registradas para este modelo.<br>Al eliminarlo, se eliminarán automaticamente todas las bicicletas de este modelo.";
+              document.getElementById('msj2').innerHTML = "<b>¡ATENCI\u00d3N!</b> Existen bicicletas registradas para este modelo.<br>Al eliminarlo, se eliminar\u00e1n automaticamente todas las bicicletas de este modelo.";
             }
           });
 }
