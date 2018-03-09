@@ -54,6 +54,7 @@ $(document).ready(function () {
       null,
       null,
       {"orderable": false},
+      {"orderable": false},
       {"orderable": false}
     ]
   });
@@ -246,7 +247,7 @@ function eliminartipo(id, nombre, descrip, url) {
             else
             {
               document.getElementById('msj1').style.display = "block";
-              document.getElementById('msj1').innerHTML = "<b>¡ATENCI\u00d3N!</b> Existen modelos de bicicletas registradas para este tipo.<br>Al eliminarlo, se eliminar\u00e1n automaticamente todos los modelos de este tipo.";
+              document.getElementById('msj1').innerHTML = "<b>\u00a1ATENCI\u00d3N!</b> Existen modelos de bicicletas registradas para este tipo.<br>Al eliminarlo, se eliminar\u00e1n automaticamente todos los modelos de este tipo.";
             }
           });
 }
@@ -471,7 +472,7 @@ function eliminarmodelo(id, idTipo, nombre, caract, preciohr, preciodia, url1, u
             else
             {
               document.getElementById('msj2').style.display = "block";
-              document.getElementById('msj2').innerHTML = "<b>¡ATENCI\u00d3N!</b> Existen bicicletas registradas para este modelo.<br>Al eliminarlo, se eliminar\u00e1n automaticamente todas las bicicletas de este modelo.";
+              document.getElementById('msj2').innerHTML = "<b>\u00a1ATENCI\u00d3N!</b> Existen bicicletas registradas para este modelo.<br>Al eliminarlo, se eliminar\u00e1n automaticamente todas las bicicletas de este modelo.";
             }
           });
 }
@@ -630,7 +631,7 @@ function eliminarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMa
     document.getElementById('kmViajados').value = parseFloat(kmTot.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
     document.getElementById('imgbici').src = url;
 
-    if (disponible)
+    if (disponible === "true")
     {
       document.getElementById('disponibleS').style.display = "block";
       document.getElementById('disponibleN').style.display = "none";

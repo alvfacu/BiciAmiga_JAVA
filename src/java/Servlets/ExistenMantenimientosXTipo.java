@@ -7,7 +7,6 @@ package Servlets;
 
 import Negocio.ControladorMantenimientos;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,7 +44,7 @@ public class ExistenMantenimientosXTipo extends HttpServlet {
           throws ServletException, IOException {
     String id = request.getParameter("id").trim();
     String rdo;
-    int cant = new ControladorMantenimientos().existenMantenimientosXTipo(id);
+    int cant = new ControladorMantenimientos().existenMantenimientosActivosXTipo(id);
 
       if (cant > 0) {
         rdo = "1";

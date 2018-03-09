@@ -23,8 +23,12 @@ public class ControladorBicicletas {
     return cb.getBicicletas();
   }
    
-  public Bicicletas getBicicleta(int patente) {
-    return cb.getBicicleta(patente);
+  public Bicicletas getBicicleta(int idBici) {
+    return cb.getBicicleta(idBici);
+  }
+  
+  public Bicicletas getBicicletaDisponible(int idBici) {
+    return cb.getBicicletaDisponible(idBici);
   }
 
   public void altaBicicleta(Bicicletas b) {

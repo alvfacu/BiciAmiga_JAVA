@@ -36,34 +36,34 @@
   <%SimpleDateFormat dateOnly = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat timeOnly = new SimpleDateFormat("HH:mm");
     DecimalFormat df2 = new DecimalFormat("0.00");
-    if(session.getAttribute("Usuario") != null) {
-      Usuarios usrActual = (Usuarios) session.getAttribute("Usuario");
-      if (usrActual.isMecanico()) {
-        if(request.getParameter("idMant")!= null) {
-          try {
-            int valor = Integer.valueOf(request.getParameter("idMant"));
-            if(valor<0){ 
-              response.sendRedirect("error.jsp");
-              return;
-            }
-          }
-          catch(Exception exception1){
+    if(session.getAttribute("Usuario") != null) {      
+      if(request.getParameter("idMant")!= null) {
+        try {
+          int valor = Integer.valueOf(request.getParameter("idMant"));
+          if(valor<0){ 
             response.sendRedirect("error.jsp");
             return;
           }
         }
-        else {
+        catch(Exception exception1){
           response.sendRedirect("error.jsp");
           return;
         }
-        
-        Mantenimientos manteActual = new ControladorMantenimientos().getMantenimientoActivo(Integer.valueOf(request.getParameter("idMant")));
+      }
+      else {
+        response.sendRedirect("error.jsp");
+        return;
+      }
+      
+      Usuarios usrActual = (Usuarios) session.getAttribute("Usuario");
+      if (usrActual.isMecanico()) {
+        Mantenimientos manteActual = new ControladorMantenimientos().getMantenimientoFinalizado(Integer.valueOf(request.getParameter("idMant")));
         if (manteActual != null) { %>
   <h1 class="site-heading text-center text-white d d-lg-block">
-    <span class="site-heading-upper text-primary mb-3">COMPLETAR MANTENIMIENTO</span>
+    <span class="site-heading-upper text-primary mb-3">VER MANTENIMIENTO FINALIZADO</span>
   </h1>
   <div class="container text-center">
-    <form class="form-text" method="POST" action="ModificarMantenimiento" >
+    <form class="form-text">
       <div class="col-lg-7 col-centered well">
         <div class="row">
           <div class="col-sm-12">
@@ -99,7 +99,7 @@
                       <td style="vertical-align:middle" title="<%= det.getTipo().getDescripcion()%>">
                         <%= det.getTipo().getNombre()%>
                       </td>
-                      <td style="vertical-align:middle"><input type="checkbox" name='checkbox' onchange="activarBoton()" style="height: 18px;width: 18px;" value='<%= det.getTipo().getId() %>'
+                      <td style="vertical-align:middle"><input type="checkbox" name='checkbox' disabled="true" onchange="activarBoton()" style="height: 18px;width: 18px;" value='<%= det.getTipo().getId() %>'
                         <% if(det.isCompletado()) { %>
                         checked="checked"
                         <% } %>></td>
@@ -114,24 +114,21 @@
             <p style="font-size: 12px;"><b><i>La Fecha, Hora y KMs de Egreso se completarán automaticamente cuando se cumpla el último de los mantenimientos elegidos.</i></b></p>
             <div class="row">
               <div class="col-sm-4 form-group">
-                <input type="text" name="fec_egreso" id="fec_egreso" placeholder="Fecha Egreso" title="Fecha Egreso" class="form-control" autofocus="true" readonly="true">
+                <input type="text" name="fec_egreso" value='<%= dateOnly.format(manteActual.getFechaEgreso().getTime())%>' id="fec_egreso" placeholder="Fecha Egreso" title="Fecha Egreso" class="form-control" autofocus="true" readonly="true">
               </div>
               <div class="col-sm-4 form-group">
-                <input type="text" name="hr_egreso" id="hr_egreso" placeholder="Hora Egreso" title="Hora Egreso" class="form-control" autofocus="true" readonly="true">
+                <input type="text" name="hr_egreso" value='<%= timeOnly.format(manteActual.getFechaEgreso().getTime())%>' id="hr_egreso" placeholder="Hora Egreso" title="Hora Egreso" class="form-control" autofocus="true" readonly="true">
               </div>
               <div class="col-sm-4 form-group">
-                <input type="number" step="any" min="<%= manteActual.getKmIngreso() %>" name="km_egreso" id="km_egreso" placeholder="KM Egreso" title="KM Egreso" class="form-control" onchange='validar()'>
+                <input type="text" value='<%= df2.format(manteActual.getKmEgreso()) %>' name="km_egreso" id="km_egreso" placeholder="KM Egreso" title="KM Egreso" class="form-control" readonly="true">
               </div>
             </div>
             <div class="form-group">
-              <textarea name="obs" id="obs" maxlength="100" placeholder="Observaciones" title="Observaciones"  class="form-control" autofocus="true" style="min-height: 70px;"><%= manteActual.getObservacion() %></textarea>
+              <textarea name="obs" id="obs" readonly="true" maxlength="100" placeholder="Observaciones" title="Observaciones"  class="form-control" autofocus="true" style="min-height: 70px;"><%= manteActual.getObservacion() %></textarea>
             </div>
             <div class="row">
-              <div class="col-sm-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
+              <div class="col-sm-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
                 <input type="button" class="btn btn-lg btn-cliente btn-block" value="Volver" onclick="window.history.back()"> 
-              </div>
-              <div class="col-sm-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
-                <input type="submit" id="guardarm" class="btn btn-lg btn-editar btn-block" value="Editar"> 
               </div>
             </div>
           </div>     
@@ -157,60 +154,4 @@
   <script src="vendor/jquery/jquery.min.js"></script>    
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script>
-
-  document.getElementById("guardarm").disabled = true;
-  document.getElementById('km_egreso').disabled = true;
-  
-  if(document.querySelectorAll('input[type="checkbox"]:checked').length>0)
-  {
-    document.getElementById("guardarm").disabled=false; 
-  }
-  else
-  {
-    document.getElementById("guardarm").disabled=true;
-  }
-  
-  function activarBoton(){
-      if(document.querySelectorAll('input[type="checkbox"]:checked').length>0)
-      {
-        document.getElementById("guardarm").disabled=false;
-        if(document.querySelectorAll('input[type="checkbox"]:checked').length === parseInt(document.getElementById('cantReq').value))
-        {
-          var d = new Date(),
-                  h = d.getHours(),
-                  m = d.getMinutes();
-          
-          if (h < 10)
-            h = '0' + h;
-          
-          if (m < 10)
-            m = '0' + m;
-          
-          document.getElementById('hr_egreso').value = h + ':' + m;
-          
-          var d = new Date(),
-                  dia = d.getDate(),
-                  mes = d.getMonth()+1,
-                  anio = d.getFullYear();
-          
-          document.getElementById('fec_egreso').value = String(dia).padStart(2, "0") + '/' + String(mes).padStart(2, "0") + '/' + anio;
-          document.getElementById('km_egreso').value = parseFloat(document.getElementById('km_ingreso').value.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-          document.getElementById('km_egreso').disabled = false;
-        }
-        else
-        {
-          document.getElementById('hr_egreso').value = '';
-          document.getElementById('fec_egreso').value = '';
-          document.getElementById('km_egreso').value = '';
-          document.getElementById('km_egreso').disabled = true;
-        }
-      }
-      else
-      {
-        document.getElementById("guardarm").disabled=true;
-      }
-    }
-      
-  </script>
 </body>

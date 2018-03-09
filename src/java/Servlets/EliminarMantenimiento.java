@@ -1,6 +1,7 @@
 package Servlets;
 
-import Entidades.TiposMantenimiento;
+import Entidades.Mantenimientos;
+import Negocio.ControladorBicicletas;
 import Negocio.ControladorMantenimientos;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "EliminarTipoMantenimiento", urlPatterns = {"/EliminarTipoMantenimiento"})
-public class EliminarTipoMantenimiento extends HttpServlet {
+@WebServlet(name = "EliminarMantenimiento", urlPatterns = {"/EliminarMantenimiento"})
+public class EliminarMantenimiento extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -26,9 +27,10 @@ public class EliminarTipoMantenimiento extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    int id = Integer.valueOf(request.getParameter("idtm"));
-    TiposMantenimiento tm = new ControladorMantenimientos().getTipoMantenimiento(id);
-    new ControladorMantenimientos().bajaTipoMantenimiento(tm);
+    String idMant = request.getParameter("idMant");
+    Mantenimientos m = new ControladorMantenimientos().getMantenimiento(Integer.valueOf(idMant));
+    new ControladorBicicletas().habilitarBicicleta(true, m.getBici());
+    new ControladorMantenimientos().bajaMantenimiento(m);
     response.sendRedirect("admmant.jsp");
   }
 

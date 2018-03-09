@@ -62,6 +62,7 @@
                 <th>DISPONIBLE</th>
                 <th></th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>            
@@ -94,6 +95,14 @@
                     <span class="fa fa-trash-o"></span>
                   </button>
                 </td>
+                <td style="vertical-align:middle">
+                  <% if (b.isDisponible()) {%>
+                  <button class="btn btn-cliente" title="Realizar mantenimiento"
+                          onclick='window.open("nuevoMantenimiento.jsp?idBici="+<%= b.getId()%>,"_self")'>
+                    <span class="fa fa-gears"></span>
+                  </button>
+                  <% }%>
+                </td> 
               </tr>        
               <% }
                 }%>

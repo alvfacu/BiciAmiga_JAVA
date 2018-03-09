@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DecimalFormat,java.text.DateFormat,Entidades.*,Negocio.*,java.util.ArrayList"%>
 <!DOCTYPE html>
 
@@ -31,9 +33,25 @@
 
   <!-- Body -->
 
-  <%if (session.getAttribute("Usuario") != null) {
-      Usuarios usrActual = (Usuarios) session.getAttribute("Usuario");
-      if (usrActual.isMecanico()) {%>
+  <%
+    SimpleDateFormat dateOnly = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat timeOnly = new SimpleDateFormat("HH:mm");
+    DecimalFormat df2 = new DecimalFormat("0.00");
+    if (session.getAttribute("Usuario") != null) {
+    Usuarios usrActual = (Usuarios) session.getAttribute("Usuario");
+    if (usrActual.isMecanico()) {
+      Bicicletas biciActual = null;
+      if(request.getParameter("idBici")!= null) {
+        try {
+          biciActual = new ControladorBicicletas().getBicicletaDisponible(Integer.valueOf(request.getParameter("idBici")));
+          if(biciActual==null)
+             response.sendRedirect("nuevoMantenimiento.jsp");
+        }
+        catch(Exception exception1){
+          response.sendRedirect("error.jsp");
+        }
+      } 
+  %>
   <h1 class="site-heading text-center text-white d d-lg-block">
     <span class="site-heading-upper text-primary mb-3">NUEVO MANTENIMIENTO</span>
   </h1>
@@ -43,13 +61,20 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">  
-              <input hidden="true" id="idBici" name="idBici">
-              <select class="form-control" name="bici" id="bici" placeholder="Seleccione Bicicleta" title="Seleccione Bicicleta" required="true" autofocus="true">
-                <option value="" disabled selected>Seleccione Bicicleta</option>
-                <% for (Bicicletas b : new ControladorBicicletas().getBicicletasParaMantenimiento()) {%>                    
-                <option value="<%=b.getId()%>"><%= b.getModelo().getTipo().getNombre() + " - " + b.getModelo().getNombre() + " - " + b.getPatente()%></option>
-                <%}%>
-              </select>
+              <input hidden="true" id="idBici" name="idBici" 
+              <%if(biciActual!=null) { %>
+                 value="<%= biciActual.getId() %>"
+              <% } %>>
+              <%if(biciActual!=null) { %>
+              <input type="text" value='<%= biciActual.getModelo().getTipo().getNombre() + " - " + biciActual.getModelo().getNombre() + " - " + biciActual.getPatente() %>' name="biciActual" id="biciActual" placeholder="Bicicleta" title="Bicicleta" class="form-control" autofocus="true" readonly="true">
+              <%  } else { %>
+                <select class="form-control" name="bici" id="bici" placeholder="Seleccione Bicicleta" title="Seleccione Bicicleta" required="true" autofocus="true">
+                  <option value="" disabled selected>Seleccione Bicicleta</option>
+                  <% for (Bicicletas b : new ControladorBicicletas().getBicicletasParaMantenimiento()) {%>                    
+                  <option value="<%=b.getId()%>"><%= b.getModelo().getTipo().getNombre() + " - " + b.getModelo().getNombre() + " - " + b.getPatente()%></option>
+                  <%}%>
+                </select>
+              <% } %>
             </div>
             <div class="row">
               <div class="col-sm-4 form-group">
@@ -104,7 +129,7 @@
             </div>
             <div class="row">
               <div class="col-sm-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
-                <input type="button" class="btn btn-lg btn-eliminar btn-block" value="Volver" onclick="window.history.back()"> 
+                <input type="button" class="btn btn-lg btn-cliente btn-block" value="Volver" onclick="window.history.back()"> 
               </div>
               <div class="col-sm-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
                 <input type="submit" id="guardarm" class="btn btn-lg btn-nuevo btn-block" value="Guardar"> 
@@ -132,7 +157,6 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script>
 
-  document.getElementById('bici').focus();
   document.getElementById("guardarm").disabled=true;
     
   $(document).ready(function() {
@@ -181,6 +205,45 @@
                 ;
               });
     });
+    
+    $("#biciActual").each(function () {
+      
+      $.post('DameKmBicicleta',
+              {
+                idbici: $("#idBici").val()
+              },
+              function (responseText)
+              {
+                $('#hr_ingreso').each(function () {
+                  var d = new Date(),
+                          h = d.getHours(),
+                          m = d.getMinutes();
+                  if (h < 10)
+                    h = '0' + h;
+                  if (m < 10)
+                    m = '0' + m;
+                  $(this).attr({
+                    'value': h + ':' + m
+                  });
+                });
+
+                $('#fec_ingreso').each(function () {
+                  var d = new Date(),
+                          dia = d.getDate(),
+                          mes = d.getMonth()+1,
+                          anio = d.getFullYear();
+                  $(this).attr({
+                    'value': String(dia).padStart(2, "0") + '/' + String(mes).padStart(2, "0") + '/' + anio
+                  });
+                });
+                //VALIDO
+                if (responseText !== "0")
+                {
+                  document.getElementById('km_ingreso').value = parseFloat(responseText.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);                  
+                }
+                ;
+              });
+    });
   });
     
   function activarBoton(){
@@ -192,6 +255,8 @@
       {
         document.getElementById("guardarm").disabled=true;
       }
-    }
+  }
+      
+    
   </script>
 </body>

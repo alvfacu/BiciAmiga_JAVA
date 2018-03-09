@@ -30,14 +30,14 @@ public class ModificarMantenimiento extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     int idMant = Integer.valueOf(request.getParameter("idMant"));
-    Mantenimientos m = new ControladorMantenimientos().getMantenimientos(idMant);
+    Mantenimientos m = new ControladorMantenimientos().getMantenimiento(idMant);
     m.setObservacion(request.getParameter("obs"));
     double kme = 0;
     
     String[] values = request.getParameterValues("checkbox");
     int cantReq = Integer.valueOf(request.getParameter("cantReq"));    
             
-    ArrayList<DetallesMantenimiento> detalles = new ControladorMantenimientos().getDetMantenimientosXMantenimiento(idMant);
+    ArrayList<DetallesMantenimiento> detalles = new ControladorMantenimientos().getDetallesXMantenimiento(idMant);
     for(int i = 0; i < detalles.size(); i++)
     {
       if(Arrays.asList(values).contains(String.valueOf(detalles.get(i).getTipo().getId())))
@@ -45,7 +45,7 @@ public class ModificarMantenimiento extends HttpServlet {
       else
         detalles.get(i).setCompletado(false);
       
-      new ControladorMantenimientos().modificarDetalleMant(detalles.get(i));
+      new ControladorMantenimientos().modificarDetalle(detalles.get(i));
     }
     
     if(values.length==cantReq)

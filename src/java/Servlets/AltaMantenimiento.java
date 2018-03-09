@@ -51,9 +51,9 @@ public class AltaMantenimiento extends HttpServlet {
     String[] values = request.getParameterValues("checkbox");
     for(String val : values)
     {
-      TiposMantenimiento mant = new ControladorMantenimientos().getTiposMantenimiento(Integer.valueOf(val));
+      TiposMantenimiento mant = new ControladorMantenimientos().getTipoMantenimiento(Integer.valueOf(val));
       DetallesMantenimiento det = new DetallesMantenimiento(m, mant, false);
-      new ControladorMantenimientos().altaDetalleMant(det);
+      new ControladorMantenimientos().altaDetalle(det);
     }
     
     new ControladorBicicletas().habilitarBicicleta(false,b);

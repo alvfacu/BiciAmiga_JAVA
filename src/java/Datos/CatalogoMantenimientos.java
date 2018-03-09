@@ -255,6 +255,35 @@ public class CatalogoMantenimientos {
     return mantenimientos;
   }
 
+  public Mantenimientos getMantenimientoActivo(int id) {
+    PreparedStatement sentencia;
+    ResultSet rs;
+    Mantenimientos m = null;
+    String sql = "select * from mantenimientos where id=? and fecha_egreso is null";
+    
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, id);
+      rs = sentencia.executeQuery();
+      
+      if (rs.next()) {
+        m = new Mantenimientos();
+        m.setId(rs.getInt("id"));
+        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("id_bici"));
+        m.setBici(b);
+        m.setFechaIngreso(rs.getTimestamp("fecha_ingreso"));
+        m.setFechaEgreso(rs.getTimestamp("fecha_egreso"));
+        m.setKmIngreso(rs.getDouble("km_ingreso"));
+        m.setKmEgreso(rs.getDouble("km_egreso"));
+        m.setObservacion(rs.getString("obs"));
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+    return m;
+  }
+  
   public ArrayList<Mantenimientos> getMantenimientosFinalizados() {
         ArrayList<Mantenimientos> mantenimientos = new ArrayList<>();
     Statement sentencia = null;
@@ -316,7 +345,7 @@ public class CatalogoMantenimientos {
     return mantenimientos;
   }
   
-  public void altaDetalleMant(DetallesMantenimiento det) {
+  public void altaDetalle(DetallesMantenimiento det) {
     PreparedStatement sentencia = null;
     String sql = "insert into detalle_mantenimiento(id,id_tipom,completado) "
             + "values(?,?,?)";
@@ -340,7 +369,7 @@ public class CatalogoMantenimientos {
     }
   }
 
-  public ArrayList<DetallesMantenimiento> getDetMantenimientosxMantenimiento(int idMant) {
+  public ArrayList<DetallesMantenimiento> getDetallesXMantenimiento(int idMant) {
     ArrayList<DetallesMantenimiento> detalle = new ArrayList<>();
     PreparedStatement sentencia = null;
     ResultSet rs = null;
@@ -352,9 +381,9 @@ public class CatalogoMantenimientos {
       
       while (rs.next()) {
         DetallesMantenimiento det = new DetallesMantenimiento();
-        TiposMantenimiento tipo = new ControladorMantenimientos().getTiposMantenimiento(rs.getInt("id_tipom"));
+        TiposMantenimiento tipo = new ControladorMantenimientos().getTipoMantenimiento(rs.getInt("id_tipom"));
         det.setTipo(tipo);
-        Mantenimientos mant = new ControladorMantenimientos().getMantenimientos(rs.getInt("id"));
+        Mantenimientos mant = new ControladorMantenimientos().getMantenimiento(rs.getInt("id"));
         det.setMantenimiento(mant);
         det.setCompletado(rs.getBoolean("completado"));
         detalle.add(det);
@@ -377,7 +406,7 @@ public class CatalogoMantenimientos {
     return detalle;
   }
 
-  public DetallesMantenimiento getDetMantenimiento(int idMant, int idTipo) {
+  public DetallesMantenimiento getDetalleXMatenimiento(int idMant, int idTipo) {
     DetallesMantenimiento det = null;
     PreparedStatement sentencia = null;
     ResultSet rs = null;
@@ -390,9 +419,9 @@ public class CatalogoMantenimientos {
       
       if(rs.next()) {
         det = new DetallesMantenimiento();
-        TiposMantenimiento tipo = new ControladorMantenimientos().getTiposMantenimiento(rs.getInt("id_tipom"));
+        TiposMantenimiento tipo = new ControladorMantenimientos().getTipoMantenimiento(rs.getInt("id_tipom"));
         det.setTipo(tipo);
-        Mantenimientos mant = new ControladorMantenimientos().getMantenimientos(rs.getInt("id"));
+        Mantenimientos mant = new ControladorMantenimientos().getMantenimiento(rs.getInt("id"));
         det.setMantenimiento(mant);
         det.setCompletado(rs.getBoolean("completado"));
       }
@@ -414,7 +443,7 @@ public class CatalogoMantenimientos {
     return det;
   }
 
-  public void modificarDetalleMant(DetallesMantenimiento det) {
+  public void modificarDetalle(DetallesMantenimiento det) {
     PreparedStatement sentencia = null;
     String sql = "update detalle_mantenimiento set completado=? where id=? and id_tipom=?";
     
@@ -438,5 +467,33 @@ public class CatalogoMantenimientos {
     }
   }
 
-  
+  public Mantenimientos getMantenimientoFinalizado(int id) {
+        PreparedStatement sentencia;
+    ResultSet rs;
+    Mantenimientos m = null;
+    String sql = "select * from mantenimientos where id=? and fecha_egreso is not null";
+    
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, id);
+      rs = sentencia.executeQuery();
+      
+      if (rs.next()) {
+        m = new Mantenimientos();
+        m.setId(rs.getInt("id"));
+        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("id_bici"));
+        m.setBici(b);
+        m.setFechaIngreso(rs.getTimestamp("fecha_ingreso"));
+        m.setFechaEgreso(rs.getTimestamp("fecha_egreso"));
+        m.setKmIngreso(rs.getDouble("km_ingreso"));
+        m.setKmEgreso(rs.getDouble("km_egreso"));
+        m.setObservacion(rs.getString("obs"));
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+    return m;
+  }
+
 }

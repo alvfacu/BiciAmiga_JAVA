@@ -20,7 +20,7 @@ public class ControladorMantenimientos {
     return cm.getMantenimientos();
   }
    
-  public Mantenimientos getMantenimientos(int id) {
+  public Mantenimientos getMantenimiento(int id) {
     return cm.getMantenimiento(id);
   }
 
@@ -40,7 +40,7 @@ public class ControladorMantenimientos {
     return ctm.getTipos();
   }
    
-  public TiposMantenimiento getTiposMantenimiento(int id) {
+  public TiposMantenimiento getTipoMantenimiento(int id) {
     return ctm.getTipo(id);
   }
 
@@ -56,8 +56,8 @@ public class ControladorMantenimientos {
     ctm.modificarTipoMantenimiento(tm);
   }
 
-  public int existenMantenimientosXTipo(String id) {
-    return ctm.existenMantenXTipo(id);
+  public int existenMantenimientosActivosXTipo(String id) {
+    return ctm.existenMantenimientosActivosXTipo(id);
   }
   
   public ArrayList<Mantenimientos> getMantenimientosActivos(){
@@ -68,19 +68,27 @@ public class ControladorMantenimientos {
     return cm.getMantenimientosFinalizados();
   }
 
-  public void altaDetalleMant(DetallesMantenimiento det) {
-    cm.altaDetalleMant(det);
+  public Mantenimientos getMantenimientoActivo(int id) {
+    return cm.getMantenimientoActivo(id);
   }
   
-  public ArrayList<DetallesMantenimiento> getDetMantenimientosXMantenimiento(int idMant){
-    return cm.getDetMantenimientosxMantenimiento(idMant);
+  public Mantenimientos getMantenimientoFinalizado(int id) {
+    return cm.getMantenimientoFinalizado(id);
+  }
+  
+  public ArrayList<DetallesMantenimiento> getDetallesXMantenimiento(int idMant){
+    return cm.getDetallesXMantenimiento(idMant);
   }
 
-  public DetallesMantenimiento getDetMantenimiento(int idMant, int idTipo) {
-    return cm.getDetMantenimiento(idMant,idTipo);
+  public DetallesMantenimiento getDetalleXMatenimiento(int idMant, int idTipo) {
+    return cm.getDetalleXMatenimiento(idMant,idTipo);
   }
-
-  public void modificarDetalleMant(DetallesMantenimiento det) {
-    cm.modificarDetalleMant(det);
+  
+  public void altaDetalle(DetallesMantenimiento det) {
+    cm.altaDetalle(det);
+  }
+  
+  public void modificarDetalle(DetallesMantenimiento det) {
+    cm.modificarDetalle(det);
   }
 }

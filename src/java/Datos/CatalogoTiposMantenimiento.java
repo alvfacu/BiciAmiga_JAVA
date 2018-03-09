@@ -151,11 +151,11 @@ public class CatalogoTiposMantenimiento {
     }
   }
 
-  public int existenMantenXTipo(String id) {
+  public int existenMantenimientosActivosXTipo(String id) {
     PreparedStatement sentencia;
     ResultSet rs;
     
-    String sql = "select count(*) from mantenimientos where id_tipo=? and fecha_egreso is null";
+    String sql = "select count(*) from detalle_mantenimiento where id_tipom=? and completado=false";
     int cont = 0;
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);

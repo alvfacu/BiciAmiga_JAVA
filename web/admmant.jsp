@@ -46,7 +46,7 @@
       <!-- MANTENIMIENTOS ACTIVOS -->
       <div id="mants" class="tabcontent">
         <div>
-          <a class="btn btn-nuevo" data-title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevomantenimiento()"><span class="fa fa-plus-square"></span></a></p>
+          <a class="btn btn-nuevo" data-title="Nuevo" title="Nuevo Mantenimiento" data-toggle="modal" data-target="#new" onclick="nuevomantenimiento()"><span class="fa fa-plus-square"></span></a></p>
         </div>
         <div style="overflow-x:auto;">
           <table class="table display" id="mantenimientos">
@@ -70,14 +70,14 @@
                 <td style="vertical-align:middle"><%= df.format(m.getFechaIngreso()) %></td>          
                 <td style="vertical-align:middle"><%= df2.format(m.getKmIngreso())%></td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
+                  <button class="btn btn-editar" data-title="Editar" title="Completar" data-toggle="modal" data-target="#edit" 
                           onclick='window.open("modificarMantenimiento.jsp?idMant="+<%=m.getId()%>,"_self")'>
-                    <span class="fa fa-gears"></span>
+                    <span class="fa fa-check-square-o"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
-                          onclick='window.open("modificarMantenimiento.jsp?idMant="+<%=m.getId()%>,"_self")'>
+                  <button class="btn btn-eliminar" data-title="Eliminar" title="Eliminar" data-toggle="modal" data-target="#delete" 
+                          onclick='window.open("eliminarMantenimiento.jsp?idMant="+<%=m.getId()%>,"_self")'>
                     <span class="fa fa-trash-o"></span>
                   </button>
                 </td>
@@ -114,8 +114,8 @@
                 <td style="vertical-align:middle"><%= df.format(m.getFechaEgreso()) %></td>          
                 <td style="vertical-align:middle"><%= df2.format(m.getKmEgreso())%></td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-reset" data-title="Editar" data-toggle="modal" data-target="#edit" 
-                          onclick="window.open('modificarMantenimiento.jsp?idMant='<%=m.getId()%>,'_self')">
+                  <button class="btn btn-reset" data-title="Editar" title="Ver Mantenimiento" data-toggle="modal" data-target="#edit" 
+                          onclick='window.open("verMantenimiento.jsp?idMant="+<%=m.getId()%>,"_self")'>
                     <span class="fa fa-eye"></span>
                   </button>
                 </td>
@@ -130,7 +130,7 @@
       <!-- TIPOS MANTENIMIENTOS -->
       <div id="tipos" class="tabcontent">
         <div>
-          <a class="btn btn-nuevo" data-title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevotipo()"><span class="fa fa-plus-square"></span></a></p>
+          <a class="btn btn-nuevo" data-title="Nuevo" title="Nuevo Tipo" data-toggle="modal" data-target="#new" onclick="nuevotipo()"><span class="fa fa-plus-square"></span></a></p>
         </div>
         <div style="overflow-x:auto;">
           <table class="table display" id="tipos_mant">
@@ -156,13 +156,13 @@
                   <% }%>
                 </td>  
                 <td style="vertical-align:middle">
-                  <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
+                  <button class="btn btn-editar" title="Editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
                           onclick="editartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.isObligatorio()%>', '<%= df2.format(tipo.getKmParaMantenimiento())%>')">
                     <span class="fa fa-edit"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
+                  <button class="btn btn-eliminar" title="Eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
                           onclick="eliminartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.isObligatorio()%>', '<%= df2.format(tipo.getKmParaMantenimiento())%>')">
                     <span class="fa fa-trash-o"></span>
                   </button>

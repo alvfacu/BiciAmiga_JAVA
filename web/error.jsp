@@ -33,7 +33,7 @@
     <!-- Body -->
     <br>
     <h1 class="site-heading text-center text-white d d-lg-block">
-      <span class="site-heading-upper text-primary mb-3 error">¡Error!</span>
+      <span class="site-heading-upper text-primary mb-3 error">¡PÁGINA NO DISPONIBLE!</span>
     </h1>
     <% if (session.getAttribute("Msj") != null) {%>
       <p class="warning text-center"><%=session.getAttribute("Msj")%></p>

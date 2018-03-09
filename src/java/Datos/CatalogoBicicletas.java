@@ -266,4 +266,33 @@ public class CatalogoBicicletas {
     }
   }
 
+  public Bicicletas getBicicletaDisponible(int idBici) {
+    PreparedStatement sentencia;
+    ResultSet rs;
+    Bicicletas b = null;
+    String sql = "select * from bicicletas where id=? and disponible=true";
+    
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, idBici);
+      rs = sentencia.executeQuery();
+      
+      if (rs.next()) {
+        b = new Bicicletas();
+        b.setId(rs.getInt("id"));
+        b.setDescripcion(rs.getString("descripcion"));
+        b.setPatente(rs.getString("patente"));
+        b.setDisponible(rs.getBoolean("disponible"));
+        b.setKmDsdMantenimiento(rs.getDouble("km_dsd_mantenimiento"));
+        b.setKmEnViaje(rs.getDouble("km_viaje"));
+        Modelos modelo = new CatalogoModelos().getModelo(rs.getInt("id_modelo"));
+        b.setModelo(modelo);
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+    return b;
+  }
+
 }

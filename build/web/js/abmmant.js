@@ -238,7 +238,7 @@ function eliminartipo(id, nombre, descrip, obligatorio, km) {
             else
             {
               document.getElementById('msj1').style.display = "block";
-              document.getElementById('msj1').innerHTML = "<b>¡ATENCIÓN!</b> Existen mantenimientos en vigencia.<br>Al eliminarlo, se eliminarán todos los mantenimientos de este tipo.";
+              document.getElementById('msj1').innerHTML = "<b>\u00a1ATENCI\u00d3N! </b> Existen mantenimientos en vigencia.<br>Al eliminarlo, se eliminar\u00e1n todos los mantenimientos de este tipo.";
             }
           });
 }
