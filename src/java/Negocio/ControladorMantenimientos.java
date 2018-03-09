@@ -29,11 +29,11 @@ public class ControladorMantenimientos {
   }
 
   public void bajaMantenimiento(Mantenimientos m){
-    cm.altaMantenimiento(m);
+    cm.bajaMantenimientos(m);
   }
 
   public void modificarMantenimiento(Mantenimientos m){
-    cm.bajaMantenimientos(m);
+    cm.modificarMantenimiento(m);
   }
 
   public ArrayList<TiposMantenimiento> getTiposMantenimientos() {
@@ -70,5 +70,17 @@ public class ControladorMantenimientos {
 
   public void altaDetalleMant(DetallesMantenimiento det) {
     cm.altaDetalleMant(det);
+  }
+  
+  public ArrayList<DetallesMantenimiento> getDetMantenimientosXMantenimiento(int idMant){
+    return cm.getDetMantenimientosxMantenimiento(idMant);
+  }
+
+  public DetallesMantenimiento getDetMantenimiento(int idMant, int idTipo) {
+    return cm.getDetMantenimiento(idMant,idTipo);
+  }
+
+  public void modificarDetalleMant(DetallesMantenimiento det) {
+    cm.modificarDetalleMant(det);
   }
 }

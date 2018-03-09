@@ -52,7 +52,7 @@ public class AltaMantenimiento extends HttpServlet {
     for(String val : values)
     {
       TiposMantenimiento mant = new ControladorMantenimientos().getTiposMantenimiento(Integer.valueOf(val));
-      DetallesMantenimiento det = new DetallesMantenimiento(m, mant, fecha.getTime(), kmi);
+      DetallesMantenimiento det = new DetallesMantenimiento(m, mant, false);
       new ControladorMantenimientos().altaDetalleMant(det);
     }
     

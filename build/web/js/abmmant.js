@@ -46,7 +46,7 @@ $(document).ready(function () {
     },
     "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
-     "order": [[ 2, "asc" ]],
+     "order": [[ 1, "asc" ]],
     "columns": [
       null,
       null,
@@ -74,7 +74,7 @@ $(document).ready(function () {
     },
     "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
-     "order": [[ 2, "asc" ]],
+     "order": [[ 1, "asc" ]],
     "columns": [
       null,
       null,

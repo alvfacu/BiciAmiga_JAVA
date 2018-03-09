@@ -3,6 +3,8 @@ package Datos;
 import Entidades.Bicicletas;
 import Entidades.DetallesMantenimiento;
 import Entidades.Mantenimientos;
+import Entidades.TiposMantenimiento;
+import Negocio.ControladorMantenimientos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -89,8 +91,8 @@ public class CatalogoMantenimientos {
         m.setId(rs.getInt("id"));
         Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("id_bici"));
         m.setBici(b);
-        m.setFechaIngreso(rs.getTimestamp("fecha_egreso"));
-        m.setFechaEgreso(rs.getTimestamp("fecha_ingreso"));
+        m.setFechaIngreso(rs.getTimestamp("fecha_ingreso"));
+        m.setFechaEgreso(rs.getTimestamp("fecha_egreso"));
         m.setKmIngreso(rs.getDouble("km_ingreso"));
         m.setKmEgreso(rs.getDouble("km_egreso"));
         m.setObservacion(rs.getString("obs"));
@@ -165,22 +167,18 @@ public class CatalogoMantenimientos {
 
   public void modificarMantenimiento(Mantenimientos m) {
     PreparedStatement sentencia = null;
-    String sql = "update mantenimientos set patente=?, fecha_ingreso=?, km_ingreso=?, fecha_egreso=? "
-            +" km_egreso=?, obs=? where id=?";
+    String sql = "update mantenimientos set fecha_egreso=?, km_egreso=?, obs=? "
+            +" where id=? and id_bici=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
-      sentencia.setInt(1, m.getBici().getId());
-      sentencia.setTimestamp(2, new java.sql.Timestamp(m.getFechaIngreso().getTime()));
-      sentencia.setDouble(3, m.getKmIngreso());
-      
       if(m.getFechaEgreso()!=null)
-        sentencia.setTimestamp(4, new java.sql.Timestamp(m.getFechaEgreso().getTime()));
+        sentencia.setTimestamp(1, new java.sql.Timestamp(m.getFechaEgreso().getTime()));
       else
-        sentencia.setTimestamp(4, null);
-      
-      sentencia.setDouble(5, m.getKmEgreso());
-      sentencia.setString(6, m.getObservacion());
-      sentencia.setInt(7,m.getId());
+        sentencia.setTimestamp(1, null);      
+      sentencia.setDouble(2, m.getKmEgreso());
+      sentencia.setString(3, m.getObservacion());
+      sentencia.setInt(4,m.getId());
+      sentencia.setInt(5,m.getBici().getId());
       sentencia.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -320,14 +318,13 @@ public class CatalogoMantenimientos {
   
   public void altaDetalleMant(DetallesMantenimiento det) {
     PreparedStatement sentencia = null;
-    String sql = "insert into detalle_mantenimiento(id,id_tipom,fecha,km) "
-            + "values(?,?,?,?)";
+    String sql = "insert into detalle_mantenimiento(id,id_tipom,completado) "
+            + "values(?,?,?)";
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setInt(1,det.getMantenimiento().getId());      
       sentencia.setInt(2,det.getTipo().getId());      
-      sentencia.setTimestamp(3, new java.sql.Timestamp(det.getFecha().getTime()));
-      sentencia.setDouble(4, det.getKm());
+      sentencia.setBoolean(3, det.isCompletado());
       sentencia.execute();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -342,4 +339,104 @@ public class CatalogoMantenimientos {
       }
     }
   }
+
+  public ArrayList<DetallesMantenimiento> getDetMantenimientosxMantenimiento(int idMant) {
+    ArrayList<DetallesMantenimiento> detalle = new ArrayList<>();
+    PreparedStatement sentencia = null;
+    ResultSet rs = null;
+    String sql = "select * from detalle_mantenimiento where id=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, idMant);
+      rs = sentencia.executeQuery();
+      
+      while (rs.next()) {
+        DetallesMantenimiento det = new DetallesMantenimiento();
+        TiposMantenimiento tipo = new ControladorMantenimientos().getTiposMantenimiento(rs.getInt("id_tipom"));
+        det.setTipo(tipo);
+        Mantenimientos mant = new ControladorMantenimientos().getMantenimientos(rs.getInt("id"));
+        det.setMantenimiento(mant);
+        det.setCompletado(rs.getBoolean("completado"));
+        detalle.add(det);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null) {
+          sentencia.close();
+        }
+        if (rs != null) {
+          rs.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+    return detalle;
+  }
+
+  public DetallesMantenimiento getDetMantenimiento(int idMant, int idTipo) {
+    DetallesMantenimiento det = null;
+    PreparedStatement sentencia = null;
+    ResultSet rs = null;
+    String sql = "select * from detalle_mantenimiento where id=? and id_tipom=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, idMant);
+      sentencia.setInt(2, idTipo);
+      rs = sentencia.executeQuery();
+      
+      if(rs.next()) {
+        det = new DetallesMantenimiento();
+        TiposMantenimiento tipo = new ControladorMantenimientos().getTiposMantenimiento(rs.getInt("id_tipom"));
+        det.setTipo(tipo);
+        Mantenimientos mant = new ControladorMantenimientos().getMantenimientos(rs.getInt("id"));
+        det.setMantenimiento(mant);
+        det.setCompletado(rs.getBoolean("completado"));
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null) {
+          sentencia.close();
+        }
+        if (rs != null) {
+          rs.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+    return det;
+  }
+
+  public void modificarDetalleMant(DetallesMantenimiento det) {
+    PreparedStatement sentencia = null;
+    String sql = "update detalle_mantenimiento set completado=? where id=? and id_tipom=?";
+    
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setBoolean(1, det.isCompletado());
+      sentencia.setInt(2, det.getMantenimiento().getId());
+      sentencia.setInt(3, det.getTipo().getId());
+      sentencia.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null && !sentencia.isClosed()) {
+          sentencia.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+  }
+
+  
 }

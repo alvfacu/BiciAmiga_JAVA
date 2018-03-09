@@ -53,7 +53,7 @@
             <thead style="color: #fff;background-color: #373a3c;">
               <tr align="center">
                 <th>BICICLETA</th>
-                <th>FECHA HORA INGRESO</th>
+                <th>INGRESO</th>
                 <th>KMs INGRESO</th>
                 <th></th>
                 <th></th>
@@ -71,13 +71,13 @@
                 <td style="vertical-align:middle"><%= df2.format(m.getKmIngreso())%></td>
                 <td style="vertical-align:middle">
                   <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
-                          onclick="window.open('modificarMantenimiento.jsp?idMant='<%=m.getId()%>,'_self')">
-                    <span class="fa fa-edit"></span>
+                          onclick='window.open("modificarMantenimiento.jsp?idMant="+<%=m.getId()%>,"_self")'>
+                    <span class="fa fa-gears"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
                   <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
-                          onclick="window.open('modificarMantenimiento.jsp?idMant='<%=m.getId()%>,'_self')">
+                          onclick='window.open("modificarMantenimiento.jsp?idMant="+<%=m.getId()%>,"_self")'>
                     <span class="fa fa-trash-o"></span>
                   </button>
                 </td>
@@ -108,21 +108,15 @@
                 if (mant_finalizados.size() > 0) {
                 for (Mantenimientos m : mant_finalizados) {%>
               <tr align="center" >
-                <td style="vertical-align:middle"><%= m.getBici().getModelo().getTipo().getNombre()+"-"+m.getBici().getModelo().getNombre()+m.getBici().getPatente() %></td>
+                <td style="vertical-align:middle"><%= m.getBici().getModelo().getTipo().getNombre()+" - "+m.getBici().getModelo().getNombre()+" - "+m.getBici().getPatente() %></td>
                 <td style="vertical-align:middle"><%= df.format(m.getFechaIngreso()) %></td>          
                 <td style="vertical-align:middle"><%= df2.format(m.getKmIngreso())%></td>
                 <td style="vertical-align:middle"><%= df.format(m.getFechaEgreso()) %></td>          
                 <td style="vertical-align:middle"><%= df2.format(m.getKmEgreso())%></td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
+                  <button class="btn btn-reset" data-title="Editar" data-toggle="modal" data-target="#edit" 
                           onclick="window.open('modificarMantenimiento.jsp?idMant='<%=m.getId()%>,'_self')">
-                    <span class="fa fa-edit"></span>
-                  </button>
-                </td>
-                <td style="vertical-align:middle">
-                  <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
-                          onclick="window.open('modificarMantenimiento.jsp?idMant='<%=m.getId()%>,'_self')">
-                    <span class="fa fa-trash-o"></span>
+                    <span class="fa fa-eye"></span>
                   </button>
                 </td>
               </tr>        

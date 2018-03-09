@@ -63,23 +63,23 @@
               </div>
             </div>
             <div class="row">
-              <div class='col-md-12 col-centered' style="margin-bottom: 0rem!important">
+              <div class='col-md-9 col-centered' style="margin-bottom: 0rem!important">
                 <table class="table display" id="tipos_mant" style="background-color: white;border-style: solid; border-width: 1px;">
                   <thead style="color: #fff;background-color: #373a3c;">
                     <tr align="center">
-                      <th style="width: 90%">MANTENIMIENTO</th>                      
                       <th> </th>
+                      <th style="width: 90%">MANTENIMIENTOS</th>                      
                     </tr>
                   </thead>
                   <tbody>            
                     <% ArrayList<TiposMantenimiento> tipos = new ControladorMantenimientos().getTiposMantenimientos();
                       if (tipos.size() > 0) {
                         for (TiposMantenimiento tipo : tipos) {%>
-                    <tr align="center" >                      
+                    <tr align="center" >
+                      <td style="vertical-align:middle"><input type="checkbox" name='checkbox' onchange="activarBoton()" style="height: 18px;width: 18px;" value='<%= tipo.getId()%>'></td>                      
                       <td style="vertical-align:middle" title="<%=tipo.getDescripcion()%>">
                         <%= tipo.getNombre()%>
                       </td>
-                      <td style="vertical-align:middle"><input type="checkbox" name='checkbox' onchange="activarBoton()" value='<%= tipo.getId()%>'></td>
                     </tr>                
                     <% }
                       }%>
@@ -132,9 +132,16 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script>
 
-    document.getElementById('bici').focus();
-    document.getElementById("guardarm").disabled=true;
-
+  document.getElementById('bici').focus();
+  document.getElementById("guardarm").disabled=true;
+    
+  $(document).ready(function() {
+    $('#tipos_mant tr').click(function(event) {
+        if (event.target.type !== 'checkbox') {
+            $(':checkbox', this).trigger('click');
+          }
+        });
+      
     $("#bici").change(function () {
       
       $.post('DameKmBicicleta',
@@ -174,8 +181,9 @@
                 ;
               });
     });
+  });
     
-    function activarBoton(){
+  function activarBoton(){
       if(document.querySelectorAll('input[type="checkbox"]:checked').length>0)
       {
         document.getElementById("guardarm").disabled=false;

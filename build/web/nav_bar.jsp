@@ -73,7 +73,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="sessionNav">
       <div class="container">
         <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="mi_cuenta.jsp">
-          <%= usrActual.getUsuario()%>
+          <span class="fa fa-user-circle-o"></span> <%= usrActual.getUsuario()%>
         </a>
         <button class="navbar-toggler" type="button" id="btn2">
           <span class="navbar-toggler-icon"></span>

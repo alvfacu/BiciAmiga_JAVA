@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Datos/CatalogoBicicletas.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Negocio/ControladorMantenimientos.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/admmant.jsp</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Negocio/ControladorBicicletas.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Entidades/Mantenimientos.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/js/abmmant.js</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/modificarMantenimiento.jsp</file>
             <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/nuevoMantenimiento.jsp</file>
             <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/AltaMantenimiento.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Datos/CatalogoMantenimientos.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/ModificarMantenimiento.java</file>
         </group>
     </open-files>
 </project-private>
