@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CatalogoReservas {
   public ArrayList<Reservas> getReservas() {
@@ -28,9 +29,51 @@ public class CatalogoReservas {
         Usuarios u = new CatalogoUsuarios().getUsuario(rs.getInt("id_usr"));
         r.setCliente(u);
         r.setEstado(EstadosReserva.getXId(rs.getInt("estado")));
-        r.setFechaSolicitud(rs.getDate("fecha_solic"));
-        r.setFechaComienzo(rs.getDate("fecha_comin"));
-        r.setFechaFinalizacion(rs.getDate("fecha_fin"));
+        
+        if(rs.getTimestamp("fecha_interna")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_interna").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaInterna(currentDate);
+        }
+        else
+        {
+          r.setFechaInterna(null);
+        }
+        
+        if(rs.getTimestamp("fecha_inicio_pactada")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_inicio_pactada").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaInicioP(currentDate);
+        }
+        else
+        {
+          r.setFechaInicioP(null);
+        }
+        
+        if(rs.getTimestamp("fecha_fin_pactada")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_fin_pactada").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaFinP(currentDate);
+        }
+        else
+        {
+          r.setFechaFinP(null);
+        }
+        
+        if(rs.getTimestamp("fecha_fin_real")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_fin_real").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaFinR(currentDate);
+        }
+        else
+        {
+          r.setFechaFinR(null);
+        }
+        
         r.setImporte(rs.getDouble("importe"));
         r.setKmRecorridos(rs.getDouble("km_totales"));
         r.setObservacion(rs.getString("obs"));
@@ -55,8 +98,8 @@ public class CatalogoReservas {
   }
 
   public Reservas getReserva(int id) {    
-    PreparedStatement sentencia = null;
-    ResultSet rs = null;
+    PreparedStatement sentencia;
+    ResultSet rs;
     Reservas r = null;
     String sql = "select * from reservas where id=?";
     
@@ -73,9 +116,51 @@ public class CatalogoReservas {
         Usuarios u = new CatalogoUsuarios().getUsuario(rs.getInt("id_usr"));
         r.setCliente(u);
         r.setEstado(EstadosReserva.getXId(rs.getInt("estado")));
-        r.setFechaSolicitud(rs.getDate("fecha_solic"));
-        r.setFechaComienzo(rs.getDate("fecha_comin"));
-        r.setFechaFinalizacion(rs.getDate("fecha_fin"));
+        
+        if(rs.getTimestamp("fecha_interna")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_interna").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaInterna(currentDate);
+        }
+        else
+        {
+          r.setFechaInterna(null);
+        }
+        
+        if(rs.getTimestamp("fecha_inicio_pactada")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_inicio_pactada").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaInicioP(currentDate);
+        }
+        else
+        {
+          r.setFechaInicioP(null);
+        }
+        
+        if(rs.getTimestamp("fecha_fin_pactada")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_fin_pactada").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaFinP(currentDate);
+        }
+        else
+        {
+          r.setFechaFinP(null);
+        }
+        
+        if(rs.getTimestamp("fecha_fin_real")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_fin_real").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaFinR(currentDate);
+        }
+        else
+        {
+          r.setFechaFinR(null);
+        }
+        
         r.setImporte(rs.getDouble("importe"));
         r.setKmRecorridos(rs.getDouble("km_totales"));
         r.setObservacion(rs.getString("obs"));     
@@ -89,20 +174,21 @@ public class CatalogoReservas {
 
   public void altaReserva(Reservas r) {
     PreparedStatement sentencia = null;
-    ResultSet rs=null;
-    String sql = "insert into reservas(patente,id_usr,estado,fecha_solic,fecha_comin,fecha_fin,importe,km_totales,obs) "
-            + "values(?,?,?,?,?,?,?,?,?)";
+    ResultSet rs;
+    String sql = "insert into reservas(id_bici,id_usr,estado,fecha_interna,fecha_inicio_pactada,fecha_fin_pactada,fecha_fin_real,importe,km_totales,obs) "
+            + "values(?,?,?,?,?,?,?,?,?,?)";
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
       sentencia.setInt(1,r.getBici().getId());
       sentencia.setInt(2,r.getCliente().getId());
       sentencia.setInt(3,r.getEstado().getId());
-      sentencia.setDate(4, r.getFechaSolicitud());
-      sentencia.setDate(5, r.getFechaComienzo());
-      sentencia.setDate(6, r.getFechaFinalizacion());
-      sentencia.setDouble(7,r.getImporte());
-      sentencia.setDouble(8,r.getKmRecorridos());
-      sentencia.setString(9,r.getObservacion());
+      sentencia.setTimestamp(4, new java.sql.Timestamp(r.getFechaInterna().getTime()));
+      sentencia.setTimestamp(5, new java.sql.Timestamp(r.getFechaInicioP().getTime()));
+      sentencia.setTimestamp(6, new java.sql.Timestamp(r.getFechaFinP().getTime()));
+      sentencia.setTimestamp(7, new java.sql.Timestamp(r.getFechaFinR().getTime()));
+      sentencia.setDouble(8,r.getImporte());
+      sentencia.setDouble(9,r.getKmRecorridos());
+      sentencia.setString(10,r.getObservacion());
       sentencia.execute();
       rs=sentencia.getGeneratedKeys();
       if(rs!=null && rs.next()){
@@ -148,20 +234,21 @@ public class CatalogoReservas {
 
   public void modificarReserva(Reservas r) {
     PreparedStatement sentencia = null;
-    String sql = "update reservas set patente=?, id_usr=?, estado=?, fecha_solic=?, fecha_comin=?, fecha_fin=? "
+    String sql = "update reservas set id_bici=?, id_usr=?, estado=?, fecha_interna=?, fecha_inicio_pactada=?, fecha_fin_pactada?, fecha_fin_real=? "
             +"importe=?, km_totales=?, obs=? where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setInt(1, r.getBici().getId());
       sentencia.setInt(2, r.getCliente().getId());
       sentencia.setInt(3, r.getEstado().getId());
-      sentencia.setDate(4, r.getFechaSolicitud());
-      sentencia.setDate(5, r.getFechaComienzo());
-      sentencia.setDate(6, r.getFechaFinalizacion());
-      sentencia.setDouble(7, r.getImporte());
+      sentencia.setTimestamp(4, new java.sql.Timestamp(r.getFechaInterna().getTime()));
+      sentencia.setTimestamp(5, new java.sql.Timestamp(r.getFechaInicioP().getTime()));
+      sentencia.setTimestamp(6, new java.sql.Timestamp(r.getFechaFinP().getTime()));
+      sentencia.setTimestamp(7, new java.sql.Timestamp(r.getFechaFinR().getTime()));
       sentencia.setDouble(8, r.getImporte());
-      sentencia.setString(9, r.getObservacion());
-      sentencia.setInt(10,r.getId());
+      sentencia.setDouble(9, r.getImporte());
+      sentencia.setString(10, r.getObservacion());
+      sentencia.setInt(11,r.getId());
       sentencia.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -176,4 +263,175 @@ public class CatalogoReservas {
       }
     }
   }
+
+  public ArrayList<Reservas> getReservasPendientes() {
+    ArrayList<Reservas> reservas = new ArrayList<>();
+    Statement sentencia = null;
+    ResultSet rs = null;
+    String sql = "select * from reservas where fecha_fin_real is null";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().createStatement();
+      rs = sentencia.executeQuery(sql);
+
+      while (rs.next()) {
+        Reservas r = new Reservas();        
+        r.setId(rs.getInt("id"));
+        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("id_bici"));
+        r.setBici(b);
+        Usuarios u = new CatalogoUsuarios().getUsuario(rs.getInt("id_usr"));
+        r.setCliente(u);
+        r.setEstado(EstadosReserva.getXId(rs.getInt("estado")));
+        
+        if(rs.getTimestamp("fecha_interna")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_interna").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaInterna(currentDate);
+        }
+        else
+        {
+          r.setFechaInterna(null);
+        }
+        
+        if(rs.getTimestamp("fecha_inicio_pactada")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_inicio_pactada").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaInicioP(currentDate);
+        }
+        else
+        {
+          r.setFechaInicioP(null);
+        }
+        
+        if(rs.getTimestamp("fecha_fin_pactada")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_fin_pactada").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaFinP(currentDate);
+        }
+        else
+        {
+          r.setFechaFinP(null);
+        }
+        
+        if(rs.getTimestamp("fecha_fin_real")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_fin_real").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaFinR(currentDate);
+        }
+        else
+        {
+          r.setFechaFinR(null);
+        }
+        
+        r.setImporte(rs.getDouble("importe"));
+        r.setKmRecorridos(rs.getDouble("km_totales"));
+        r.setObservacion(rs.getString("obs"));
+        reservas.add(r);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null) {
+          sentencia.close();
+        }
+        if (rs != null) {
+          rs.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+    return reservas;
+  }
+
+  public ArrayList<Reservas> getReservasFinalizadas() {
+    ArrayList<Reservas> reservas = new ArrayList<>();
+    Statement sentencia = null;
+    ResultSet rs = null;
+    String sql = "select * from reservas where fecha_fin_real is not null";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().createStatement();
+      rs = sentencia.executeQuery(sql);
+
+      while (rs.next()) {
+        Reservas r = new Reservas();        
+        r.setId(rs.getInt("id"));
+        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("id_bici"));
+        r.setBici(b);
+        Usuarios u = new CatalogoUsuarios().getUsuario(rs.getInt("id_usr"));
+        r.setCliente(u);
+        r.setEstado(EstadosReserva.getXId(rs.getInt("estado")));
+        
+        if(rs.getTimestamp("fecha_interna")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_interna").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaInterna(currentDate);
+        }
+        else
+        {
+          r.setFechaInterna(null);
+        }
+        
+        if(rs.getTimestamp("fecha_inicio_pactada")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_inicio_pactada").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaInicioP(currentDate);
+        }
+        else
+        {
+          r.setFechaInicioP(null);
+        }
+        
+        if(rs.getTimestamp("fecha_fin_pactada")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_fin_pactada").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaFinP(currentDate);
+        }
+        else
+        {
+          r.setFechaFinP(null);
+        }
+        
+        if(rs.getTimestamp("fecha_fin_real")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_fin_real").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaFinR(currentDate);
+        }
+        else
+        {
+          r.setFechaFinR(null);
+        }
+        
+        r.setImporte(rs.getDouble("importe"));
+        r.setKmRecorridos(rs.getDouble("km_totales"));
+        r.setObservacion(rs.getString("obs"));
+        reservas.add(r);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null) {
+          sentencia.close();
+        }
+        if (rs != null) {
+          rs.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+    return reservas;
+  }
+
 }

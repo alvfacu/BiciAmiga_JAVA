@@ -112,6 +112,7 @@ public class CatalogoMantenimientos {
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
       sentencia.setInt(1,m.getBici().getId());      
+      
       sentencia.setTimestamp(2, new java.sql.Timestamp(m.getFechaIngreso().getTime()));
       sentencia.setDouble(3, m.getKmIngreso());
       

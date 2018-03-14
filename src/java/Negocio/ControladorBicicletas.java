@@ -42,6 +42,22 @@ public class ControladorBicicletas {
   public void modificarBicicleta(Bicicletas b) {
     cb.modificarBicicleta(b);
   }
+  
+  public ArrayList<Modelos> getModelosDisponibles(){
+    return cm.getModelosDisponibles();
+  }
+  
+  public ArrayList<Modelos> getModelosDisponiblesXModelo(int modelo){
+    return cm.getModelosDisponiblesXModelo(modelo);
+  }
+  
+  public ArrayList<Modelos> getModelosDisponiblesXTipoXModelo(int tipo, int modelo){
+    return cm.getModelosDisponiblesXTipoXModelo(tipo,modelo);
+  }
+  
+  public ArrayList<Modelos> getModelosDisponiblesXTipo(int tipo){
+    return cm.getModelosDisponiblesXTipo(tipo);
+  }
 
   public int existePatente(String patente) {
     return cb.existeBicicleta(patente);
@@ -105,6 +121,10 @@ public class ControladorBicicletas {
 
   public void habilitarBicicleta(boolean estado, Bicicletas bici) {
     cb.habilitarBicicleta(estado,bici);
+  }
+  
+  public ArrayList<Modelos> getModelosXTipo(int tipo){
+    return cm.getModelosXTipo(tipo);
   }
 
 }

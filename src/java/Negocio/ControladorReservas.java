@@ -15,6 +15,14 @@ public class ControladorReservas {
   public ArrayList<Reservas> getReservas() {
     return cr.getReservas();
   }
+  
+  public ArrayList<Reservas> getReservasPendientes() {
+    return cr.getReservasPendientes();
+  }
+  
+  public ArrayList<Reservas> getReservasFinalizados() {
+    return cr.getReservasFinalizadas();
+  }
    
   public Reservas getReserva(int id) {
     return cr.getReserva(id);
