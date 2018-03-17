@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="Entidades.Modelos"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Entidades.Bicicletas"%>
@@ -35,17 +36,17 @@
     <%@include file="nav_bar.jsp"%>
 
     <!-- Body -->
-    <%
+    <%DecimalFormat df2 = new DecimalFormat("0.00");
       if (session.getAttribute("Usuario") != null) {
         Usuarios usrActual = (Usuarios) session.getAttribute("Usuario");
         if ((usrActual.isAdm()) || (!usrActual.isAdm() && !usrActual.isMecanico())) {
           ArrayList<Modelos> modelos_dispo = null;
           int tipo = 0;
           int modelo = 0;
-          if(request.getParameter("idTipo")!= null) {
+          if(request.getAttribute("idTipo")!= null) {
             try {
-              tipo = Integer.valueOf(request.getParameter("idTipo"));
-              if(tipo<0){ 
+              tipo = Integer.valueOf(request.getAttribute("idTipo").toString());
+              if(tipo<=0){ 
                 response.sendRedirect("error.jsp");
                 return;
               }
@@ -56,10 +57,10 @@
             }
           }
           
-          if(request.getParameter("idModelo")!= null) {
+          if(request.getAttribute("idModelo")!= null){
             try {
-              modelo = Integer.valueOf(request.getParameter("idModelo"));
-              if(modelo<0){ 
+              modelo = Integer.valueOf(request.getAttribute("idModelo").toString());
+              if(tipo<=0){ 
                 response.sendRedirect("error.jsp");
                 return;
               }
@@ -69,15 +70,16 @@
               return;
             }
           }
-          
+                    
           if(tipo>0 && modelo>0){
             modelos_dispo = new ControladorBicicletas().getModelosDisponiblesXTipoXModelo(tipo,modelo);
+            %>
+            <input type="hidden" name="idt" id="idt" value="<%=tipo%>">
+            <input type="hidden" name="idb" id="idb" value="<%=request.getParameter("modelos")%>">
+            <%
           }
           else if (tipo>0 && modelo==0){
             modelos_dispo = new ControladorBicicletas().getModelosDisponiblesXTipo(tipo);
-          }
-          else if (tipo==0 && modelo>0){
-            modelos_dispo = new ControladorBicicletas().getModelosDisponiblesXModelo(modelo);
           }
           else {
             modelos_dispo = new ControladorBicicletas().getModelosDisponibles();
@@ -88,57 +90,75 @@
       <span class="site-heading-upper text-primary mb-3">Nueva reserva</span>
     </h1>
 
-    <div class="col-lg-10 col-centered well">
+    <div class="col-lg-10 col-xs-10 col-md-10 col-centered well form-text">
       <div class="container">
-        <div class="row">
-          <% if(tipo==0) { %>
-            <div class="col-lg-12 col-xs-12">
-          <% } else { %>
-            <div class="col-lg-6 col-xs-6">
-          <% } %>
-            <select class="form-control" name="tipo" id="tipo" placeholder="Tipo de Bicicleta" title="Tipo de Bicicleta" required="true" 
-                    onchange="window.open('reservar.jsp?idTipo='+document.getElementById('tipo').value,'_self');">
-              <option value="" disabled selected>Seleccione Tipo de Bicicleta</option>
-              <% for (TiposBicicleta t : new ControladorBicicletas().getTiposBicicleta()) {%>                    
-              <option value="<%=t.getId()%>"
-              <% if(tipo==t.getId()) { %>
-              selected="true"
-              <% } %>
-              ><%=t.getNombre()%></option>
-              <%}%>
-            </select>
+        <form method="GET" action="reservar">
+          <div class="row">          
+            <div class="col-lg-6 col-xs-6" style="margin-top: 1rem;">
+              <select class="form-control" name="tipos" id="tipos" placeholder="Tipos de Bicicleta" title="Tipo de Bicicleta" required="true" >
+                <option value="0000">TODOS LOS TIPOS DE BICICLETAS</option>
+                <% for (TiposBicicleta t : new ControladorBicicletas().getTiposBicicleta()) {%>                    
+                <option value="<%=t.getId()%>"
+                <% if(tipo==t.getId()) { %>
+                selected="true"
+                <% } %>
+                ><%=t.getNombre()%></option>
+                <%}%>
+              </select>
+            </div>
+            <div class="col-lg-6 col-xs-6" style="margin-top: 1rem;">
+              <select class="form-control" name="modelos" id="modelos" placeholder="Modelos de Bicicleta" title="Modelo de Bicicleta" required="true" >
+                <option value="" disabled selected>MODELOS DE BICICLETA</option>
+                <option value="0">TODOS LOS MODELOS</option>
+                <% for (Modelos m : new ControladorBicicletas().getModelos()) {%>                    
+                <option value="<%= String.format("%4s",m.getTipo().getId()).replace(' ', '0')+"-"+m.getId()%>"
+                <% if(modelo==m.getId() && tipo == m.getTipo().getId()) { %>
+                selected="true"
+                <% } %>
+                ><%=m.getNombre()%></option>
+                <% } %>
+              </select>
+            </div>
           </div>
-          <%if(tipo>0) { %>
-          <br>
-          <div class="col-lg-6 col-xs-6">
-            <select class="form-control" name="modelo" id="modelo" placeholder="Modelo de Bicicleta" title="Modelo de Bicicleta" required="true" 
-                    onchange="window.open('reservar.jsp?idTipo='+document.getElementById('tipo').value+'&idModelo='+document.getElementById('modelo').value,'_self');">
-              <option value="" disabled selected>Seleccione Modelo de Bicicleta</option>
-              <% for (Modelos m : new ControladorBicicletas().getModelosXTipo(tipo)) {%>                    
-              <option value="<%=m.getId()%>"
-              <% if(modelo==m.getId()) { %>
-              selected="true"
-              <% } %>
-              ><%=m.getNombre()%></option>
-              <% } %>
-            </select>
+          <div class="row">          
+            <div class="col-lg-3 col-xs-3" style="margin-top: 1rem;">Fecha Reserva
+              <input type="date" class="form-control" id="fecha" name="fecha" required="true">
+            </div>
+            <div class="col-lg-3 col-xs-3" style="margin-top: 1.3rem;text-align: center">
+              <li style="list-style-type: none;list-style-position: initial;list-style-image: initial;">
+                <label><input type="checkbox" style="margin-right: 1rem!important" id="completo" name="completo" onclick="turno_completo()">Día Completo</label>
+              </li>
+              <span style="font-size: 12px"><i><b>Precio diferencial.</b> De 9:00 a 21:00 hs.</i></span>
+            </div>
+            <div class="col-lg-2 col-xs-2" style="margin-top: 1rem;" >Hora Inicio
+              <input type="time" class="form-control" min="09:00" max="21:00" value="09:00" id="hrdesde" name="hrdesde" required="true">
+            </div>
+            <div class="col-lg-2 col-xs-2" style="margin-top: 1rem;">Hora Fin
+              <input type="time" class="form-control" min="09:00" max="21:00" value="21:00" id="hrhasta" name="hrhasta" required="true">
+            </div>
+            <div class="col-lg-2" style="margin-top: 1.6rem;">
+              <button type="submit" id="guardartb" class="col-sm-12 col-xs-12 btn btn-lg btn-editar" title="Buscar bicicletas"><i class="fa fa-search"></i></button>
+            </div>
           </div>
-          <% } %>
-        </div>
-        <hr />
+        </form>
+      </div>
+      <hr />
+      <div>
+        <h2 class="text-center">Elegí tu bicicleta</h2>
         <%if(modelos_dispo.size()>0 ) { %>
         <div class="row text-center text-lg-left">
           <% for(Modelos m : modelos_dispo) { %>
-            <div class="col-lg-4 col-md-5 col-xs-6">
-              <p style="margin-bottom: 0.5rem;text-align: center;"><b><%=m.getTipo().getNombre()+" - "+m.getNombre() %></b></p>
+            <div class="col-lg-6 col-md-12">
+              <p style="margin-bottom: 0.2rem;text-align: center;"><b><%=m.getTipo().getNombre()+" - "+m.getNombre() %></b></p>
+              <p style="margin-bottom: 0.5rem;text-align: center;font-size: 12px"><i><%="Precio por hora: $ "+df2.format(m.getPrecioXHr())+" - Precio Día Completo: $ "+ df2.format(m.getPrecioXDia())%></i></p>
               <a href="#" class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" style="display: block; margin:auto;" src="<%=m.getUrl1()%>" alt="<%= m.getNombre()%>">                
-              </a>
+                <img class="img-fluid2 img-thumbnail2" style="border-style: solid; border-width: 1px; border-color: black;display: block; margin:auto;" src="<%=m.getUrl1()%>" alt="<%= m.getNombre()%>">                
+              </a>              
             </div>
           <% } %>
         </div>
         <% } else { %>
-          No existen bicicletas disponibles
+        <div class="error" style="display: flex;justify-content: center;align-items: center;">No existen bicicletas disponibles</div>
         <% } %>
       </div>
     </div>
@@ -160,5 +180,72 @@
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
     <script>
+      var today = new Date();
+      var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+
+      var dia = tomorrow.getDate();
+      var mes = tomorrow.getMonth()+1;
+      var anio = tomorrow.getFullYear();
+      document.getElementById("fecha").setAttribute("min", anio+'-'+String(mes).padStart(2, "0")+'-'+String(dia).padStart(2, "0"));
+      document.getElementById("fecha").setAttribute("value", anio+'-'+String(mes).padStart(2, "0")+'-'+String(dia).padStart(2, "0"));
+      
+      var tipos = $('#tipos');
+      var modelos = $('#modelos');
+      var options = modelos.find('option');      
+      tipos.on( 'change', function() {
+        if(this.value)
+        {
+          if(this.value!=="0000")
+          {
+            modelos.html(options.filter('[value=0],[value*="' + String(this.value).padStart(4, "0") + '"]'));            
+            modelos.prop('disabled', false);
+            modelos.prop('required', true);
+            $("#modelos option:first").text("TODOS LOS MODELOS DE "+$(this).find('option:selected').text());
+            
+            if(this.value!==$('#idt').val())
+            {
+              modelos.val($("#modelos option:first").val());
+            }
+            else
+            {
+              if(!$('#idb').val())
+              {
+                modelos.val($("#modelos option:first").val());
+              }
+              else
+              {
+                modelos.val($('#idb').val());
+              }
+            }            
+          }
+          else
+          {
+            modelos.html(options.filter('[value=0]'));
+            modelos.prop('disabled', true);
+            modelos.prop('required', false);
+          }
+        }
+        else
+        {
+          modelos.html(options.filter('[value=0]'));
+          modelos.prop('disabled', true);
+          modelos.prop('required', false);
+        }
+      } ).trigger( 'change' );
+            
+      function turno_completo(){        
+        if(document.getElementById("completo").checked)
+        {
+          document.getElementById("hrdesde").value = "09:00";
+          document.getElementById("hrdesde").disabled = true;
+          document.getElementById("hrhasta").value = "21:00";
+          document.getElementById("hrhasta").disabled = true;
+        }
+        else
+        {
+          document.getElementById("hrdesde").disabled = false;
+          document.getElementById("hrhasta").disabled = false;
+        }        
+      }
     </script>
   </body>

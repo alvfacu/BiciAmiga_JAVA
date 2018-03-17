@@ -43,7 +43,7 @@
     <div class="col-lg-10 col-centered well" >      
       <div style="overflow-x:auto;">
         <div>
-          <a class="btn btn-nuevo" data-title="Nuevo" title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevousr()"><span class="fa fa-plus-square"></span></a></p>
+          <a class="btn btn-nuevo" data-title="Nuevo" title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevousr()"><span class="fa fa-plus-square"></span></a>
         </div
         <br>
         <table class="display table" id="usuarios">
