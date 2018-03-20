@@ -45,7 +45,9 @@
       <!-- RESERVAS PENDIENTES -->
       <div id="reservas" class="tabcontent">
         <div>
-          <a class="btn btn-nuevo" data-title="Nuevo" title="Nueva Reserva" data-toggle="modal" data-target="#new" onclick="nuevareserva()"><span class="fa fa-plus-square"></span></a></p>
+          <form method="POST" action="Reservar">
+            <button type="submit" class="btn btn-nuevo" title="Nueva Reserva"><span class="fa fa-plus-square"></span></button>
+          </form>
         </div>
         <div style="overflow-x:auto;">
           <table class="table display" id="reservasact">

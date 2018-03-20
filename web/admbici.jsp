@@ -41,8 +41,8 @@
     <div class="col-lg-10 col-centered well">
 
       <button class="tablink" onclick="openPage('bicis', this)" id="defaultOpen">Bicicletas</button>
-      <button class="tablink" onclick="openPage('modelosbici', this)">Modelos Bicicletas</button>
-      <button class="tablink" onclick="openPage('tipos', this)">Tipos Bicicletas</button>
+      <button class="tablink" onclick="openPage('modelosbici', this)">Modelos</button>
+      <button class="tablink" onclick="openPage('tipos', this)">Tipos</button>
 
       <!-- BICICLETA -->
       <div id="bicis" class="tabcontent">

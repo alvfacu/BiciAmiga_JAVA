@@ -11,7 +11,16 @@ public class Modelos {
   private String url2;
   private String url3;
   private TiposBicicleta tipo;
+  private int cant;
 
+  public int getCant() {
+    return cant;
+  }
+
+  public void setCant(int cant) {
+    this.cant = cant;
+  }
+  
   public int getId() {
     return id;
   }

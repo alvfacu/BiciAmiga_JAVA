@@ -1,10 +1,14 @@
 
 package Servlets;
 
+import Entidades.Modelos;
 import Entidades.Usuarios;
+import Negocio.ControladorBicicletas;
 import Negocio.ControladorUsuarios;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -61,8 +65,10 @@ public class Login extends HttpServlet {
     } catch (NoSuchAlgorithmException ex) {
       Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
       session.setAttribute("Usuario", null);
+      session.setAttribute("bicicletas", null);
       session.setAttribute("Msj", "Usuario inhabilitado. Comuniquese con el Administrador del sitio.");
       response.sendRedirect("error.jsp");
+      
     }
 
   }

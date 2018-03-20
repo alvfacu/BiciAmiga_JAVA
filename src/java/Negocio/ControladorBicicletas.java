@@ -7,6 +7,7 @@ import Entidades.Bicicletas;
 import Entidades.TiposBicicleta;
 import Entidades.Modelos;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ControladorBicicletas {
   CatalogoBicicletas cb;
@@ -125,6 +126,10 @@ public class ControladorBicicletas {
   
   public ArrayList<Modelos> getModelosXTipo(int tipo){
     return cm.getModelosXTipo(tipo);
+  }
+
+  public ArrayList<Modelos> getModelosDisponibles(Calendar fechaDsd, Calendar fechaHst) {
+    return cm.getModelosDisponibles(fechaDsd,fechaHst);
   }
 
 }
