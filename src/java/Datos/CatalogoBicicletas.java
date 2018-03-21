@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CatalogoBicicletas {
 
@@ -293,6 +295,61 @@ public class CatalogoBicicletas {
       sqle.printStackTrace();
     }
     return b;
+  }
+
+  public ArrayList<Bicicletas> getBicicletaParaReserva(int idMod) {
+    PreparedStatement sentencia;
+    ResultSet rs;
+    ArrayList<Bicicletas> bicicletas = new ArrayList<Bicicletas>();
+    String sql = "select * from bicicletas where id_modelo=? and disponible=true order by km_dsd_mantenimiento asc";
+    
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, idMod);
+      rs = sentencia.executeQuery();
+      
+      while (rs.next()) {
+        Bicicletas b = new Bicicletas();
+        b = new Bicicletas();
+        b.setId(rs.getInt("id"));
+        b.setDescripcion(rs.getString("descripcion"));
+        b.setPatente(rs.getString("patente"));
+        b.setDisponible(rs.getBoolean("disponible"));
+        b.setKmDsdMantenimiento(rs.getDouble("km_dsd_mantenimiento"));
+        b.setKmEnViaje(rs.getDouble("km_viaje"));
+        Modelos modelo = new CatalogoModelos().getModelo(rs.getInt("id_modelo"));
+        b.setModelo(modelo);
+        bicicletas.add(b);
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+    return bicicletas;
+  }
+
+  public boolean estaDisponibleParaReserva(Bicicletas b, Calendar desde, Calendar hasta) {
+    Statement sentencia;
+    ResultSet rs;
+    
+    String sql = "select * from reservas WHERE id_bici="+b.getId()+" AND "
+            + "fecha_fin_pactada>='"+new java.sql.Timestamp(desde.getTimeInMillis())+"' AND "
+            + "fecha_inicio_pactada<='"+new java.sql.Timestamp(hasta.getTimeInMillis())+"'";
+    boolean bnd = true;
+    
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().createStatement();
+      rs = sentencia.executeQuery(sql);
+      
+      if (rs.next()) {
+        bnd=false;
+        return bnd;
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+    return bnd;
   }
 
 }

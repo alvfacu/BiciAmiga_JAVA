@@ -115,6 +115,16 @@ public class Reservas {
     this.kmRecorridos = kmRecorridos;
   }
 
+  public Reservas(Usuarios cliente, Bicicletas bici, Date fechaInterna, Date fechaInicioP, Date fechaFinP, double importe, EstadosReserva estado) {
+    this.cliente = cliente;
+    this.bici = bici;
+    this.fechaInterna = fechaInterna;
+    this.fechaInicioP = fechaInicioP;
+    this.fechaFinP = fechaFinP;
+    this.importe = importe;
+    this.estado = estado;
+  }
+  
   public Reservas() {    
   }
     

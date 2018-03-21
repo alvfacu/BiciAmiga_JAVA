@@ -185,7 +185,10 @@ public class CatalogoReservas {
       sentencia.setTimestamp(4, new java.sql.Timestamp(r.getFechaInterna().getTime()));
       sentencia.setTimestamp(5, new java.sql.Timestamp(r.getFechaInicioP().getTime()));
       sentencia.setTimestamp(6, new java.sql.Timestamp(r.getFechaFinP().getTime()));
-      sentencia.setTimestamp(7, new java.sql.Timestamp(r.getFechaFinR().getTime()));
+      if(r.getFechaFinR()!=null)
+        sentencia.setTimestamp(7, new java.sql.Timestamp(r.getFechaFinR().getTime()));
+      else
+        sentencia.setTimestamp(7, null);
       sentencia.setDouble(8,r.getImporte());
       sentencia.setDouble(9,r.getKmRecorridos());
       sentencia.setString(10,r.getObservacion());

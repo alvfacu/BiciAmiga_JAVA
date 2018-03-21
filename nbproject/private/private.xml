@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/nav_bar.jsp</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/reservar.jsp</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/admres.jsp</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/Reservar.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/index.jsp</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Datos/CatalogoBicicletas.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/FiltarBicicletas.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/reserva_exitosa.jsp</file>
             <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/css/business-casual.min.css</file>
         </group>
     </open-files>

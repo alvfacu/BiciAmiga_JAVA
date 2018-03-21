@@ -41,7 +41,7 @@
     if (session.getAttribute("Usuario") != null) {
       Usuarios usrActual = (Usuarios) session.getAttribute("Usuario");
       if ((usrActual.isAdm()) || (!usrActual.isAdm() && !usrActual.isMecanico())) {
-        Modelos modeloActual = (Modelos)request.getAttribute("modeloReserva");
+        Modelos modeloActual = (Modelos)session.getAttribute("modeloReserva");
   %>
   <h1 class="site-heading text-center text-white d d-lg-block">
     <span class="site-heading-upper text-primary mb-3">Confirmar Reserva</span>
@@ -60,7 +60,7 @@
             <p style="margin-top: 0.8rem; margin-bottom: 0.2rem;font-size: 18px"><b><u>Bicicleta a reservar:</u> <%=modeloActual.getTipo().getNombre() + " - " + modeloActual.getNombre()%></b></p>          
             <p style="margin-bottom: 0.2rem;font-size: 18px"><b><u>Para usuario:</u></b>  
               <%if(usrActual.isAdm()){%>
-              <select class="form-control" style="display: inline; width: auto;" name="usuarios" id="tipos" placeholder="Usuarios" title="Usuarios" required="true" >
+              <select class="form-control" style="display: inline; width: auto;" name="usuarios" id="usuarios" placeholder="Usuarios" title="Usuarios" required="true" >
                 <% for (Usuarios u : new ControladorUsuarios().getUsuarios()) {%>
                 <% if (u.isHabilitado() && !u.isAdm() && !u.isMecanico()) { %>
                   <option value="<%=u.getId()%>"><%=u.getUsuario().trim()+" ("+u.getApynom().trim()+")"%></option>
@@ -70,13 +70,13 @@
               <%=usrActual.getApynom().trim()+" ("+usrActual.getUsuario().trim()+")"%>
               <% } %>
             </p>
-            <p style="margin-bottom: 0.2rem;font-size: 18px"><b><u>Fecha de Reserva:</u> <%=request.getAttribute("fechaReserva")%></b></p>          
-            <% if(Boolean.valueOf(request.getAttribute("completoReserva").toString())){%>
+            <p style="margin-bottom: 0.2rem;font-size: 18px"><b><u>Fecha de Reserva:</u> <%=session.getAttribute("fechaReserva")%></b></p>          
+            <% if(Boolean.valueOf(session.getAttribute("completoReserva").toString())){%>
               <p style="margin-bottom: 0.2rem;font-size: 18px"><b><u>Día completo:</u> De 9 a 21 hs.</b></p>
             <% } else { %>
-              <p style="margin-bottom: 0.2rem;font-size: 18px"><b><u>Franja Horario:</u> <%=request.getAttribute("desdeReserva")%> a <%=request.getAttribute("hastaReserva")%> hs.</b></p>
+              <p style="margin-bottom: 0.2rem;font-size: 18px"><b><u>Franja Horario:</u> <%=session.getAttribute("desdeReserva")%> a <%=session.getAttribute("hastaReserva")%> hs.</b></p>
             <% } %>
-              <p style="margin-bottom: 0.2rem;font-size: 18px"><b><u>Precio final:</u> $ <%=df2.format(Double.valueOf(request.getAttribute("importeReserva").toString()))%></b></p>                    
+              <p style="margin-bottom: 0.2rem;font-size: 18px"><b><u>Precio final:</u> $ <%=df2.format(Double.valueOf(session.getAttribute("importeReserva").toString()))%></b></p>                    
           </div>
         </div>
         <hr />

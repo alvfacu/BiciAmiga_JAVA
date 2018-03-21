@@ -8,6 +8,7 @@ import Entidades.TiposBicicleta;
 import Entidades.Modelos;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ControladorBicicletas {
   CatalogoBicicletas cb;
@@ -44,6 +45,10 @@ public class ControladorBicicletas {
     cb.modificarBicicleta(b);
   }
   
+  public ArrayList<Bicicletas> getBicicletaParaReserva(int idMod){
+    return cb.getBicicletaParaReserva(idMod);
+  }
+  
   public ArrayList<Modelos> getModelosDisponibles(){
     return cm.getModelosDisponibles();
   }
@@ -52,14 +57,18 @@ public class ControladorBicicletas {
     return cm.getModelosDisponiblesXModelo(modelo);
   }
   
-  public ArrayList<Modelos> getModelosDisponiblesXTipoXModelo(int tipo, int modelo){
-    return cm.getModelosDisponiblesXTipoXModelo(tipo,modelo);
+  public ArrayList<Modelos> getModelosDisponiblesXTipoXModelo(int tipo, int modelo,Calendar fechaDsd, Calendar fechaHst){
+    return cm.getModelosDisponiblesXTipoXModelo(tipo,modelo,fechaDsd,fechaHst);
   }
   
-  public ArrayList<Modelos> getModelosDisponiblesXTipo(int tipo){
-    return cm.getModelosDisponiblesXTipo(tipo);
+  public ArrayList<Modelos> getModelosDisponiblesXTipo(int tipo,Calendar fechaDsd, Calendar fechaHst){
+    return cm.getModelosDisponiblesXTipo(tipo,fechaDsd,fechaHst);
   }
-
+  
+  public ArrayList<Modelos> getModelosDisponibles(Calendar fechaDsd, Calendar fechaHst) {
+    return cm.getModelosDisponibles(fechaDsd,fechaHst);
+  }
+  
   public int existePatente(String patente) {
     return cb.existeBicicleta(patente);
   }
@@ -128,8 +137,8 @@ public class ControladorBicicletas {
     return cm.getModelosXTipo(tipo);
   }
 
-  public ArrayList<Modelos> getModelosDisponibles(Calendar fechaDsd, Calendar fechaHst) {
-    return cm.getModelosDisponibles(fechaDsd,fechaHst);
+  public boolean estaDisponibleParaReserva(Bicicletas b, Calendar desde, Calendar hasta) {
+    return cb.estaDisponibleParaReserva(b,desde,hasta);
   }
 
 }

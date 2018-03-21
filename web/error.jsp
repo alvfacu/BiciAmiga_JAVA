@@ -33,7 +33,9 @@
     <!-- Body -->
     <br>
     <h1 class="site-heading text-center text-white d d-lg-block">
-      <span class="site-heading-upper text-primary mb-3 error">¡PÁGINA NO DISPONIBLE!</span>
+      <span class="site-heading-upper text-primary mb-3 error">¡ERROR!</span>
+      <span class="site-heading-upper mb-2" style="font-size:1rem">¡HA OCURRIDO UN PROBLEMA!</span>
+      <span class="site-heading-upper mb-2" style="font-size:1rem">VUELVA A INTERTARLO</span>
     </h1>
     <% if (session.getAttribute("Msj") != null) {%>
       <p class="warning text-center"><%=session.getAttribute("Msj")%></p>

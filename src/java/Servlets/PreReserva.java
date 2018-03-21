@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "PreReserva", urlPatterns = {"/PreReserva"})
 public class PreReserva extends HttpServlet {
@@ -26,6 +27,7 @@ public class PreReserva extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     try{
+      HttpSession session = request.getSession(true);
       String[] fechaReserva = request.getParameter("fechaReserva").split("-");
       int idModelo = Integer.valueOf(request.getParameter("idModeloReserva"));
       Modelos modReserva = new ControladorBicicletas().getModelo(idModelo);
@@ -36,14 +38,14 @@ public class PreReserva extends HttpServlet {
       {
         String desdeReserva = request.getParameter("hrDesdeReserva");
         String hastaReserva = request.getParameter("hrHastaReserva");
-        request.setAttribute("desdeReserva", desdeReserva);
-        request.setAttribute("hastaReserva", hastaReserva);
+        session.setAttribute("desdeReserva", desdeReserva);
+        session.setAttribute("hastaReserva", hastaReserva);
       }
       
-      request.setAttribute("fechaReserva", fechaReserva[2]+"/"+fechaReserva[1]+"/"+fechaReserva[0]);
-      request.setAttribute("modeloReserva", modReserva);
-      request.setAttribute("completoReserva", completo);
-      request.setAttribute("importeReserva", importe);
+      session.setAttribute("fechaReserva", fechaReserva[2]+"/"+fechaReserva[1]+"/"+fechaReserva[0]);
+      session.setAttribute("modeloReserva", modReserva);
+      session.setAttribute("completoReserva", completo);
+      session.setAttribute("importeReserva", importe);
       request.getRequestDispatcher("prereserva.jsp").forward(request, response);
     }
     catch(Exception ex)

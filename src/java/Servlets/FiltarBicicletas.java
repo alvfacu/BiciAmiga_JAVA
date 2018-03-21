@@ -73,9 +73,8 @@ public class FiltarBicicletas extends HttpServlet {
           }
         }
         
-        
-        Calendar fechaDsd = Calendar.getInstance();
-        Calendar fechaHst = Calendar.getInstance();
+        Calendar fechaDsd = fechaReserva;
+        Calendar fechaHst = fechaReserva;
         fechaDsd.set(Calendar.HOUR_OF_DAY, hrDsd);
         fechaDsd.set(Calendar.MINUTE, 0);
         fechaDsd.set(Calendar.SECOND, 0);
@@ -88,10 +87,10 @@ public class FiltarBicicletas extends HttpServlet {
         
         ArrayList<Modelos> disponibles;
         if(idTipo>0 && idModelo>0){
-          disponibles = new ControladorBicicletas().getModelosDisponiblesXTipoXModelo(idTipo,idModelo);
+          disponibles = new ControladorBicicletas().getModelosDisponiblesXTipoXModelo(idTipo,idModelo, fechaDsd, fechaHst);
         }
         else if (idTipo>0 && idModelo==0){
-          disponibles = new ControladorBicicletas().getModelosDisponiblesXTipo(idTipo);
+          disponibles = new ControladorBicicletas().getModelosDisponiblesXTipo(idTipo, fechaDsd, fechaHst);
         }
         else {
           disponibles = new ControladorBicicletas().getModelosDisponibles(fechaDsd,fechaHst);
