@@ -67,7 +67,9 @@
               <i class="fa fa-mouse-pointer fa-stack-1x fa-inverse"></i>
             </span> 
             <h4 class="service-heading">1er PASO</h4>
-            <p class="mb-3">Haz click en <a class="label label-reserva" style="text-decoration: none;color: #FFFFFF;" href="reservar.jsp">Reservar</a></p>
+            <form method="POST" action="Reservar">
+              <p class="mb-3">Haz click en <button type="submit" class="label label-reserva" style="text-decoration: none;color: #FFFFFF;">Reservar</button></p>
+            </form>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">

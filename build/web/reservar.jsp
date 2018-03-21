@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="Entidades.Modelos"%>
 <%@page import="java.util.ArrayList"%>
@@ -41,16 +42,20 @@
       Usuarios usrActual = (Usuarios) session.getAttribute("Usuario");
       if ((usrActual.isAdm()) || (!usrActual.isAdm() && !usrActual.isMecanico())) {
         ArrayList<Modelos> modelos_dispo = null;
-        int tipo = 0;
-        int modelo = 0;
-
+        int tipo = 0, modelo = 0;
+        boolean bndCompleto = true;
+        SimpleDateFormat format;
+        String hrDsd = "09";
+        String hrHst = "21";
+        int dif = 0;
+        
         if (request.getParameter("tipos") != null){
           try{
             tipo = Integer.valueOf(request.getParameter("tipos").toString());
             if (tipo < 0){
               response.sendRedirect("error.jsp");
               return;
-            } else{ %>
+            } else { %>
             <input type="hidden" name="idt" id="idt" value="<%=request.getParameter("tipos")%>">
          <% }
           } catch (Exception exception1) {
@@ -72,6 +77,42 @@
           <% }
             }
           } catch (Exception exception1) {
+            response.sendRedirect("error.jsp");
+            return;
+          }
+        }
+
+        if (request.getParameter("fecha") != null){
+          try {
+              String formatString = "yyyy-MM-dd";
+              format = new SimpleDateFormat(formatString);
+              format.setLenient(false);
+              format.parse(request.getParameter("fecha"));%>
+              <input type="hidden" name="fechaR" id="fechaR" value="<%=request.getParameter("fecha")%>">
+        <%} catch (Exception e) {
+            response.sendRedirect("error.jsp");
+            return;
+          }
+        }
+
+        if (request.getParameter("hrdesde") != null || request.getParameter("hrhasta") != null){
+          try {
+              hrDsd = request.getParameter("hrdesde");
+              hrHst = request.getParameter("hrhasta");
+              if(Integer.valueOf(hrDsd)<Integer.valueOf(hrHst))
+              {
+                if(Integer.valueOf(hrDsd)!=9 && Integer.valueOf(hrDsd)!=21)
+                { 
+                  bndCompleto=false;
+                  dif = Integer.valueOf(hrHst)-Integer.valueOf(hrDsd);
+                }
+              }
+              else
+              {
+                response.sendRedirect("error.jsp");
+                return;
+              }
+            } catch (Exception e) {
             response.sendRedirect("error.jsp");
             return;
           }
@@ -122,15 +163,26 @@
           </div>
           <div class="col-lg-3 col-xs-3" style="margin-top: 1.3rem;text-align: center">
             <li style="list-style-type: none;list-style-position: initial;list-style-image: initial;">
-              <label><input type="checkbox" style="margin-right: 1rem!important" id="completo" name="completo" onclick="turno_completo()" value="false">Día Completo</label>
+              <label><input type="checkbox" style="margin-right: 1rem!important" id="completo" name="completo" onclick="turno_completo()"
+                    <%if(bndCompleto){%>
+                    checked="true" value="true"
+                    <% } else { %>
+                    value="false"
+                    <%}%>>Día Completo</label>
             </li>
             <span style="font-size: 12px"><i><b>Precio diferencial.</b> De 9:00 a 21:00 hs.</i></span>
           </div>
           <div class="col-lg-2 col-xs-2" style="margin-top: 1rem;" >Hora Inicio
-            <input type="time" class="form-control" min="09:00" max="21:00" value="09:00" id="hrdesde" name="hrdesde" required="true">
+            <input type="number" class="form-control" min="09" max="21" value="<%=hrDsd%>" id="hrdesde" name="hrdesde" required="true"
+                   <%if(bndCompleto) { %>
+                   disabled="true"  
+                   <% } %>>
           </div>
           <div class="col-lg-2 col-xs-2" style="margin-top: 1rem;">Hora Fin
-            <input type="time" class="form-control" min="09:00" max="21:00" value="21:00" id="hrhasta" name="hrhasta" required="true">
+            <input type="number" class="form-control" min="09" max="21" value="<%=hrHst%>" id="hrhasta" name="hrhasta" required="true"
+                  <%if(bndCompleto) { %>
+                  disabled="true"
+                  <% }%>>
           </div>
           <div class="col-lg-2" style="margin-top: 1.6rem;">
             <button type="submit" id="buscar" class="col-sm-12 col-xs-12 btn btn-lg btn-buscar" title="Buscar bicicletas"><i class="fa fa-search"></i></button>
@@ -163,20 +215,38 @@
           </div>
         </div>
         <div class="col-lg-7 col-md-12">
-          <p style="margin-bottom: 0.2rem;text-align: center;font-size: 18px"><b><%=m.getTipo().getNombre() + " - " + m.getNombre()%></b></p>          
-          <p style="margin-bottom: 0.5rem;text-align: center;font-size: 14px"><%=m.getCaracteristicas_gral() %></i></p>            
-          <p style="margin-bottom: 0.5rem;text-align: center;font-size: 13px"><i>Incluye kit de seguridad: casco, cadena y candado.</i></p>            
-          <p style="margin-bottom: 1rem;text-align: center;font-size: 12px"><i><b><%="Precio por hora: $ " + df2.format(m.getPrecioXHr()) + " - Precio Día Completo: $ " + df2.format(m.getPrecioXDia())%></b></i></p>            
-          <div class="">
-            <p>
-              <a href="#" class="btn btn-reserva col-sm-6 col-xs-12" style="margin-bottom: 1.5rem;float:right" role="button">Reservala</a>
-            </p>
-          </div>
+          <form method="POST" action="PreReserva">
+            <input type="hidden" id="idModeloReserva" name="idModeloReserva" value="<%=m.getId()%>">
+            <input type="hidden" class="fechaReserva" name="fechaReserva">
+            <input type="hidden" class="completoReserva" name="completoReserva" value="<%=bndCompleto%>">
+            <%if(!bndCompleto){%>
+              <input type="hidden" id="hrDesdeReserva" name="hrDesdeReserva" value="<%=hrDsd%>">
+              <input type="hidden" id="hrHastaReserva" name="hrHastaReserva" value="<%=hrHst%>">
+            <% } %>
+            <p style="margin-bottom: 0.2rem;text-align: center;font-size: 18px"><b><%=m.getTipo().getNombre() + " - " + m.getNombre()%></b></p>          
+            <p style="margin-bottom: 0.5rem;text-align: center;font-size: 14px"><%=m.getCaracteristicas_gral() %></i></p>            
+            <p style="margin-bottom: 0.5rem;text-align: center;font-size: 13px"><i>Incluye kit de seguridad: casco, cadena y candado.</i></p>            
+            <p style="margin-bottom: 1rem;text-align: center;font-size: 12px"><i><b><%="Precio por hora: $ " + df2.format(m.getPrecioXHr()) + " - Precio Día Completo: $ " + df2.format(m.getPrecioXDia())%></b></i></p>            
+            <div class="">
+              <p class="col-sm-6 col-xs-12" style="text-align: center; vertical-align: central;float:left"><b><u>Precio Final:</u></b> 
+                <% if(bndCompleto) { %>
+                  $ <%=df2.format(m.getPrecioXDia())%>
+                  <input type="hidden" class="importeReserva" name="importeReserva" value="<%=m.getPrecioXDia()%>">
+                <% } else { %>
+                  $ <%=df2.format(m.getPrecioXHr()*dif)%>
+                  <input type="hidden" class="importeReserva" name="importeReserva" value="<%=m.getPrecioXHr()*dif%>">
+                <% } %>              
+              </p>
+              <p>
+                <button type="submit" class="btn btn-reserva col-sm-6 col-xs-12" style="margin-bottom: 1.5rem;float:right">Reservala</button>
+              </p>
+            </div>
+          </form>
         </div>
         <% } %>
       </div>
       <% } else { %>
-      <div class="error" style="display: flex;justify-content: center;align-items: center;">No existen bicicletas disponibles.</div>
+      <div class="error" style="display: flex;justify-content: center;align-items: center;">No hay bicicletas disponibles.</div>
       <div class="error" style="display: flex;justify-content: center;align-items: center;"><i>Recomendados cambiar los filtros para obtener otros resultados.</i></div>
       <% } %>
     </div>
@@ -210,14 +280,23 @@
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
   <script>
-                var today = new Date();
-                //var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
 
+                var today = new Date();  
                 var dia = today.getDate();
                 var mes = today.getMonth() + 1;
                 var anio = today.getFullYear();
                 document.getElementById("fecha").setAttribute("min", anio + '-' + String(mes).padStart(2, "0") + '-' + String(dia).padStart(2, "0"));
-                document.getElementById("fecha").setAttribute("value", anio + '-' + String(mes).padStart(2, "0") + '-' + String(dia).padStart(2, "0"));
+                
+                if(document.getElementById("fechaR"))
+                {
+                  document.getElementById("fecha").setAttribute("value", document.getElementById("fechaR").value);
+                  $('.fechaReserva').val(document.getElementById("fechaR").value);
+                }
+                else
+                {
+                  document.getElementById("fecha").setAttribute("value", anio + '-' + String(mes).padStart(2, "0") + '-' + String(dia).padStart(2, "0"));                  
+                  $('.fechaReserva').val(anio + '-' + String(mes).padStart(2, "0") + '-' + String(dia).padStart(2, "0"));
+                }
 
                 var tipos = $('#tipos');
                 var modelos = $('#modelos');
@@ -258,20 +337,18 @@
                     modelos.prop('required', false);
                   }
                 }).trigger('change');
-
+                
                 function turno_completo() {
                   if (document.getElementById("completo").checked)
                   {
-                    document.getElementById("hrdesde").value = "09:00";
+                    document.getElementById("hrdesde").value = "09";
                     document.getElementById("hrdesde").disabled = true;
-                    document.getElementById("hrhasta").value = "21:00";
+                    document.getElementById("hrhasta").value = "21";
                     document.getElementById("hrhasta").disabled = true;
-                    document.getElementById("completo").value="true";
                   } else
                   {
                     document.getElementById("hrdesde").disabled = false;
                     document.getElementById("hrhasta").disabled = false;
-                    document.getElementById("completo").value="false";
                   }
                 }
                 

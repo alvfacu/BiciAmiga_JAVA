@@ -3,7 +3,6 @@ package Servlets;
 import Entidades.Modelos;
 import Negocio.ControladorBicicletas;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.servlet.ServletException;
@@ -11,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "reservar", urlPatterns = {"/reservar"})
 public class FiltarBicicletas extends HttpServlet {
@@ -56,26 +54,22 @@ public class FiltarBicicletas extends HttpServlet {
         if(Boolean.valueOf(request.getParameter("completo")))
           completo = true;
         
-        int hrDsd = 9;
-        int minDsd = 0;
+        int hrDsd = 9;        
         int hrHst = 21;
-        int minHst = 0;
         
-        if(!completo)
+        if(!completo && request.getParameter("hrdesde")!=null && request.getParameter("hrhasta")!=null)
         {
-          String[] desde = request.getParameter("hrdesde").replaceAll("%3A", ":").split(":");       
+          String desde = request.getParameter("hrdesde");       
         
-          if(hrDsd>9)
+          if(Integer.valueOf(desde)>9)
           {
-            hrDsd = Integer.valueOf(desde[0]);
-            minDsd = Integer.valueOf(desde[1]);       
+            hrDsd = Integer.valueOf(desde);    
           }
           
-          String[] hasta = request.getParameter("hrhasta").replaceAll("%3A", ":").split(":");
-          if(hrHst<21)
+          String hasta = request.getParameter("hrhasta");
+          if(Integer.valueOf(hasta)<21)
           {
-            hrHst = Integer.valueOf(hasta[0]);
-            minHst = Integer.valueOf(hasta[1]);
+            hrHst = Integer.valueOf(hasta);
           }
         }
         
@@ -83,12 +77,12 @@ public class FiltarBicicletas extends HttpServlet {
         Calendar fechaDsd = Calendar.getInstance();
         Calendar fechaHst = Calendar.getInstance();
         fechaDsd.set(Calendar.HOUR_OF_DAY, hrDsd);
-        fechaDsd.set(Calendar.MINUTE, minDsd);
+        fechaDsd.set(Calendar.MINUTE, 0);
         fechaDsd.set(Calendar.SECOND, 0);
         fechaDsd.set(Calendar.MILLISECOND, 0);
         
         fechaHst.set(Calendar.HOUR_OF_DAY, hrHst);
-        fechaHst.set(Calendar.MINUTE, minHst);                
+        fechaHst.set(Calendar.MINUTE, 0);                
         fechaHst.set(Calendar.SECOND, 0);
         fechaHst.set(Calendar.MILLISECOND, 0);
         

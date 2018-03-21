@@ -4,7 +4,6 @@ import Entidades.Modelos;
 import Entidades.Usuarios;
 import Negocio.ControladorBicicletas;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.servlet.ServletException;
@@ -35,7 +34,7 @@ public class Reservar extends HttpServlet {
     HttpSession session = request.getSession(true);
     ArrayList<Modelos> disponibles;
     Usuarios usr = (Usuarios)session.getAttribute("Usuario");
-    if (usr!=null && ((usr.isAdm()) || (!usr.isAdm() && !usr.isMecanico())))
+    if (usr!=null && ((usr.isAdm()) || (!usr.isAdm() && !usr.isMecanico())) && usr.isHabilitado())
     {
       Calendar fechaDsd = Calendar.getInstance();
       Calendar fechaHst = Calendar.getInstance();
@@ -51,6 +50,10 @@ public class Reservar extends HttpServlet {
       
       request.setAttribute("bicicletas", disponibles);
       request.getRequestDispatcher("reservar.jsp").forward(request, response);
+    }
+    else if(usr==null)
+    {
+      response.sendRedirect("login.jsp");
     }
     else
     {

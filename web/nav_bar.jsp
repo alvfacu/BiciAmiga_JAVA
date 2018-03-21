@@ -52,7 +52,9 @@
               <a class="nav-link text-uppercase text-expanded" href="nuestras_bicicletas.jsp">Nuestras Bicis</a>
             </li>
             <li class="nav-item px-lg-4" id="reservar">
-              <a class="nav-link text-uppercase text-expanded" href="reservar.jsp" style="color: #ffc107;">Reservar</a>
+              <form method="POST" action="Reservar">
+                <button type="submit" class="nav-link text-uppercase text-expanded" style="color: #ffc107;border:none;background-color: #321811;">Reservar</button>
+              </form>
             </li>                        
             <li class="nav-item px-lg-4" id="contacto">
               <a class="nav-link text-uppercase text-expanded" href="contacto.jsp">Contacto</a>
