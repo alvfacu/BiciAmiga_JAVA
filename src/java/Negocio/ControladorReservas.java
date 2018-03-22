@@ -20,6 +20,10 @@ public class ControladorReservas {
     return cr.getReservasPendientes();
   }
   
+  public ArrayList<Reservas> getReservasEnCurso() {
+    return cr.getReservasPendientes();
+  }
+  
   public ArrayList<Reservas> getReservasFinalizados() {
     return cr.getReservasFinalizadas();
   }

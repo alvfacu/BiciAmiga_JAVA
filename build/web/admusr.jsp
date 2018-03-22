@@ -41,9 +41,9 @@
 
     <!-- USUARIOS -->
     <div class="col-lg-10 col-centered well" >      
-      <div style="overflow-x:auto;">
-        <div>
-          <a class="btn btn-nuevo" data-title="Nuevo" title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevousr()"><span class="fa fa-plus-square"></span></a>
+      <div style="overflow-x:auto;margin:0.5rem">
+        <div align="right">
+          <a class="btn btn-nuevo" style="margin-bottom:0.5rem" title="Nuevo Usuario" onclick="nuevousr()"><span class="fa fa-plus-square"></span></a>
         </div
         <br>
         <table class="display table" id="usuarios">
@@ -65,11 +65,11 @@
             if (usuarios.size() > 0) {
               for (Usuarios u : usuarios) {%>
             <tr align="center" >
-              <td style="vertical-align:middle"><%= u.getUsuario().trim()%></td>
-              <td style="vertical-align:middle"><%= u.getApynom().trim()%></td>
-              <td style="vertical-align:middle"><%= u.getDocumento().trim()%></td>
-              <td style="vertical-align:middle"><%= u.getEmail().trim()%></td>
-              <td style="vertical-align:middle">
+              <td style="vertical-align:middle;font-size: 1rem;"><%= u.getUsuario().trim()%></td>
+              <td style="vertical-align:middle;font-size: 0.8rem;"><%= u.getApynom().trim()%></td>
+              <td style="vertical-align:middle;font-size: 0.8rem;"><%= u.getDocumento().trim()%></td>
+              <td style="vertical-align:middle;font-size: 0.8rem;"><%= u.getEmail().trim()%></td>
+              <td style="vertical-align:middle;font-size: 0.8rem;">
                 <% if (u.isAdm()) {%>
                 <span class="label label-adm">ADMIN</span>
                 <% }  if (u.isMecanico()) { %>
@@ -86,21 +86,21 @@
                 <% }%>
               </td>   
               <td style="vertical-align:middle">
-                <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
+                <button class="btn btn-editar" title="Ver/Editar" 
                         onclick="editarusr('<%= u.getId()%>', '<%=u.getUsuario().trim()%>', '<%= u.getApynom().trim()%>', '<%= u.getDocumento()%>',
                                     '<%= u.getEmail()%>', '<%= u.isAdm()%>', '<%= u.isMecanico()%>', '<%= u.isHabilitado()%>', '<%= u.getDomicilio().trim()%>', '<%= u.getTelefono()%>')">
                   <span class="fa fa-edit"></span>
                 </button>
               </td>
               <td style="vertical-align:middle">
-                <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
+                <button class="btn btn-eliminar" title="Eliminar" 
                         onclick="eliminarusr('<%= u.getId()%>', '<%=u.getUsuario().trim()%>', '<%= u.getApynom().trim()%>', '<%= u.getDocumento()%>',
                                     '<%= u.getEmail()%>', '<%= u.isAdm()%>', '<%= u.isMecanico()%>', '<%= u.isHabilitado()%>', '<%= u.getDomicilio().trim()%>', '<%= u.getTelefono()%>')">
                   <span class="fa fa-trash-o"></span>
                 </button>
               </td>
               <td style="vertical-align:middle">
-                <button class="btn btn-reset" data-title="Reestablecer Contraseña" title="Reestablecer Contraseña" data-toggle="modal" data-target="#reset" onclick="reset('<%= u.getId()%>')">
+                <button class="btn btn-reset" title="Reestablecer Contraseña" onclick="reset('<%= u.getId()%>')">
                   <span class="fa fa-refresh"></span>
                 </button>
               </td>

@@ -36,15 +36,13 @@
       <span class="site-heading-upper text-primary mb-3 error">¡ERROR!</span>
       <span class="site-heading-upper mb-2" style="font-size:1rem">¡HA OCURRIDO UN PROBLEMA!</span>
       <span class="site-heading-upper mb-2" style="font-size:1rem">VUELVA A INTERTARLO</span>
-    </h1>
-    <% if (session.getAttribute("Msj") != null) {%>
-      <p class="warning text-center"><%=session.getAttribute("Msj")%></p>
-    <%}%>    
+    </h1> 
     <br>
     <button class="btn btn-lg btn-primary btn-block col-centered col-md-3 col-sm-4" onclick="goBack()">Volver</button>
     <br>
     <br>
     <br>
+    
 
     <!-- Footer -->
     <%@include file="footer.jsp"%>

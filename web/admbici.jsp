@@ -39,17 +39,18 @@
     </h1>
 
     <div class="col-lg-10 col-centered well">
-
-      <button class="tablink" onclick="openPage('bicis', this)" id="defaultOpen">Bicicletas</button>
-      <button class="tablink" onclick="openPage('modelosbici', this)">Modelos</button>
-      <button class="tablink" onclick="openPage('tipos', this)">Tipos</button>
-
+      
+      <div style="overflow-x:auto;">
+        <button class="tablink" onclick="openPage('bicis', this)" id="defaultOpen">Bicicletas</button>
+        <button class="tablink" onclick="openPage('modelosbici', this)">Modelos</button>
+        <button class="tablink" onclick="openPage('tipos', this)">Tipos</button>
+      </div>
+      
       <!-- BICICLETA -->
       <div id="bicis" class="tabcontent">
-        <div>
-          <a class="btn btn-nuevo" data-title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevabici()"><span class="fa fa-plus-square"></span></a></p>
+        <div align="right">
+          <a class="btn btn-nuevo" style="margin-bottom:0.5rem" title="Nueva Bicicleta" onclick="nuevabici()"><span class="fa fa-plus-square"></span></a>
         </div>
-
         <div style="overflow-x:auto;">
           <table class="table display" id="bicicletas">
             <thead style="color: #fff;background-color: #373a3c;">
@@ -71,12 +72,12 @@
                 if (bicicletas.size() > 0) {
                   for (Bicicletas b : bicicletas) {%>
               <tr align="center" >
-                <td style="vertical-align:middle"><%= b.getModelo().getTipo().getNombre()%></td>
-                <td style="vertical-align:middle"><%= b.getModelo().getNombre()%></td>
-                <td style="vertical-align:middle"><%= b.getPatente()%></td>          
-                <td style="vertical-align:middle"><%= df2.format(b.getKmDsdMantenimiento())%></td>
-                <td style="vertical-align:middle"><%= df2.format(b.getKmEnViaje())%></td>
-                <td style="vertical-align:middle">
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= b.getModelo().getTipo().getNombre()%></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= b.getModelo().getNombre()%></td>
+                <td style="vertical-align:middle;font-size: 1rem;"><%= b.getPatente()%></td>          
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= df2.format(b.getKmDsdMantenimiento())%></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= df2.format(b.getKmEnViaje())%></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;">
                   <% if (b.isDisponible()) {%>
                   <span class="label label-success">SI</span>
                   <% } else { %>
@@ -84,22 +85,22 @@
                   <% }%>
                 </td>                
                 <td style="vertical-align:middle">
-                  <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
+                  <button class="btn btn-editar" title="Editar" 
                           onclick="editarbici('<%= b.getId()%>', '<%= b.getPatente()%>', '<%= b.getModelo().getId()%>', '<%= b.getModelo().getTipo().getNombre()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>', '<%= b.getModelo().getUrl1()%>')">
                     <span class="fa fa-edit"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
+                  <button class="btn btn-eliminar" title="Eliminar" 
                           onclick="eliminarbici('<%= b.getId()%>', '<%= b.getPatente()%>', '<%= b.getModelo().getId()%>', '<%= b.getModelo().getTipo().getNombre()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>', '<%= b.getModelo().getUrl1()%>')">
                     <span class="fa fa-trash-o"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
                   <% if (b.isDisponible()) {%>
-                  <button class="btn btn-cliente" title="Realizar mantenimiento"
+                  <button class="btn btn-detener" title="Llevar a mantenimiento"
                           onclick='window.open("nuevoMantenimiento.jsp?idBici="+<%= b.getId()%>,"_self")'>
-                    <span class="fa fa-gears"></span>
+                    <span class="fa fa-wrench"></span>
                   </button>
                   <% }%>
                 </td> 
@@ -113,8 +114,8 @@
 
       <!-- MODELOS BICICLETA -->
       <div id="modelosbici" class="tabcontent">
-        <div>
-          <a class="btn btn-nuevo" data-title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevomodelo()"><span class="fa fa-plus-square"></span></a></p>
+        <div align="right">
+          <a class="btn btn-nuevo" title="Nuevo Modelo" style="margin-bottom:0.5rem" onclick="nuevomodelo()"><span class="fa fa-plus-square"></span></a>
         </div>
         <div style="overflow-x:auto;">
           <table class="table display" id="modelos">
@@ -122,8 +123,8 @@
               <tr align="center">
                 <th>TIPO</th>
                 <th>NOMBRE</th>
-                <th>PRECIO X HORA</th>
-                <th>PRECIO X DÍA</th>
+                <th>PRECIO HORA</th>
+                <th>PRECIO DÍA</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -133,18 +134,18 @@
                 if (modelos.size() > 0) {
                   for (Modelos modelo : modelos) {%>
               <tr align="center" >
-                <td style="vertical-align:middle"><%= modelo.getTipo().getNombre()%></td>
-                <td style="vertical-align:middle"><%= modelo.getNombre()%></td>
-                <td style="vertical-align:middle">$ <%= df2.format(modelo.getPrecioXHr())%></td>
-                <td style="vertical-align:middle">$ <%= df2.format(modelo.getPrecioXDia())%></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= modelo.getTipo().getNombre()%></td>
+                <td style="vertical-align:middle;font-size: 1rem;"><%= modelo.getNombre()%></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;">$ <%= df2.format(modelo.getPrecioXHr())%></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;">$ <%= df2.format(modelo.getPrecioXDia())%></td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
+                  <button class="btn btn-editar" title="Editar" 
                           onclick="editarmodelo('<%= modelo.getId()%>', '<%=modelo.getTipo().getId()%>', '<%=modelo.getNombre()%>', '<%=modelo.getCaracteristicas_gral()%>', '<%= df2.format(modelo.getPrecioXHr())%>', '<%= df2.format(modelo.getPrecioXDia())%>', '<%= modelo.getUrl1()%>', '<%= modelo.getUrl2()%>', '<%= modelo.getUrl3()%>')">
                     <span class="fa fa-edit"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
+                  <button class="btn btn-eliminar" title="Eliminar" 
                           onclick="eliminarmodelo('<%= modelo.getId()%>', '<%=modelo.getTipo().getId()%>', '<%=modelo.getNombre()%>', '<%=modelo.getCaracteristicas_gral()%>', '<%= df2.format(modelo.getPrecioXHr())%>', '<%= df2.format(modelo.getPrecioXDia())%>', '<%= modelo.getUrl1()%>', '<%= modelo.getUrl2()%>', '<%= modelo.getUrl3()%>')">
                     <span class="fa fa-trash-o"></span>
                   </button>
@@ -159,8 +160,8 @@
 
       <!-- TIPO BICICLETA -->
       <div id="tipos" class="tabcontent">
-        <div>
-          <a class="btn btn-nuevo" data-title="Nuevo" data-toggle="modal" data-target="#new" onclick="nuevotipo()"><span class="fa fa-plus-square"></span></a></p>
+        <div align="right">
+          <a class="btn btn-nuevo" style="margin-bottom:0.5rem" title="Nuevo Tipo Bicicleta" onclick="nuevotipo()"><span class="fa fa-plus-square"></span></a>
         </div>
         <div style="overflow-x:auto;">
           <table class="table display" id="tiposbici">
@@ -176,15 +177,15 @@
                 if (tipos.size() > 0) {
                   for (TiposBicicleta tipo : tipos) {%>
               <tr align="center" >
-                <td style="vertical-align:middle"><%= tipo.getNombre()%></td>
+                <td style="vertical-align:middle;font-size: 1rem;"><%= tipo.getNombre()%></td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-editar" data-title="Editar" data-toggle="modal" data-target="#edit" 
+                  <button class="btn btn-editar" title="Editar" 
                           onclick="editartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.getUrl()%>')">
                     <span class="fa fa-edit"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-eliminar" data-title="Eliminar" data-toggle="modal" data-target="#delete" 
+                  <button class="btn btn-eliminar" title="Eliminar" 
                           onclick="eliminartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.getUrl()%>')">
                     <span class="fa fa-trash-o"></span>
                   </button>

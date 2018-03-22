@@ -88,7 +88,7 @@ $(document).ready(function () {
 
 function openPage(pageName, elmnt) {
   var i;
-  var badColor = "#e6a756";
+  var badColor = "#373a3c";
   abmtm = '';
   abmm = '';
 

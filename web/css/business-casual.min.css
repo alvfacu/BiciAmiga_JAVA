@@ -9,6 +9,7 @@ body{font-family:Lora;background:linear-gradient(rgba(47,23,15,.65),rgba(47,23,1
 .btn-cliente{background-color:#009193;border-color:black}
 .btn-reset{background-color:#2cd09c;border-color:black}
 .btn-buscar{background-color: #e6a756;border-color: black}
+.btn-detener{background-color: orangered;border-color: black}
 
 .label {
     display: inline;
@@ -46,6 +47,9 @@ body{font-family:Lora;background:linear-gradient(rgba(47,23,15,.65),rgba(47,23,1
 .label-reserva {
   background-color: #721c24;
 }
+.label-desconocido {
+  background-color: #545b62;
+}
 
 /* Style tab links */
 .tablink {
@@ -57,7 +61,7 @@ body{font-family:Lora;background:linear-gradient(rgba(47,23,15,.65),rgba(47,23,1
   cursor: pointer;
   padding: 14px 16px;
   font-size: 17px;
-  width:33%; 
+  width:33.33%; 
   text-transform: uppercase;
 }
 
@@ -84,10 +88,10 @@ body{font-family:Lora;background:linear-gradient(rgba(47,23,15,.65),rgba(47,23,1
   background-color: #f5f5f5;
   border-color: black;
   display: none;
-  padding-top: 80px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-  padding-left: 20px;
+  padding-top: 0.5rem;
+  padding-right: 0.3px;
+  padding-bottom: 0px;
+  padding-left: 0px;
   height: 100%;
 }
 

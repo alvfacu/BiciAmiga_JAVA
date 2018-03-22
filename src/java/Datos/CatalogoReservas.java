@@ -271,7 +271,7 @@ public class CatalogoReservas {
     ArrayList<Reservas> reservas = new ArrayList<>();
     Statement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from reservas where fecha_fin_real is null";
+    String sql = "select * from reservas where fecha_fin_real is null and estado="+EstadosReserva.PENDIENTE.getId();
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -356,7 +356,8 @@ public class CatalogoReservas {
     ArrayList<Reservas> reservas = new ArrayList<>();
     Statement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from reservas where fecha_fin_real is not null";
+    String sql = "select * from reservas where fecha_fin_real is not null and estado "
+            + "IN ("+EstadosReserva.CANCELADO.getId()+","+EstadosReserva.FINALIZADO.getId()+","+EstadosReserva.DESCONOCIDO.getId()+")";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);

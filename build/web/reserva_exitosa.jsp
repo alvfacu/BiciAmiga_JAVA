@@ -47,17 +47,17 @@
   </h1>  
   <div class="col-lg-6 col-md-6 col-xs-6 col-centered well form-text">
     <div class="container">
-      <p>¡Muy bien! Ahora solo te queda acercarque a nuestro local el día <b><%=session.getAttribute("fechaReserva").toString()%></b> a partir 
+      <p align="center" style="font-size: 1.5rem;"><b><u>CÓDIGO DE RESERVA:</u> <%=session.getAttribute("numeroReserva").toString()%></b></p>
+      <hr />
+      <p align="justify">¡Muy bien! Ahora solo te queda acercarque a nuestro local el día <b><%=session.getAttribute("fechaReserva").toString()%></b> a partir 
         de las <b><%=session.getAttribute("desdeReserva").toString()%>:00</b> hs. con tu <b>D.N.I.</b>, <b>CARNET DE CONDUCIR</b> o <b>PASAPORTE</b> 
-        y con el <b>Número de reserva</b>, para retirar tu bicicleta y poder disfrutarla.</p>      
-        <hr />
-        <p style="align-content: center"><b><u>N° DE RESERVA:</u> <%=session.getAttribute("numeroReserva").toString()%></b></p>
-        <hr />
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-xs-12">
-            <button type="button" onclick="misreservas();" class="btn btn-nuevo col-lg-12 col-md-6 col-xs-6" style="margin-top:0.5rem;">¡Entendido!</button>
-          </div>
+        y con el <b>Código de Reserva</b> para retirar tu bicicleta. ¡Te esperamos!</p>      
+      <hr />
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+          <button type="button" onclick="misreservas();" class="btn btn-nuevo col-lg-12 col-md-6 col-xs-6" style="margin-top:0.5rem;">¡Entendido!</button>
         </div>
+      </div>
     </div>
   </div>
   <% } else {

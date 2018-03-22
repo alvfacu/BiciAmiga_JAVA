@@ -39,25 +39,29 @@
 
     <div class="col-lg-10 col-centered well">
 
-      <button class="tablink2" onclick="openPage('reservas', this)" id="defaultOpen">Reservas Pendientes</button>
-      <button class="tablink2" onclick="openPage('reservasf', this)">Reservas Finalizadas</button>
-
+      <div style="overflow-x:auto;">
+        <button class="tablink" onclick="openPage('pendientes', this)" id="defaultOpen">Pendientes</button>
+        <button class="tablink" onclick="openPage('encurso', this)">En Curso</button>
+        <button class="tablink" onclick="openPage('finalizadas', this)">Finalizadas</button>
+      </div>
+      
       <!-- RESERVAS PENDIENTES -->
-      <div id="reservas" class="tabcontent">
-        <div>
+      <div id="pendientes" class="tabcontent">
+        <div align="right">
           <form method="POST" action="Reservar">
-            <button type="submit" class="btn btn-nuevo" title="Nueva Reserva"><span class="fa fa-plus-square"></span></button>
+            <button type="submit" class="btn btn-nuevo" style="margin-bottom:0.5rem" title="Nueva Reserva"><span class="fa fa-plus-square"></span></button>
           </form>
         </div>
         <div style="overflow-x:auto;">
-          <table class="table display" id="reservasact">
+          <table class="table display" id="rpendientes">
             <thead style="color: #fff;background-color: #373a3c;">
               <tr align="center">
                 <th>ID</th>
                 <th>BICICLETA</th>
                 <th>USUARIO</th>
-                <th>FECHA INICIO</th>
-                <th>FECHA FIN</th>
+                <th>INICIO</th>
+                <th>FIN</th>
+                <th></th>
                 <th></th>
                 <th></th>
               </tr>
@@ -69,20 +73,23 @@
                 if (reservas_activas.size() > 0) {
                   for (Reservas r : reservas_activas) {%>
               <tr align="center" >
-                <td style="vertical-align:middle"><%= "R"+String.format("%5s",r.getId()).replace(' ', '0') %></td>
-                <td style="vertical-align:middle"><%= r.getBici().getModelo().getTipo().getNombre()+" - "+r.getBici().getModelo().getNombre()+" - "+r.getBici().getPatente() %></td>
-                <td style="vertical-align:middle"><%= r.getCliente().getUsuario() %></td>          
-                <td style="vertical-align:middle"><%= df.format(r.getFechaInicioP())%></td>
-                <td style="vertical-align:middle"><%= df.format(r.getFechaFinP())%></td>
-                <td style="vertical-align:middle">
-                  <button class="btn btn-editar" data-title="Editar" title="Completar" data-toggle="modal" data-target="#edit" 
-                          onclick='window.open("modificarMantenimiento.jsp?idMant="+<%=r.getId()%>,"_self")'>
-                    <span class="fa fa-check-square-o"></span>
+                <td style="vertical-align:middle;font-size: 1rem;"><%= "R"+String.format("%5s",r.getId()).replace(' ', '0') %></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getBici().getModelo().getTipo().getNombre()+" - "+r.getBici().getModelo().getNombre()+" - "+r.getBici().getPatente() %></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getCliente().getUsuario() %></td>          
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaInicioP())%></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaFinP())%></td>
+                <td style="vertical-align:middle;">
+                  <button class="btn btn-editar" title="Ver/Editar">
+                    <span class="fa fa-edit"></span>
+                  </button>
+                </td>
+                <td style="vertical-align:middle;">
+                  <button class="btn btn-nuevo" title="Iniciar">                           
+                    <span class="fa fa-play"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-eliminar" data-title="Eliminar" title="Eliminar" data-toggle="modal" data-target="#delete" 
-                          onclick='window.open("eliminarMantenimiento.jsp?idMant="+<%=r.getId()%>,"_self")'>
+                  <button class="btn btn-eliminar" title="Eliminar">
                     <span class="fa fa-trash-o"></span>
                   </button>
                 </td>
@@ -93,18 +100,67 @@
           </table>
         </div>
       </div>
-
-      <!-- RESERVAS FINALIZADAS -->
-      <div id="reservasf" class="tabcontent">
+      
+      <!-- RESERVAS EN CURSO -->
+      <div id="encurso" class="tabcontent">
         <div style="overflow-x:auto;">
-          <table class="table display" id="reservasfin">
+          <table class="table display" id="rencurso">
             <thead style="color: #fff;background-color: #373a3c;">
               <tr align="center">
                 <th>ID</th>
                 <th>BICICLETA</th>
                 <th>USUARIO</th>
-                <th>FECHA INICIO</th>
-                <th>FECHA FIN</th>
+                <th>INICIO</th>
+                <th>FIN</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>            
+              <% ArrayList<Reservas> reservas_curso = new ControladorReservas().getReservasEnCurso();                 
+                if (reservas_curso.size() > 0) {
+                for (Reservas r : reservas_curso) {%>
+              <tr align="center" >
+                <td style="vertical-align:middle;font-size: 1rem;"><%= "R"+String.format("%5s",r.getId()).replace(' ', '0') %></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getBici().getModelo().getTipo().getNombre()+" - "+r.getBici().getModelo().getNombre()+" - "+r.getBici().getPatente() %></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getCliente().getUsuario() %></td>          
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaInicioP())%></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaFinP())%></td>
+                <td style="vertical-align:middle;">
+                  <button class="btn btn-reset" title="Ver">                          
+                    <span class="fa fa-eye"></span>
+                  </button>
+                </td>
+                <td style="vertical-align:middle;">
+                  <button class="btn btn-detener" title="Finalizar">                          
+                    <span class="fa fa-stop"></span>
+                  </button>
+                </td>
+                <td style="vertical-align:middle;">
+                  <button class="btn btn-eliminar" title="Eliminar">                          
+                    <span class="fa fa-trash-o"></span>
+                  </button>
+                </td>
+              </tr>        
+              <% }
+                }%>
+            </tbody>
+          </table>
+        </div>
+      </div>      
+                        
+      <!-- RESERVAS FINALIZADAS -->
+      <div id="finalizadas" class="tabcontent">
+        <div style="overflow-x:auto;">
+          <table class="table display" id="rfinalizadas">
+            <thead style="color: #fff;background-color: #373a3c;">
+              <tr align="center">
+                <th>ID</th>
+                <th>BICICLETA</th>
+                <th>USUARIO</th>
+                <th>INICIO</th>
+                <th>FIN</th>
                 <th>KM TOTALES</th>
                 <th>ESTADO</th>
                 <th></th>
@@ -115,16 +171,23 @@
                 if (reservas_fin.size() > 0) {
                 for (Reservas r : reservas_fin) {%>
               <tr align="center" >
-                <td style="vertical-align:middle"><%= "R"+String.format("%5s",r.getId()).replace(' ', '0') %></td>
-                <td style="vertical-align:middle"><%= r.getBici().getModelo().getTipo().getNombre()+" - "+r.getBici().getModelo().getNombre()+" - "+r.getBici().getPatente() %></td>
-                <td style="vertical-align:middle"><%= r.getCliente().getUsuario() %></td>          
-                <td style="vertical-align:middle"><%= df.format(r.getFechaInicioP())%></td>
-                <td style="vertical-align:middle"><%= df.format(r.getFechaFinR())%></td>
-                <td style="vertical-align:middle"><%= df2.format(r.getKmRecorridos())%></td>
-                <td style="vertical-align:middle"><%= EstadosReserva.getXId(r.getEstado().getId()) %></td>
-                <td style="vertical-align:middle">
-                  <button class="btn btn-reset" data-title="Editar" title="Ver Mantenimiento" data-toggle="modal" data-target="#edit" 
-                          onclick='window.open("verMantenimiento.jsp?idMant="+<%=r.getId()%>,"_self")'>
+                <td style="vertical-align:middle;font-size: 1rem;"><%= "R"+String.format("%5s",r.getId()).replace(' ', '0') %></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getBici().getModelo().getTipo().getNombre()+" - "+r.getBici().getModelo().getNombre()+" - "+r.getBici().getPatente() %></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getCliente().getUsuario() %></td>          
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaInicioP())%></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaFinR())%></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= df2.format(r.getKmRecorridos())%></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;">
+                  <% if(r.getEstado()==EstadosReserva.FINALIZADO) { %>
+                  <span class="label label-success"><%=r.getEstado()%></span>
+                  <% } else if(r.getEstado()==EstadosReserva.CANCELADO) { %>
+                  <span class="label label-danger"><%=r.getEstado()%></span>
+                  <% } else { %>
+                  <span class="label label-desconocido"><%=r.getEstado()%></span>
+                  <% } %>
+                </td>
+                <td style="vertical-align:middle;font-size: 0.8rem;">
+                  <button class="btn btn-reset" title="Ver">
                     <span class="fa fa-eye"></span>
                   </button>
                 </td>
@@ -135,7 +198,6 @@
           </table>
         </div>
       </div>
-            
     </div>
 
     <% } else {
