@@ -7,7 +7,7 @@ public class Reservas {
   private Usuarios cliente;
   private Bicicletas bici;
   private int id;
-  private Date fechaInterna, fechaInicioP, fechaFinP, fechaFinR;  
+  private Date fechaInterna, fechaInicioP, fechaFinP, fechaInicioR, fechaFinR;  
   private double importe;
   private String observacion;
   private EstadosReserva estado;
@@ -60,7 +60,15 @@ public class Reservas {
   public void setFechaFinP(Date fechaFinP) {
     this.fechaFinP = fechaFinP;
   }
+  
+  public Date getFechaInicioR() {
+    return fechaInicioR;
+  }
 
+  public void setFechaInicioR(Date fechaInicioR) {
+    this.fechaInicioR = fechaInicioR;
+  }
+  
   public Date getFechaFinR() {
     return fechaFinR;
   }
@@ -100,21 +108,7 @@ public class Reservas {
   public void setKmRecorridos(double kmRecorridos) {
     this.kmRecorridos = kmRecorridos;
   }
-    
-  public Reservas(Usuarios cliente, Bicicletas bici, int id, Date fechaInt, Date fechaIniR, Date fechaFinR, double importe, String observacion, EstadosReserva estado, double kmRecorridos) {
-    this.cliente = cliente;
-    this.bici = bici;
-    this.id = id;
-    this.fechaInterna = fechaInt;
-    this.fechaInicioP = fechaIniR;
-    this.fechaFinP = fechaFinR;
-    this.fechaFinP = null;
-    this.importe = importe;
-    this.observacion = observacion;
-    this.estado = estado;
-    this.kmRecorridos = kmRecorridos;
-  }
-
+  
   public Reservas(Usuarios cliente, Bicicletas bici, Date fechaInterna, Date fechaInicioP, Date fechaFinP, double importe, EstadosReserva estado) {
     this.cliente = cliente;
     this.bici = bici;

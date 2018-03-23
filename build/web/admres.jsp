@@ -59,6 +59,7 @@
                 <th>ID</th>
                 <th>BICICLETA</th>
                 <th>USUARIO</th>
+                <th>D.N.I.</th>
                 <th>INICIO</th>
                 <th>FIN</th>
                 <th></th>
@@ -73,23 +74,35 @@
                 if (reservas_activas.size() > 0) {
                   for (Reservas r : reservas_activas) {%>
               <tr align="center" >
-                <td style="vertical-align:middle;font-size: 1rem;"><%= "R"+String.format("%5s",r.getId()).replace(' ', '0') %></td>
-                <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getBici().getModelo().getTipo().getNombre()+" - "+r.getBici().getModelo().getNombre()+" - "+r.getBici().getPatente() %></td>
-                <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getCliente().getUsuario() %></td>          
+                <%String bicicleta = r.getBici().getModelo().getTipo().getNombre()+" - "+r.getBici().getModelo().getNombre()+" - "+r.getBici().getPatente();
+                  String reserva = "R"+String.format("%5s",r.getId()).replace(' ', '0'); %>
+                <td style="vertical-align:middle;font-size: 1rem;"><%=reserva %></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%=bicicleta  %></td>
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getCliente().getUsuario() %></td>   
+                <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getCliente().getDocumento() %></td>   
                 <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaInicioP())%></td>
                 <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaFinP())%></td>
                 <td style="vertical-align:middle;">
-                  <button class="btn btn-editar" title="Ver/Editar">
+                  <button class="btn btn-editar" title="Ver/Editar"
+                          onclick="editarReserva('<%=r.getId()%>','<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1() %>', 
+                                    '<%= r.getCliente().getUsuario() %>','<%= r.getCliente().getDocumento()%>', '<%= df.format(r.getFechaInicioP())%>', 
+                                    '<%= df.format(r.getFechaFinP())%>','<%= df2.format(r.getImporte())%>')">
                     <span class="fa fa-edit"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle;">
-                  <button class="btn btn-nuevo" title="Iniciar">                           
+                  <button class="btn btn-nuevo" title="Iniciar" 
+                          onclick="iniciarReserva('<%=r.getId()%>','<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1() %>', 
+                                    '<%= r.getCliente().getUsuario() %>','<%= r.getCliente().getDocumento()%>', '<%= df.format(r.getFechaInicioP())%>', 
+                                    '<%= df.format(r.getFechaFinP())%>','<%= df2.format(r.getImporte())%>')">
                     <span class="fa fa-play"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-eliminar" title="Eliminar">
+                  <button class="btn btn-eliminar" title="Eliminar"
+                          onclick="eliminarReserva('<%=r.getId()%>','<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1() %>', 
+                                    '<%= r.getCliente().getUsuario() %>','<%= r.getCliente().getDocumento()%>', '<%= df.format(r.getFechaInicioP())%>', 
+                                    '<%= df.format(r.getFechaFinP())%>','<%= df2.format(r.getImporte())%>')">
                     <span class="fa fa-trash-o"></span>
                   </button>
                 </td>
@@ -133,13 +146,13 @@
                   </button>
                 </td>
                 <td style="vertical-align:middle;">
-                  <button class="btn btn-detener" title="Finalizar">                          
-                    <span class="fa fa-stop"></span>
+                  <button class="btn btn-mecanico" title="Finalizar por fallas">                          
+                    <span class="fa fa-exclamation-triangle"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle;">
-                  <button class="btn btn-eliminar" title="Eliminar">                          
-                    <span class="fa fa-trash-o"></span>
+                  <button class="btn btn-detener" title="Finalizar">                          
+                    <span class="fa fa-stop"></span>
                   </button>
                 </td>
               </tr>        
@@ -178,13 +191,19 @@
                 <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaFinR())%></td>
                 <td style="vertical-align:middle;font-size: 0.8rem;"><%= df2.format(r.getKmRecorridos())%></td>
                 <td style="vertical-align:middle;font-size: 0.8rem;">
-                  <% if(r.getEstado()==EstadosReserva.FINALIZADO) { %>
-                  <span class="label label-success"><%=r.getEstado()%></span>
-                  <% } else if(r.getEstado()==EstadosReserva.CANCELADO) { %>
-                  <span class="label label-danger"><%=r.getEstado()%></span>
-                  <% } else { %>
-                  <span class="label label-desconocido"><%=r.getEstado()%></span>
-                  <% } %>
+                  <span
+                    <% if(r.getEstado()==EstadosReserva.FINALIZADA) { %>
+                    class="label label-success"
+                    <% } else if(r.getEstado()==EstadosReserva.CANCELADA) { %>
+                    class="label label-danger"
+                    <% } else if(r.getEstado()==EstadosReserva.ELIMINADA) { %>
+                    class="label label-danger"
+                    <% } else if(r.getEstado()==EstadosReserva.FALLAS) { %>
+                    class="label label-mecanico"
+                    <% } else { %>
+                    class="label label-desconocido"
+                    <% } %>><%=r.getEstado()%>
+                  </span>
                 </td>
                 <td style="vertical-align:middle;font-size: 0.8rem;">
                   <button class="btn btn-reset" title="Ver">
@@ -199,7 +218,62 @@
         </div>
       </div>
     </div>
-
+    
+    <!-- VER RESERVA -->
+    <div class="container text-center" id="reserva" style="display: none" enctype = "multipart/form-data">
+      <form class="form-text" method="POST">
+        <div class="col-lg-7 col-centered well">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group float-sm-right">
+                <span id="cruzInicioR" class="fa fa-close" style="right: 50px"></span>
+              </div>              
+              <div class="form-group">
+                <img id="imgbici" name="imgbici" src="img/imagen-vacia.jpg" width="200" height="200" style="border-style: solid; border-width: 1px;">
+              </div>
+              <div class="row" style="margin-top:1px;">
+                <div class="col-sm-4 form-group">
+                  <label class="error" id="msj3" style="display: none"></label>
+                  <input type="hidden" name="idb" id="idb">
+                  <input type="text" class="form-control" disabled="true" name="tipob" id="tipob" placeholder="Tipo de Bicicleta" title="Tipo de Bicicleta" required="false">
+                </div>	
+                <div class="col-sm-4 form-group">
+                  <select class="form-control" name="modelobici" id="modelobici" placeholder="Modelo de Bicicleta" title="Modelo de Bicicleta" required="true" onchange="dameImagen()" autofocus="true">
+                    <option value="" disabled selected>Modelo Bicicleta</option>
+                    <% for (Modelos m : new ControladorBicicletas().getModelos()) {%>                    
+                    <option value="<%= m.getId()%>"><%= m.getNombre()%></option>
+                    <%}%>
+                  </select>
+                </div>
+                <div class="col-sm-4 form-group">
+                  <input type="hidden" name="disponible" id="disponible" value="true">
+                  <span id="disponibleS" name="disponibleS" class="form-control label label-disponibilidad label-success" >DISPONIBLE</span>
+                  <span id="disponibleN" name="disponibleN" class="form-control label label-disponibilidad label-danger" style="display:none">NO DISPONIBLE</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4 form-group">
+                  <input type="text" name="patente" maxlength="10" id="patente" style="text-transform:uppercase" placeholder="Patente Bicicleta" title="Patente Bicicleta" class="form-control" autofocus="true" required="true">                  
+                </div>
+                <div class="col-sm-4 form-group">
+                  <input type="number" step="any" name="kmMantenimiento" id="kmMantenimiento" placeholder="Kms desde el últ mantenimiento" title="Kms desde el último mantenimiento" class="form-control" autofocus="true" required="true">
+                </div>	
+                <div class="col-sm-4 form-group">
+                  <input type="number" step="any" name="kmViajados" id="kmViajados" placeholder="Kms totales" title="Kms totales recorridos" class="form-control" autofocus="true" required="true">
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea name="descripb" id="descripb" maxlength="250" placeholder="Comentarios/Referencias sobre la Bicicleta" title="Comentarios/Referencias sobre la Bicicleta"  class="form-control" autofocus="true" required="true"></textarea>
+              </div>
+              <input type="submit" id="iniciar" class="btn btn-lg btn-nuevo btn-block" value="Iniciar" onclick="javascript:form.action = 'IniciarReserva';">              
+              <input type="submit" id="editar" class="btn btn-lg btn-editar btn-block" style="display: none" value="Editar" onclick="javascript:form.action = 'ModificarReserva';">
+              <input type="submit" id="eliminar" class="btn btn-lg btn-eliminar btn-block" style="display: none" value="Eliminar" onclick="javascript:form.action = 'EliminarReserva';">           
+            </div>              
+          </div>
+        </div>         
+      </form>
+    </div>  
+            
     <% } else {
           response.sendRedirect("error.jsp");
         }

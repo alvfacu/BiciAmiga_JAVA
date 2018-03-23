@@ -40,6 +40,17 @@ public class CatalogoReservas {
         {
           r.setFechaInterna(null);
         }
+      
+        if(rs.getTimestamp("fecha_inicio_real")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_inicio_real").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaInicioR(currentDate);
+        }
+        else
+        {
+          r.setFechaInicioR(null);
+        }
         
         if(rs.getTimestamp("fecha_inicio_pactada")!=null)
         {
@@ -139,6 +150,17 @@ public class CatalogoReservas {
           r.setFechaInicioP(null);
         }
         
+        if(rs.getTimestamp("fecha_inicio_real")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_inicio_real").getTime();
+          Date currentDate = new Date(fecha);
+          r.setFechaInicioR(currentDate);
+        }
+        else
+        {
+          r.setFechaInicioR(null);
+        }
+        
         if(rs.getTimestamp("fecha_fin_pactada")!=null)
         {
           long fecha = rs.getTimestamp("fecha_fin_pactada").getTime();
@@ -175,8 +197,8 @@ public class CatalogoReservas {
   public void altaReserva(Reservas r) {
     PreparedStatement sentencia = null;
     ResultSet rs;
-    String sql = "insert into reservas(id_bici,id_usr,estado,fecha_interna,fecha_inicio_pactada,fecha_fin_pactada,fecha_fin_real,importe,km_totales,obs) "
-            + "values(?,?,?,?,?,?,?,?,?,?)";
+    String sql = "insert into reservas(id_bici,id_usr,estado,fecha_interna,fecha_inicio_pactada,fecha_fin_pactada,fecha_fin_real,importe,km_totales,obs,fecha_inicio_real) "
+            + "values(?,?,?,?,?,?,?,?,?,?,?)";
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
       sentencia.setInt(1,r.getBici().getId());
@@ -192,6 +214,10 @@ public class CatalogoReservas {
       sentencia.setDouble(8,r.getImporte());
       sentencia.setDouble(9,r.getKmRecorridos());
       sentencia.setString(10,r.getObservacion());
+      if(r.getFechaInicioR()!=null)
+        sentencia.setTimestamp(11, new java.sql.Timestamp(r.getFechaInicioR().getTime()));
+      else
+        sentencia.setTimestamp(11, null);
       sentencia.execute();
       rs=sentencia.getGeneratedKeys();
       if(rs!=null && rs.next()){
@@ -237,7 +263,7 @@ public class CatalogoReservas {
 
   public void modificarReserva(Reservas r) {
     PreparedStatement sentencia = null;
-    String sql = "update reservas set id_bici=?, id_usr=?, estado=?, fecha_interna=?, fecha_inicio_pactada=?, fecha_fin_pactada?, fecha_fin_real=? "
+    String sql = "update reservas set estado=?, fecha_inicio_real=?, fecha_fin_real=? "
             +"importe=?, km_totales=?, obs=? where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
@@ -357,7 +383,7 @@ public class CatalogoReservas {
     Statement sentencia = null;
     ResultSet rs = null;
     String sql = "select * from reservas where fecha_fin_real is not null and estado "
-            + "IN ("+EstadosReserva.CANCELADO.getId()+","+EstadosReserva.FINALIZADO.getId()+","+EstadosReserva.DESCONOCIDO.getId()+")";
+            + "IN ("+EstadosReserva.CANCELADA.getId()+","+EstadosReserva.FINALIZADA.getId()+","+EstadosReserva.FALLAS.getId()+","+EstadosReserva.ELIMINADA.getId()+","+EstadosReserva.DESCONOCIDO.getId()+")";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);

@@ -1,5 +1,6 @@
 package Datos;
 
+import Entidades.EstadosReserva;
 import Entidades.Modelos;
 import Entidades.TiposBicicleta;
 import java.sql.PreparedStatement;
@@ -8,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class CatalogoModelos {
   
@@ -225,8 +225,8 @@ public class CatalogoModelos {
     String sql1 = "SELECT m.id, m.id_tipo, count(*) as cant FROM reservas r INNER JOIN bicicletas b ON r.id_bici=b.id "
             + "INNER JOIN modelos m ON m.id=b.id_modelo INNER JOIN tipos_bicicleta tp ON m.id_tipo=tp.id "
             + "WHERE fecha_fin_pactada>='"+new java.sql.Timestamp(fechaDsd.getTimeInMillis())+"' AND "
-            + "fecha_inicio_pactada<='"+new java.sql.Timestamp(fechaHst.getTimeInMillis())+"' "
-            + "GROUP BY m.id";
+            + "fecha_inicio_pactada<='"+new java.sql.Timestamp(fechaHst.getTimeInMillis())+"' AND "
+            + "r.estado="+EstadosReserva.PENDIENTE+" GROUP BY m.id";
     
     String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
             + "ON b.id_modelo=m.id WHERE b.disponible=true GROUP BY m.id";
@@ -306,8 +306,8 @@ public class CatalogoModelos {
     String sql1 = "SELECT m.id, m.id_tipo, count(*) as cant FROM reservas r INNER JOIN bicicletas b ON r.id_bici=b.id "
             + "INNER JOIN modelos m ON m.id=b.id_modelo INNER JOIN tipos_bicicleta tp ON m.id_tipo=tp.id "
             + "WHERE m.id_tipo="+tipo+" AND fecha_fin_pactada>='"+new java.sql.Timestamp(fechaDsd.getTimeInMillis())+"' AND "
-            + "fecha_inicio_pactada<='"+new java.sql.Timestamp(fechaHst.getTimeInMillis())+"' "
-            + "GROUP BY m.id";
+            + "fecha_inicio_pactada<='"+new java.sql.Timestamp(fechaHst.getTimeInMillis())+"' AND "
+            + "r.estado="+EstadosReserva.PENDIENTE+" GROUP BY m.id";
     
     String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
             + "ON b.id_modelo=m.id WHERE b.disponible=true AND m.id_tipo="+tipo+" GROUP BY m.id";
@@ -387,8 +387,8 @@ public class CatalogoModelos {
     String sql1 = "SELECT m.id, m.id_tipo, count(*) as cant FROM reservas r INNER JOIN bicicletas b ON r.id_bici=b.id "
             + "INNER JOIN modelos m ON m.id=b.id_modelo INNER JOIN tipos_bicicleta tp ON m.id_tipo=tp.id "
             + "WHERE m.id_tipo="+tipo+" AND m.id="+modelo+" AND fecha_fin_pactada>='"+new java.sql.Timestamp(fechaDsd.getTimeInMillis())+"' AND "
-            + "fecha_inicio_pactada<='"+new java.sql.Timestamp(fechaHst.getTimeInMillis())+"' "
-            + "GROUP BY m.id";
+            + "fecha_inicio_pactada<='"+new java.sql.Timestamp(fechaHst.getTimeInMillis())+"' AND "
+            + "r.estado="+EstadosReserva.PENDIENTE+" GROUP BY m.id";
     
     String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
             + "ON b.id_modelo=m.id WHERE b.disponible=true AND m.id="+modelo+" AND m.id_tipo="+tipo+" GROUP BY m.id";
@@ -560,6 +560,5 @@ public class CatalogoModelos {
     }
     return modelos;
   }
-
   
 }
