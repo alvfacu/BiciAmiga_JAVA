@@ -90,7 +90,7 @@ $(document).ready(function () {
       null,
       {"orderable": false}
     ]
-  });   
+  });
 });
 
 function openPage(pageName, elmnt) {

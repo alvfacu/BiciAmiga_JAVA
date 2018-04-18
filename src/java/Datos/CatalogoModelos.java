@@ -226,7 +226,7 @@ public class CatalogoModelos {
             + "INNER JOIN modelos m ON m.id=b.id_modelo INNER JOIN tipos_bicicleta tp ON m.id_tipo=tp.id "
             + "WHERE fecha_fin_pactada>='"+new java.sql.Timestamp(fechaDsd.getTimeInMillis())+"' AND "
             + "fecha_inicio_pactada<='"+new java.sql.Timestamp(fechaHst.getTimeInMillis())+"' AND "
-            + "r.estado="+EstadosReserva.PENDIENTE+" GROUP BY m.id";
+            + "r.estado="+EstadosReserva.PENDIENTE.getId()+" GROUP BY m.id";
     
     String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
             + "ON b.id_modelo=m.id WHERE b.disponible=true GROUP BY m.id";
@@ -307,7 +307,7 @@ public class CatalogoModelos {
             + "INNER JOIN modelos m ON m.id=b.id_modelo INNER JOIN tipos_bicicleta tp ON m.id_tipo=tp.id "
             + "WHERE m.id_tipo="+tipo+" AND fecha_fin_pactada>='"+new java.sql.Timestamp(fechaDsd.getTimeInMillis())+"' AND "
             + "fecha_inicio_pactada<='"+new java.sql.Timestamp(fechaHst.getTimeInMillis())+"' AND "
-            + "r.estado="+EstadosReserva.PENDIENTE+" GROUP BY m.id";
+            + "r.estado="+EstadosReserva.PENDIENTE.getId()+" GROUP BY m.id";
     
     String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
             + "ON b.id_modelo=m.id WHERE b.disponible=true AND m.id_tipo="+tipo+" GROUP BY m.id";
@@ -388,7 +388,7 @@ public class CatalogoModelos {
             + "INNER JOIN modelos m ON m.id=b.id_modelo INNER JOIN tipos_bicicleta tp ON m.id_tipo=tp.id "
             + "WHERE m.id_tipo="+tipo+" AND m.id="+modelo+" AND fecha_fin_pactada>='"+new java.sql.Timestamp(fechaDsd.getTimeInMillis())+"' AND "
             + "fecha_inicio_pactada<='"+new java.sql.Timestamp(fechaHst.getTimeInMillis())+"' AND "
-            + "r.estado="+EstadosReserva.PENDIENTE+" GROUP BY m.id";
+            + "r.estado="+EstadosReserva.PENDIENTE.getId()+" GROUP BY m.id";
     
     String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
             + "ON b.id_modelo=m.id WHERE b.disponible=true AND m.id="+modelo+" AND m.id_tipo="+tipo+" GROUP BY m.id";
