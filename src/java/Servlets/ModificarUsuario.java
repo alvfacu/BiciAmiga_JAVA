@@ -2,12 +2,7 @@ package Servlets;
 
 import Entidades.Usuarios;
 import Negocio.ControladorUsuarios;
-import Util.Seguridad;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

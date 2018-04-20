@@ -2,9 +2,6 @@
 
 $(function () {
 
-  $(document).on("keypress", "form", function (event) {
-    return event.keyCode != 13;
-  });
 
   function siError(e) {
     alert('Ocurri\u00f3 un error al realizar la petici\u00f3n: ' + e.statusText);
