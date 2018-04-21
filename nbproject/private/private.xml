@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/Login.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/nuestras_bicicletas.jsp</file>
             <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/mi_cuenta.jsp</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/AltaUsuario.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Negocio/ControladorUsuarios.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/ModificarDatos.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Datos/CatalogoUsuarios.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Util/Seguridad.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/Contacto.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/contacto.jsp</file>
         </group>
     </open-files>
 </project-private>
