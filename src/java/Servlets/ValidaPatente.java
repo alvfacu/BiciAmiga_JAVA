@@ -1,4 +1,3 @@
-
 package Servlets;
 
 import Negocio.ControladorBicicletas;
@@ -25,22 +24,28 @@ public class ValidaPatente extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String patente = request.getParameter("patente").toUpperCase().trim();
-    String rdo;
-    if ("".equals(patente)) {
-      rdo = "1";
-    } else {
-      int cant = new ControladorBicicletas().existePatente(patente);
 
-      if (cant > 0) {
+    String rdo = "0";
+    try {
+      String patente = request.getParameter("patente").toUpperCase().trim();
+
+      if ("".equals(patente)) {
         rdo = "1";
       } else {
-        rdo = "0";
+        int cant = new ControladorBicicletas().existePatente(patente);
+
+        if (cant > 0) {
+          rdo = "1";
+        }
       }
+      response.setContentType("text/plain");
+      response.getWriter().write(rdo);
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
     }
 
-    response.setContentType("text/plain");
-    response.getWriter().write(rdo);
   }
 
   @Override

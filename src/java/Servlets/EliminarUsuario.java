@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "EliminarUsuario", urlPatterns = {"/EliminarUsuario"})
 public class EliminarUsuario extends HttpServlet {
 
-
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
   }
@@ -26,8 +25,17 @@ public class EliminarUsuario extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    new ControladorUsuarios().bajaUsuario(new ControladorUsuarios().getUsuario(Integer.valueOf(request.getParameter("eliid"))));
-    response.sendRedirect("admusr.jsp");
+    try {
+      new ControladorUsuarios().bajaUsuario(new ControladorUsuarios().getUsuario(Integer.valueOf(request.getParameter("eliid"))));
+      response.sendRedirect("admusr.jsp");
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (NumberFormatException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
+
   }
 
   @Override

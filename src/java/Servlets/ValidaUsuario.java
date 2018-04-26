@@ -21,24 +21,30 @@ public class ValidaUsuario extends HttpServlet {
   }
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-    String userName = request.getParameter("usuario").trim();
-    String rdo;
-    if ("".equals(userName)) {
-      rdo = "1";
-    } else {
-      int cant = new ControladorUsuarios().existeUsuario(userName);
-
-      if (cant > 0) {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    String rdo = "0";
+    try {
+      String userName = request.getParameter("usuario").trim();
+      
+      if ("".equals(userName)) {
         rdo = "1";
-      } else {
-        rdo = "0";
-      }
-    }
+      } 
+      else {
+        int cant = new ControladorUsuarios().existeUsuario(userName);
 
-    response.setContentType("text/plain");
-    response.getWriter().write(rdo);
+        if (cant > 0) {
+          rdo = "1";
+        }
+      }
+      response.setContentType("text/plain");
+      response.getWriter().write(rdo);
+
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    }
+    catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
   }
 
 }

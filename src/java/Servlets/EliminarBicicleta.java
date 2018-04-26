@@ -9,14 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet(name = "EliminarBicicleta", urlPatterns = {"/EliminarBicicleta"})
 public class EliminarBicicleta extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
   }
-  
+
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -26,10 +25,19 @@ public class EliminarBicicleta extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    int id = Integer.valueOf(request.getParameter("idb"));
-    Bicicletas b = new ControladorBicicletas().getBicicleta(id);
-    new ControladorBicicletas().bajaBicicleta(b);
-    response.sendRedirect("admbici.jsp");
+    try {
+      int id = Integer.valueOf(request.getParameter("idb"));
+      Bicicletas b = new ControladorBicicletas().getBicicleta(id);
+      new ControladorBicicletas().bajaBicicleta(b);
+      response.sendRedirect("admbici.jsp");
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (NumberFormatException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
+
   }
 
   @Override

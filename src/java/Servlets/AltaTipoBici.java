@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 public class AltaTipoBici extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {{
+          throws ServletException, IOException {
+    {
     }
   }
 
@@ -25,16 +26,23 @@ public class AltaTipoBici extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String nombre = request.getParameter("nombretb");
-    String descripcion = request.getParameter("descriptb");
-    String url = request.getParameter("urlPortada");
-    TiposBicicleta tb = new TiposBicicleta(nombre, descripcion,url);
-    
-    new ControladorBicicletas().altaTipoBicicleta(tb);
-    response.sendRedirect("admbici.jsp");
+    try {
+      String nombre = request.getParameter("nombretb");
+      String descripcion = request.getParameter("descriptb");
+      String url = request.getParameter("urlPortada");
+      TiposBicicleta tb = new TiposBicicleta(nombre, descripcion, url);
+
+      new ControladorBicicletas().altaTipoBicicleta(tb);
+      response.sendRedirect("admbici.jsp");
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
+
   }
 
-   @Override
+  @Override
   public String getServletInfo() {
     return "Short description";
   }// </editor-fold>

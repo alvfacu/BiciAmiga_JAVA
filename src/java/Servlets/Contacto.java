@@ -2,14 +2,6 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,8 +37,13 @@ public class Contacto extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    response.sendRedirect("index.jsp");
-    
+    try{
+      response.sendRedirect("index.jsp");
+    }catch(IOException ex){
+      response.sendRedirect("index.jsp");
+    }catch(Exception ex){
+      response.sendRedirect("index.jsp");
+    }
     /*
     Properties properties = new java.util.Properties();
     properties.setProperty("mail.smtp.host", "localhost");

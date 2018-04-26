@@ -26,10 +26,17 @@ public class EliminarModelo extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    int id = Integer.valueOf(request.getParameter("idm"));
-    Modelos m = new ControladorBicicletas().getModelo(id);
-    new ControladorBicicletas().bajaModelo(m);
-    response.sendRedirect("admbici.jsp");
+    try {
+      int id = Integer.valueOf(request.getParameter("idm"));
+      Modelos m = new ControladorBicicletas().getModelo(id);
+      new ControladorBicicletas().bajaModelo(m);
+      response.sendRedirect("admbici.jsp");
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
+
   }
 
   @Override

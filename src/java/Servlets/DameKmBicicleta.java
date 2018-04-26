@@ -26,13 +26,18 @@ public class DameKmBicicleta extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String idBici = request.getParameter("idbici");
-    Bicicletas b = new ControladorBicicletas().getBicicleta(Integer.valueOf(idBici));
-    
-    String rdo =  String.format("%.2f", b.getKmEnViaje());
-    
-    response.setContentType("text/plain");
-    response.getWriter().write(rdo);
+    try {
+      String idBici = request.getParameter("idbici");
+      Bicicletas b = new ControladorBicicletas().getBicicleta(Integer.valueOf(idBici));
+      String rdo = String.format("%.2f", b.getKmEnViaje());
+      response.setContentType("text/plain");
+      response.getWriter().write(rdo);
+    } catch (NumberFormatException ex) {
+      response.sendRedirect("error.jsp");
+    } catch(Exception ex){
+      response.sendRedirect("error.jsp");
+    }
+
   }
 
   @Override

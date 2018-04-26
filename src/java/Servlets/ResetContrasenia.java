@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet(name = "ResetContrasenia", urlPatterns = {"/ResetContrasenia"})
 public class ResetContrasenia extends HttpServlet {
 
@@ -28,26 +27,31 @@ public class ResetContrasenia extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    int id = Integer.valueOf(request.getParameter("id"));
-    Usuarios u = new ControladorUsuarios().getUsuario(id);
-    String porDefecto = "12345";
-    if(u != null)
-    {
-      try {
-        u.setContrasenia(new Util.Seguridad().md5(porDefecto));
-        new ControladorUsuarios().modificarUsuario(u);
-        response.setContentType("text/plain");
-        response.getWriter().write("0");
-      } catch (NoSuchAlgorithmException ex) {
-        Logger.getLogger(ResetContrasenia.class.getName()).log(Level.SEVERE, null, ex);
+
+    try {
+      int id = Integer.valueOf(request.getParameter("id"));
+      Usuarios u = new ControladorUsuarios().getUsuario(id);
+      String porDefecto = "12345";
+      if (u != null) {
+        try {
+          u.setContrasenia(new Util.Seguridad().md5(porDefecto));
+          new ControladorUsuarios().modificarUsuario(u);
+          response.setContentType("text/plain");
+          response.getWriter().write("0");
+        } catch (NoSuchAlgorithmException ex) {
+          response.setContentType("text/plain");
+          response.getWriter().write("1");
+        }
+      } else {
         response.setContentType("text/plain");
         response.getWriter().write("1");
       }
-    }
-    else
-    {
-      response.setContentType("text/plain");
-      response.getWriter().write("1");
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (NumberFormatException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
     }
   }
 

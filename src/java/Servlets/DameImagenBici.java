@@ -24,17 +24,23 @@ public class DameImagenBici extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String idModelo = request.getParameter("idModelo");
-    String rdo  = new ControladorBicicletas().dameUrl(idModelo);
-    String tipo = new ControladorBicicletas().getModelo(Integer.valueOf(idModelo)).getTipo().getNombre();
-    
-    String caracterEspecial = "//////";
-    
-    rdo += caracterEspecial;
-    rdo += tipo;
-    
-    response.setContentType("text/plain");
-    response.getWriter().write(rdo);
+    try {
+      String idModelo = request.getParameter("idModelo");
+      String rdo = new ControladorBicicletas().dameUrl(idModelo);
+      String tipo = new ControladorBicicletas().getModelo(Integer.valueOf(idModelo)).getTipo().getNombre();
+      String caracterEspecial = "//////";
+      rdo += caracterEspecial;
+      rdo += tipo;
+      response.setContentType("text/plain");
+      response.getWriter().write(rdo);
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (NumberFormatException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
+
   }
 
   @Override

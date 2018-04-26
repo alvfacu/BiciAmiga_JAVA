@@ -4,7 +4,6 @@ import Entidades.Mantenimientos;
 import Negocio.ControladorBicicletas;
 import Negocio.ControladorMantenimientos;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,11 +26,20 @@ public class EliminarMantenimiento extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String idMant = request.getParameter("idMant");
-    Mantenimientos m = new ControladorMantenimientos().getMantenimiento(Integer.valueOf(idMant));
-    new ControladorBicicletas().habilitarBicicleta(true, m.getBici());
-    new ControladorMantenimientos().bajaMantenimiento(m);
-    response.sendRedirect("admmant.jsp");
+    try {
+      String idMant = request.getParameter("idMant");
+      Mantenimientos m = new ControladorMantenimientos().getMantenimiento(Integer.valueOf(idMant));
+      new ControladorBicicletas().habilitarBicicleta(true, m.getBici());
+      new ControladorMantenimientos().bajaMantenimiento(m);
+      response.sendRedirect("admmant.jsp");
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (NumberFormatException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
+
   }
 
   @Override

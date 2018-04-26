@@ -26,10 +26,19 @@ public class EliminarTipoMantenimiento extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    int id = Integer.valueOf(request.getParameter("idtm"));
-    TiposMantenimiento tm = new ControladorMantenimientos().getTipoMantenimiento(id);
-    new ControladorMantenimientos().bajaTipoMantenimiento(tm);
-    response.sendRedirect("admmant.jsp");
+    try {
+      int id = Integer.valueOf(request.getParameter("idtm"));
+      TiposMantenimiento tm = new ControladorMantenimientos().getTipoMantenimiento(id);
+      new ControladorMantenimientos().bajaTipoMantenimiento(tm);
+      response.sendRedirect("admmant.jsp");
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (NumberFormatException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
+
   }
 
   @Override

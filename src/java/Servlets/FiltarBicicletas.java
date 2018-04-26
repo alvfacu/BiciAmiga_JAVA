@@ -19,9 +19,9 @@ public class FiltarBicicletas extends HttpServlet {
   }
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-    
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    try
+    {
       int idTipo = Integer.valueOf(request.getParameter("tipos"));
       int idTipoVerif = idTipo;
       int idModelo = 0;
@@ -103,19 +103,20 @@ public class FiltarBicicletas extends HttpServlet {
       {
         response.sendRedirect("error.jsp");
       }
+    } catch(IOException ex){
+      response.sendRedirect("error.jsp");
+    } catch(NumberFormatException ex){
+      response.sendRedirect("error.jsp");
+    } catch(ServletException ex){
+      response.sendRedirect("error.jsp");
+    } catch(Exception ex){
+      response.sendRedirect("error.jsp");
+    }      
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    try
-    { 
-
-    }
-    catch(Exception exception1)
-    {
-      response.sendRedirect("error.jsp");
-    }
   }
 
   @Override

@@ -4,6 +4,7 @@ import Entidades.Usuarios;
 import Negocio.ControladorUsuarios;
 import Util.Seguridad;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,17 +42,20 @@ public class ModificarDatos extends HttpServlet {
         if (!(request.getParameter("pass").isEmpty())) {
           u.setContrasenia(new Seguridad().md5(request.getParameter("pass")));
         }
-        
+
         new ControladorUsuarios().modificarUsuario(u);
         session.setAttribute("Usuario", u);
         response.sendRedirect("mi_cuenta.jsp");
       } else {
         response.sendRedirect("error.jsp");
       }
-    } catch (Exception x) {
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (NoSuchAlgorithmException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
       response.sendRedirect("error.jsp");
     }
-
   }
 
   @Override

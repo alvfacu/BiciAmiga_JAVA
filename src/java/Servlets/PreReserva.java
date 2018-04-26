@@ -47,13 +47,15 @@ public class PreReserva extends HttpServlet {
       session.setAttribute("completoReserva", completo);
       session.setAttribute("importeReserva", importe);
       request.getRequestDispatcher("prereserva.jsp").forward(request, response);
-    }
-    catch(Exception ex)
-    { 
+    }catch(IOException ex){ 
+      response.sendRedirect("error.jsp");
+    }catch(NumberFormatException ex){ 
+      response.sendRedirect("error.jsp");
+    }catch(ServletException ex){ 
+      response.sendRedirect("error.jsp");
+    }catch(Exception ex){ 
       response.sendRedirect("error.jsp");
     }
-    
-    
   }
 
   @Override

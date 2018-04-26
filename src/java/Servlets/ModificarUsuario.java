@@ -25,34 +25,45 @@ public class ModificarUsuario extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    
-    int id = Integer.valueOf(request.getParameter("idusr"));
-    Usuarios u = new ControladorUsuarios().getUsuario(id);
-    u.setApynom(request.getParameter("ediapenom"));
-    u.setDomicilio(request.getParameter("edidomicilio"));
-    u.setDocumento(request.getParameter("edidocu"));
-    u.setTelefono(request.getParameter("editel"));
-    u.setEmail(request.getParameter("ediemail"));
-    
-    boolean admin = false;
-    if(Boolean.valueOf(request.getParameter("ediadmin")))
-      admin = true;
-    
-    boolean meca = false;
-    if(Boolean.valueOf(request.getParameter("edimeca")))
-      meca = true;
-    
-    boolean habilitado = false;
-    if(Boolean.valueOf(request.getParameter("edihab")))
-      habilitado = true;
-    
-    u.setAdm(admin);
-    u.setMecanico(meca);
-    u.setHabilitado(habilitado);
-    new ControladorUsuarios().modificarUsuario(u);
-    response.sendRedirect("admusr.jsp");
+    try {
+      int id = Integer.valueOf(request.getParameter("idusr"));
+      Usuarios u = new ControladorUsuarios().getUsuario(id);
+      u.setApynom(request.getParameter("ediapenom"));
+      u.setDomicilio(request.getParameter("edidomicilio"));
+      u.setDocumento(request.getParameter("edidocu"));
+      u.setTelefono(request.getParameter("editel"));
+      u.setEmail(request.getParameter("ediemail"));
+
+      boolean admin = false;
+      if (Boolean.valueOf(request.getParameter("ediadmin"))) {
+        admin = true;
+      }
+
+      boolean meca = false;
+      if (Boolean.valueOf(request.getParameter("edimeca"))) {
+        meca = true;
+      }
+
+      boolean habilitado = false;
+      if (Boolean.valueOf(request.getParameter("edihab"))) {
+        habilitado = true;
+      }
+
+      u.setAdm(admin);
+      u.setMecanico(meca);
+      u.setHabilitado(habilitado);
+      new ControladorUsuarios().modificarUsuario(u);
+      response.sendRedirect("admusr.jsp");
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (NumberFormatException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
+
   }
-  
+
   @Override
   public String getServletInfo() {
     return "Short description";

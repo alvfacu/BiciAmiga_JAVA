@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlets;
 
 import Negocio.ControladorMantenimientos;
@@ -13,22 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Facundo
- */
 @WebServlet(name = "ExistenMantenimientosXTipo", urlPatterns = {"/ExistenMantenimientosXTipo"})
 public class ExistenMantenimientosXTipo extends HttpServlet {
 
-  /**
-   * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-   * methods.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
   }
@@ -42,18 +24,24 @@ public class ExistenMantenimientosXTipo extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String id = request.getParameter("id").trim();
-    String rdo;
-    int cant = new ControladorMantenimientos().existenMantenimientosActivosXTipo(id);
+    String rdo = "0";
+
+    try {
+      String id = request.getParameter("id").trim();
+      int cant = new ControladorMantenimientos().existenMantenimientosActivosXTipo(id);
 
       if (cant > 0) {
         rdo = "1";
-      } else {
-        rdo = "0";
       }
 
-    response.setContentType("text/plain");
-    response.getWriter().write(rdo);
+      response.setContentType("text/plain");
+      response.getWriter().write(rdo);
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
+
   }
 
   @Override

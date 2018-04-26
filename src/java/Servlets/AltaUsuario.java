@@ -30,9 +30,7 @@ public class AltaUsuario extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    try {  
-      
-      //uso NAME no ID
+    try {
       String apenom = request.getParameter("apenom");
       String domi = request.getParameter("domicilio");
       String usuario = request.getParameter("usuario");
@@ -40,32 +38,39 @@ public class AltaUsuario extends HttpServlet {
       String clave = new Seguridad().md5(request.getParameter("pass"));
       String telefono = request.getParameter("telefono");
       String mail = request.getParameter("email");
-            
-      boolean admin = false;
-      if(Boolean.valueOf(request.getParameter("admin")))
-        admin = true;
-      
-      boolean meca = false;
-      if(Boolean.valueOf(request.getParameter("meca")))
-        meca = true;
 
-      boolean habilitado = false;     
-      
-      if(Boolean.valueOf(request.getParameter("habilitado")))
+      boolean admin = false;
+      if (Boolean.valueOf(request.getParameter("admin"))) {
+        admin = true;
+      }
+
+      boolean meca = false;
+      if (Boolean.valueOf(request.getParameter("meca"))) {
+        meca = true;
+      }
+
+      boolean habilitado = false;
+
+      if (Boolean.valueOf(request.getParameter("habilitado"))) {
         habilitado = true;
-      
+      }
+
       Usuarios u = new Usuarios(apenom, usuario, clave, mail, domi, telefono, documento, admin, habilitado, meca);
       ControladorUsuarios cu = new ControladorUsuarios();
       cu.altaUsuario(u);
-      
+
       HttpSession session = request.getSession(true);
-      Usuarios usrActual = (Usuarios)session.getAttribute("Usuario");
-      if(usrActual.isAdm())
+      Usuarios usrActual = (Usuarios) session.getAttribute("Usuario");
+      if (usrActual.isAdm()) {
         response.sendRedirect("admusr.jsp");
-      else
+      } else {
         response.sendRedirect("registro_exitoso.jsp");
+      }
     } catch (NoSuchAlgorithmException ex) {
-      Logger.getLogger(AltaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+      response.sendRedirect("error.jsp");
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
       response.sendRedirect("error.jsp");
     }
   }

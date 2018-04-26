@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet(name = "ExistenModelosXTipo", urlPatterns = {"/ExistenModelosXTipo"})
 public class ExistenModelosXTipo extends HttpServlet {
 
@@ -25,19 +24,22 @@ public class ExistenModelosXTipo extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    
-    String idTipo = request.getParameter("id").trim();
-    String rdo;
-    int cant = new ControladorBicicletas().existenModelosXTipo(idTipo);
+    String rdo = "0";
+    try {
+      String idTipo = request.getParameter("id").trim();
+      int cant = new ControladorBicicletas().existenModelosXTipo(idTipo);
 
       if (cant > 0) {
         rdo = "1";
-      } else {
-        rdo = "0";
       }
 
-    response.setContentType("text/plain");
-    response.getWriter().write(rdo);
+      response.setContentType("text/plain");
+      response.getWriter().write(rdo);
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
   }
 
   @Override

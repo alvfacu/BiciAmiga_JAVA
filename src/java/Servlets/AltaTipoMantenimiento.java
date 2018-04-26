@@ -25,21 +25,32 @@ public class AltaTipoMantenimiento extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String nombre = request.getParameter("nombretm");
-    String descripcion = request.getParameter("descriptm");
-    
-    Boolean oblig = false;
-    if(Boolean.valueOf(request.getParameter("obligatorio")))
-      oblig = true;
-    
-    double km = 0;
-    if(request.getParameter("km")!=null)
-      km = Double.valueOf(request.getParameter("km"));
-    
-    TiposMantenimiento tm = new TiposMantenimiento(km, oblig, descripcion, nombre);
-    
-    new ControladorMantenimientos().altaTipoMantenimiento(tm);
-    response.sendRedirect("admmant.jsp");
+
+    try {
+      String nombre = request.getParameter("nombretm");
+      String descripcion = request.getParameter("descriptm");
+
+      Boolean oblig = false;
+      if (Boolean.valueOf(request.getParameter("obligatorio"))) {
+        oblig = true;
+      }
+
+      double km = 0;
+      if (request.getParameter("km") != null) {
+        km = Double.valueOf(request.getParameter("km"));
+      }
+
+      TiposMantenimiento tm = new TiposMantenimiento(km, oblig, descripcion, nombre);
+
+      new ControladorMantenimientos().altaTipoMantenimiento(tm);
+      response.sendRedirect("admmant.jsp");
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (NumberFormatException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
   }
 
   @Override

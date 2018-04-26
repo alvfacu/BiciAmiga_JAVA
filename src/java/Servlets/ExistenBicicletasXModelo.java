@@ -2,7 +2,6 @@ package Servlets;
 
 import Negocio.ControladorBicicletas;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,18 +24,24 @@ public class ExistenBicicletasXModelo extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String idModelo = request.getParameter("id").trim();
-    String rdo;
-    int cant = new ControladorBicicletas().existenBicicletasXTipo(idModelo);
+    String rdo = "0";
+    try {
+      String idModelo = request.getParameter("id").trim();
+
+      int cant = new ControladorBicicletas().existenBicicletasXTipo(idModelo);
 
       if (cant > 0) {
         rdo = "1";
-      } else {
-        rdo = "0";
       }
 
-    response.setContentType("text/plain");
-    response.getWriter().write(rdo);
+      response.setContentType("text/plain");
+      response.getWriter().write(rdo);
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }
+
   }
 
   @Override
