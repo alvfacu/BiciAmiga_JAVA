@@ -53,8 +53,8 @@ public class CatalogoUsuarios {
   }
 
   public Usuarios getUsuario(int id) {    
-    PreparedStatement sentencia = null;
-    ResultSet rs = null;
+    PreparedStatement sentencia;
+    ResultSet rs;
     Usuarios u = null;
     String sql = "select * from usuarios where id=?";
     
@@ -86,7 +86,7 @@ public class CatalogoUsuarios {
 
   public void altaUsuario(Usuarios u) {
     PreparedStatement sentencia = null;
-    ResultSet rs=null;
+    ResultSet rs;
     String sql = "insert into usuarios(apynom,usuario,contrasenia,documento,domicilio,admin,email,habilitado,telefono,mecanico) "
             + "values(?,?,?,?,?,?,?,?,?,?)";
     try {
@@ -178,8 +178,8 @@ public class CatalogoUsuarios {
   }
 
   public Usuarios getUsuarioXUsr(String usr) {
-    PreparedStatement sentencia = null;
-    ResultSet rs = null;
+    PreparedStatement sentencia;
+    ResultSet rs;
     Usuarios u = null;
     String sql = "select * from usuarios where usuario=?";
     
@@ -210,8 +210,8 @@ public class CatalogoUsuarios {
   }
 
   public int existeUsuario(String usr) {
-    PreparedStatement sentencia = null;
-    ResultSet rs = null;
+    PreparedStatement sentencia;
+    ResultSet rs;
     Usuarios u = null;
     String sql = "select * from usuarios where usuario=?";
     int cont = 0;

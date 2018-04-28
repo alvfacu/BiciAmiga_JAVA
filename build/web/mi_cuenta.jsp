@@ -73,7 +73,7 @@
                 <span id="ojore" class="fa fa-eye" style="right: 23px"></span>
               </div>
             </div>
-            <button type="submit" id="enviar" class="col-lg-12 btn btn-lg btn-primary">Modificar datos</button>
+            <button type="submit" id="enviar" class="col-lg-12 btn btn-lg btn-primary btn-block">Modificar datos</button>
           </div>              
         </div>
       </form>

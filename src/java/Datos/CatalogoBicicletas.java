@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class CatalogoBicicletas {
 
@@ -247,8 +246,7 @@ public class CatalogoBicicletas {
 
   public void habilitarBicicleta(boolean estado, Bicicletas bici) {
     PreparedStatement sentencia = null;
-    String sql = "update bicicletas set disponible=?"
-            + " where id=?";
+    String sql = "update bicicletas set disponible=? where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setBoolean(1, estado);
@@ -300,17 +298,17 @@ public class CatalogoBicicletas {
   public ArrayList<Bicicletas> getBicicletaParaReserva(int idMod) {
     PreparedStatement sentencia;
     ResultSet rs;
-    ArrayList<Bicicletas> bicicletas = new ArrayList<Bicicletas>();
+    ArrayList<Bicicletas> bicicletas = null;
     String sql = "select * from bicicletas where id_modelo=? and disponible=true order by km_dsd_mantenimiento asc";
     
     try {
+      
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setInt(1, idMod);
       rs = sentencia.executeQuery();
-      
+      bicicletas = new ArrayList<>();
       while (rs.next()) {
-        Bicicletas b = new Bicicletas();
-        b = new Bicicletas();
+        Bicicletas b  = new Bicicletas();
         b.setId(rs.getInt("id"));
         b.setDescripcion(rs.getString("descripcion"));
         b.setPatente(rs.getString("patente"));
@@ -329,17 +327,18 @@ public class CatalogoBicicletas {
   }
 
   public boolean estaDisponibleParaReserva(Bicicletas b, Calendar desde, Calendar hasta) {
-    Statement sentencia;
+    PreparedStatement sentencia;
     ResultSet rs;
     
-    String sql = "select * from reservas WHERE id_bici="+b.getId()+" AND "
-            + "fecha_fin_pactada>='"+new java.sql.Timestamp(desde.getTimeInMillis())+"' AND "
-            + "fecha_inicio_pactada<='"+new java.sql.Timestamp(hasta.getTimeInMillis())+"'";
+    String sql = "select * from reservas WHERE id_bici=? AND fecha_fin_pactada>=? AND fecha_inicio_pactada<=?";
     boolean bnd = true;
     
     try {
-      sentencia = ConexionBD.getInstancia().getconn().createStatement();
-      rs = sentencia.executeQuery(sql);
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1,b.getId());
+      sentencia.setTimestamp(2, new java.sql.Timestamp(desde.getTimeInMillis()));
+      sentencia.setTimestamp(3, new java.sql.Timestamp(hasta.getTimeInMillis()));
+      rs = sentencia.executeQuery();
       
       if (rs.next()) {
         bnd=false;

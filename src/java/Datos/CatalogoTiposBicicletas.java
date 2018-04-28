@@ -8,9 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class CatalogoTiposBicicletas {
-  
-  //id	nombre_gral	nombre_det	descripcion	precio_dia	precio_hr
-  
+    
   public ArrayList<TiposBicicleta> getTipos() {
     ArrayList<TiposBicicleta> tipos = new ArrayList<>();
     Statement sentencia = null;

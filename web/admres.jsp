@@ -37,7 +37,7 @@
       <span class="site-heading-upper text-primary mb-3">administrador de reservas</span>
     </h1>
 
-    <div class="col-lg-10 col-centered well">
+    <div class="col-lg-10 col-centered well" id="tablareservas">
 
       <div style="overflow-x:auto;">
         <button class="tablink" onclick="openPage('pendientes', this)" id="defaultOpen">Pendientes</button>
@@ -83,27 +83,18 @@
                 <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaInicioP())%></td>
                 <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaFinP())%></td>
                 <td style="vertical-align:middle;">
-                  <button class="btn btn-editar" title="Ver/Editar"
-                          onclick="editarReserva('<%=r.getId()%>','<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1() %>', 
-                                    '<%= r.getCliente().getUsuario() %>','<%= r.getCliente().getDocumento()%>', '<%= df.format(r.getFechaInicioP())%>', 
-                                    '<%= df.format(r.getFechaFinP())%>','<%= df2.format(r.getImporte())%>')">
-                    <span class="fa fa-edit"></span>
+                  <button class="btn btn-editar" title="Ver/Editar">
+                          <span class="fa fa-edit"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle;">
-                  <button class="btn btn-nuevo" title="Iniciar" 
-                          onclick="iniciarReserva('<%=r.getId()%>','<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1() %>', 
-                                    '<%= r.getCliente().getUsuario() %>','<%= r.getCliente().getDocumento()%>', '<%= df.format(r.getFechaInicioP())%>', 
-                                    '<%= df.format(r.getFechaFinP())%>','<%= df2.format(r.getImporte())%>')">
-                    <span class="fa fa-play"></span>
+                  <button class="btn btn-nuevo" title="Iniciar" >
+                          <span class="fa fa-play"></span>
                   </button>
                 </td>
                 <td style="vertical-align:middle">
-                  <button class="btn btn-eliminar" title="Eliminar"
-                          onclick="eliminarReserva('<%=r.getId()%>','<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1() %>', 
-                                    '<%= r.getCliente().getUsuario() %>','<%= r.getCliente().getDocumento()%>', '<%= df.format(r.getFechaInicioP())%>', 
-                                    '<%= df.format(r.getFechaFinP())%>','<%= df2.format(r.getImporte())%>')">
-                    <span class="fa fa-trash-o"></span>
+                  <button class="btn btn-eliminar" title="Eliminar">
+                          <span class="fa fa-trash-o"></span>
                   </button>
                 </td>
               </tr>        

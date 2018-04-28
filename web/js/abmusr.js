@@ -17,7 +17,7 @@ $(document).ready(function () {
         "previous": "Anterior"}
     },
     "order": [[4, "asc"]],
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "columns": [
       null,
@@ -34,15 +34,16 @@ $(document).ready(function () {
 });
 
 function nuevousr() {
-  var x = document.getElementById("editarusr");
-  x.style.display = "none";
-
-  x = document.getElementById("nuevousr");
-  if (x.style.display === "none") {
-    x.style.display = "block";
+  document.getElementById("editarusr").style.display = "none";
+  document.getElementById("eliminarusr").style.display = "none";
+  
+  document.getElementById("tablausuarios").style.display = "none";
+  
+  if (document.getElementById("nuevousr").style.display === "none") {
+    document.getElementById("nuevousr").style.display = "block";
     document.getElementById('habilitado').value = true;
   } else {
-    x.style.display = "none";
+    document.getElementById("nuevousr").style.display = "none";
     document.getElementById('idusr').value = '';
     document.getElementById('usuario').value = '';
     document.getElementById('habilitado').value = '';
@@ -65,15 +66,13 @@ function nuevousr() {
 }
 
 function editarusr(id, user, apenom, docu, email, admin, meca, habi, domi, tel) {
-  var x = document.getElementById("nuevousr");
-  x.style.display = "none";
-
-  x = document.getElementById("eliminarusr");
-  x.style.display = "none";
-
-  x = document.getElementById("editarusr");
-  if (x.style.display === "none" || document.getElementById('idusr').value !== id) {
-    x.style.display = "block";
+  document.getElementById("nuevousr").style.display = "none";
+  document.getElementById("eliminarusr").style.display = "none";
+  
+  document.getElementById("tablausuarios").style.display = "none";
+  
+  if (document.getElementById("editarusr").style.display === "none" || document.getElementById('idusr').value !== id) {
+    document.getElementById("editarusr").style.display = "block";
     document.getElementById('idusr').value = id;
     document.getElementById('ediusr').value = user;
     document.getElementById('edihab').value = habi;
@@ -114,20 +113,18 @@ function editarusr(id, user, apenom, docu, email, admin, meca, habi, domi, tel) 
     }
 
   } else {
-    x.style.display = "none";
+    document.getElementById("editarusr").style.display = "none";
   }
 }
 
 function eliminarusr(id, user, apenom, docu, email, admin, meca, habi, domi, tel) {
-  var x = document.getElementById("nuevousr");
-  x.style.display = "none";
-
-  x = document.getElementById("editarusr");
-  x.style.display = "none";
-
-  x = document.getElementById("eliminarusr");
-  if (x.style.display === "none" || document.getElementById('eliid').value !== id) {
-    x.style.display = "block";
+  document.getElementById("nuevousr").style.display = "none";
+  document.getElementById("editarusr").style.display = "none";
+    
+  document.getElementById("tablausuarios").style.display = "none";
+  
+  if (document.getElementById("eliminarusr").style.display === "none" || document.getElementById('eliid').value !== id) {
+    document.getElementById("eliminarusr").style.display = "block";
     document.getElementById('eliid').value = id;
     document.getElementById('eliusr').value = user;
     document.getElementById('elihab').value = habi;
@@ -153,7 +150,7 @@ function eliminarusr(id, user, apenom, docu, email, admin, meca, habi, domi, tel
       document.getElementById('elicliente').checked = false;
 
   } else {
-    x.style.display = "none";
+    document.getElementById("eliminarusr").style.display = "none";
   }
 }
 
@@ -273,12 +270,15 @@ function checkEditar2(form) {
 
 $("#cruzNuevo").mousedown(function () {
   document.getElementById("nuevousr").style.display = "none";
+  document.getElementById("tablausuarios").style.display = "block";
 });
 
 $("#cruzEditar").mousedown(function () {
   document.getElementById("editarusr").style.display = "none";
+  document.getElementById("tablausuarios").style.display = "block";
 });
 
 $("#cruzEliminar").mousedown(function () {
   document.getElementById("eliminarusr").style.display = "none";
+  document.getElementById("tablausuarios").style.display = "block";
 });

@@ -17,7 +17,7 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "columns": [
       null,
@@ -48,7 +48,7 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "columns": [
       null,
@@ -78,7 +78,7 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "columns": [
       null,
@@ -118,47 +118,4 @@ function nuevareserva() {
   window.open("reservar.jsp","_self");
 }
 
-/*
- * 
- iniciarReserva('<%=r.getId()%>','<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1() %>', 
-                                    '<%= r.getCliente().getUsuario() %>','<%= r.getCliente().getDocumento()%>', '<%= df.format(r.getFechaInicioP())%>', 
-                                    '<%= df.format(r.getFechaFinP())%>','<%= df2.format(r.getImporte())%>')">
- */
-
-function editartipo(id, reserva, bicicleta, img1, usr, docu, inicio, fin, importe) {
-  
-  document.getElementById('nombretb').disabled = false;
-  document.getElementById('descriptb').disabled = false;
-  document.getElementById('urlPortada').disabled = false;
-  document.getElementById('iniciar').style.display = "none";
-  document.getElementById('editar').style.display = "block";
-  document.getElementById('eliminar').style.display = "none";
-
-  x = document.getElementById("reserva");
-  if (abmr !== 'M' || document.getElementById('idr').value !== id) {
-    //abre form
-    abmr = 'M';
-    x.style.display = "block";
-    document.getElementById('idtb').value = id;
-    document.getElementById('nombretb').value = nombre;
-    document.getElementById('descriptb').value = descrip;
-    document.getElementById('urlPortada').value = url;
-
-    if (url)
-      document.getElementById('portada').src = url;
-    else
-      document.getElementById('portada').src = "img/imagen-vacia.jpg";
-
-    document.getElementById('nombretb').focus();
-  } else {
-    //cerrar form
-    abmr = '';
-    x.style.display = "none";
-    document.getElementById('idtb').value = '';
-    document.getElementById('nombretb').value = '';
-    document.getElementById('descriptb').value = '';
-    document.getElementById('urlPortada').value = '';
-    document.getElementById('portada').src = "img/imagen-vacia.jpg";
-  }
-}
 

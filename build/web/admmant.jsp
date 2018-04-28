@@ -37,7 +37,7 @@
       <span class="site-heading-upper text-primary mb-3">administrador de mantenimientos</span>
     </h1>
 
-    <div class="col-lg-10 col-centered well">
+    <div class="col-lg-10 col-centered well" id="tablamantenimientos">
 
       <div style="overflow-x:auto;">
         <button class="tablink" onclick="openPage('mants', this)" id="defaultOpen">Activos</button>
@@ -247,7 +247,6 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>    
     <script src="js/abmmant.js"></script>
   </body>

@@ -40,7 +40,7 @@
     </h1>
 
     <!-- USUARIOS -->
-    <div class="col-lg-10 col-centered well" >      
+    <div class="col-lg-10 col-centered well" id="tablausuarios" >      
       <div style="overflow-x:auto;margin:0.5rem">
         <div align="right">
           <a class="btn btn-nuevo" style="margin-bottom:0.5rem" title="Nuevo Usuario" onclick="nuevousr()"><span class="fa fa-plus-square"></span></a>
@@ -127,6 +127,7 @@
                 </div>
                 <div class="col-sm-3 form-group">
                   <select class="form-control" name="habilitado" id="habilitado" title="¿Usuario Habilitado?">
+                    <option value="" disabled selected>¿Habilitado?</option>
                     <option value="true" selected="true">SI</option>
                     <option value="false">NO</option> 
                   </select>

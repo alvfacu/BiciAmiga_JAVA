@@ -561,4 +561,320 @@ public class CatalogoModelos {
     return modelos;
   }
   
+  public ArrayList<Modelos> getModelosDisponibles2(Calendar fechaDsd, Calendar fechaHst) {
+    ArrayList<Modelos> modelos_reservas = new ArrayList<>();
+    ArrayList<Modelos> modelos_totales = new ArrayList<>();
+    ArrayList<Modelos> modelos_listado = new ArrayList<>();
+    
+    PreparedStatement sentencia = null;
+    ResultSet rs = null;
+    
+    String sql1 = "SELECT m.id, m.id_tipo, count(*) as cant FROM reservas r INNER JOIN bicicletas b ON r.id_bici=b.id "
+            + "INNER JOIN modelos m ON m.id=b.id_modelo INNER JOIN tipos_bicicleta tp ON m.id_tipo=tp.id "
+            + "WHERE fecha_fin_pactada>=? AND fecha_inicio_pactada<=? AND r.estado=? GROUP BY m.id";
+    
+    String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
+            + "ON b.id_modelo=m.id WHERE b.disponible=true GROUP BY m.id";
+    
+    try {      
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql1);
+      sentencia.setTimestamp(1, new java.sql.Timestamp(fechaDsd.getTimeInMillis()));
+      sentencia.setTimestamp(2, new java.sql.Timestamp(fechaHst.getTimeInMillis()));
+      sentencia.setInt(3, EstadosReserva.PENDIENTE.getId());      
+      rs = sentencia.executeQuery();
+      while (rs.next()) {
+        Modelos m = new Modelos();
+        m.setId(rs.getInt("id"));
+        m.setCant(rs.getInt("cant"));
+        TiposBicicleta tb = new CatalogoTiposBicicletas().getTipo(rs.getInt("id_tipo"));
+        m.setTipo(tb);
+        modelos_reservas.add(m);
+      }
+      
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql2);
+      rs = sentencia.executeQuery();
+      while (rs.next()) {
+        Modelos m = new Modelos();
+        m.setId(rs.getInt("id"));
+        m.setNombre(rs.getString("nombre"));
+        m.setCaracteristicas_gral(rs.getString("descrip"));
+        m.setPrecioXHr(rs.getDouble("precio_hr"));
+        m.setPrecioXDia(rs.getDouble("precio_dia"));
+        m.setUrl1(rs.getString("url1"));
+        m.setUrl2(rs.getString("url2"));
+        m.setUrl3(rs.getString("url3"));
+        m.setCant(rs.getInt("cant"));
+        TiposBicicleta tb = new CatalogoTiposBicicletas().getTipo(rs.getInt("id_tipo"));
+        m.setTipo(tb);
+        modelos_totales.add(m);
+      }
+      
+      for(Modelos m : modelos_totales){        
+        int cant = m.getCant();
+        Modelos mAct = null;
+        for(Modelos mr : modelos_reservas){
+          if(mr.getId()==m.getId() && mr.getTipo().getId()==m.getTipo().getId()){
+            mAct = mr;
+            break;
+          }
+        }
+        if(mAct!=null){
+          int cantR = mAct.getCant();
+          if(cantR!=cant)
+            modelos_listado.add(m);
+        } else
+          modelos_listado.add(m);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null) {
+          sentencia.close();
+        }
+        if (rs != null) {
+          rs.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+    return modelos_listado;
+  }
+  
+  public ArrayList<Modelos> getModelosDisponiblesXTipo2(int tipo,Calendar fechaDsd, Calendar fechaHst) {
+    ArrayList<Modelos> modelos_reservas = new ArrayList<>();
+    ArrayList<Modelos> modelos_totales = new ArrayList<>();
+    ArrayList<Modelos> modelos_listado = new ArrayList<>();
+    
+    PreparedStatement sentencia = null;
+    ResultSet rs = null;
+    
+    String sql1 = "SELECT m.id, m.id_tipo, count(*) as cant FROM reservas r INNER JOIN bicicletas b ON r.id_bici=b.id "
+            + "INNER JOIN modelos m ON m.id=b.id_modelo INNER JOIN tipos_bicicleta tp ON m.id_tipo=tp.id "
+            + "WHERE m.id_tipo=? AND fecha_fin_pactada>=? AND fecha_inicio_pactada<=? AND r.estado=? GROUP BY m.id";
+    
+    String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b ON b.id_modelo=m.id WHERE b.disponible=true AND m.id_tipo=? GROUP BY m.id";
+    
+    try {      
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql1);
+      sentencia.setInt(1, tipo);
+      sentencia.setTimestamp(2, new java.sql.Timestamp(fechaDsd.getTimeInMillis()));
+      sentencia.setTimestamp(3, new java.sql.Timestamp(fechaHst.getTimeInMillis()));
+      sentencia.setInt(4, EstadosReserva.PENDIENTE.getId());
+      rs = sentencia.executeQuery();
+      while (rs.next()) {
+        Modelos m = new Modelos();
+        m.setId(rs.getInt("id"));
+        m.setCant(rs.getInt("cant"));
+        TiposBicicleta tb = new CatalogoTiposBicicletas().getTipo(rs.getInt("id_tipo"));
+        m.setTipo(tb);
+        modelos_reservas.add(m);
+      }
+      
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql2);      
+      sentencia.setInt(1, tipo);
+      rs = sentencia.executeQuery();
+      while (rs.next()) {
+        Modelos m = new Modelos();
+        m.setId(rs.getInt("id"));
+        m.setNombre(rs.getString("nombre"));
+        m.setCaracteristicas_gral(rs.getString("descrip"));
+        m.setPrecioXHr(rs.getDouble("precio_hr"));
+        m.setPrecioXDia(rs.getDouble("precio_dia"));
+        m.setUrl1(rs.getString("url1"));
+        m.setUrl2(rs.getString("url2"));
+        m.setUrl3(rs.getString("url3"));
+        m.setCant(rs.getInt("cant"));
+        TiposBicicleta tb = new CatalogoTiposBicicletas().getTipo(rs.getInt("id_tipo"));
+        m.setTipo(tb);
+        modelos_totales.add(m);
+      }
+      
+      for(Modelos m : modelos_totales){        
+        int cant = m.getCant();
+        Modelos mAct = null;
+        for(Modelos mr : modelos_reservas){
+          if(mr.getId()==m.getId() && mr.getTipo().getId()==m.getTipo().getId()){
+            mAct = mr;
+            break;
+          }
+        }
+        if(mAct!=null){
+          int cantR = mAct.getCant();
+          if(cantR!=cant)
+            modelos_listado.add(m);
+        } else
+          modelos_listado.add(m);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null) {
+          sentencia.close();
+        }
+        if (rs != null) {
+          rs.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+    return modelos_listado;
+  }
+  
+  public ArrayList<Modelos> getModelosDisponiblesXTipoXModelo2(int tipo, int modelo,Calendar fechaDsd, Calendar fechaHst) {
+    ArrayList<Modelos> modelos_reservas = new ArrayList<>();
+    ArrayList<Modelos> modelos_totales = new ArrayList<>();
+    ArrayList<Modelos> modelos_listado = new ArrayList<>();
+    
+    PreparedStatement sentencia = null;
+    ResultSet rs = null;
+    
+    String sql1 = "SELECT m.id, m.id_tipo, count(*) as cant FROM reservas r INNER JOIN bicicletas b ON r.id_bici=b.id "
+            + "INNER JOIN modelos m ON m.id=b.id_modelo INNER JOIN tipos_bicicleta tp ON m.id_tipo=tp.id "
+            + "WHERE m.id_tipo=? AND m.id=? AND fecha_fin_pactada>=? AND fecha_inicio_pactada<=? AND r.estado=? GROUP BY m.id";
+    
+    String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
+            + "ON b.id_modelo=m.id WHERE b.disponible=true AND m.id=? AND m.id_tipo=? GROUP BY m.id";
+    
+    try {      
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql1);
+      sentencia.setInt(1, tipo);
+      sentencia.setInt(2, modelo);
+      sentencia.setTimestamp(3, new java.sql.Timestamp(fechaDsd.getTimeInMillis()));
+      sentencia.setTimestamp(4, new java.sql.Timestamp(fechaHst.getTimeInMillis()));
+      sentencia.setInt(5, EstadosReserva.PENDIENTE.getId());
+      rs = sentencia.executeQuery();
+      
+      while (rs.next()) {
+        Modelos m = new Modelos();
+        m.setId(rs.getInt("id"));
+        m.setCant(rs.getInt("cant"));
+        TiposBicicleta tb = new CatalogoTiposBicicletas().getTipo(rs.getInt("id_tipo"));
+        m.setTipo(tb);
+        modelos_reservas.add(m);
+      }
+      
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql2);
+      sentencia.setInt(1, modelo);
+      sentencia.setInt(2, tipo);
+      rs = sentencia.executeQuery();
+      
+      while (rs.next()) {
+        Modelos m = new Modelos();
+        m.setId(rs.getInt("id"));
+        m.setNombre(rs.getString("nombre"));
+        m.setCaracteristicas_gral(rs.getString("descrip"));
+        m.setPrecioXHr(rs.getDouble("precio_hr"));
+        m.setPrecioXDia(rs.getDouble("precio_dia"));
+        m.setUrl1(rs.getString("url1"));
+        m.setUrl2(rs.getString("url2"));
+        m.setUrl3(rs.getString("url3"));
+        m.setCant(rs.getInt("cant"));
+        TiposBicicleta tb = new CatalogoTiposBicicletas().getTipo(rs.getInt("id_tipo"));
+        m.setTipo(tb);
+        modelos_totales.add(m);
+      }
+      
+      for(Modelos m : modelos_totales){        
+        int cant = m.getCant();
+        Modelos mAct = null;
+        for(Modelos mr : modelos_reservas){
+          if(mr.getId()==m.getId() && mr.getTipo().getId()==m.getTipo().getId()){
+            mAct = mr;
+            break;
+          }
+        }
+        if(mAct!=null){
+          int cantR = mAct.getCant();
+          if(cantR!=cant)
+            modelos_listado.add(m);
+        } else
+          modelos_listado.add(m);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null) {
+          sentencia.close();
+        }
+        if (rs != null) {
+          rs.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+    return modelos_listado;
+  }
+
+  public ArrayList<Modelos> getModelosDisponiblesXModelo2(int modelo) {
+    ArrayList<Modelos> modelos = new ArrayList<>();
+    PreparedStatement sentencia;
+    ResultSet rs;
+    String sql = "select m.* from modelos m inner join bicicletas b on b.id_modelo=m.id WHERE b.disponible=true AND m.id=? GROUP BY m.id";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, modelo);
+      rs = sentencia.executeQuery();
+
+      while (rs.next()) {
+        Modelos m = new Modelos();
+        m.setId(rs.getInt("id"));
+        m.setNombre(rs.getString("nombre"));
+        m.setCaracteristicas_gral(rs.getString("descrip"));
+        m.setPrecioXHr(rs.getDouble("precio_hr"));
+        m.setPrecioXDia(rs.getDouble("precio_dia"));
+        m.setUrl1(rs.getString("url1"));
+        m.setUrl2(rs.getString("url2"));
+        m.setUrl3(rs.getString("url3"));
+        TiposBicicleta tb = new CatalogoTiposBicicletas().getTipo(rs.getInt("id_tipo"));
+        m.setTipo(tb);
+        modelos.add(m);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      ConexionBD.getInstancia().CloseConn();
+    }
+    return modelos;
+  }
+
+  public ArrayList<Modelos> getModelosXTipo2(int tipo) {
+    ArrayList<Modelos> modelos = new ArrayList<>();
+    PreparedStatement sentencia;
+    ResultSet rs;
+    String sql = "select * from modelos WHERE id_tipo=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, tipo);
+      rs = sentencia.executeQuery();
+
+      while (rs.next()) {
+        Modelos m = new Modelos();
+        m.setId(rs.getInt("id"));
+        m.setNombre(rs.getString("nombre"));
+        m.setCaracteristicas_gral(rs.getString("descrip"));
+        m.setPrecioXHr(rs.getDouble("precio_hr"));
+        m.setPrecioXDia(rs.getDouble("precio_dia"));
+        m.setUrl1(rs.getString("url1"));
+        m.setUrl2(rs.getString("url2"));
+        m.setUrl3(rs.getString("url3"));
+        TiposBicicleta tb = new CatalogoTiposBicicletas().getTipo(rs.getInt("id_tipo"));
+        m.setTipo(tb);
+        modelos.add(m);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      ConexionBD.getInstancia().CloseConn();
+    }
+    return modelos;
+  }
 }

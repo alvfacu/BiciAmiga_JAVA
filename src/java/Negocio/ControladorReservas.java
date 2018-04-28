@@ -1,6 +1,7 @@
 package Negocio;
 
 import Datos.CatalogoReservas;
+import Entidades.EstadosReserva;
 import Entidades.Reservas;
 import Entidades.Usuarios;
 import java.util.ArrayList;
@@ -18,23 +19,23 @@ public class ControladorReservas {
   }
   
   public ArrayList<Reservas> getReservasPendientes() {
-    return cr.getReservasPendientes();
+    return cr.getReservasNoFinalizadas(EstadosReserva.PENDIENTE.getId());
   }
   
   public ArrayList<Reservas> getReservasEnCurso() {
-    return cr.getReservasPendientes();
+    return cr.getReservasNoFinalizadas(EstadosReserva.ENCURSO.getId());
   }
   
   public ArrayList<Reservas> getReservasFinalizados() {
-    return cr.getReservasFinalizadas();
+    return cr.getReservasFinalizadas2();
   }
  
   public ArrayList<Reservas> getReservasPendientesXUsr(Usuarios usr){
-    return cr.getReservasPendientesXUsr(usr.getId());
+    return cr.getReservasPendientesXUsr2(usr.getId());
   }
   
   public ArrayList<Reservas> getReservasFinalizadasXUsr(Usuarios usr){
-    return cr.getReservasFinalizadasXUsr(usr.getId());
+    return cr.getReservasFinalizadasXUsr2(usr.getId());
   }
   
   public Reservas getReserva(int id) {

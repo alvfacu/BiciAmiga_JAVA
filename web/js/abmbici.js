@@ -19,7 +19,7 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "columns": [
       null,
@@ -44,7 +44,7 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "columns": [
       null,
@@ -75,7 +75,7 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "columns": [
       null,
@@ -95,12 +95,9 @@ function openPage(pageName, elmnt) {
   abmm = '';
   abmb = '';
 
-  var x = document.getElementById("nuevomodelo");
-  x.style.display = "none";
-  x = document.getElementById("nuevotipo");
-  x.style.display = "none";
-  x = document.getElementById("nuevabici");
-  x.style.display = "none";
+  document.getElementById("nuevomodelo").style.display = "none";
+  document.getElementById("nuevotipo").style.display = "none";
+  document.getElementById("nuevabici").style.display = "none";
 
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
@@ -118,10 +115,9 @@ function openPage(pageName, elmnt) {
 document.getElementById("defaultOpen").click();
 
 function nuevotipo() {
-  var x = document.getElementById("nuevomodelo");
-  x.style.display = "none";
-  x = document.getElementById("nuevabici");
-  x.style.display = "none";
+  document.getElementById("nuevomodelo").style.display = "none";
+  document.getElementById("nuevabici").style.display = "none";
+  document.getElementById("tablabicicletas").style.display = "none";
 
   document.getElementById('editartb').style.display = "none";
   document.getElementById('eliminartb').style.display = "none";
@@ -136,23 +132,20 @@ function nuevotipo() {
   document.getElementById('portada').src = "img/imagen-vacia.jpg";
   document.getElementById('msj1').style.display = "none";
 
-  x = document.getElementById("nuevotipo");
   if (abmtb !== 'A') {
-    x.style.display = "block";
+    document.getElementById("nuevotipo").style.display = "block";
     abmtb = 'A';
     document.getElementById('nombretb').focus();
   } else {
-    x.style.display = "none";
+    document.getElementById("nuevotipo").style.display = "none";
     abmtb = '';
   }
 }
 
 function editartipo(id, nombre, descrip, url) {
-  var x = document.getElementById("nuevomodelo");
-  x.style.display = "none";
-  x = document.getElementById("nuevabici");
-  x.style.display = "none";
-
+  document.getElementById("nuevomodelo").style.display = "none";
+  document.getElementById("nuevabici").style.display = "none";
+  document.getElementById("tablabicicletas").style.display = "none";
   document.getElementById('msj1').style.display = "none";
   document.getElementById('nombretb').disabled = false;
   document.getElementById('descriptb').disabled = false;
@@ -161,11 +154,10 @@ function editartipo(id, nombre, descrip, url) {
   document.getElementById('editartb').style.display = "block";
   document.getElementById('eliminartb').style.display = "none";
 
-  x = document.getElementById("nuevotipo");
   if (abmtb !== 'M' || document.getElementById('idtb').value !== id) {
     //abre form
     abmtb = 'M';
-    x.style.display = "block";
+    document.getElementById("nuevotipo").style.display = "block";
     document.getElementById('idtb').value = id;
     document.getElementById('nombretb').value = nombre;
     document.getElementById('descriptb').value = descrip;
@@ -180,7 +172,7 @@ function editartipo(id, nombre, descrip, url) {
   } else {
     //cerrar form
     abmtb = '';
-    x.style.display = "none";
+    document.getElementById("nuevotipo").style.display = "none";
     document.getElementById('idtb').value = '';
     document.getElementById('nombretb').value = '';
     document.getElementById('descriptb').value = '';
@@ -190,19 +182,16 @@ function editartipo(id, nombre, descrip, url) {
 }
 
 function eliminartipo(id, nombre, descrip, url) {
-  var x = document.getElementById("nuevomodelo");
-  x.style.display = "none";
-  x = document.getElementById("nuevabici");
-  x.style.display = "none";
-
+  document.getElementById("nuevomodelo").style.display = "none";
+  document.getElementById("nuevabici").style.display = "none";
+  document.getElementById("tablabicicletas").style.display = "none";
   document.getElementById('guardartb').style.display = "none";
   document.getElementById('editartb').style.display = "none";
   document.getElementById('eliminartb').style.display = "block";
 
-  x = document.getElementById("nuevotipo");
   if (abmtb !== 'B' || document.getElementById('idtb').value !== id) {
     //abre form
-    x.style.display = "block";
+    document.getElementById("nuevotipo").style.display = "block";
     abmtb = 'B';
     document.getElementById('idtb').value = id;
     document.getElementById('nombretb').value = nombre;
@@ -220,7 +209,7 @@ function eliminartipo(id, nombre, descrip, url) {
     document.getElementById('eliminartb').focus();
   } else {
     //cerrar form
-    x.style.display = "none";
+    document.getElementById("nuevotipo").style.display = "none";
     abmtb = '';
     document.getElementById('idtb').value = '';
     document.getElementById('nombretb').value = '';
@@ -253,10 +242,9 @@ function eliminartipo(id, nombre, descrip, url) {
 }
 
 function nuevomodelo() {
-  var x = document.getElementById("nuevotipo");
-  x.style.display = "none";
-  x = document.getElementById("nuevabici");
-  x.style.display = "none";
+  document.getElementById("nuevotipo").style.display = "none";
+  document.getElementById("nuevabici").style.display = "none";
+  document.getElementById("tablabicicletas").style.display = "none";
 
   document.getElementById('msj2').style.display = "none";
   document.getElementById('editarm').style.display = "none";
@@ -283,22 +271,20 @@ function nuevomodelo() {
   document.getElementById('url2').value = '';
   document.getElementById('url3').value = '';
 
-  x = document.getElementById("nuevomodelo");
   if (abmm !== 'A') {
-    x.style.display = "block";
+    document.getElementById("nuevomodelo").style.display = "block";
     abmm = 'A';
     document.getElementById('clr').focus();
   } else {
-    x.style.display = "none";
+    document.getElementById("nuevomodelo").style.display = "none";
     abmm = '';
   }
 }
 
 function editarmodelo(id, idTipo, nombre, caract, preciohr, preciodia, url1, url2, url3) {
-  var x = document.getElementById("nuevotipo");
-  x.style.display = "none";
-  x = document.getElementById("nuevabici");
-  x.style.display = "none";
+  document.getElementById("nuevotipo").style.display = "none";
+  document.getElementById("nuevabici").style.display = "none";
+  document.getElementById("tablabicicletas").style.display = "none";
 
   document.getElementById('msj2').style.display = "none";
   document.getElementById('clr').disabled = false;
@@ -313,12 +299,10 @@ function editarmodelo(id, idTipo, nombre, caract, preciohr, preciodia, url1, url
   document.getElementById('editarm').style.display = "block";
   document.getElementById('eliminarm').style.display = "none";
 
-  x = document.getElementById("nuevomodelo");
   if (abmm !== 'M' || document.getElementById('idm').value !== id) {
     //abre form
     abmm = 'M';
-
-    x.style.display = "block";
+    document.getElementById("nuevomodelo").style.display = "block";
     document.getElementById('idm').value = id;
     document.getElementById('clr').value = idTipo;
     document.getElementById('nombrem').value = nombre;
@@ -357,7 +341,7 @@ function editarmodelo(id, idTipo, nombre, caract, preciohr, preciodia, url1, url
   } else {
     //cerrar form
     abmm = '';
-    x.style.display = "none";
+    document.getElementById("nuevomodelo").style.display = "none";
     document.getElementById('idm').value = '';
     document.getElementById('clr').value = '';
     document.getElementById('nombrem').value = '';
@@ -374,20 +358,19 @@ function editarmodelo(id, idTipo, nombre, caract, preciohr, preciodia, url1, url
 }
 
 function eliminarmodelo(id, idTipo, nombre, caract, preciohr, preciodia, url1, url2, url3) {
-  var x = document.getElementById("nuevotipo");
-  x.style.display = "none";
-  x = document.getElementById("nuevabici");
-  x.style.display = "none";
-
+  document.getElementById("nuevotipo").style.display = "none";
+  document.getElementById("nuevabici").style.display = "none";
+  
+  document.getElementById("tablabicicletas").style.display = "none";
+  
   document.getElementById('guardarm').style.display = "none";
   document.getElementById('eliminarm').style.display = "block";
   document.getElementById('editarm').style.display = "none";
 
-  x = document.getElementById("nuevomodelo");
   if (abmm !== 'B' || document.getElementById('idm').value !== id) {
     //abre form
     abmm = 'B';
-    x.style.display = "block";
+    document.getElementById("nuevomodelo").style.display = "block";
     document.getElementById('idm').value = id;
     document.getElementById('clr').value = idTipo;
     document.getElementById('nombrem').value = nombre;
@@ -434,7 +417,7 @@ function eliminarmodelo(id, idTipo, nombre, caract, preciohr, preciodia, url1, u
   } else {
     //cerrar form
     abmm = '';
-    x.style.display = "none";
+    document.getElementById("nuevomodelo").style.display = "none";
     document.getElementById('idm').value = '';
     document.getElementById('clr').value = '';
     document.getElementById('nombrem').value = '';
@@ -478,11 +461,11 @@ function eliminarmodelo(id, idTipo, nombre, caract, preciohr, preciodia, url1, u
 }
 
 function nuevabici() {
-  var x = document.getElementById("nuevotipo");
-  x.style.display = "none";
-  x = document.getElementById("nuevomodelo");
-  x.style.display = "none";
-
+  document.getElementById("nuevotipo").style.display = "none";
+  document.getElementById("nuevomodelo").style.display = "none";
+  
+  document.getElementById("tablabicicletas").style.display = "none";
+  
   document.getElementById('editarb').style.display = "none";
   document.getElementById('eliminarb').style.display = "none";
   document.getElementById('guardarb').style.display = "block";
@@ -508,13 +491,12 @@ function nuevabici() {
   document.getElementById('guardarb').disabled = false;
   document.getElementById('patente').style.backgroundColor = "white";
 
-  x = document.getElementById("nuevabici");
   if (abmb !== 'A') {
-    x.style.display = "block";
+    document.getElementById("nuevabici").style.display = "block";
     abmb = 'A';
     document.getElementById('modelobici').focus();
   } else {
-    x.style.display = "none";
+    document.getElementById("nuevabici").style.display = "none";
     abmb = '';
   }
 }
@@ -538,11 +520,10 @@ function dameImagen() {
 }
 
 function editarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMant, kmTot, url) {
-  var x = document.getElementById("nuevotipo");
-  x.style.display = "none";
-  x = document.getElementById("nuevomodelo");
-  x.style.display = "none";
-
+  document.getElementById("nuevotipo").style.display = "none";
+  document.getElementById("nuevomodelo").style.display = "none";
+  document.getElementById("tablabicicletas").style.display = "none";
+  
   document.getElementById('modelobici').disabled = false;
   document.getElementById('kmMantenimiento').disabled = false;
   document.getElementById('kmViajados').disabled = false;
@@ -553,11 +534,10 @@ function editarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMant
   document.getElementById('editarb').style.display = "block";
   document.getElementById('eliminarb').style.display = "none";
 
-  x = document.getElementById("nuevabici");
   if (abmb !== 'M' || document.getElementById('idb').value !== id) {
     //abre form
     abmb = 'M';
-    x.style.display = "block";
+    document.getElementById("nuevabici").style.display = "block";
     document.getElementById('idb').value = id;
     document.getElementById('modelobici').value = idModelo;
     document.getElementById('patente').value = patente;
@@ -584,7 +564,7 @@ function editarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMant
   } else {
     //cerrar form
     abmb = '';
-    x.style.display = "none";
+    document.getElementById("nuevabici").style.display = "none";
 
     document.getElementById('idb').value = '';
     document.getElementById('modelobici').value = '';
@@ -601,11 +581,10 @@ function editarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMant
 }
 
 function eliminarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMant, kmTot, url) {
-  var x = document.getElementById("nuevotipo");
-  x.style.display = "none";
-  x = document.getElementById("nuevomodelo");
-  x.style.display = "none";
-
+  document.getElementById("nuevotipo").style.display = "none";
+  document.getElementById("nuevomodelo").style.display = "none";
+  document.getElementById("tablabicicletas").style.display = "none";
+  
   document.getElementById('modelobici').disabled = true;
   document.getElementById('kmMantenimiento').disabled = true;
   document.getElementById('kmViajados').disabled = true;
@@ -616,12 +595,10 @@ function eliminarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMa
   document.getElementById('guardarb').style.display = "none";
   document.getElementById('editarb').style.display = "none";
   document.getElementById('eliminarb').style.display = "block";
-
-  x = document.getElementById("nuevabici");
   if (abmb !== 'B' || document.getElementById('idb').value !== id) {
     //abre form
     abmb = 'B';
-    x.style.display = "block";
+    document.getElementById("nuevabici").style.display = "block";
     document.getElementById('idb').value = id;
     document.getElementById('modelobici').value = idModelo;
     document.getElementById('patente').value = patente;
@@ -647,7 +624,7 @@ function eliminarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMa
   } else {
     //cerrar form
     abmb = '';
-    x.style.display = "none";
+    document.getElementById("nuevabici").style.display = "none";
 
     document.getElementById('idb').value = '';
     document.getElementById('modelobici').value = '';
@@ -664,16 +641,19 @@ function eliminarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMa
 $("#cruzNuevoTB").mousedown(function () {
   document.getElementById("nuevotipo").style.display = "none";
   abmtb = '';
+  document.getElementById("tablabicicletas").style.display = "block";
 });
 
 $("#cruzNuevoM").mousedown(function () {
   document.getElementById("nuevomodelo").style.display = "none";
   abmm = '';
+  document.getElementById("tablabicicletas").style.display = "block";
 });
 
 $("#cruzNuevoB").mousedown(function () {
   document.getElementById("nuevabici").style.display = "none";
   abmb = '';
+  document.getElementById("tablabicicletas").style.display = "block";
 });
 
 $("#url1").focusout(function () {

@@ -38,7 +38,7 @@
       <span class="site-heading-upper text-primary mb-3">administrador de bicicletas</span>
     </h1>
 
-    <div class="col-lg-10 col-centered well">
+    <div class="col-lg-10 col-centered well" id="tablabicicletas">
       
       <div style="overflow-x:auto;">
         <button class="tablink" onclick="openPage('bicis', this)" id="defaultOpen">Bicicletas</button>

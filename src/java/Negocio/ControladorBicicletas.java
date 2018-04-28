@@ -54,19 +54,19 @@ public class ControladorBicicletas {
   }
   
   public ArrayList<Modelos> getModelosDisponiblesXModelo(int modelo){
-    return cm.getModelosDisponiblesXModelo(modelo);
+    return cm.getModelosDisponiblesXModelo2(modelo);
   }
   
   public ArrayList<Modelos> getModelosDisponiblesXTipoXModelo(int tipo, int modelo,Calendar fechaDsd, Calendar fechaHst){
-    return cm.getModelosDisponiblesXTipoXModelo(tipo,modelo,fechaDsd,fechaHst);
+    return cm.getModelosDisponiblesXTipoXModelo2(tipo,modelo,fechaDsd,fechaHst);
   }
   
   public ArrayList<Modelos> getModelosDisponiblesXTipo(int tipo,Calendar fechaDsd, Calendar fechaHst){
-    return cm.getModelosDisponiblesXTipo(tipo,fechaDsd,fechaHst);
+    return cm.getModelosDisponiblesXTipo2(tipo,fechaDsd,fechaHst);
   }
   
   public ArrayList<Modelos> getModelosDisponibles(Calendar fechaDsd, Calendar fechaHst) {
-    return cm.getModelosDisponibles(fechaDsd,fechaHst);
+    return cm.getModelosDisponibles2(fechaDsd,fechaHst);
   }
   
   public int existePatente(String patente) {
@@ -134,7 +134,7 @@ public class ControladorBicicletas {
   }
   
   public ArrayList<Modelos> getModelosXTipo(int tipo){
-    return cm.getModelosXTipo(tipo);
+    return cm.getModelosXTipo2(tipo);
   }
 
   public boolean estaDisponibleParaReserva(Bicicletas b, Calendar desde, Calendar hasta) {
