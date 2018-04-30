@@ -40,10 +40,12 @@ public class ValidaUsuario extends HttpServlet {
       response.getWriter().write(rdo);
 
     } catch (IOException ex) {
-      response.sendRedirect("error.jsp");
+      response.setContentType("text/plain");
+      response.getWriter().write("1");
     }
     catch (Exception ex) {
-      response.sendRedirect("error.jsp");
+      response.setContentType("text/plain");
+      response.getWriter().write("1");
     }
   }
 

@@ -89,7 +89,7 @@
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script>
     function misreservas() {
-        window.open("mis_reservas.jsp","_self");
+        window.open("index.jsp","_self");
       }
   </script>
 </body>

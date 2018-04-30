@@ -34,11 +34,14 @@ public class DameImagenBici extends HttpServlet {
       response.setContentType("text/plain");
       response.getWriter().write(rdo);
     } catch (IOException ex) {
-      response.sendRedirect("error.jsp");
+      response.setContentType("text/plain");
+      response.getWriter().write("");
     } catch (NumberFormatException ex) {
-      response.sendRedirect("error.jsp");
+      response.setContentType("text/plain");
+      response.getWriter().write("");
     } catch (Exception ex) {
-      response.sendRedirect("error.jsp");
+      response.setContentType("text/plain");
+      response.getWriter().write("");
     }
 
   }

@@ -5,6 +5,7 @@ import Entidades.EstadosReserva;
 import Entidades.Reservas;
 import Entidades.Usuarios;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ControladorReservas {
   
@@ -57,17 +58,20 @@ public class ControladorReservas {
   public void cancelarReserva(int idReserva) {
     cr.cancelarReserva(idReserva);
   }
- 
-  public boolean finalizarReserva(int idReserva) {
-    Reservas rActual = cr.getReserva(idReserva);
-    if(rActual!=null)
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+
+  public boolean puedeIniciar(int idR) {    
+    Reservas reservaActual = cr.getReserva(idR);
+    Date actual = new Date();
+    
+   return (reservaActual.getEstado() == EstadosReserva.PENDIENTE && reservaActual.getFechaInicioP().before(actual) && actual.before(reservaActual.getFechaFinP()));
+  }
+
+  public void iniciarReserva(int id) {
+    cr.iniciarReserva(id);
+  }
+
+  public void eliminarReserva(int id) {
+    cr.eliminarReserva(id);
   }
   
 }
