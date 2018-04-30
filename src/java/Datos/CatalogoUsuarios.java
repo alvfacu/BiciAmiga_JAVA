@@ -181,7 +181,7 @@ public class CatalogoUsuarios {
     PreparedStatement sentencia;
     ResultSet rs;
     Usuarios u = null;
-    String sql = "select * from usuarios where usuario=?";
+    String sql = "select * from usuarios where usuario = BINARY ?";
     
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);

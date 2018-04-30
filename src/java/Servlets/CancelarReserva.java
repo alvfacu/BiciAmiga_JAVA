@@ -1,5 +1,7 @@
 package Servlets;
 
+import Entidades.EstadosReserva;
+import Entidades.Reservas;
 import Negocio.ControladorReservas;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +21,7 @@ public class CancelarReserva extends HttpServlet {
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
   }
+
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -28,14 +31,23 @@ public class CancelarReserva extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    int idReserva = Integer.valueOf(request.getParameter("nroreserva"));
-    if(new ControladorReservas().cancelarReserva(idReserva))
-    {
-      //eliminado correctamente
-    }
-    else
-    {
-      //error
+    try {
+      int idReserva = Integer.valueOf(request.getParameter("id"));
+      Reservas reservaActual = new ControladorReservas().getReserva(idReserva);
+      int idUsr = Integer.valueOf(request.getParameter("idUsr"));
+      if (reservaActual.getCliente().getId()==idUsr && reservaActual.getEstado()==EstadosReserva.PENDIENTE) {
+        new ControladorReservas().cancelarReserva(reservaActual.getId());
+        reservaActual = null;
+        response.sendRedirect("mis_reservas.jsp");
+      } else {
+        response.sendRedirect("error.jsp");
+      }
+    } catch (NumberFormatException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
     }
   }
 

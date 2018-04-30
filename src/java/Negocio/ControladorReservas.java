@@ -54,16 +54,8 @@ public class ControladorReservas {
     cr.modificarReserva(r);
   }
 
-  public boolean cancelarReserva(int idReserva) {
-    Reservas rActual = cr.getReserva(idReserva);
-    if(rActual!=null)
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+  public void cancelarReserva(int idReserva) {
+    cr.cancelarReserva(idReserva);
   }
  
   public boolean finalizarReserva(int idReserva) {

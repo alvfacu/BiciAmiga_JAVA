@@ -15,7 +15,7 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "columns": [
       null,
@@ -44,15 +44,15 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
+    "order": [[ 2, "asc" ]],
     "columns": [
       null,
       null,
       null,
       null,
       null,
-      {"orderable": false},
       {"orderable": false}
     ]
   });
@@ -81,4 +81,67 @@ document.getElementById("defaultOpen").click();
 
 function nuevareserva() {
   window.open("reservar.jsp","_self");
+}
+
+function verReserva(usr, idReserva, bicicleta, url, inicio, fin, total){
+  document.getElementById("titulo").innerHTML  = 'Reserva';
+  document.getElementById('eliminarMR').style.display = "none";
+  document.getElementById('verMR').style.display = "block";
+  document.getElementById("tablamisreservas").style.display = "none";
+  document.getElementById("verReserva").style.display = "block";
+  document.getElementById("idR").innerHTML  = idReserva;
+  document.getElementById("biciR").innerHTML  = bicicleta;
+  document.getElementById("usrR").innerHTML  = usr;
+  document.getElementById("turnoR").innerHTML  = inicio+" a "+fin;
+  document.getElementById("precioR").innerHTML  = total;
+  document.getElementById("imgR").src  = url;
+  document.getElementById("id").value  = '';
+}
+
+function eliminarReserva(id, idusr, usr, idReserva, bicicleta, url, inicio, fin, total){
+  document.getElementById("titulo").innerHTML  = 'Reserva';
+  document.getElementById('eliminarMR').style.display = "block";
+  document.getElementById('verMR').style.display = "none";
+  document.getElementById("tablamisreservas").style.display = "none";
+  document.getElementById("verReserva").style.display = "block";  
+  document.getElementById("idR").innerHTML  = idReserva;
+  document.getElementById("biciR").innerHTML  = bicicleta;
+  document.getElementById("usrR").innerHTML  = usr;
+  document.getElementById("turnoR").innerHTML  = inicio+" a "+fin;
+  document.getElementById("precioR").innerHTML  = total;
+  document.getElementById("imgR").src  = url;
+  document.getElementById("id").value  = id;
+  document.getElementById("idUsr").value  = idusr;
+}
+
+$("#cruzMR").mousedown(function () {
+  document.getElementById("titulo").innerHTML  = 'historial de reserva';
+  document.getElementById("verReserva").style.display = "none";
+  document.getElementById("idR").innerHTML  = '';
+  document.getElementById("biciR").innerHTML  = '';
+  document.getElementById("usrR").innerHTML  = '';
+  document.getElementById("turnoR").innerHTML  = '';
+  document.getElementById("precioR").innerHTML  = '';
+  document.getElementById("imgR").src  = 'img/imagen-vacia.jpg';
+  document.getElementById("tablamisreservas").style.display = "block";
+  document.getElementById('eliminarMR').style.display = "none";
+  document.getElementById('verMR').style.display = "none";
+  document.getElementById("id").value  = '';
+  document.getElementById("idUsr").value  = '';
+});
+
+function closeMR(){
+  document.getElementById("titulo").innerHTML  = 'historial de reserva';
+  document.getElementById("verReserva").style.display = "none";
+  document.getElementById("idR").value = '';
+  document.getElementById("biciR").value = '';
+  document.getElementById("usrR").value = '';
+  document.getElementById("turnoR").value = '';
+  document.getElementById("precioR").value = '';
+  document.getElementById("imgR").value = 'img/imagen-vacia.jpg';
+  document.getElementById("tablamisreservas").style.display = "block";
+  document.getElementById('eliminarMR').style.display = "none";
+  document.getElementById('verMR').style.display = "none";
+  document.getElementById("id").value  = '';
+  document.getElementById("idUsr").value  = '';
 }
