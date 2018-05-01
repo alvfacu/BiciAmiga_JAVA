@@ -128,7 +128,7 @@
             </div>
             <div class="row">
               <div class="col-sm-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
-                <input type="button" class="btn btn-lg btn-cliente btn-block" value="Volver" onclick="window.history.back()"> 
+                <input type="button" class="btn btn-lg btn-cliente btn-block" value="Volver a Mantenimientos" onclick="window.open('admmant.jsp','_self')"> 
               </div>
               <div class="col-sm-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
                 <input type="submit" id="guardarm" class="btn btn-lg btn-editar btn-block" value="Editar"> 

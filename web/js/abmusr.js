@@ -36,9 +36,9 @@ $(document).ready(function () {
 function nuevousr() {
   document.getElementById("editarusr").style.display = "none";
   document.getElementById("eliminarusr").style.display = "none";
-  
+
   document.getElementById("tablausuarios").style.display = "none";
-  
+
   if (document.getElementById("nuevousr").style.display === "none") {
     document.getElementById("nuevousr").style.display = "block";
     document.getElementById('habilitado').value = true;
@@ -68,9 +68,9 @@ function nuevousr() {
 function editarusr(id, user, apenom, docu, email, admin, meca, habi, domi, tel) {
   document.getElementById("nuevousr").style.display = "none";
   document.getElementById("eliminarusr").style.display = "none";
-  
+
   document.getElementById("tablausuarios").style.display = "none";
-  
+
   if (document.getElementById("editarusr").style.display === "none" || document.getElementById('idusr').value !== id) {
     document.getElementById("editarusr").style.display = "block";
     document.getElementById('idusr').value = id;
@@ -120,9 +120,9 @@ function editarusr(id, user, apenom, docu, email, admin, meca, habi, domi, tel) 
 function eliminarusr(id, user, apenom, docu, email, admin, meca, habi, domi, tel) {
   document.getElementById("nuevousr").style.display = "none";
   document.getElementById("editarusr").style.display = "none";
-    
+
   document.getElementById("tablausuarios").style.display = "none";
-  
+
   if (document.getElementById("eliminarusr").style.display === "none" || document.getElementById('eliid').value !== id) {
     document.getElementById("eliminarusr").style.display = "block";
     document.getElementById('eliid').value = id;
@@ -282,3 +282,24 @@ $("#cruzEliminar").mousedown(function () {
   document.getElementById("eliminarusr").style.display = "none";
   document.getElementById("tablausuarios").style.display = "block";
 });
+
+
+function vaciarFiltro() {
+  var table = $('#usuarios').DataTable();
+  table.search("").draw();
+}
+
+function buscarAdmin() {
+  var table = $('#usuarios').DataTable();
+  table.search("ADMIN").draw();
+}
+
+function buscarMecanicos() {
+  var table = $('#usuarios').DataTable();
+  table.search("MECANICO").draw();
+}
+
+function buscarClientes() {
+  var table = $('#usuarios').DataTable();
+  table.search("CLIENTE").draw();
+}

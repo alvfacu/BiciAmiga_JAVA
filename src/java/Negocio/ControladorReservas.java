@@ -73,5 +73,13 @@ public class ControladorReservas {
   public void eliminarReserva(int id) {
     cr.eliminarReserva(id);
   }
+
+  public void finalizarReserva(Reservas reservaActual) {
+    cr.finalizarReserva(reservaActual);
+  }
+
+  public void fallasReserva(Reservas reservaActual) {
+    cr.fallasReserva(reservaActual);
+  }
   
 }

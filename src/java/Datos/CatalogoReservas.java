@@ -594,14 +594,13 @@ public class CatalogoReservas {
     ArrayList<Reservas> reservas = new ArrayList<>();
     PreparedStatement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from reservas where fecha_fin_real is not null and estado IN (?,?,?,?) and id_usr=?";
+    String sql = "select * from reservas where fecha_fin_real is not null and estado IN (?,?,?) and id_usr=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setInt(1,EstadosReserva.CANCELADA.getId());
       sentencia.setInt(2,EstadosReserva.FINALIZADA.getId());
-      sentencia.setInt(3,EstadosReserva.FALLAS.getId());
-      sentencia.setInt(4,EstadosReserva.DESCONOCIDO.getId());
-      sentencia.setInt(5,id);
+      sentencia.setInt(3,EstadosReserva.DESCONOCIDO.getId());
+      sentencia.setInt(4,id);
       rs = sentencia.executeQuery();
 
       while (rs.next()) {
@@ -753,6 +752,56 @@ public class CatalogoReservas {
       sentencia.setDouble(5, 0);
       sentencia.setString(6, "RESERVA ELIMINADA POR ADMINISTRADOR");
       sentencia.setInt(7, id);
+      sentencia.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null && !sentencia.isClosed()) {
+          sentencia.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+  }
+
+  public void finalizarReserva(Reservas r) {
+    PreparedStatement sentencia = null;
+    String sql = "update reservas set estado=?, fecha_fin_real=?, km_totales=?, obs=? where id=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, EstadosReserva.FINALIZADA.getId());
+      sentencia.setTimestamp(2, new java.sql.Timestamp(r.getFechaFinR().getTime()));
+      sentencia.setDouble(3, r.getKmRecorridos());
+      sentencia.setString(4, r.getObservacion());
+      sentencia.setInt(5, r.getId());
+      sentencia.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null && !sentencia.isClosed()) {
+          sentencia.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+  }
+
+  public void fallasReserva(Reservas r) {
+    PreparedStatement sentencia = null;
+    String sql = "update reservas set estado=?, fecha_fin_real=?, km_totales=?, obs=? where id=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, EstadosReserva.FALLAS.getId());
+      sentencia.setTimestamp(2, new java.sql.Timestamp(r.getFechaFinR().getTime()));
+      sentencia.setDouble(3, r.getKmRecorridos());
+      sentencia.setString(4, r.getObservacion());
+      sentencia.setInt(5, r.getId());
       sentencia.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();

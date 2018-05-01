@@ -87,6 +87,11 @@ public class Bicicletas {
     this.kmEnViaje = kmEnViaje;
     this.kmDsdMantenimiento = kmDsdMantenimiento;
   }
+
+  public void sumarKmRecorrisoa(double dif) {
+    this.kmDsdMantenimiento += dif;
+    this.kmEnViaje += dif;
+  }
   
   
 }

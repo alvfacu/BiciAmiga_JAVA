@@ -1,6 +1,7 @@
 package Datos;
 
 import Entidades.Bicicletas;
+import Entidades.EstadosReserva;
 import Entidades.Modelos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -330,7 +331,7 @@ public class CatalogoBicicletas {
     PreparedStatement sentencia;
     ResultSet rs;
     
-    String sql = "select * from reservas WHERE id_bici=? AND fecha_fin_pactada>=? AND fecha_inicio_pactada<=?";
+    String sql = "select * from reservas WHERE id_bici=? AND fecha_fin_pactada>=? AND fecha_inicio_pactada<=? AND estado IN (?,?)";
     boolean bnd = true;
     
     try {
@@ -338,6 +339,8 @@ public class CatalogoBicicletas {
       sentencia.setInt(1,b.getId());
       sentencia.setTimestamp(2, new java.sql.Timestamp(desde.getTimeInMillis()));
       sentencia.setTimestamp(3, new java.sql.Timestamp(hasta.getTimeInMillis()));
+      sentencia.setInt(4, EstadosReserva.ENCURSO.getId());
+      sentencia.setInt(5, EstadosReserva.PENDIENTE.getId());      
       rs = sentencia.executeQuery();
       
       if (rs.next()) {

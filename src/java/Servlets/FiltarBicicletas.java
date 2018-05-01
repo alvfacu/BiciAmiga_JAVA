@@ -61,8 +61,6 @@ public class FiltarBicicletas extends HttpServlet {
           request.getRequestDispatcher("error.jsp").forward(request, response);
         }
         
-        
-
         int hrDsd = 9;
         int hrHst = 21;
 

@@ -75,7 +75,7 @@
                 for (Reservas r : reservas_activas) {%>
             <tr align="center" >
               <%String bicicleta = r.getBici().getModelo().getTipo().getNombre() + " - " + r.getBici().getModelo().getNombre() + " - " + r.getBici().getPatente();
-                  String reserva = "R" + String.format("%5s", r.getId()).replace(' ', '0');%>
+                String reserva = "R" + String.format("%5s", r.getId()).replace(' ', '0');%>
               <td style="vertical-align:middle;font-size: 1rem;"><%=reserva%></td>
               <td style="vertical-align:middle;font-size: 0.8rem;"><%=bicicleta%></td>
               <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getCliente().getUsuario()%></td>   
@@ -84,25 +84,25 @@
               <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaFinP())%></td>
               <td style="vertical-align:middle;">
                 <button class="btn btn-reset" title="Ver Reserva" 
-                        onclick="verReserva('<%=r.getEstado()%>', '<%=r.getEstado().getId()%>','<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioP())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">
+                        onclick="verReserva('<%=r.getEstado()%>', '<%=r.getEstado().getId()%>', '<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioP())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">
                   <span class="fa fa-eye"></span>
                 </button>
               </td>
               <td style="vertical-align:middle;">
                 <button class="btn btn-nuevo" title="Iniciar Reserva" 
-                        onclick="iniciarReserva('<%=r.getEstado()%>', '<%=r.getEstado().getId()%>','<%=r.getId()%>','<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioP())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">
+                        onclick="iniciarReserva('<%=r.getEstado()%>', '<%=r.getEstado().getId()%>', '<%=r.getId()%>', '<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioP())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">
                   <span class="fa fa-play"></span>
                 </button>
               </td>
               <td style="vertical-align:middle">
                 <button class="btn btn-eliminar" title="Eliminar Reserva"
-                        onclick="eliminarReserva('<%=r.getId()%>','<%=r.getEstado()%>', '<%=r.getEstado().getId()%>','<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioP())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">
+                        onclick="eliminarReserva('<%=r.getId()%>', '<%=r.getEstado()%>', '<%=r.getEstado().getId()%>', '<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioP())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">
                   <span class="fa fa-trash-o"></span>
                 </button>
               </td>
             </tr>        
             <% }
-                }%>
+              }%>
           </tbody>
         </table>
       </div>
@@ -126,11 +126,11 @@
           </thead>
           <tbody>            
             <% ArrayList<Reservas> reservas_curso = new ControladorReservas().getReservasEnCurso();
-                if (reservas_curso.size() > 0) {
-                  for (Reservas r : reservas_curso) {%>
+              if (reservas_curso.size() > 0) {
+                for (Reservas r : reservas_curso) {%>
             <tr align="center" >
               <%String bicicleta = r.getBici().getModelo().getTipo().getNombre() + " - " + r.getBici().getModelo().getNombre() + " - " + r.getBici().getPatente();
-                  String reserva = "R" + String.format("%5s", r.getId()).replace(' ', '0');%>
+                String reserva = "R" + String.format("%5s", r.getId()).replace(' ', '0');%>
               <td style="vertical-align:middle;font-size: 1rem;"><%= bicicleta%></td>
               <td style="vertical-align:middle;font-size: 0.8rem;"><%= reserva%></td>
               <td style="vertical-align:middle;font-size: 0.8rem;"><%= r.getCliente().getUsuario()%></td>          
@@ -138,23 +138,25 @@
               <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaFinP())%></td>
               <td style="vertical-align:middle;">
                 <button class="btn btn-reset" title="Ver Reserva" 
-                        onclick="verReserva('<%=r.getEstado()%>', '<%=r.getEstado().getId()%>','<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioR())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">
+                        onclick="verReserva('<%=r.getEstado()%>', '<%=r.getEstado().getId()%>', '<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioR())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">
                   <span class="fa fa-eye"></span>
                 </button>
               </td>
               <td style="vertical-align:middle;">
-                <button class="btn btn-mecanico" title="Finalizar por fallas">                          
+                <button class="btn btn-mecanico" title="Finalizar por fallas"
+                        onclick="fallasReserva('<%=df2.format(r.getBici().getKmDsdMantenimiento())%>', '<%=r.getEstado()%>', '<%=r.getEstado().getId()%>', '<%=r.getId()%>', '<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioR())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">
                   <span class="fa fa-exclamation-triangle"></span>
                 </button>
               </td>
               <td style="vertical-align:middle;">
-                <button class="btn btn-detener" title="Finalizar correctamente">                          
+                <button class="btn btn-detener" title="Finalizar correctamente"
+                        onclick="finalizarReserva('<%=df2.format(r.getBici().getKmDsdMantenimiento())%>', '<%=r.getEstado()%>', '<%=r.getEstado().getId()%>', '<%=r.getId()%>', '<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioR())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">
                   <span class="fa fa-stop"></span>
                 </button>
               </td>
             </tr>        
             <% }
-                }%>
+              }%>
           </tbody>
         </table>
       </div>
@@ -162,6 +164,15 @@
 
     <!-- RESERVAS FINALIZADAS -->
     <div id="finalizadas" class="tabcontent">
+      <div class="form-group">
+        <button type="button" onclick="vaciarFiltro()" class="label label-cliente" title="Todos">TODOS</button>
+        <button type="button" onclick="buscarFinalizadas()" class="label label-success" title="Reservas finalizadas sin fallas">FINALIZADAS</button>
+        <button type="button" onclick="buscarEliminadas()" class="label label-danger" title="Reservas eliminadas por los administradores">ELIMINADAS</button>
+        <button type="button" onclick="buscarCanceladas()" class="label label-danger" title="Reservas canceladas por los usuarios">CANCELADAS</button>
+        <button type="button" onclick="buscarFallas()" class="label label-mecanico" title="Reservas finalizadas con fallas">FALLAS</button>
+        <button type="button" onclick="buscarDesconocidos()" class="label label-desconocido" title="No identificados">DESCONOCIDOS</button>        
+      </div>
+      <hr/>
       <div style="overflow-x:auto;">
         <table class="table display" id="rfinalizadas">
           <thead style="color: #fff;background-color: #373a3c;">
@@ -178,8 +189,8 @@
           </thead>
           <tbody>            
             <% ArrayList<Reservas> reservas_fin = new ControladorReservas().getReservasFinalizados();
-                if (reservas_fin.size() > 0) {
-                  for (Reservas r : reservas_fin) {
+              if (reservas_fin.size() > 0) {
+                for (Reservas r : reservas_fin) {
                   String bicicleta = r.getBici().getModelo().getTipo().getNombre() + " - " + r.getBici().getModelo().getNombre() + " - " + r.getBici().getPatente();
                   String reserva = "R" + String.format("%5s", r.getId()).replace(' ', '0');%>
             <tr align="center" >
@@ -206,13 +217,13 @@
               </td>
               <td style="vertical-align:middle;font-size: 0.8rem;">
                 <button class="btn btn-reset" title="Ver Reserva" 
-                    onclick="verReserva('<%=r.getEstado()%>', '<%=r.getEstado().getId()%>','<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioR())%>', '<%= df.format(r.getFechaFinR())%>', '<%= df2.format(r.getImporte())%>')">
+                        onclick="verReserva('<%=r.getEstado()%>', '<%=r.getEstado().getId()%>', '<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioR())%>', '<%= df.format(r.getFechaFinR())%>', '<%= df2.format(r.getImporte())%>')">
                   <span class="fa fa-eye"></span>
                 </button>
               </td>
             </tr>        
             <% }
-                }%>
+              }%>
           </tbody>
         </table>
       </div>
@@ -247,12 +258,32 @@
         </div>
       </div>
       <hr />
+      <div id="fin" style="display: none;">
+        <div class="row">
+          <div class="col-sm-4 form-group">
+            <input type="text" name="fec_fin" id="fec_fin" placeholder="Fecha Fin" title="Fecha Fin" class="form-control" readonly="true">
+          </div>
+          <div class="col-sm-4 form-group">
+            <input type="text" name="hr_fin" id="hr_fin" placeholder="Hora Fin" title="Hora Fin" class="form-control" readonly="true">
+          </div>
+          <div class="col-sm-4 form-group">
+            <input type="number" step="any" name="km_fin" id="km_fin" placeholder="KM Fin" title="KM Fin" class="form-control" autofocus="true">
+          </div> 
+        </div>
+        <div class="col-form form-group">
+          <textarea name="obs" id="obs" maxlength="100" placeholder="Observacion" title="Observacion"  class="form-control" autofocus="true" style="min-height: 70px;"></textarea>
+        </div>
+        <hr />  
+      </div>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12">
           <label style="display: none; text-align: center" class="error" id="msj"></label>
+          <label style="display: none; text-align: center" class="error" id="msjFallas"></label>
           <button type="button" onclick="closeMR()" id="verR" class="btn btn-primary col-lg-12 col-md-6 col-xs-6" style="margin-top:0.5rem;">Volver</button>
           <input type="submit" id="iniciarR" class="btn btn-lg btn-nuevo col-lg-12 col-md-6 col-xs-6" style="display: none" value="Iniciar Reserva" onclick="javascript:form.action = 'IniciarReserva';">
           <input type="submit" id="eliminarR" class="btn btn-lg btn-eliminar col-lg-12 col-md-6 col-xs-6" style="display: none" value="Eliminar Reserva" onclick="javascript:form.action = 'EliminarReserva';">
+          <input type="submit" id="fallasR" class="btn btn-lg btn-mecanico col-lg-12 col-md-6 col-xs-6" style="display: none" value="Finalar Reserva por fallas" onclick="javascript:form.action = 'FallasReserva';">
+          <input type="submit" id="finalizarR" class="btn btn-lg btn-detener col-lg-12 col-md-6 col-xs-6" style="display: none" value="Finalizar Reserva correctamente" onclick="javascript:form.action = 'FinalizarReserva';">
         </div>
       </div>
     </form>
@@ -287,23 +318,55 @@
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>    
   <script src="js/abmres.js"></script>
   <script>
-          var modal = document.getElementById('myModal');
+            var modal = document.getElementById('myModal');
 
-          function ampliar(imagen) {
-            modal.style.display = "block";
-            document.getElementById("img01").src = imagen;
-          }
+            function ampliar(imagen) {
+              modal.style.display = "block";
+              document.getElementById("img01").src = imagen;
+            }
 
-          // Get the <span> element that closes the modal
-          var span = document.getElementsByClassName("close")[0];
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
 
-          // When the user clicks on <span> (x), close the modal
-          span.onclick = function () {
-            modal.style.display = "none";
-          };
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+              modal.style.display = "none";
+            };
 
-          function goBack() {
-            window.history.back();
-          }
+            function goBack() {
+              window.history.back();
+            }
+            
+            function vaciarFiltro() {
+              var table = $('#rfinalizadas').DataTable();
+              table.search("").draw();
+            }
+
+            function buscarFinalizadas() {
+              var table = $('#rfinalizadas').DataTable();
+              table.search("FINALIZADA").draw();
+            }
+
+            function buscarEliminadas() {
+              var table = $('#rfinalizadas').DataTable();
+              table.search("ELIMINADA").draw();
+            }
+
+            function buscarCanceladas() {
+              var table = $('#rfinalizadas').DataTable();
+              table.search("CANCELADA").draw();
+            }
+
+            function buscarFallas() {
+              var table = $('#rfinalizadas').DataTable();
+              table.search("FALLAS").draw();
+            }
+
+            function buscarDesconocidos() {
+              var table = $('#rfinalizadas').DataTable();
+              table.search("DESCONOCIDO").draw();
+            }
+            
+            
   </script>
 </body>

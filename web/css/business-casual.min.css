@@ -50,7 +50,9 @@ body{font-family:Lora;background:linear-gradient(rgba(47,23,15,.65),rgba(47,23,1
 .label-desconocido {
   background-color: #545b62;
 }
-
+.label-detener {
+  background-color: orangered;
+}
 /* Style tab links */
 .tablink {
   background-color: #777;

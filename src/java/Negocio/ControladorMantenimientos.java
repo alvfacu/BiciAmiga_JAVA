@@ -91,4 +91,9 @@ public class ControladorMantenimientos {
   public void modificarDetalle(DetallesMantenimiento det) {
     cm.modificarDetalle(det);
   }
+
+  public boolean tieneMantenimientoObligatorios(double km) {
+    return ctm.tieneMantenimientosObligatorios(km);
+  }
+
 }

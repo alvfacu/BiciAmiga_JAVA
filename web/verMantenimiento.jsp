@@ -128,7 +128,7 @@
             </div>
             <div class="row">
               <div class="col-sm-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-                <input type="button" class="btn btn-lg btn-cliente btn-block" value="Volver" onclick="window.history.back()"> 
+                <input type="button" class="btn btn-lg btn-cliente btn-block" value="Volver a Mantenimentos" onclick="window.open('admmant.jsp','_self')"> 
               </div>
             </div>
           </div>     

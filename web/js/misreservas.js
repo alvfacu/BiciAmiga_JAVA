@@ -55,7 +55,7 @@ $(document).ready(function () {
       null,
       {"orderable": false}
     ]
-  });
+  });  
 });
 
 function openPage(pageName, elmnt) {
@@ -63,7 +63,7 @@ function openPage(pageName, elmnt) {
   var badColor = "#373a3c";
   abmtm = '';
   abmm = '';
-
+    
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";

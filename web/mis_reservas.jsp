@@ -103,6 +103,11 @@
 
     <!-- FINALIZADAS -->
     <div id="finalizadas" class="tabcontent">
+      <div class="form-group">
+        <button type="button" onclick="vaciarFiltro()" class="label label-cliente" title="Todos">TODOS</button>
+        <button type="button" onclick="buscarFinalizadas()" class="label label-success" title="Reservas finalizadas">FINALIZADAS</button>
+        <button type="button" onclick="buscarEliminadas()" class="label label-danger" title="Reservas canceladas">CANCELADAS</button>
+      </div>
       <div style="overflow-x:auto;">
         <table class="table display" id="rfinalizadasxusr">
           <thead style="color: #fff;background-color: #373a3c;">
@@ -133,10 +138,6 @@
                   class="label label-success"
                   <% } else if (r.getEstado() == EstadosReserva.CANCELADA) { %>
                   class="label label-danger"
-                  <% } else if (r.getEstado() == EstadosReserva.ELIMINADA) { %>
-                  class="label label-danger"
-                  <% } else if (r.getEstado() == EstadosReserva.FALLAS) { %>
-                  class="label label-mecanico"
                   <% } else { %>
                   class="label label-desconocido"
                   <% }%>><%=r.getEstado()%>
@@ -232,5 +233,20 @@
           function goBack() {
             window.history.back();
           }
+          
+          function vaciarFiltro() {
+              var table = $('#rfinalizadasxusr').DataTable();
+              table.search("").draw();
+            }
+
+            function buscarFinalizadas() {
+              var table = $('#rfinalizadasxusr').DataTable();
+              table.search("FINALIZADA").draw();
+            }
+
+            function buscarEliminadas() {
+              var table = $('#rfinalizadasxusr').DataTable();
+              table.search("CANCELADA").draw();
+            }
   </script>
 </body>

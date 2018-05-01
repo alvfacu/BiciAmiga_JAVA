@@ -171,4 +171,52 @@ public class CatalogoTiposMantenimiento {
     }
     return cont;
   }
+
+  public boolean tieneMantenimientosObligatorios(double km) {
+    PreparedStatement sentencia;
+    ResultSet rs;
+    boolean estado = true;
+    String sql = "select count(*) from tipos_mantenimiento where obligatorio=true and km<=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setDouble(1, km);
+      rs = sentencia.executeQuery();
+      
+      if (rs.next()) {
+        estado = rs.getInt(1)>0;
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+      estado = false;
+    }
+    return estado;
+  }
+
+  public ArrayList<TiposMantenimiento> getMantenimientosObligatorios(double km) {
+    PreparedStatement sentencia;
+    ResultSet rs;
+    ArrayList<TiposMantenimiento> obligatorios = new ArrayList<>();
+    String sql = "select * from tipos_mantenimiento where obligatorio=true and km<=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setDouble(1, km);
+      rs = sentencia.executeQuery();
+      
+      while (rs.next()) {
+        TiposMantenimiento tm = new TiposMantenimiento();
+        tm.setId(rs.getInt("id"));
+        tm.setDescripcion(rs.getString("descripcion"));
+        tm.setKmParaMantenimiento(rs.getDouble("km"));
+        tm.setObligatorio(rs.getBoolean("obligatorio"));
+        tm.setNombre(rs.getString("nombre"));
+        obligatorios.add(tm);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      ConexionBD.getInstancia().CloseConn();
+    }
+    return obligatorios;
+  }
 }
