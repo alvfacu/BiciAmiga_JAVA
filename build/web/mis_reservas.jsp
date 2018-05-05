@@ -74,7 +74,7 @@
               if (reservas_activas.size() > 0) {
                 for (Reservas r : reservas_activas) {%>
             <tr align="center" >
-              <%String bicicleta = r.getBici().getModelo().getTipo().getNombre() + " - " + r.getBici().getModelo().getNombre() + " - " + r.getBici().getPatente();
+              <%String bicicleta = r.getBici().getModelo().getTipo().getNombre() + " - " + r.getBici().getModelo().getNombre();
                 String reserva = "R" + String.format("%5s", r.getId()).replace(' ', '0');%>
               <td style="vertical-align:middle;font-size: 1rem;"><%=reserva%></td>
               <td style="vertical-align:middle;font-size: 0.8rem;"><%=bicicleta%></td>  
@@ -125,7 +125,7 @@
               if (reservas_finalizadas.size() > 0) {
                 for (Reservas r : reservas_finalizadas) {%>
             <tr align="center" >
-              <%String bicicleta = r.getBici().getModelo().getTipo().getNombre() + " - " + r.getBici().getModelo().getNombre() + " - " + r.getBici().getPatente();
+              <%String bicicleta = r.getBici().getModelo().getTipo().getNombre() + " - " + r.getBici().getModelo().getNombre();
                 String reserva = "R" + String.format("%5s", r.getId()).replace(' ', '0');%>
               <td style="vertical-align:middle;font-size: 1rem;"><%=reserva%></td>
               <td style="vertical-align:middle;font-size: 0.8rem;"><%=bicicleta%></td>  

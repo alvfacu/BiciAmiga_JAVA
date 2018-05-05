@@ -62,7 +62,7 @@
             </div>
             <div class="row">
               <div class="col-sm-12">
-                <p style="text-align: center">En caso no querer modificar su contraseña, <u><b>NO complete los siguientes campos</b></u>.</p>
+                <p style="text-align: center">En caso de no querer modificar tu contraseña, <u><b>NO completes los siguientes campos</b></u>.</p>
               </div>
               <div class="password col-sm-6 form-group">
                 <input type="password" name="pass" id="pass" placeholder="Contraseña" title="Ingrese una contraseña" class="form-control" autofocus="true" onchange="prueba()">
@@ -92,13 +92,29 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="js/registroNuevoUsr.js"></script>
   <script>
-    function prueba()
-    {
-      if($('#pass').val() === '')
-      {
-        $("#enviar").removeAttr('disabled');
-        $('#repass').css("backgroundColor", "#ffffff");
-      }
-    }
+                  function prueba()
+                  {
+                    if ($('#pass').val() === '')
+                    {
+                      $("#enviar").removeAttr('disabled');
+                      $('#repass').css("backgroundColor", "#ffffff");
+                    }
+                  }
+
+                  $('#ojopas').
+                          on('touchstart click', function () {
+                            $("#pass").attr('type', 'text');
+                          }).
+                          on('touchend click', function () {
+                            $("#pass").attr('type', 'password');
+                          });
+
+                  $('#ojore').
+                          on('touchstart click', function () {
+                            $("#repass").attr('type', 'text');
+                          }).
+                          on('touchend click', function () {
+                            $("#repass").attr('type', 'password');
+                          });
   </script>
 </body>

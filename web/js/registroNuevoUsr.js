@@ -46,4 +46,20 @@ $("#ojore").mousedown(function () {
 }).mouseout(function () {
   $("#repass").attr('type', 'password');
 });
+
+$('#ojopas').
+        on('touchstart click', function () {
+          $("#pass").attr('type', 'text');
+        }).
+        on('touchend click', function () {
+          $("#pass").attr('type', 'password');
+        });
+
+$('#ojore').
+        on('touchstart click', function () {
+          $("#repass").attr('type', 'text');
+        }).
+        on('touchend click', function () {
+          $("#repass").attr('type', 'password');
+        });
             

@@ -21,9 +21,15 @@ public class ConexionBD {
   //private static String DBURL="jdbc:mysql://node101493-bookstore.jelasticlw.com.br/bookstore";
   //private static String DBUSER="root";
   //private static String DBPASSWORD="TLYvon47605";
-  private static final String DBURL = "jdbc:mysql://localhost:3306/bici_amiga";
+  /*String URL =  "jdbc:mysql://mariadb{node_id}-{environment_name}.{hoster_domain}/{dbname}";
+DriverManager.getConnection(URL, user_name,user_password);*/
+  
+  
+  //private static final String DBURL = "jdbc:mysql://localhost:3306/bici_amiga";
+  private static final String DBURL = "jdbc:mysql://node16121-env-3933700.jelastic.saveincloud.net/bici_amiga";
   private static final String DBUSER = "root";
-  private static final String DBPASSWORD = "";
+  //private static final String DBPASSWORD = "";
+  private static final String DBPASSWORD = "IAVvgb29139";
 
   private ConexionBD(){}
   

@@ -1,3 +1,4 @@
+<%@page import="java.io.IOException"%>
 <%@page import="Entidades.Modelos"%>
 <%@page import="Entidades.TiposBicicleta"%>
 <%@page import="java.util.ArrayList"%>
@@ -38,10 +39,10 @@
     <span class="site-heading-lower" style="color: #FFFFFF;">¿Conoces los tipos de bicicletas que ofrecemos?</span>    
   </h3>
 
-
-  <%ArrayList<TiposBicicleta> tipos = new ControladorBicicletas().getTiposBicicleta();
-    if (tipos.size() > 0) {
-      for (TiposBicicleta t : tipos) {%>
+  <%try {
+      ArrayList<TiposBicicleta> tipos = new ControladorBicicletas().getTiposBicicleta();
+      if (tipos.size() > 0) {
+        for (TiposBicicleta t : tipos) {%>
   <section class="page-section">
     <div class="container">
       <h1 class="site-heading text-center text-white d d-lg-block">
@@ -64,11 +65,15 @@
     </div>
   </section>
   <%}
-    } else {
-      response.sendRedirect("error.jsp");
-    }
-  %>
+      } else {
+        response.sendRedirect("error.jsp");
+      }
 
+    } catch (IOException ex) {
+      response.sendRedirect("error.jsp");
+    } catch (Exception ex) {
+      response.sendRedirect("error.jsp");
+    }%>
 
   <!-- Footer -->
   <%@include file="footer.jsp"%>

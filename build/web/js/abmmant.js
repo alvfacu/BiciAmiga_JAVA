@@ -245,6 +245,10 @@ function nuevomantenimiento() {
   window.open("nuevoMantenimiento.jsp","_self");
 }
 
+function mantexbici() {
+  window.open("mantxbici.jsp","_self");
+}
+
 $("#cruzNuevoTM").mousedown(function () {
   document.getElementById("nuevotipo").style.display = "none";
   abmtm = '';

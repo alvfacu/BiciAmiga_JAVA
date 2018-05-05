@@ -49,7 +49,7 @@
     <div class="container">
       <p align="center" style="font-size: 1.5rem;"><b><u>CÓDIGO DE RESERVA:</u> <%=session.getAttribute("numeroReserva").toString()%></b></p>
       <hr />
-      <p align="justify">¡Muy bien! Ahora solo te queda acercarque a nuestro local el día <b><%=session.getAttribute("fechaReserva").toString()%></b> a partir 
+      <p align="justify">¡Muy bien! Ahora solo te queda acercarte a nuestro local el día <b><%=session.getAttribute("fechaReserva").toString()%></b> a partir 
         de las <b><%=session.getAttribute("desdeReserva").toString()%>:00</b> hs. con tu <b>D.N.I.</b>, <b>CARNET DE CONDUCIR</b> o <b>PASAPORTE</b> 
         y con el <b>Código de Reserva</b> para retirar tu bicicleta. ¡Te esperamos!</p>      
       <hr />

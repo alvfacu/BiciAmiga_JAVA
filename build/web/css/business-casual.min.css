@@ -25,6 +25,21 @@ body{font-family:Lora;background:linear-gradient(rgba(47,23,15,.65),rgba(47,23,1
     border-color: black;
 }
 
+.label-consulta {
+    display: inline;
+    padding: 1em 2em 1em;
+    font-size: 75%;    
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: central;
+    border-radius: .25em; 
+    border-color: black;
+    margin-bottom: 0.3rem;
+}
+
 .label-disponibilidad {
     line-height: 2;
 }

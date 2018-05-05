@@ -77,7 +77,11 @@
       }).mouseout(function(){
         $("#inputPassword").attr('type','password');
             });
-            
+                        
+       $('.fa-eye').
+               on('touchstart click', function(){ $("#inputPassword").attr('type','text'); }).
+               on('touchend click', function(){ $("#inputPassword").attr('type','password'); });
+                        
     </script>
   </body>
 

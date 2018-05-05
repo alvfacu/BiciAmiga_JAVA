@@ -31,11 +31,9 @@
     <span class="site-heading-upper text-primary mb-3">CONTACTO</span>    
   </h1>
   <h5 class="text-center mb-3">
-    <span class="site-heading-lower" style="color: #FFFFFF;">¿Necesitas asesoramiento?<br></span>    
-    <span class="site-heading-lower" style="color: #FFFFFF;">¿Quieres hacernos algún comentario?<br></span>    
-    <span class="site-heading-lower" style="color: #FFFFFF;">Completa el siguiente formulario y estaremos en contacto contigo<br></span>
+    <span class="site-heading-lower" style="color: #FFFFFF;">¿Querés hacernos algún comentario?¿Necesitas asesoramiento?<br></span>    
+    <span class="site-heading-lower" style="color: #FFFFFF;">Envianos el formulario y estaremos en contacto contigo</span>
   </h5>
-  
   <div class="container text-center">
       <form class="form-text" method="POST" action="Contacto">
         <div class="col-lg-7 col-centered well">

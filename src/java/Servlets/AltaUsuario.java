@@ -61,7 +61,7 @@ public class AltaUsuario extends HttpServlet {
 
       HttpSession session = request.getSession(true);
       Usuarios usrActual = (Usuarios) session.getAttribute("Usuario");
-      if (usrActual.isAdm()) {
+      if (usrActual != null && usrActual.isAdm()) {
         response.sendRedirect("admusr.jsp");
       } else {
         response.sendRedirect("registro_exitoso.jsp");
