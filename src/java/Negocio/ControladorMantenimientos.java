@@ -95,5 +95,9 @@ public class ControladorMantenimientos {
   public boolean tieneMantenimientoObligatorios(double km) {
     return ctm.tieneMantenimientosObligatorios(km);
   }
+  
+  public ArrayList<Mantenimientos> getMantenimientosXBici(int id){
+    return cm.getMantenimientosXBici(id);
+  }
 
 }

@@ -17,7 +17,7 @@ $(document).ready(function () {
         "previous": "Anterior"}
     },
     "order": [[4, "asc"]],
-    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "columns": [
       null,

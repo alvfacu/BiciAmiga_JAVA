@@ -133,6 +133,15 @@
         if (url === "registrar") {
           $("#login").toggleClass('active');           
         };
+        
+        if (url === "mantxbici" || url === "nuevoMantenimiento" || url === "verMantenimiento" || url === "modificarMantenimiento" || url === "eliminarMantenimiento") {
+          $("#admmant").toggleClass('active');           
+        };
+        
+        if (url === "Reservar" || url === "PreReserva" || url==="AltaReserva" ) {
+          $("#admres").toggleClass('active');
+          $("#mis_reservas").toggleClass('active');
+        };
       });
     </script>
   </body>

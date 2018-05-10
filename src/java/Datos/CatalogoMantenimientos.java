@@ -497,4 +497,67 @@ public class CatalogoMantenimientos {
     return m;
   }
 
+  public ArrayList<Mantenimientos> getMantenimientosXBici(int id){
+    ArrayList<Mantenimientos> mantenimientos = new ArrayList<>();
+    PreparedStatement sentencia = null;
+    ResultSet rs = null;
+    String sql = "select * from mantenimientos where id_bici=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, id);
+      rs = sentencia.executeQuery();
+
+      while (rs.next()) {
+        Mantenimientos m = new Mantenimientos();
+        m.setId(rs.getInt("id"));
+        Bicicletas b = new CatalogoBicicletas().getBicicleta(rs.getInt("id_bici"));
+        m.setBici(b);
+        //java.sql.Timestamp fecha_ingreso = rs.getTimestamp("fecha_ingreso");
+        //m.setFechaIngreso(fecha_ingreso);
+        if(rs.getTimestamp("fecha_ingreso")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_ingreso").getTime();
+          Date currentDate = new Date(fecha);
+          m.setFechaIngreso(currentDate);
+        }
+        else
+        {
+          m.setFechaIngreso(null);
+        }
+        
+        if(rs.getTimestamp("fecha_egreso")!=null)
+        {
+          long fecha = rs.getTimestamp("fecha_egreso").getTime();
+          Date currentDate = new Date(fecha);
+          m.setFechaEgreso(currentDate);
+        }
+        else
+        {
+          m.setFechaEgreso(null);
+        }
+        
+        m.setKmIngreso(rs.getDouble("km_ingreso"));
+        m.setKmEgreso(rs.getDouble("km_egreso"));
+        m.setObservacion(rs.getString("obs"));
+        mantenimientos.add(m);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null) {
+          sentencia.close();
+        }
+        if (rs != null) {
+          rs.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+    return mantenimientos;
+  }
+  
+  
 }

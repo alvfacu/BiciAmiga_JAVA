@@ -60,7 +60,7 @@
         Mantenimientos manteActual = new ControladorMantenimientos().getMantenimientoFinalizado(Integer.valueOf(request.getParameter("idMant")));
         if (manteActual != null) { %>
   <h1 class="site-heading text-center text-white d d-lg-block">
-    <span class="site-heading-upper text-primary mb-3">VER MANTENIMIENTO FINALIZADO</span>
+    <span class="site-heading-upper text-primary mb-3">MANTENIMIENTO FINALIZADO</span>
   </h1>
   <div class="container text-center">
     <form class="form-text">
@@ -128,7 +128,7 @@
             </div>
             <div class="row">
               <div class="col-sm-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-                <input type="button" class="btn btn-lg btn-cliente btn-block" value="Volver a Mantenimentos" onclick="window.open('admmant.jsp','_self')"> 
+                <input type="button" class="btn btn-lg btn-cliente btn-block" value="Volver a Mantenimentos" onclick="window.history.back();"> 
               </div>
             </div>
           </div>     
