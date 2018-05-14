@@ -470,26 +470,7 @@ function nuevabici() {
   document.getElementById('eliminarb').style.display = "none";
   document.getElementById('guardarb').style.display = "block";
 
-  document.getElementById('modelobici').disabled = false;
-  document.getElementById('patente').disabled = false;
-  document.getElementById('kmMantenimiento').disabled = false;
-  document.getElementById('kmViajados').disabled = false;
-  document.getElementById('descripb').disabled = false;
-
-  document.getElementById('tipob').value = '';
-  document.getElementById('modelobici').value = '';
-  document.getElementById('imgbici').src = "img/imagen-vacia.jpg";
-  document.getElementById('patente').value = '';
-  document.getElementById('kmMantenimiento').value = parseFloat('0'.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-  document.getElementById('kmViajados').value = parseFloat('0'.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-  document.getElementById('descripb').value = '';
-
-  document.getElementById('disponibleS').style.display = "block";
-  document.getElementById('disponibleN').style.display = "none";
-  document.getElementById('disponible').value = "true";
-
   document.getElementById('guardarb').disabled = false;
-  document.getElementById('patente').style.backgroundColor = "white";
 
   if (abmb !== 'A') {
     document.getElementById("nuevabici").style.display = "block";
@@ -524,15 +505,16 @@ function editarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMant
   document.getElementById("nuevomodelo").style.display = "none";
   document.getElementById("tablabicicletas").style.display = "none";
   
-  document.getElementById('modelobici').disabled = false;
-  document.getElementById('kmMantenimiento').disabled = false;
-  document.getElementById('kmViajados').disabled = false;
-  document.getElementById('descripb').disabled = false;
-  document.getElementById('patente').disabled = true;
+  document.getElementById('modelobici').disabled  = true;
+  document.getElementById('kmMantenimiento').disabled  = true;
+  document.getElementById('kmViajados').disabled  = true;
+  document.getElementById('descripb').readOnly  = false;
+  document.getElementById('patente').disabled  = true;
 
   document.getElementById('guardarb').style.display = "none";
   document.getElementById('editarb').style.display = "block";
   document.getElementById('eliminarb').style.display = "none";
+  document.getElementById('patente').style.backgroundColor = "#e9ecef";
 
   if (abmb !== 'M' || document.getElementById('idb').value !== id) {
     //abre form
@@ -595,6 +577,9 @@ function eliminarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMa
   document.getElementById('guardarb').style.display = "none";
   document.getElementById('editarb').style.display = "none";
   document.getElementById('eliminarb').style.display = "block";
+  
+  document.getElementById('patente').style.backgroundColor = "#e9ecef";
+  
   if (abmb !== 'B' || document.getElementById('idb').value !== id) {
     //abre form
     abmb = 'B';
@@ -619,8 +604,6 @@ function eliminarbici(id, patente, idModelo, tipo, descripcion, disponible, kmMa
       document.getElementById('disponibleN').style.display = "block";
       document.getElementById('disponible').value = "false";
     }
-
-    document.getElementById('eliminarb').focus();
   } else {
     //cerrar form
     abmb = '';
@@ -654,6 +637,30 @@ $("#cruzNuevoB").mousedown(function () {
   document.getElementById("nuevabici").style.display = "none";
   abmb = '';
   document.getElementById("tablabicicletas").style.display = "block";
+    document.getElementById('modelobici').disabled = false;
+  document.getElementById('patente').disabled = false;
+  document.getElementById('kmMantenimiento').disabled = false;
+  document.getElementById('kmViajados').disabled = false;
+  document.getElementById('descripb').disabled = false;
+
+  document.getElementById('tipob').value = '';
+  document.getElementById('modelobici').value = '';
+  document.getElementById('imgbici').src = "img/imagen-vacia.jpg";
+  document.getElementById('patente').value = '';
+  document.getElementById('kmMantenimiento').value = parseFloat('0'.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+  document.getElementById('kmViajados').value = parseFloat('0'.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+  document.getElementById('descripb').value = '';
+
+  document.getElementById('disponibleS').style.display = "block";
+  document.getElementById('disponibleN').style.display = "none";
+  document.getElementById('disponible').value = "true";
+  
+  document.getElementById('modelobici').disabled  = false;
+  document.getElementById('kmMantenimiento').disabled  = false;
+  document.getElementById('kmViajados').disabled  = false;
+  document.getElementById('descripb').readOnly  = false;
+  document.getElementById('patente').disabled  = false;
+  document.getElementById('patente').style.backgroundColor = "white";
 });
 
 $("#url1").focusout(function () {

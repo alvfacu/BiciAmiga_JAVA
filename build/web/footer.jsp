@@ -27,7 +27,7 @@
     <!-- Footer -->
     <footer class="footer text-faded text-center py-5">
       <div class="container">
-        <p class="m-0 small"> TP FINAL JAVA &copy; | BiciAmiga &reg; | Alvarez | 2018</p>
+        <p class="m-0 small"> TP FINAL JAVA &copy; | BiciAmiga &reg; | Alvarez, Facundo (40149) | UTN FRRO - 2018</p>
       </div>
     </footer>
     <!-- Bootstrap core JavaScript -->

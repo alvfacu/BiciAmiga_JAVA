@@ -126,10 +126,11 @@
   </h1>
 
   <div class="col-lg-10 col-xs-10 col-md-10 col-centered well form-text">
-    <div class="container">
+    <div class="container" align="left"> 
       <form method="GET" action="reservar">
-        <div class="row">          
-          <div class="col-lg-6 col-xs-6" style="margin-top: 1rem;">
+        <div class="row">        
+          <div class="col-lg-6 col-xs-6 margin1top">
+            <label>&nbsp;Seleccione el tipo de bicicleta</label>
             <select class="form-control" name="tipos" id="tipos" placeholder="Tipos de Bicicleta" title="Tipo de Bicicleta" required="true" >
               <option value="0000">TODOS LOS TIPOS DE BICICLETAS</option>
               <% for (TiposBicicleta t : new ControladorBicicletas().getTiposBicicleta()) {%>                    
@@ -137,11 +138,12 @@
                       <% if (tipo == t.getId()) { %>
                       selected="true"
                       <% }%>
-                      ><%=t.getNombre()%></option>
+                      ><%=t.getNombre().toUpperCase()%></option>
               <%}%>
             </select>
           </div>
-          <div class="col-lg-6 col-xs-6" style="margin-top: 1rem;">
+          <div class="col-lg-6 col-xs-6 margin1top">
+            <label>&nbsp;Seleccione el modelo de bicicleta</label>
             <select class="form-control" name="modelos" id="modelos" placeholder="Modelos de Bicicleta" title="Modelo de Bicicleta" required="true" >
               <option value="" selected>TODOS LOS MODELOS</option>
               <option value="0">TODOS LOS MODELOS</option>
@@ -150,39 +152,42 @@
                       <% if (modelo == m.getId() && tipo == m.getTipo().getId()) { %>
                       selected="true"
                       <% }%>
-                      ><%=m.getNombre()%></option>
+                      ><%=m.getNombre().toUpperCase()%></option>
               <% } %>
             </select>
           </div>
         </div>
         <div class="row">          
-          <div class="col-lg-3 col-xs-3" style="margin-top: 1rem;">Fecha Reserva
+          <div class="col-lg-3 col-xs-3 margin1top">
+            <label>&nbsp;Fecha de Reserva</label>
             <input type="date" class="form-control" id="fecha" name="fecha" required="true">
           </div>
-          <div class="col-lg-3 col-xs-3" style="margin-top: 1.3rem;text-align: center">
-            <li style="list-style-type: none;list-style-position: initial;list-style-image: initial;">
-              <label><input type="checkbox" style="margin-right: 1rem!important" id="completo" name="completo" onclick="turno_completo()"
+          <div class="col-lg-3 col-xs-3 chkReserva">
+            <li class="lireserva">
+              <label><input type="checkbox" class="margin1right" id="completo" name="completo" onclick="turno_completo()"
                             <%if (bndCompleto) {%>
                             checked="true" value="true"
                             <% } else { %>
                             value="false"
                             <%}%>>Día Completo</label>
             </li>
-            <span style="font-size: 12px"><i><b>Precio diferencial.</b> De 9:00 a 21:00 hs.</i></span>
+            <span class="lblPreferencial"><i><b>Precio diferencial.</b> De 9:00 a 21:00 hs.</i></span>
           </div>
-          <div class="col-lg-2 col-xs-2" style="margin-top: 1rem;" >Hora Inicio
+          <div class="col-lg-2 col-xs-2 margin1top">
+            <label>&nbsp;Hora Inicio</label>
             <input type="number" class="form-control" min="09" max="21" value="<%=hrDsd%>" id="hrdesde" name="hrdesde" required="true"
                    <%if (bndCompleto) { %>
                    disabled="true"  
                    <% }%>>
           </div>
-          <div class="col-lg-2 col-xs-2" style="margin-top: 1rem;">Hora Fin
+          <div class="col-lg-2 col-xs-2 margin1top">
+            <label>&nbsp;Hora Fin</label>
             <input type="number" class="form-control" min="09" max="21" value="<%=hrHst%>" id="hrhasta" name="hrhasta" required="true"
                    <%if (bndCompleto) { %>
                    disabled="true"
                    <% }%>>
           </div>
-          <div class="col-lg-2" style="margin-top: 1.6rem;">
+          <div class="col-lg-2 margin16top">
             <button type="submit" id="buscar" class="col-sm-12 col-xs-12 btn btn-lg btn-buscar" title="Buscar bicicletas"><i class="fa fa-search"></i></button>
           </div>
         </div>
@@ -190,25 +195,25 @@
     </div>
     <hr />
     <div>
-      <h2 class="text-center">Elegí tu bicicleta</h2>
+      <h2 class="text-center">Bicicletas disponibles</h2>
       <br>
       <%if (modelos_dispo != null && modelos_dispo.size() > 0) { %>
       <div class="row text-center text-lg-left">
         <% for (Modelos m : modelos_dispo) {%>
-        <div class="col-lg-5 col-md-12 img-contenedor">         
+        <div class="col-lg-5 col-md-12 img-contenedor">
           <a class="">
-            <img class="img<%=m.getId()%> img-fluid2 img-thumbnail2 imgid" onclick="ampliar(this.src)" style="border-style: solid; border-width: 1px; border-color: black;display: block; margin:auto;" src="<%=m.getUrl1()%>" alt="<%= m.getNombre()%>">                
+            <img class="img<%=m.getId()%> img-fluid2 img-thumbnail2 imgid imgReserva " onclick="ampliar(this.src)" src="<%=m.getUrl1()%>" alt="<%= m.getNombre()%>">                
           </a>
           <% if (m.getUrl2() != null && !m.getUrl2().trim().isEmpty()) {%>
-          <img class="img<%=m.getId()%> img-fluid2 img-thumbnail2 imgid" onclick="ampliar(this.src)" style="border-style: solid; border-width: 1px; border-color: black;display: block; margin:auto;display: none" src="<%=m.getUrl2()%>" alt="<%= m.getNombre()%>">                
+          <img class="img<%=m.getId()%> img-fluid2 img-thumbnail2 imgid imgReserva" onclick="ampliar(this.src)" style="display: none" src="<%=m.getUrl2()%>" alt="<%= m.getNombre()%>">                
           <% } %>            
           <% if (m.getUrl3() != null && !m.getUrl3().trim().isEmpty()) {%>
-          <img class="img<%=m.getId()%> img-fluid2 img-thumbnail2 imgid" onclick="ampliar(this.src)" style="border-style: solid; border-width: 1px; border-color: black;display: block; margin:auto;display: none" src="<%=m.getUrl3()%>" alt="<%= m.getNombre()%>">                
+          <img class="img<%=m.getId()%> img-fluid2 img-thumbnail2 imgid imgReserva" onclick="ampliar(this.src)" style="display: none" src="<%=m.getUrl3()%>" alt="<%= m.getNombre()%>">                
           <% }%>
           <div>
             <p style="text-align: center;">
-              <label class='label' style='background-color: #e6a756;border-style: solid;border-width: 1px;color:black;cursor: pointer;' onclick="plusDivs('img<%=m.getId()%>', -1)"><a class="col-sm-6 col-xs-6"><<</a></label>
-              <label class='label' style='background-color: #e6a756;border-style: solid;border-width: 1px;color:black;cursor: pointer;' onclick="plusDivs('img<%=m.getId()%>', 1)"><a class="col-sm-6 col-xs-6">>></a></label>
+              <label class='label flechaImagen' onclick="plusDivs('img<%=m.getId()%>', -1)"><a class="col-sm-6 col-xs-6"><<</a></label>
+              <label class='label flechaImagen' onclick="plusDivs('img<%=m.getId()%>', 1)"><a class="col-sm-6 col-xs-6">>></a></label>
             </p>
           </div>
         </div>
@@ -221,12 +226,12 @@
             <input type="hidden" id="hrDesdeReserva" name="hrDesdeReserva" value="<%=hrDsd%>">
             <input type="hidden" id="hrHastaReserva" name="hrHastaReserva" value="<%=hrHst%>">
             <% }%>
-            <p style="margin-bottom: 0.2rem;text-align: center;font-size: 18px"><b><%=m.getTipo().getNombre() + " - " + m.getNombre()%></b></p>          
-            <p style="margin-bottom: 0.5rem;text-align: center;font-size: 14px"><%=m.getCaracteristicas_gral()%></i></p>            
-            <p style="margin-bottom: 0.5rem;text-align: center;font-size: 13px"><i>Incluye kit de seguridad: casco, cadena y candado.</i></p>            
-            <p style="margin-bottom: 1rem;text-align: center;font-size: 12px"><i><b><%="Precio por hora: $ " + df2.format(m.getPrecioXHr()) + " - Precio Día Completo: $ " + df2.format(m.getPrecioXDia())%></b></i></p>            
+            <p class="tituloBiciReserva"><b><%=m.getTipo().getNombre() + " - " + m.getNombre()%></b></p>          
+            <p class="descripBiciReserva"><%=m.getCaracteristicas_gral()%></i></p>            
+            <p class="kit"><i>Incluye kit de seguridad: casco, cadena y candado.</i></p>            
+            <p class="preciosReserva"><i><b><%="Precio por hora: $ " + df2.format(m.getPrecioXHr()) + " - Precio Día Completo: $ " + df2.format(m.getPrecioXDia())%></b></i></p>            
             <div class="">
-              <p class="col-sm-6 col-xs-12" style="text-align: center; vertical-align: central;float:left"><b><u>Precio Final:</u></b> 
+              <p class="col-sm-6 col-xs-12 precioFinalReserva"><b><u>Precio Final:</u></b> 
                     <% if (bndCompleto) {%>
                 $ <%=df2.format(m.getPrecioXDia())%>
                 <input type="hidden" class="importeReserva" name="importeReserva" value="<%=m.getPrecioXDia()%>">
@@ -236,7 +241,7 @@
                 <% } %>              
               </p>
               <p>
-                <button type="submit" class="btn btn-reserva col-sm-6 col-xs-12" style="margin-bottom: 1.5rem;float:right">Reservala</button>
+                <button type="submit" class="btn btn-reserva col-sm-6 col-xs-12 margin1bottom">¡Reservala!</button>
               </p>
             </div>
           </form>
@@ -244,8 +249,8 @@
         <% } %>
       </div>
       <% } else { %>
-      <div class="error" style="display: flex;justify-content: center;align-items: center;">No hay bicicletas disponibles.</div>
-      <div class="error" style="display: flex;justify-content: center;align-items: center;"><i>Recomendados cambiar los filtros para obtener otros resultados.</i></div>
+      <div class="errorReserva importante">No hay bicicletas disponibles.</div>
+      <div class="errorReserva"><i>Recomendados cambiar los filtros para obtener otros resultados.</i></div>
       <% } %>
     </div>
   </div>

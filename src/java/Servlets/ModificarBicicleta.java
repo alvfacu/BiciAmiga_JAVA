@@ -31,22 +31,11 @@ public class ModificarBicicleta extends HttpServlet {
     try {
       int id = Integer.valueOf(request.getParameter("idb"));
       Bicicletas biciAct = new ControladorBicicletas().getBicicleta(id);
-
-      int idmodelo = Integer.parseInt(request.getParameter("modelobici"));
-      Modelos m = new ControladorBicicletas().getModelo(idmodelo);
-
-      boolean disp = false;
-      if (Boolean.valueOf(request.getParameter("disponible"))) {
-        disp = true;
-      }
-
-      double kmMant = Double.valueOf(request.getParameter("kmMantenimiento"));
-      double kmViaje = Double.valueOf(request.getParameter("kmViajados"));
-
+      
       String descripcion = request.getParameter("descripb").trim();
-
-      Bicicletas b = new Bicicletas(id, biciAct.getPatente(), descripcion, m, disp, kmViaje, kmMant);
-      new ControladorBicicletas().modificarBicicleta(b);
+      
+      biciAct.setDescripcion(descripcion);
+      new ControladorBicicletas().modificarBicicleta(biciAct);
 
       response.sendRedirect("admbici.jsp");
     } catch (IOException ex) {

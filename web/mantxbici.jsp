@@ -62,8 +62,9 @@
   </h1>
   <div class="container text-center">
     <div class="col-lg-11 col-sm-11 col-centered well">
-      <div class="row">
-        <div class="col-lg-9 col-sm-9" style="margin-top:0.6rem;">                        
+      <div class="row" align="left">
+        <div class="col-lg-9 col-sm-9">
+          <label>&nbsp;Seleccione una Bicicleta</label>
           <select class="form-control" onchange="cargarMantenimientos()" name="bici" id="bici" placeholder="Seleccione Bicicleta" title="Seleccione Bicicleta" required="true" autofocus="true">
             <option value="" disabled selected>Seleccione Bicicleta</option>
             <% for (Bicicletas b : bicicletas) {%>                    
@@ -75,34 +76,31 @@
             <%}%>
           </select>
         </div>
-        <div class="col-lg-3 col-sm-3" style="margin-top:0.6rem;">                        
-          <div class="form-check form-check-inline">                      
-            <label class="btn btn-nuevo">
-              <label class="form-check-label label label-success">
+        <div class="col-lg-3 col-sm-3">                        
+          <div class="form-check form-check-inline"> 
+              <label class="form-check-label label-consulta label-success">
                 <input class="form-check-input" id="chkCompletados" name="chkCompletados" type="checkbox" onclick="checkCompleto()">
                 SOLO COMPLETADOS
               </label>
-            </label>
           </div>
         </div>
       </div>
-      <hr />
+      <hr>
       <%if (id > 0) {
           Bicicletas bici = new ControladorBicicletas().getBicicleta(id);
           DecimalFormat df2 = new DecimalFormat("0.00");%>
       <div class="row">      
-        <div class="col-lg-6 col-md-12 img-contenedor" style="margin-top: 0.4rem; margin-bottom: 1rem;">         
+        <div class="col-lg-6 col-md-12 img-contenedor margin1bottom margin05top">         
           <a>
             <img class="img-fluid3 img-thumbnail2 imgid" id="imgR" src="<%=bici.getModelo().getUrl1()%>" onclick="ampliar(this.src)">                
           </a>            
         </div>
         <div class="col-lg-6 col-md-12" align="left">            
           <%if (bici.isDisponible()) { %>
-          <label class="label label-success">DISPONIBLE
+          <label class="label label-success">DISPONIBLE</label>
             <% } else { %>
-            <label class="label label-danger">NO DISPONIBLE
-              <% }%>
-            </label>
+            <label class="label label-danger">NO DISPONIBLE</label>
+              <% }%>            
             <p style="margin-top:0.5rem;margin-bottom: 0.1rem;font-size: 16px"><b><u>Tipo:</u></b> <label><%=bici.getModelo().getTipo().getNombre()%></label></p>
             <p style="margin-bottom: 0.1rem;font-size: 16px"><b><u>Modelo:</u></b> <label><%=bici.getModelo().getNombre()%></label></p>
             <p style="margin-bottom: 0.1rem;font-size: 16px"><b><u>Patente:</u></b> <label><%=bici.getPatente()%></label></p>        
@@ -110,14 +108,14 @@
             <p style="margin-bottom: 0.1rem;font-size: 16px"><b><u>Km desde último mantenimiento:</u></b> <label><%= df2.format(bici.getKmDsdMantenimiento())%></label></p>        
         </div>
       </div>
-      <hr />
+      <hr>
       <% if (mantenimientos == null || mantenimientos.size() == 0) { %>
       <div class="error" style="display: flex;justify-content: center;align-items: center;">La bicicleta seleccionada no posee ningún mantenimiento realizado.</div>      
-      <hr />
+      <hr>
       <%} else {%>
       <div style="overflow-x:auto;">
         <table class="table display" id="mantenimientos">
-          <thead style="color: #fff;background-color: #373a3c;">
+          <thead class='encabezado'>
             <tr align="center">
               <th>FECHA/HORA INGRESO</th>
               <th>FECHA/HORA EGRESO</th>
@@ -129,20 +127,20 @@
             <%java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm");
               for (Mantenimientos m : mantenimientos) {%>
             <tr align="center" >
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(m.getFechaIngreso())%></td>
+              <td class="col-secundario" style="vertical-align: middle"><%= df.format(m.getFechaIngreso())%></td>
               <% if (m.getFechaEgreso() != null) {%>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(m.getFechaEgreso())%></td>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><label class="label label-success">COMPLETADO</label></td>
-              <td style="vertical-align:middle">
+              <td class="col-secundario" style="vertical-align: middle"><%= df.format(m.getFechaEgreso())%></td>
+              <td class="col-secundario" style="vertical-align: middle"><label class="label label-success">COMPLETADO</label></td>
+              <td class="vertical">
                 <button class="btn btn-reset" title="Ver Mantenimiento" 
                         onclick='window.open("verMantenimiento.jsp?idMant=" +<%=m.getId()%>, "_self")'>
                   <span class="fa fa-eye"></span>
                 </button>
               </td>
               <% } else {%>
-              <td style="vertical-align:middle;font-size: 0.8rem;">---</td>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><label class="label label-danger">INCOMPLETO</label></td>
-              <td style="vertical-align:middle">
+              <td class="col-secundario" style="vertical-align: middle">---</td>
+              <td class="col-secundario" style="vertical-align: middle"><label class="label label-danger">INCOMPLETO</label></td>
+              <td class="vertical">
                 <button class="btn btn-editar" title="Completar/Editar" 
                         onclick='window.open("modificarMantenimiento.jsp?idMant=" +<%=m.getId()%>, "_self")'>
                   <span class="fa fa-check-square-o"></span>
@@ -157,7 +155,7 @@
       <hr />
       <%}
         } %>
-      <input type="button" class="btn btn-lg btn-primary col-lg-12 col-sm-12" value="Volver a Mantenimentos" onclick="window.open('admmant.jsp', '_self')"> 
+      <input type="button" class="btn btn-lg btn-principal btn-block margin1top" value="Volver a Mantenimentos" onclick="window.open('admmant.jsp', '_self')"> 
     </div>
   </div>
   <% } else {

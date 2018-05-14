@@ -28,32 +28,34 @@
   <body>
     <!-- Navigation -->
     <%@include file="nav_bar.jsp"%>
-
+    <h1 class="site-heading text-center text-white d d-lg-block">
+      <span class="site-heading-upper text-primary mb-3">Iniciar Sesión</span>
+    </h1> 
+    
+    <%session.setAttribute("Usuario",null); %>
+    
     <!-- Body -->
-    <div class="container text-center">
-      <div class="row">
-        <%session.setAttribute("Usuario",null);%>
-        <!--%session.setAttribute("Msj",null);%-->
-        <!--Login-->   
-        <form class="form-signin col-centered" action="Login" method="POST">
-          <h1 class="site-heading text-center text-white d d-lg-block">
-            <span class="site-heading-upper text-primary mb-3">Iniciar Sesión</span>
-          </h1>          
-          <label for="inputEmail" class="sr-only">Usuario</label>
-          <input type="text" name="user" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus>
-          <label for="inputPassword" class="sr-only">Contraseña</label>
+    <div class="container text-center col-lg-4 col-centered well">
+      <form class="form-text" action="Login" method="POST">
+        <%if(session.getAttribute("Msj") != null){ %>
+          <div class="errorReserva margin04bottom"><b>Usuario y/o contraseña incorrectos</b></div>
+        <% } session.setAttribute("Msj",null); %>
+        <div class="col-sm-12" align="left">
+          <label>&nbsp;Nombre de usuario</label>
+          <input type="text" name="user" id="inputEmail" class="form-control margin04bottom" placeholder="Nombre de usuario" required autofocus>
+        </div>
+        <div class="col-sm-12" align="left">
+          <label>&nbsp;Contraseña</label>
           <div class="password">
             <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Contraseña" required>
             <span class="fa fa-eye"></span>
-          </div>
-          <%if(session.getAttribute("Msj") != null){ %>
-            <p class="error" style="margin-bottom: 0rem;" >Usuario o contraseña incorrecto/s</p>
-		      		<% } %>
-          <br>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-          <a href="registrar.jsp">Aún no estoy registrado<br><br></a>
-        </form>
-      </div>
+          </div>            
+        </div>
+        <div class="col-sm-12" align="center">          
+          <button class="btn btn-lg btn-principal btn-block margin16top" type="submit">Ingresar</button>
+          <a class="vertical"href="registrar.jsp">Aún no estoy registrado</a>
+        </div>
+      </form>
     </div>
 
     <!-- Footer -->

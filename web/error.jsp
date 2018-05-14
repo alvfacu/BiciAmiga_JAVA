@@ -32,16 +32,13 @@
 
     <!-- Body -->
     <br>
-    <h1 class="site-heading text-center text-white d d-lg-block">
-      <span class="site-heading-upper text-primary mb-3 error">¡ERROR!</span>
-      <span class="site-heading-upper mb-2" style="font-size:1rem">¡HA OCURRIDO UN PROBLEMA!</span>
-      <span class="site-heading-upper mb-2" style="font-size:1rem">VUELVA A INTERTARLO</span>
-    </h1> 
-    <br>
-    <button class="btn btn-lg btn-primary btn-block col-centered col-md-3 col-sm-4" onclick="goBack()">Volver</button>
-    <br>
-    <br>
-    <br>
+    <h1 class="site-heading text-center text-white d d-lg-block margin1bottom">
+      <span class="site-heading-upper text-primary mb-3 error">¡UPS!</span>
+      <span class="site-heading-upper mb-2 tamanioerror margin3bottom">¡HA OCURRIDO UN PROBLEMA!</span>
+    </h1>
+    <div class="col-lg-2 col-centered">
+      <button class="btn btn-lg btn-principal btn-block margin3bottom" onclick="goBack()">Volver</button>
+    </div>
     
 
     <!-- Footer -->

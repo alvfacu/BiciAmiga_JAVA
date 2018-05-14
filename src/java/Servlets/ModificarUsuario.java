@@ -28,24 +28,24 @@ public class ModificarUsuario extends HttpServlet {
     try {
       int id = Integer.valueOf(request.getParameter("idusr"));
       Usuarios u = new ControladorUsuarios().getUsuario(id);
-      u.setApynom(request.getParameter("ediapenom"));
-      u.setDomicilio(request.getParameter("edidomicilio"));
-      u.setDocumento(request.getParameter("edidocu"));
-      u.setTelefono(request.getParameter("editel"));
-      u.setEmail(request.getParameter("ediemail"));
+      u.setApynom(request.getParameter("apenom"));
+      u.setDomicilio(request.getParameter("domicilio"));
+      u.setDocumento(request.getParameter("documento"));
+      u.setTelefono(request.getParameter("telefono"));
+      u.setEmail(request.getParameter("email"));
 
       boolean admin = false;
-      if (Boolean.valueOf(request.getParameter("ediadmin"))) {
-        admin = true;
-      }
-
       boolean meca = false;
-      if (Boolean.valueOf(request.getParameter("edimeca"))) {
+      if (Boolean.valueOf(request.getParameter("admin"))) {
+        admin = true;
         meca = true;
+      } else if (Boolean.valueOf(request.getParameter("meca"))) {
+        meca = true;
+        admin = false;
       }
 
       boolean habilitado = false;
-      if (Boolean.valueOf(request.getParameter("edihab"))) {
+      if (Boolean.valueOf(request.getParameter("habilitado"))) {
         habilitado = true;
       }
 

@@ -50,13 +50,19 @@
       <% if (usrActual.isHabilitado()) { %>
       <div align="right">
         <form method="POST" action="Reservar">
-          <button type="submit" class="btn btn-nuevo" style="margin-bottom:0.5rem" title="Nueva Reserva"><span class="fa fa-plus-square"></span></button>
+          <button type="submit" class="btn btn-nuevo margin05bottom" title="Nueva Reserva"><span class="fa fa-plus-square"></span></button>
         </form>
       </div>
-      <% }%>
+      <% } else { %>
+      <div align="center">
+        <div class="errorReserva importante"><b>Usuario inhabilitado</b></div>
+        <div class="errorReserva"><i>No tiene permitido realizar reservas. Cualquier comentario, comuníquese con nosotros.</i></div>
+        <br>
+      </div>
+      <% } %>
       <div style="overflow-x:auto;">
         <table class="table display" id="rpendientesxusr">
-          <thead style="color: #fff;background-color: #373a3c;">
+          <thead class="encabezado">
             <tr align="center">
               <th>ID</th>
               <th>BICICLETA</th>                
@@ -76,18 +82,18 @@
             <tr align="center" >
               <%String bicicleta = r.getBici().getModelo().getTipo().getNombre() + " - " + r.getBici().getModelo().getNombre();
                 String reserva = "R" + String.format("%5s", r.getId()).replace(' ', '0');%>
-              <td style="vertical-align:middle;font-size: 1rem;"><%=reserva%></td>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%=bicicleta%></td>  
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaInicioP())%></td>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaFinP())%></td>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df2.format(r.getImporte())%></td>
-              <td style="vertical-align:middle;">
+              <td class="col-principal"><%=reserva%></td>
+              <td class="col-secundario"><%=bicicleta%></td>  
+              <td class="col-secundario"><%= df.format(r.getFechaInicioP())%></td>
+              <td class="col-secundario"><%= df.format(r.getFechaFinP())%></td>
+              <td class="col-secundario"><%= df2.format(r.getImporte())%></td>
+              <td class="vertical">
                 <button class="btn btn-reset" title="Ver Reserva" 
                         onclick="verReserva('<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioP())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">                          
                   <span class="fa fa-eye"></span>
                 </button>
               </td>
-              <td style="vertical-align:middle">
+              <td class="vertical">
                 <button class="btn btn-eliminar" title="Eliminar Reserva"
                         onclick="eliminarReserva('<%=r.getId()%>','<%=r.getCliente().getId()%>', '<%=r.getCliente().getUsuario() + " (" + r.getCliente().getApynom().trim() + ")"%>', '<%=reserva%>', '<%=bicicleta%>', '<%=r.getBici().getModelo().getUrl1()%>', '<%= df.format(r.getFechaInicioP())%>', '<%= df.format(r.getFechaFinP())%>', '<%= df2.format(r.getImporte())%>')">                          
                   <span class="fa fa-remove"></span>
@@ -110,7 +116,7 @@
       </div>
       <div style="overflow-x:auto;">
         <table class="table display" id="rfinalizadasxusr">
-          <thead style="color: #fff;background-color: #373a3c;">
+          <thead class="encabezado">
             <tr align="center">
               <th>ID</th>
               <th>BICICLETA</th>                
@@ -127,12 +133,12 @@
             <tr align="center" >
               <%String bicicleta = r.getBici().getModelo().getTipo().getNombre() + " - " + r.getBici().getModelo().getNombre();
                 String reserva = "R" + String.format("%5s", r.getId()).replace(' ', '0');%>
-              <td style="vertical-align:middle;font-size: 1rem;"><%=reserva%></td>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%=bicicleta%></td>  
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaInicioR())%></td>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(r.getFechaFinR())%></td>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df2.format(r.getImporte())%></td>
-              <td style="vertical-align:middle;font-size: 0.8rem;">
+              <td class="col-principal"><%=reserva%></td>
+              <td class="col-secundario"><%=bicicleta%></td>  
+              <td class="col-secundario"><%= df.format(r.getFechaInicioR())%></td>
+              <td class="col-secundario"><%= df.format(r.getFechaFinR())%></td>
+              <td class="col-secundario"><%= df2.format(r.getImporte())%></td>
+              <td class="col-secundario">
                 <span
                   <% if (r.getEstado() == EstadosReserva.FINALIZADA) { %>
                   class="label label-success"
@@ -157,10 +163,10 @@
       <input type="hidden" name="id" id="id">
       <input type="hidden" name="idUsr" id="idUsr">
       <div class="form-group float-sm-right">
-        <span id="cruzMR" class="fa fa-close" style="right: 50px"></span>      
+        <span id="cruzMR" class="fa fa-close cruz"></span>      
       </div>
       <div>
-        <p style="margin-top: 0.2rem; margin-bottom: 0.2rem;font-size: 20px; text-align: center"><b><u>Código de reserva:</u> <label id="idR" ></label> </b></p>
+        <p class="codReserva"><b><u>Código de reserva:</u> <label id="idR" ></label> </b></p>
       </div>
       <hr/>
       <div class="row">      
@@ -171,16 +177,16 @@
         </div>
         <div class="span6"></div>
         <div class="col-lg-8 col-md-12">        
-          <p style="margin-top: 0.8rem; margin-bottom: 0.2rem;font-size: 18px"><b><u>Para:</u></b> <label id="usrR"></label></p>
-          <p style="margin-bottom: 0.2rem;font-size: 18px"><b><u>Bicicleta reservada:</u> <label id="biciR"></label> </b></p>          
-          <p style="margin-bottom: 0.2rem;font-size: 18px"><b><u>Turno:</u> <label id="turnoR"></label></b></p>
-          <p style="margin-bottom: 0.2rem;font-size: 18px"><b><u>Precio final:</u> $ <label id="precioR"></label></b></p>                    
+          <p class="lblPara" ><b><u>Para:</u></b> <label id="usrR"></label></p>
+          <p class="lblVisualizacion"><b><u>Bicicleta reservada:</u> <label id="biciR"></label> </b></p>          
+          <p class="lblVisualizacion"><b><u>Turno:</u> <label id="turnoR"></label></b></p>
+          <p class="lblVisualizacion"><b><u>Precio final:</u> $ <label id="precioR"></label></b></p>                    
         </div>
       </div>
       <hr />
-      <div class="row">
+      <div class="row margin1top">
         <div class="col-lg-12 col-md-12 col-xs-12">
-          <button type="button" onclick="closeMR()" id="verMR" class="btn btn-primary col-lg-12 col-md-6 col-xs-6" style="margin-top:0.5rem;">Volver</button>
+          <button type="button" onclick="closeMR()" id="verMR" class="btn btn-primary col-lg-12 col-md-6 col-xs-6 margin05top">Volver</button>
           <input type="submit" id="eliminarMR" class="btn btn-lg btn-eliminar col-lg-12 col-md-6 col-xs-6" style="display: none" value="Eliminar Reserva" onclick="javascript:form.action = 'CancelarReserva';">
         </div>
       </div>

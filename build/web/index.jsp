@@ -92,7 +92,7 @@
       </div>
     </div>
   </section>
-  <br>
+  
   <section class="page-section clearfix">
     <div class="container">
       <h1 class="site-heading text-center text-white d d-lg-block">

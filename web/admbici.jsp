@@ -48,19 +48,25 @@
       
       <!-- BICICLETA -->
       <div id="bicis" class="tabcontent">
-        <div align="right">
-          <a class="btn btn-nuevo" style="margin-bottom:0.5rem" title="Nueva Bicicleta" onclick="nuevabici()"><span class="fa fa-plus-square"></span></a>
+        <div>
+          <div align="left">
+            <button type="button" onclick="mantexbici()" class="label-consulta label-detener"title="Mantenimientos por Bicicleta">MANTENIMIENTOS POR BICICLETA</button>
+          </div>        
+          <div align="right">
+            <a class="btn btn-nuevo margin05bottom" title="Nueva Bicicleta" onclick="nuevabici()"><span class="fa fa-plus-square"></span></a>
+          </div>
         </div>
+
         <div style="overflow-x:auto;">
           <table class="table display" id="bicicletas">
-            <thead style="color: #fff;background-color: #373a3c;">
+            <thead class="encabezado">
               <tr align="center">
                 <th>TIPO</th>
                 <th>MODELO</th>
                 <th>PATENTE</th>            
-                <th>KM MANT</th>
-                <th>KM ACUM</th>
-                <th>DISPONIBLE</th>
+                <th>Kms MANTEN.</th>
+                <th>Kms TOT.</th>
+                <th>ESTADO</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -72,31 +78,31 @@
                 if (bicicletas.size() > 0) {
                   for (Bicicletas b : bicicletas) {%>
               <tr align="center" >
-                <td style="vertical-align:middle;font-size: 0.8rem;"><%= b.getModelo().getTipo().getNombre()%></td>
-                <td style="vertical-align:middle;font-size: 0.8rem;"><%= b.getModelo().getNombre()%></td>
-                <td style="vertical-align:middle;font-size: 1rem;"><%= b.getPatente()%></td>          
-                <td style="vertical-align:middle;font-size: 0.8rem;"><%= df2.format(b.getKmDsdMantenimiento())%></td>
-                <td style="vertical-align:middle;font-size: 0.8rem;"><%= df2.format(b.getKmEnViaje())%></td>
-                <td style="vertical-align:middle;font-size: 0.8rem;">
+                <td class="col-secundario" style="vertical-align: middle"><%= b.getModelo().getTipo().getNombre()%></td>
+                <td class="col-secundario" style="vertical-align: middle"><%= b.getModelo().getNombre()%></td>
+                <td class="col-principal" style="vertical-align: middle"><%= b.getPatente()%></td>          
+                <td class="col-secundario" style="vertical-align: middle"><%= df2.format(b.getKmDsdMantenimiento())%></td>
+                <td class="col-secundario" style="vertical-align: middle"><%= df2.format(b.getKmEnViaje())%></td>
+                <td class="col-secundario" style="vertical-align: middle">
                   <% if (b.isDisponible()) {%>
-                  <span class="label label-success">SI</span>
+                  <span class="label label-success">DISPONIBLE</span>
                   <% } else { %>
-                  <span class="label label-danger">NO</span>
+                  <span class="label label-danger">NO DISPONIBLE</span>
                   <% }%>
                 </td>                
-                <td style="vertical-align:middle">
-                  <button class="btn btn-editar" title="Editar" 
+                <td class="vertical">
+                  <button class="btn btn-reset" title="Ver Información / Comentarios" 
                           onclick="editarbici('<%= b.getId()%>', '<%= b.getPatente()%>', '<%= b.getModelo().getId()%>', '<%= b.getModelo().getTipo().getNombre()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>', '<%= b.getModelo().getUrl1()%>')">
-                    <span class="fa fa-edit"></span>
+                    <span class="fa fa-eye"></span>
                   </button>
                 </td>
-                <td style="vertical-align:middle">
+                <td class="vertical">
                   <button class="btn btn-eliminar" title="Eliminar" 
                           onclick="eliminarbici('<%= b.getId()%>', '<%= b.getPatente()%>', '<%= b.getModelo().getId()%>', '<%= b.getModelo().getTipo().getNombre()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>', '<%= b.getModelo().getUrl1()%>')">
                     <span class="fa fa-trash-o"></span>
                   </button>
                 </td>
-                <td style="vertical-align:middle">
+                <td class="vertical">
                   <% if (b.isDisponible()) {%>
                   <button class="btn btn-detener" title="Llevar a mantenimiento"
                           onclick='window.open("nuevoMantenimiento.jsp?idBici="+<%= b.getId()%>,"_self")'>
@@ -115,11 +121,11 @@
       <!-- MODELOS BICICLETA -->
       <div id="modelosbici" class="tabcontent">
         <div align="right">
-          <a class="btn btn-nuevo" title="Nuevo Modelo" style="margin-bottom:0.5rem" onclick="nuevomodelo()"><span class="fa fa-plus-square"></span></a>
+          <a class="btn btn-nuevo margin05bottom" title="Nuevo Modelo" onclick="nuevomodelo()"><span class="fa fa-plus-square"></span></a>
         </div>
         <div style="overflow-x:auto;">
           <table class="table display" id="modelos">
-            <thead style="color: #fff;background-color: #373a3c;">
+            <thead class="encabezado">
               <tr align="center">
                 <th>TIPO</th>
                 <th>NOMBRE</th>
@@ -134,17 +140,17 @@
                 if (modelos.size() > 0) {
                   for (Modelos modelo : modelos) {%>
               <tr align="center" >
-                <td style="vertical-align:middle;font-size: 0.8rem;"><%= modelo.getTipo().getNombre()%></td>
-                <td style="vertical-align:middle;font-size: 1rem;"><%= modelo.getNombre()%></td>
-                <td style="vertical-align:middle;font-size: 0.8rem;">$ <%= df2.format(modelo.getPrecioXHr())%></td>
-                <td style="vertical-align:middle;font-size: 0.8rem;">$ <%= df2.format(modelo.getPrecioXDia())%></td>
-                <td style="vertical-align:middle">
+                <td class="col-secundario" style="vertical-align: middle"><%= modelo.getTipo().getNombre()%></td>
+                <td class="col-principal" style="vertical-align: middle"><%= modelo.getNombre()%></td>
+                <td class="col-secundario" style="vertical-align: middle">$ <%= df2.format(modelo.getPrecioXHr())%></td>
+                <td class="col-secundario" style="vertical-align: middle">$ <%= df2.format(modelo.getPrecioXDia())%></td>
+                <td class="vertical">
                   <button class="btn btn-editar" title="Editar" 
                           onclick="editarmodelo('<%= modelo.getId()%>', '<%=modelo.getTipo().getId()%>', '<%=modelo.getNombre()%>', '<%=modelo.getCaracteristicas_gral()%>', '<%= df2.format(modelo.getPrecioXHr())%>', '<%= df2.format(modelo.getPrecioXDia())%>', '<%= modelo.getUrl1()%>', '<%= modelo.getUrl2()%>', '<%= modelo.getUrl3()%>')">
                     <span class="fa fa-edit"></span>
                   </button>
                 </td>
-                <td style="vertical-align:middle">
+                <td class="vertical">
                   <button class="btn btn-eliminar" title="Eliminar" 
                           onclick="eliminarmodelo('<%= modelo.getId()%>', '<%=modelo.getTipo().getId()%>', '<%=modelo.getNombre()%>', '<%=modelo.getCaracteristicas_gral()%>', '<%= df2.format(modelo.getPrecioXHr())%>', '<%= df2.format(modelo.getPrecioXDia())%>', '<%= modelo.getUrl1()%>', '<%= modelo.getUrl2()%>', '<%= modelo.getUrl3()%>')">
                     <span class="fa fa-trash-o"></span>
@@ -161,11 +167,11 @@
       <!-- TIPO BICICLETA -->
       <div id="tipos" class="tabcontent">
         <div align="right">
-          <a class="btn btn-nuevo" style="margin-bottom:0.5rem" title="Nuevo Tipo Bicicleta" onclick="nuevotipo()"><span class="fa fa-plus-square"></span></a>
+          <a class="btn btn-nuevo margin05bottom" title="Nuevo Tipo Bicicleta" onclick="nuevotipo()"><span class="fa fa-plus-square"></span></a>
         </div>
         <div style="overflow-x:auto;">
           <table class="table display" id="tiposbici">
-            <thead style="color: #fff;background-color: #373a3c;">
+            <thead class="encabezado">
               <tr align="center">
                 <th>NOMBRE</th>
                 <th></th>
@@ -177,14 +183,14 @@
                 if (tipos.size() > 0) {
                   for (TiposBicicleta tipo : tipos) {%>
               <tr align="center" >
-                <td style="vertical-align:middle;font-size: 1rem;"><%= tipo.getNombre()%></td>
-                <td style="vertical-align:middle">
+                <td class="col-principal" style="vertical-align: middle"><%= tipo.getNombre()%></td>
+                <td class="vertical">
                   <button class="btn btn-editar" title="Editar" 
                           onclick="editartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.getUrl()%>')">
                     <span class="fa fa-edit"></span>
                   </button>
                 </td>
-                <td style="vertical-align:middle">
+                <td class="vertical">
                   <button class="btn btn-eliminar" title="Eliminar" 
                           onclick="eliminartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.getUrl()%>')">
                     <span class="fa fa-trash-o"></span>
@@ -202,7 +208,7 @@
     <!-- TIPO BICICLETA -->
     <div class="container text-center" id="nuevotipo" style="display: none" enctype = "multipart/form-data">
       <form class="form-text" method="POST">
-        <div class="col-lg-7 col-centered well">
+        <div class="col-lg-7 col-centered well" align="left">
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group float-sm-right">
@@ -211,12 +217,14 @@
               <div class="form-group">
                 <label class="error" id="msj1" style="display: none"></label>
                 <input type="hidden" name="idtb" id="idtb">
+                <label>&nbsp;Tipo de Bicicleta</label>
                 <input name="nombretb" id="nombretb" maxlength="50" placeholder="Nombre del Tipo de Bicicleta" title="Nombre del Tipo de Bicicleta"  class="form-control" autofocus="true" required="true">
               </div>
               <div class="form-group">
+                <label>&nbsp;Descripción</label>
                 <textarea name="descriptb" id="descriptb" maxlength="250" placeholder="Descripcion del Tipo de Bicicleta" title="Descripcion del Tipo de Bicicleta"  class="form-control" autofocus="true" required="true"></textarea>
               </div>
-              <div class="form-group">
+              <div class="form-group margin05top" align="center">
                 <label style="font-size: 12px;">Imagen que se utilizará como portada de este Tipo en la sección <b>"Nuestras bicis"</b>. 
                        <br><i>Se recomienda seleccionar imagen de tamaño cercano a <b>700x400px</b>.</i></label>
                 <figure class="figure">
@@ -236,7 +244,7 @@
     <!-- MODELO BICICLETA -->
     <div class="container text-center" id="nuevomodelo" style="display: none" enctype = "multipart/form-data">
       <form class="form-text" method="POST">
-        <div class="col-lg-7 col-centered well">
+        <div class="col-lg-8 col-centered well" align="left">
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group float-sm-right">
@@ -248,6 +256,7 @@
               <div class="row">
                 <div class="col-sm-6 form-group">                  
                   <input type="hidden" name="idm" id="idm">
+                  <label>&nbsp;Tipo de Bicicleta</label>
                   <select class="form-control" name="clr" id="clr" placeholder="Tipo de Bicicleta" title="Tipo de Bicicleta" required="true">
                     <option value="" disabled selected>Tipo de Bicicleta</option>
                     <% for (TiposBicicleta t : tipos) {%>                    
@@ -256,21 +265,28 @@
                   </select>
                 </div>	
                 <div class="col-sm-6 form-group">
+                  <label>&nbsp;Modelo/Marca</label>
                   <input name="nombrem" id="nombrem" maxlength="50" placeholder="Nombre del Modelo/Marca" title="Nombre del Modelo/Marca"  class="form-control" autofocus="true" required="true">
                 </div>
               </div>
               <div class="form-group">
+                <label>&nbsp;Descripción del Modelo</label>
                 <textarea name="descripm" id="descripm" maxlength="250" placeholder="Caracteristicas generales del Modelo" title="Caracteristicas generales del Modelo"  class="form-control" autofocus="true" required="true"></textarea>
               </div>
               <div class="row">
                 <div class="col-sm-6 form-group">
+                  <label>&nbsp;Precio por Hora ($)</label>
                   <input type="number" step="any" name="precioHr" id="precioHr" placeholder="Precio x Hora" title="Precio x Hora" class="form-control" autofocus="true" required="true">
                 </div>	
                 <div class="col-sm-6 form-group">
+                  <label>&nbsp;Precio por día completo ($)</label>
                   <input type="number" step="any" name="precioDia" id="precioDia" placeholder="Precio x Día" title="Precio x Día" class="form-control" autofocus="true" required="true">
                 </div>
               </div>
-              <div class="row">
+              <div align="center">
+                <label>&nbsp;Imágenes de referencia</label>
+              </div>
+              <div class="row" align="center">
                 <div class="col-sm-4 form-group">
                   <figure class="figure">
                     <img id="imgbici1" name="imgbici1" src="img/imagen-vacia.jpg" width="150" height="150" title="Imagen principal" style="border-style: solid; border-width: 1px;">
@@ -302,22 +318,24 @@
     <!-- BICICLETA -->
     <div class="container text-center" id="nuevabici" style="display: none" enctype = "multipart/form-data">
       <form class="form-text" method="POST">
-        <div class="col-lg-7 col-centered well">
+        <div class="col-lg-7 col-centered well" align="left">
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group float-sm-right">
                 <span id="cruzNuevoB" class="fa fa-close" style="right: 50px"></span>
               </div>              
-              <div class="form-group">
+              <div class="form-group" align="center">                
                 <img id="imgbici" name="imgbici" src="img/imagen-vacia.jpg" width="200" height="200" style="border-style: solid; border-width: 1px;">
               </div>
               <div class="row" style="margin-top:1px;">
                 <div class="col-sm-4 form-group">
                   <label class="error" id="msj3" style="display: none"></label>
                   <input type="hidden" name="idb" id="idb">
+                  <label>&nbsp;Tipo de Bicicleta</label>
                   <input type="text" class="form-control" disabled="true" name="tipob" id="tipob" placeholder="Tipo de Bicicleta" title="Tipo de Bicicleta" required="false">
                 </div>	
-                <div class="col-sm-4 form-group">
+                <div class="col-sm-5 form-group">
+                  <label>&nbsp;Modelo / Marca</label>
                   <select class="form-control" name="modelobici" id="modelobici" placeholder="Modelo de Bicicleta" title="Modelo de Bicicleta" required="true" onchange="dameImagen()" autofocus="true">
                     <option value="" disabled selected>Modelo Bicicleta</option>
                     <% for (Modelos m : new ControladorBicicletas().getModelos()) {%>                    
@@ -325,7 +343,8 @@
                     <%}%>
                   </select>
                 </div>
-                <div class="col-sm-4 form-group">
+                <div class="col-sm-3 form-group">
+                  <label>&nbsp;Estado</label>
                   <input type="hidden" name="disponible" id="disponible" value="true">
                   <span id="disponibleS" name="disponibleS" class="form-control label label-disponibilidad label-success" >DISPONIBLE</span>
                   <span id="disponibleN" name="disponibleN" class="form-control label label-disponibilidad label-danger" style="display:none">NO DISPONIBLE</span>
@@ -333,21 +352,25 @@
               </div>
               <div class="row">
                 <div class="col-sm-4 form-group">
+                  <label>&nbsp;Patente / ID </label>
                   <input type="text" name="patente" maxlength="10" id="patente" style="text-transform:uppercase" placeholder="Patente Bicicleta" title="Patente Bicicleta" class="form-control" autofocus="true" required="true">                  
                 </div>
                 <div class="col-sm-4 form-group">
+                  <label>&nbsp;Km últ mantenimiento</label>
                   <input type="number" step="any" name="kmMantenimiento" id="kmMantenimiento" placeholder="Kms desde el últ mantenimiento" title="Kms desde el último mantenimiento" class="form-control" autofocus="true" required="true">
                 </div>	
                 <div class="col-sm-4 form-group">
+                  <label>&nbsp;Km totales viajados</label>
                   <input type="number" step="any" name="kmViajados" id="kmViajados" placeholder="Kms totales" title="Kms totales recorridos" class="form-control" autofocus="true" required="true">
                 </div>
               </div>
               <div class="form-group">
-                <textarea name="descripb" id="descripb" maxlength="250" placeholder="Comentarios/Referencias sobre la Bicicleta" title="Comentarios/Referencias sobre la Bicicleta"  class="form-control" autofocus="true" required="true"></textarea>
+                <label>&nbsp;Comentarios / Observaciones</label>
+                <textarea name="descripb" id="descripb" maxlength="250" placeholder="Comentarios sobre la bicicleta" title="Comentarios/Referencias sobre la Bicicleta"  class="form-control" autofocus="true" required="true"></textarea>
               </div>
-              <input type="submit" id="guardarb" class="btn btn-lg btn-nuevo btn-block" value="Guardar" onclick="javascript:form.action = 'AltaBicicleta';">
-              <input type="submit" id="editarb" class="btn btn-lg btn-editar btn-block" style="display: none" value="Modificar" onclick="javascript:form.action = 'ModificarBicicleta';">
-              <input type="submit" id="eliminarb" class="btn btn-lg btn-eliminar btn-block" style="display: none" value="Eliminar" onclick="javascript:form.action = 'EliminarBicicleta';">
+              <input type="submit" id="guardarb" class="btn btn-lg btn-nuevo btn-block margin1top" value="Guardar" onclick="javascript:form.action = 'AltaBicicleta';">
+              <input type="submit" id="editarb" class="btn btn-lg btn-editar btn-block margin1top" style="display: none" value="Modificar" onclick="javascript:form.action = 'ModificarBicicleta';">
+              <input type="submit" id="eliminarb" class="btn btn-lg btn-eliminar btn-block margin1top" style="display: none" value="Eliminar" onclick="javascript:form.action = 'EliminarBicicleta';">
             </div>              
           </div>
         </div>         

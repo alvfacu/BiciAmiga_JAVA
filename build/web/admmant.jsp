@@ -49,7 +49,7 @@
     <div id="mants" class="tabcontent">
       <div>
         <div align="left">
-          <button type="button" onclick="mantexbici()" class="label-consulta label-detener"title="Mantenimientos por Bicicleta">CONSULTA MANTENIMIENTOS POR BICICLETA</button>
+          <button type="button" onclick="mantexbici()" class="label-consulta label-detener"title="Mantenimientos por Bicicleta">MANTENIMIENTOS POR BICICLETA</button>
         </div>        
         <div align="right">
           <a class="btn btn-nuevo" title="Nuevo Mantenimiento" style="margin-bottom:0.5rem" onclick="nuevomantenimiento()"><span class="fa fa-plus-square"></span></a>
@@ -58,7 +58,7 @@
 
       <div style="overflow-x:auto;">
         <table class="table display" id="mantenimientos">
-          <thead style="color: #fff;background-color: #373a3c;">
+          <thead class="encabezado">
             <tr align="center">
               <th>BICICLETA</th>
               <th>INGRESO</th>
@@ -74,16 +74,16 @@
               if (mant_activos.size() > 0) {
                 for (Mantenimientos m : mant_activos) {%>
             <tr align="center" >
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= m.getBici().getModelo().getTipo().getNombre() + " - " + m.getBici().getModelo().getNombre() + " - " + m.getBici().getPatente()%></td>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(m.getFechaIngreso())%></td>          
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df2.format(m.getKmIngreso())%></td>
-              <td style="vertical-align:middle">
+              <td class="col-secundario" style="vertical-align:middle;"><%= m.getBici().getModelo().getTipo().getNombre() + " - " + m.getBici().getModelo().getNombre() + " - " + m.getBici().getPatente()%></td>
+              <td class="col-secundario" style="vertical-align:middle;"><%= df.format(m.getFechaIngreso())%></td>          
+              <td class="col-secundario" style="vertical-align:middle;"><%= df2.format(m.getKmIngreso())%></td>
+              <td class="vertical">
                 <button class="btn btn-editar" title="Completar/Editar" 
                         onclick='window.open("modificarMantenimiento.jsp?idMant=" +<%=m.getId()%>, "_self")'>
                   <span class="fa fa-check-square-o"></span>
                 </button>
               </td>
-              <td style="vertical-align:middle">
+              <td class="vertical">
                 <button class="btn btn-eliminar" title="Eliminar" 
                         onclick='window.open("eliminarMantenimiento.jsp?idMant=" +<%=m.getId()%>, "_self")'>
                   <span class="fa fa-trash-o"></span>
@@ -104,7 +104,7 @@
       </div>
       <div style="overflow-x:auto;">
         <table class="table display" id="mantenimientosfin">
-          <thead style="color: #fff;background-color: #373a3c;">
+          <thead class="encabezado">
             <tr align="center">
               <th>BICICLETA</th>
               <th>INGRESO</th>
@@ -119,12 +119,12 @@
               if (mant_finalizados.size() > 0) {
                 for (Mantenimientos m : mant_finalizados) {%>
             <tr align="center" >
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= m.getBici().getModelo().getTipo().getNombre() + " - " + m.getBici().getModelo().getNombre() + " - " + m.getBici().getPatente()%></td>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(m.getFechaIngreso())%></td>          
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df2.format(m.getKmIngreso())%></td>
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df.format(m.getFechaEgreso())%></td>          
-              <td style="vertical-align:middle;font-size: 0.8rem;"><%= df2.format(m.getKmEgreso())%></td>
-              <td style="vertical-align:middle">
+              <td class="col-secundario" style="vertical-align:middle;"><%= m.getBici().getModelo().getTipo().getNombre() + " - " + m.getBici().getModelo().getNombre() + " - " + m.getBici().getPatente()%></td>
+              <td class="col-secundario" style="vertical-align:middle;"><%= df.format(m.getFechaIngreso())%></td>          
+              <td class="col-secundario" style="vertical-align:middle;"><%= df2.format(m.getKmIngreso())%></td>
+              <td class="col-secundario" style="vertical-align:middle;"><%= df.format(m.getFechaEgreso())%></td>          
+              <td class="col-secundario" style="vertical-align:middle;"><%= df2.format(m.getKmEgreso())%></td>
+              <td class="vertical">
                 <button class="btn btn-reset" title="Ver Mantenimiento" 
                         onclick='window.open("verMantenimiento.jsp?idMant=" +<%=m.getId()%>, "_self")'>
                   <span class="fa fa-eye"></span>
@@ -145,7 +145,7 @@
       </div>
       <div style="overflow-x:auto;">
         <table class="table display" id="tipos_mant">
-          <thead style="color: #fff;background-color: #373a3c;">
+          <thead class="encabezado">
             <tr align="center">
               <th>NOMBRE</th>
               <th>OBLIGATORIO</th>
@@ -158,21 +158,21 @@
               if (tipos.size() > 0) {
                 for (TiposMantenimiento tipo : tipos) {%>
             <tr align="center" >
-              <td style="vertical-align:middle;font-size: 1rem;" title="<%=tipo.getDescripcion()%>"><%= tipo.getNombre()%></td>
-              <td style="vertical-align:middle">
+              <td class="col-principal" style="vertical-align:middle;" title="<%=tipo.getDescripcion()%>"><%= tipo.getNombre()%></td>
+              <td class="vertical">
                 <% if (tipo.isObligatorio()) {%>
                 <span class="label label-success">SI</span>
                 <% } else { %>
                 <span class="label label-danger">NO</span>
                 <% }%>
               </td>  
-              <td style="vertical-align:middle">
+              <td class="vertical">
                 <button class="btn btn-editar" title="Editar" 
                         onclick="editartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.isObligatorio()%>', '<%= df2.format(tipo.getKmParaMantenimiento())%>')">
                   <span class="fa fa-edit"></span>
                 </button>
               </td>
-              <td style="vertical-align:middle">
+              <td class="vertical">
                 <button class="btn btn-eliminar" title="Eliminar" 
                         onclick="eliminartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.isObligatorio()%>', '<%= df2.format(tipo.getKmParaMantenimiento())%>')">
                   <span class="fa fa-trash-o"></span>
@@ -190,7 +190,7 @@
   <!-- TIPOS MANTENIMIENTOS -->
   <div class="container text-center" id="nuevotipo" style="display: none" enctype = "multipart/form-data">
     <form class="form-text" method="POST">
-      <div class="col-lg-7 col-centered well">
+      <div class="col-lg-7 col-centered well" align="left">
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group float-sm-right">
@@ -199,13 +199,16 @@
             <div class="form-group">
               <label class="error" id="msj1" style="display: none"></label>
               <input type="hidden" name="idtm" id="idtm">
+              <label>&nbsp;Nombre del Mantenimiento</label>
               <input name="nombretm" id="nombretm" maxlength="50" placeholder="Nombre del Tipo de Mantenimiento" title="Nombre del Tipo de Mantenimiento"  class="form-control" autofocus="true" required="true">
             </div>
             <div class="form-group">
+              <label>&nbsp;Descripción del Mantenimiento</label>
               <textarea name="descriptm" id="descriptm" maxlength="350" placeholder="Descripcion del Tipo de Mantenimiento" title="Descripcion del Tipo de Mantenimiento"  class="form-control" autofocus="true" required="true" style="min-height: 150px;"></textarea>
             </div>
             <div class="row">
               <div class="col-sm-4 form-group">
+                <label>&nbsp;¿Obligatorio?</label>
                 <select class="form-control" name="obligatorio" id="obligatorio" title="¿Obligatorio?" onchange="habilitarKM()">
                   <option value="" disabled selected>¿Obligatorio?</option>
                   <option value="true" selected="true">SI</option>
@@ -213,12 +216,13 @@
                 </select>
               </div>	
               <div class="col-sm-8 form-group">
+                <label>&nbsp;Km mínimos</label>
                 <input type="number" step="any" name="km" id="km" placeholder="Kms mínimos" title="Kms mínimos para realizar el matenimiento" class="form-control" autofocus="true" disabled="true">
               </div>
             </div>
-            <input type="submit" id="guardartm" class="btn btn-lg btn-nuevo btn-block" value="Guardar" onclick="javascript:form.action = 'AltaTipoMantenimiento';">
-            <input type="submit" id="editartm" class="btn btn-lg btn-editar btn-block" style="display: none" value="Modificar" onclick="javascript:form.action = 'ModificarTipoMantenimiento';">
-            <input type="submit" id="eliminartm" class="btn btn-lg btn-eliminar btn-block" style="display: none" value="Eliminar" onclick="javascript:form.action = 'EliminarTipoMantenimiento';">
+            <input type="submit" id="guardartm" class="btn btn-lg btn-nuevo btn-block margin1top" value="Guardar" onclick="javascript:form.action = 'AltaTipoMantenimiento';">
+            <input type="submit" id="editartm" class="btn btn-lg btn-editar btn-block margin1top" style="display: none" value="Modificar" onclick="javascript:form.action = 'ModificarTipoMantenimiento';">
+            <input type="submit" id="eliminartm" class="btn btn-lg btn-eliminar btn-block margin1top" style="display: none" value="Eliminar" onclick="javascript:form.action = 'EliminarTipoMantenimiento';">
           </div>              
         </div>
       </div>         

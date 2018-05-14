@@ -2,7 +2,6 @@ package Servlets;
 
 import Negocio.ControladorUsuarios;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +25,7 @@ public class EliminarUsuario extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     try {
-      new ControladorUsuarios().bajaUsuario(new ControladorUsuarios().getUsuario(Integer.valueOf(request.getParameter("eliid"))));
+      new ControladorUsuarios().bajaUsuario(new ControladorUsuarios().getUsuario(Integer.valueOf(request.getParameter("idusr"))));
       response.sendRedirect("admusr.jsp");
     } catch (IOException ex) {
       response.sendRedirect("error.jsp");

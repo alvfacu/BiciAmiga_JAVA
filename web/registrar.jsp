@@ -35,41 +35,48 @@
       <form class="form-text" method="POST" action="AltaUsuario">
         <div class="col-lg-7 col-centered well">
           <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12" align="left">
               <input type="hidden" name="admin" value="false">
               <input type="hidden" name="meca" value="false">
               <input type="hidden" name="cliente" value="true">
               <input type="hidden" name="habilitado" value="true">
               <div class="form-group">
+                <label>&nbsp;Nombre de usuario</label>
                 <input type="text" name="usuario" id="usuario" placeholder="Usuario" title="Ingrese nombre de usuario" class="form-control" autofocus="true" required="true">
-                <p id="mensajeDisponibilidad"></p>
               </div>
               <div class="row">
                 <div class="password col-sm-6 form-group">
+                  <label>&nbsp;Contraseña</label>
                   <input type="password" name="pass" id="pass" placeholder="Contraseña" title="Ingrese una contraseña" class="form-control" autofocus="true" required="true">
                   <span id="ojopas" class="fa fa-eye" style="right: 23px"></span>
                 </div>	
                 <div class="password col-sm-6 form-group">
+                  <label>&nbsp;Repita contraseña</label>
                   <input type="password" id="repass" placeholder="Repita Contraseña" title="Repita contraseña" class="form-control" autofocus="true" required="true">
                   <span id="ojore" class="fa fa-eye" style="right: 23px"></span>
                 </div>
               </div>
               <div class="form-group">
+                <label>&nbsp;Apellido y Nombre</label>
                 <input type="text" name="apenom" id="apenom" placeholder="Apellido y Nombre" title="Ingrese su apellido y nombre" class="form-control" autofocus="true" required="true">
               </div>			
               <div class="form-group">
+                <label>&nbsp;Domicilio</label>
                 <input type="text" name="domicilio" id="domicilio" placeholder="Domicilio" title="Ingrese su Domicilio" class="form-control" autofocus="true" required="true">
               </div>
               <div class="form-group">
+                <label>&nbsp;Documento de Identidad</label>
                 <input type="text" name="documento" id="documento" placeholder="Documento de Identidad" title="Ingrese su documento de identidad" class="form-control" autofocus="true" required="true">
               </div>
               <div class="form-group">
+                <label>&nbsp;Teléfono de contacto</label>
                 <input type="text" name="telefono" id="telefono" placeholder="Teléfono de contacto" title="Ingrese un número de contacto" class="form-control" autofocus="true" required="true">
               </div>		
               <div class="form-group">
+                <label>&nbsp;Email</label>
                 <input type="email" name="email" id="email" placeholder="Email de contacto" title="Ingrese su email" class="form-control" autofocus="true" required="true">
               </div>
-              <button type="submit" id="enviar" class="btn btn-lg btn-primary btn-block">Registrarse a BiciAmiga</button>
+              <button type="submit" id="enviar" class="btn btn-lg btn-primary btn-block margin1top" >Registrarse a BiciAmiga</button>
             </div>              
           </div>
         </div>

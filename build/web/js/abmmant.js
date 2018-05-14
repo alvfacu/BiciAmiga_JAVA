@@ -205,7 +205,6 @@ function eliminartipo(id, nombre, descrip, obligatorio, km) {
     document.getElementById('descriptm').disabled = true;
     document.getElementById('obligatorio').disabled = true;
     document.getElementById('km').disabled = true;
-    document.getElementById('eliminartm').focus();
   } else {
     //cerrar form
     document.getElementById("nuevotipo").style.display = "none";

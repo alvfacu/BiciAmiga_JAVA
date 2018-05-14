@@ -64,28 +64,32 @@
   </h1>
   <div class="container text-center">
     <form class="form-text" method="POST" action="ModificarMantenimiento" >
-      <div class="col-lg-7 col-centered well">
+      <div class="col-lg-7 col-centered well" align="left">
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">  
               <input hidden="true" id="idMant" name="idMant" value='<%= manteActual.getId() %>'>
+              <label>&nbsp;Bicicleta</label>
               <input type="text" value='<%= manteActual.getBici().getModelo().getTipo().getNombre() + " - " + manteActual.getBici().getModelo().getNombre() + " - " + manteActual.getBici().getPatente() %>' name="bicicleta" id="bicicleta" placeholder="Bicicleta" title="Bicicleta" class="form-control" autofocus="true" readonly="true">
             </div>
             <div class="row">
               <div class="col-sm-4 form-group">
+                <label>&nbsp;Fecha Ingreso</label>
                 <input type="text" value='<%= dateOnly.format(manteActual.getFechaIngreso().getTime())%>' name="fec_ingreso" id="fec_ingreso" placeholder="Fecha Ingreso" title="Fecha Ingreso" class="form-control" autofocus="true" readonly="true">
               </div>
               <div class="col-sm-4 form-group">
+                <label>&nbsp;Hora Ingreso</label>
                 <input type="text" value='<%= timeOnly.format(manteActual.getFechaIngreso().getTime())%>' name="hr_ingreso" id="hr_ingreso" placeholder="Hora Ingreso" title="Hora Ingreso" class="form-control" autofocus="true" readonly="true">
               </div>
               <div class="col-sm-4 form-group">
+                <label>&nbsp;Km Ingreso</label>
                 <input type="text" value='<%= df2.format(manteActual.getKmIngreso()) %>' name="km_ingreso" id="km_ingreso" placeholder="KM Ingreso" title="KM Ingreso" class="form-control" readonly="true">
               </div>
             </div>
-            <div class="row">
-              <div class='col-md-9 col-centered' style="margin-bottom: 0rem!important">
-                <table class="table display" id="tipos_mant" style="background-color: white;border-style: solid; border-width: 1px;">
-                  <thead style="color: #fff;background-color: #373a3c;">
+            <div class="row margin1top">
+              <div class='col-md-9 col-centered margin1bottom'>
+                <table class="table display tablamantenimiento">
+                  <thead class="encabezado">
                     <tr align="center">
                       <th>DETALLE</th>
                       <th>COMPLETADO</th>
@@ -96,10 +100,10 @@
                       if (detalles.size() > 0) {
                         for (DetallesMantenimiento det : detalles) {%>                    
                     <tr align="center" >                      
-                      <td style="vertical-align:middle" title="<%= det.getTipo().getDescripcion()%>">
+                      <td class="vertical" title="<%= det.getTipo().getDescripcion()%>">
                         <%= det.getTipo().getNombre()%>
                       </td>
-                      <td style="vertical-align:middle"><input type="checkbox" name='checkbox' onchange="activarBoton()" style="height: 18px;width: 18px;" value='<%= det.getTipo().getId() %>'
+                      <td class="vertical" ><input type="checkbox" name='checkbox' onchange="activarBoton()" style="height: 18px;width: 18px;" value='<%= det.getTipo().getId() %>'
                         <% if(det.isCompletado()) { %>
                         checked="checked"
                         <% } %>></td>
@@ -111,24 +115,27 @@
               </div>
             </div>
             <input hidden="true" id="cantReq" name="cantReq" value='<%= detalles.size() %>'>
-            <p style="font-size: 12px;"><b><i>La Fecha, Hora y KMs de Egreso se completarán automaticamente cuando se cumpla el último de los mantenimientos elegidos.</i></b></p>
             <div class="row">
               <div class="col-sm-4 form-group">
+                <label>&nbsp;Fecha Egreso</label>
                 <input type="text" name="fec_egreso" id="fec_egreso" placeholder="Fecha Egreso" title="Fecha Egreso" class="form-control" autofocus="true" readonly="true">
               </div>
               <div class="col-sm-4 form-group">
+                <label>&nbsp;Hora Egreso</label>
                 <input type="text" name="hr_egreso" id="hr_egreso" placeholder="Hora Egreso" title="Hora Egreso" class="form-control" autofocus="true" readonly="true">
               </div>
               <div class="col-sm-4 form-group">
+                <label>&nbsp;Km Egreso</label>
                 <input type="number" step="any" min="<%= manteActual.getKmIngreso() %>" name="km_egreso" id="km_egreso" placeholder="KM Egreso" title="KM Egreso" class="form-control" onchange='validar()'>
               </div>
             </div>
             <div class="form-group">
+              <label>&nbsp;Comentarios</label>
               <textarea name="obs" id="obs" maxlength="100" placeholder="Observaciones" title="Observaciones"  class="form-control" autofocus="true" style="min-height: 70px;"><%= manteActual.getObservacion() %></textarea>
             </div>
-            <div class="row">
+            <div class="row margin1top">
               <div class="col-sm-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
-                <input type="button" class="btn btn-lg btn-cliente btn-block" value="Volver a Mantenimientos" onclick="window.history.back();"> 
+                <input type="button" class="btn btn-lg btn-principal btn-block" value="Volver a Mantenimientos" onclick="window.history.back();"> 
               </div>
               <div class="col-sm-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
                 <input type="submit" id="guardarm" class="btn btn-lg btn-editar btn-block" value="Editar"> 

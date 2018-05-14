@@ -36,15 +36,9 @@ public class Login extends HttpServlet {
         session.setAttribute("Msj", "Usuario o contraseña incorrecto/s");
         response.sendRedirect("login.jsp");
       } else {
-        if (usr.isHabilitado()) {
-          session.setAttribute("Usuario", usr);
-          session.setAttribute("Msj", null);
-          response.sendRedirect("index.jsp");
-        } else {
-          session.setAttribute("Usuario", null);
-          session.setAttribute("Msj", "<b>¡Usuario inhabilitado!</b><br>Comuniquese con el Administrador del sitio.");
-          response.sendRedirect("error.jsp");
-        }
+        session.setAttribute("Usuario", usr);
+        session.setAttribute("Msj", null);
+        response.sendRedirect("index.jsp");
       }
     } catch (IOException ex) {      
       response.sendRedirect("error.jsp");

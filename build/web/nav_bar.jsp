@@ -130,6 +130,7 @@
         $('#' + location.pathname.split("/")[2].replace('.jsp','')).toggleClass('active');
         
         var url = location.pathname.split("/")[2].replace('.jsp','');
+                
         if (url === "registrar") {
           $("#login").toggleClass('active');           
         };
@@ -138,10 +139,11 @@
           $("#admmant").toggleClass('active');           
         };
         
-        if (url === "Reservar" || url === "PreReserva" || url==="AltaReserva" ) {
+        if (url === "Reservar" || url === "PreReserva" || url==="AltaReserva" || url==="reservar" ) {
           $("#admres").toggleClass('active');
           $("#mis_reservas").toggleClass('active');
         };
+        
       });
     </script>
   </body>

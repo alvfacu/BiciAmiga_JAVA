@@ -36,7 +36,7 @@
     <span class="site-heading-upper text-primary mb-3">Nuestras bicis</span>    
   </h1>
   <h3 class="text-center">
-    <span class="site-heading-lower" style="color: #FFFFFF;">¿Conoces los tipos de bicicletas que ofrecemos?</span>    
+    <span class="site-heading-lower subtitulo">¿Conoces los tipos de bicicletas que ofrecemos?</span>    
   </h3>
 
   <%try {
@@ -46,18 +46,18 @@
   <section class="page-section">
     <div class="container">
       <h1 class="site-heading text-center text-white d d-lg-block">
-        <span class="site-heading-upper mb-3" style="color: #ffc107; font-weight: 700;">Bicicleta <%=t.getNombre()%></span>
+        <span class="site-heading-upper mb-3 titulobicicleta"><%=t.getNombre()%></span>
       </h1>
-      <div class="product-item-img rounded border image col-centered" style="margin-bottom: 1rem!important;">
+      <div class="product-item-img rounded border image col-centered margin1bottom">
         <img src="<%=t.getUrl()%>">
       </div>
       <div class="product-item-description d-flex border">
         <div class="bg-bicis p-4 rounded">
-          <p class="mb-0" style="text-align: justify;"><b><%=t.getDescripcion()%></b></p>          
+          <p class="mb-0 descripBici"><b><%=t.getDescripcion()%></b></p>          
           <br>
           <div>
             <form method="POST" action="Reservar">
-              <button type="submit" class="btn btn-reserva btn-xl bg-faded" style="margin-bottom:0.5rem;color:#040404; float: right" title="¡Reservala!">¡Reservala!</button>
+              <button type="submit" class="btn btn-reserva btn-xl bg-faded botonReservaNB descripBici" title="¡Reservala!">¡Reservala!</button>
             </form>
           </div>              
         </div>
