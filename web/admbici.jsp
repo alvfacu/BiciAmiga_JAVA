@@ -48,15 +48,11 @@
       
       <!-- BICICLETA -->
       <div id="bicis" class="tabcontent">
-        <div>
-          <div align="left">
-            <button type="button" onclick="mantexbici()" class="label-consulta label-detener"title="Mantenimientos por Bicicleta">MANTENIMIENTOS POR BICICLETA</button>
-          </div>        
+        <div>      
           <div align="right">
             <a class="btn btn-nuevo margin05bottom" title="Nueva Bicicleta" onclick="nuevabici()"><span class="fa fa-plus-square"></span></a>
           </div>
         </div>
-
         <div style="overflow-x:auto;">
           <table class="table display" id="bicicletas">
             <thead class="encabezado">
@@ -64,8 +60,8 @@
                 <th>TIPO</th>
                 <th>MODELO</th>
                 <th>PATENTE</th>            
-                <th>Kms MANTEN.</th>
-                <th>Kms TOT.</th>
+                <th title="Kms realizados desde el último mantenimiento">Kms MANTEN.</th>
+                <th title="Kms acumulados">Kms TOT.</th>
                 <th>ESTADO</th>
                 <th></th>
                 <th></th>
@@ -89,27 +85,27 @@
                   <% } else { %>
                   <span class="label label-danger">NO DISPONIBLE</span>
                   <% }%>
-                </td>                
-                <td class="vertical">
-                  <button class="btn btn-reset" title="Ver Información / Comentarios" 
-                          onclick="editarbici('<%= b.getId()%>', '<%= b.getPatente()%>', '<%= b.getModelo().getId()%>', '<%= b.getModelo().getTipo().getNombre()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>', '<%= b.getModelo().getUrl1()%>')">
-                    <span class="fa fa-eye"></span>
-                  </button>
-                </td>
-                <td class="vertical">
-                  <button class="btn btn-eliminar" title="Eliminar" 
-                          onclick="eliminarbici('<%= b.getId()%>', '<%= b.getPatente()%>', '<%= b.getModelo().getId()%>', '<%= b.getModelo().getTipo().getNombre()%>', '<%= b.getDescripcion()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>', '<%= b.getModelo().getUrl1()%>')">
-                    <span class="fa fa-trash-o"></span>
-                  </button>
-                </td>
+                </td> 
                 <td class="vertical">
                   <% if (b.isDisponible()) {%>
-                  <button class="btn btn-detener" title="Llevar a mantenimiento"
+                  <button class="btn btn-detener" title="Enviar a mantenimiento"
                           onclick='window.open("nuevoMantenimiento.jsp?idBici="+<%= b.getId()%>,"_self")'>
                     <span class="fa fa-wrench"></span>
                   </button>
                   <% }%>
-                </td> 
+                </td>
+                <td class="vertical">
+                  <button class="btn btn-reset" title="Consultar mantenimientos realizados"
+                          onclick='window.open("mantxbici.jsp?idBici="+<%= b.getId()%>,"_self")'>
+                    <span class="fa fa-info-circle"></span>
+                  </button>
+                </td>
+                <td class="vertical">
+                  <button class="btn btn-eliminar" title="Eliminar" 
+                          onclick="eliminarbici('<%= b.getId()%>', '<%= b.getPatente()%>', '<%= b.getModelo().getId()%>', '<%= b.getModelo().getTipo().getNombre()%>', '<%= b.isDisponible()%>', '<%= df2.format(b.getKmDsdMantenimiento())%>', '<%= df2.format(b.getKmEnViaje())%>', '<%= b.getModelo().getUrl1()%>')">
+                    <span class="fa fa-trash-o"></span>
+                  </button>
+                </td>
               </tr>        
               <% }
                 }%>
@@ -203,6 +199,7 @@
           </table>
         </div>
       </div>
+            
     </div>
 
     <!-- TIPO BICICLETA -->
@@ -363,13 +360,8 @@
                   <label>&nbsp;Km totales viajados</label>
                   <input type="number" step="any" name="kmViajados" id="kmViajados" placeholder="Kms totales" title="Kms totales recorridos" class="form-control" autofocus="true" required="true">
                 </div>
-              </div>
-              <div class="form-group">
-                <label>&nbsp;Comentarios / Observaciones</label>
-                <textarea name="descripb" id="descripb" maxlength="250" placeholder="Comentarios sobre la bicicleta" title="Comentarios/Referencias sobre la Bicicleta"  class="form-control" autofocus="true" required="true"></textarea>
-              </div>
+              </div>             
               <input type="submit" id="guardarb" class="btn btn-lg btn-nuevo btn-block margin1top" value="Guardar" onclick="javascript:form.action = 'AltaBicicleta';">
-              <input type="submit" id="editarb" class="btn btn-lg btn-editar btn-block margin1top" style="display: none" value="Modificar" onclick="javascript:form.action = 'ModificarBicicleta';">
               <input type="submit" id="eliminarb" class="btn btn-lg btn-eliminar btn-block margin1top" style="display: none" value="Eliminar" onclick="javascript:form.action = 'EliminarBicicleta';">
             </div>              
           </div>

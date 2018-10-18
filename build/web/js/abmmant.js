@@ -18,11 +18,12 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "columns": [
       null,
       null,
+      {"orderable": false},
       {"orderable": false},
       {"orderable": false}
     ]
@@ -44,7 +45,7 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
      "order": [[ 1, "asc" ]],
     "columns": [
@@ -107,13 +108,13 @@ function openPage(pageName, elmnt) {
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 
-function nuevotipo() {
-  document.getElementById("nuevomantenimiento").style.display = "none";  
+function nuevotipo() { 
   document.getElementById("tablamantenimientos").style.display = "none";
 
   document.getElementById('editartm').style.display = "none";
   document.getElementById('eliminartm').style.display = "none";
   document.getElementById('guardartm').style.display = "block";
+  document.getElementById('vertm').style.display = "none";
   
   document.getElementById('nombretm').disabled = false;
   document.getElementById('descriptm').disabled = false;
@@ -137,7 +138,6 @@ function nuevotipo() {
 }
 
 function editartipo(id, nombre, descrip, obligatorio, km) {
-  document.getElementById("nuevomantenimiento").style.display = "none";
   document.getElementById("tablamantenimientos").style.display = "none";
 
   document.getElementById('msj1').style.display = "none";
@@ -146,6 +146,7 @@ function editartipo(id, nombre, descrip, obligatorio, km) {
   document.getElementById('descriptm').disabled = false;
   document.getElementById('obligatorio').disabled = false;
   
+  document.getElementById('vertm').style.display = "none";
   document.getElementById('guardartm').style.display = "none";
   document.getElementById('editartm').style.display = "block";
   document.getElementById('eliminartm').style.display = "none";
@@ -168,28 +169,17 @@ function editartipo(id, nombre, descrip, obligatorio, km) {
       document.getElementById('km').disabled = true;
       document.getElementById('km').value = '';
     } 
-
     document.getElementById('nombretm').focus();
-  } else {
-    //cerrar form
-    abmtm = '';
-    document.getElementById("nuevotipo").style.display = "none";
-    
-    document.getElementById('idtm').value = '';
-    document.getElementById('nombretm').value = '';
-    document.getElementById('descriptm').value = '';
-    document.getElementById('obligatorio').value = '';
-    document.getElementById('km').value =  '';
-  }
+  } 
 }
 
 function eliminartipo(id, nombre, descrip, obligatorio, km) {
-  document.getElementById("nuevomantenimiento").style.display = "none";
   document.getElementById("tablamantenimientos").style.display = "none";
 
   document.getElementById('guardartm').style.display = "none";
   document.getElementById('editartm').style.display = "none";
   document.getElementById('eliminartm').style.display = "block";
+  document.getElementById('vertm').style.display = "none";
 
   if (abmtm !== 'B' || document.getElementById('idtm').value !== id) {
     //abre form
@@ -205,20 +195,7 @@ function eliminartipo(id, nombre, descrip, obligatorio, km) {
     document.getElementById('descriptm').disabled = true;
     document.getElementById('obligatorio').disabled = true;
     document.getElementById('km').disabled = true;
-  } else {
-    //cerrar form
-    document.getElementById("nuevotipo").style.display = "none";
-    abmtm = '';
-    document.getElementById('idtm').value = '';
-    document.getElementById('nombretm').value = '';
-    document.getElementById('descriptm').value = '';
-    document.getElementById('obligatorio').value = '';
-    document.getElementById('km').src = parseFloat('0'.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
-    document.getElementById('nombretm').disabled = false;
-    document.getElementById('descriptm').disabled = false;
-    document.getElementById('obligatorio').disabled = false;
-    document.getElementById('km').disabled = false;
-  }
+  } 
 
   $.post('ExistenMantenimientosXTipo',
           {
@@ -240,6 +217,31 @@ function eliminartipo(id, nombre, descrip, obligatorio, km) {
           });
 }
 
+function vertipo(id, nombre, descrip, obligatorio, km) {
+  document.getElementById("tablamantenimientos").style.display = "none";
+
+  document.getElementById('guardartm').style.display = "none";
+  document.getElementById('editartm').style.display = "none";
+  document.getElementById('eliminartm').style.display = "none";
+  document.getElementById('vertm').style.display = "block";
+
+  if (abmtm !== 'V' || document.getElementById('idtm').value !== id) {
+    //abre form
+    document.getElementById("nuevotipo").style.display = "block";
+    abmtm = 'V';
+    document.getElementById('idtm').value = id;
+    document.getElementById('nombretm').value = nombre;
+    document.getElementById('descriptm').value = descrip;
+    document.getElementById('obligatorio').value = obligatorio;
+    document.getElementById('km').value = parseFloat(km.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+
+    document.getElementById('nombretm').disabled = true;
+    document.getElementById('descriptm').disabled = true;
+    document.getElementById('obligatorio').disabled = true;
+    document.getElementById('km').disabled = true;
+  }
+}
+
 function nuevomantenimiento() {
   window.open("nuevoMantenimiento.jsp","_self");
 }
@@ -253,6 +255,7 @@ $("#cruzNuevoTM").mousedown(function () {
   abmtm = '';
   document.getElementById("tablamantenimientos").style.display = "block";
 });
+
 
 function habilitarKM() {
     if(document.getElementById("obligatorio").value === "true")

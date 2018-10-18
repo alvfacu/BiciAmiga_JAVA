@@ -100,7 +100,7 @@
     <!-- MANTENIMIENTOS FINALIZADOS -->
     <div id="mantsfin" class="tabcontent">
       <div class="form-group" align="left">
-        <button type="button" onclick="mantexbici()" class="label-consulta label-detener" title="Mantenimientos por Bicicleta">CONSULTA MANTENIMIENTOS POR BICICLETA</button>
+        <button type="button" onclick="mantexbici()" class="label-consulta label-detener" title="Mantenimientos por Bicicleta">MANTENIMIENTOS POR BICICLETA</button>
       </div>
       <div style="overflow-x:auto;">
         <table class="table display" id="mantenimientosfin">
@@ -151,6 +151,7 @@
               <th>OBLIGATORIO</th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>            
@@ -159,7 +160,7 @@
                 for (TiposMantenimiento tipo : tipos) {%>
             <tr align="center" >
               <td class="col-principal" style="vertical-align:middle;" title="<%=tipo.getDescripcion()%>"><%= tipo.getNombre()%></td>
-              <td class="vertical">
+              <td style="vertical-align: middle">
                 <% if (tipo.isObligatorio()) {%>
                 <span class="label label-success">SI</span>
                 <% } else { %>
@@ -167,10 +168,16 @@
                 <% }%>
               </td>  
               <td class="vertical">
+                <button class="btn btn-reset" title="Editar" 
+                        onclick="vertipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.isObligatorio()%>', '<%= df2.format(tipo.getKmParaMantenimiento())%>')">
+                  <span class="fa fa-eye"></span>
+                </button>&nbsp;&nbsp;
+              </td>
+              <td class="vertical">
                 <button class="btn btn-editar" title="Editar" 
                         onclick="editartipo('<%= tipo.getId()%>', '<%=tipo.getNombre()%>', '<%=tipo.getDescripcion()%>', '<%=tipo.isObligatorio()%>', '<%= df2.format(tipo.getKmParaMantenimiento())%>')">
                   <span class="fa fa-edit"></span>
-                </button>
+                </button>&nbsp;&nbsp;
               </td>
               <td class="vertical">
                 <button class="btn btn-eliminar" title="Eliminar" 
@@ -221,6 +228,7 @@
               </div>
             </div>
             <input type="submit" id="guardartm" class="btn btn-lg btn-nuevo btn-block margin1top" value="Guardar" onclick="javascript:form.action = 'AltaTipoMantenimiento';">
+            <input type="button" id="vertm" class="btn btn-lg btn-principal btn-block margin1top" style="display: none" value="Volver" onclick='$("#cruzNuevoTM").mousedown()'>
             <input type="submit" id="editartm" class="btn btn-lg btn-editar btn-block margin1top" style="display: none" value="Modificar" onclick="javascript:form.action = 'ModificarTipoMantenimiento';">
             <input type="submit" id="eliminartm" class="btn btn-lg btn-eliminar btn-block margin1top" style="display: none" value="Eliminar" onclick="javascript:form.action = 'EliminarTipoMantenimiento';">
           </div>              
@@ -228,22 +236,6 @@
       </div>         
     </form>
   </div>
-
-  <!-- MANTENIMIENTO ACTIVOS-->
-  <div class="container text-center" id="nuevomantenimiento" style="display: none" enctype = "multipart/form-data">
-    <form class="form-text" method="POST">
-      <div class="col-lg-7 col-centered well">
-        <div class="row">
-          <div class="col-sm-12">
-            <input type="submit" id="guardarb" class="btn btn-lg btn-nuevo btn-block" value="Guardar" onclick="javascript:form.action = 'AltaMantenimiento';">
-            <input type="submit" id="editarb" class="btn btn-lg btn-editar btn-block" style="display: none" value="Modificar" onclick="javascript:form.action = 'ModificarBicicleta';">
-            <input type="submit" id="eliminarb" class="btn btn-lg btn-eliminar btn-block" style="display: none" value="Eliminar" onclick="javascript:form.action = 'EliminarBicicleta';">
-          </div>              
-        </div>
-      </div>         
-    </form>
-  </div>
-
 
   <% } else {
         response.sendRedirect("error.jsp");
