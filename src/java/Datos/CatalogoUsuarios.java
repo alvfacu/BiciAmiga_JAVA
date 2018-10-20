@@ -1,6 +1,8 @@
 package Datos;
 
+import Entidades.Reservas;
 import Entidades.Usuarios;
+import Negocio.ControladorReservas;
 import static java.lang.System.out;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +16,7 @@ public class CatalogoUsuarios {
     ArrayList<Usuarios> usuarios = new ArrayList<>();
     Statement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from usuarios";
+    String sql = "select * from usuarios where baja=0";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -122,11 +124,13 @@ public class CatalogoUsuarios {
 
   public void bajaUsuario(Usuarios u) {
     PreparedStatement sentencia = null;
-    String sql = "delete from usuarios where id=?";
+    String sql = "update usuarios set baja=1, habilitado=0 where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setInt(1, u.getId());
       sentencia.execute();
+      
+      new CatalogoReservas().eliminarReservasXUsr(u.getId());
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -181,7 +185,7 @@ public class CatalogoUsuarios {
     PreparedStatement sentencia;
     ResultSet rs;
     Usuarios u = null;
-    String sql = "select * from usuarios where usuario = BINARY ?";
+    String sql = "select * from usuarios where baja=0 and usuario = BINARY ?";
     
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
@@ -213,7 +217,7 @@ public class CatalogoUsuarios {
     PreparedStatement sentencia;
     ResultSet rs;
     Usuarios u = null;
-    String sql = "select * from usuarios where usuario=?";
+    String sql = "select * from usuarios where usuario=? and baja=0";
     int cont = 0;
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);

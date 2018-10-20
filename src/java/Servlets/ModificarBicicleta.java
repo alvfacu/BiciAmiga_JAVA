@@ -32,7 +32,7 @@ public class ModificarBicicleta extends HttpServlet {
       int id = Integer.valueOf(request.getParameter("idb"));
       Bicicletas biciAct = new ControladorBicicletas().getBicicleta(id);
       
-      String descripcion = request.getParameter("descripb").trim();
+      String descripcion = request.getParameter("patente").trim();
       
       biciAct.setDescripcion(descripcion);
       new ControladorBicicletas().modificarBicicleta(biciAct);

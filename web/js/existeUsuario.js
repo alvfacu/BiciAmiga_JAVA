@@ -29,7 +29,7 @@ $(function () {
             else
             {
               $("#enviar").attr('disabled', 'disabled');
-              $('#usuario').css("backgroundColor", "#ff6666");
+              $('#usuario').css("backgroundColor", "#ff6666"); 
             }
               
           });
@@ -37,3 +37,5 @@ $(function () {
 
   $('#usuario').focusout(peticion); // Registrar evento al boton "Calcular" con la funcion "peticion"
 });
+
+

@@ -38,7 +38,7 @@ public class AltaBicicleta extends HttpServlet {
 
       double kmMant = Double.valueOf(request.getParameter("kmMantenimiento"));
       double kmViaje = Double.valueOf(request.getParameter("kmViajados"));
-      String descripcion = request.getParameter("descripb").trim();
+      String descripcion = request.getParameter("patente").trim();
       Bicicletas b = new Bicicletas(patente, descripcion, m, disp, kmViaje, kmMant);
       new ControladorBicicletas().altaBicicleta(b);
       response.sendRedirect("admbici.jsp");

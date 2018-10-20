@@ -188,7 +188,7 @@ function reset(id) {
             //VALIDO
             if (responseText === "0")
             {
-              alert("¡Contrase\u00f1a reestablecida! Nueva contrase\u00f1a: 12345");
+              alert("Contrase\u00f1a reestablecida. Nueva contrase\u00f1a: 12345");
               location.reload();
             }
             //INVALIDO
@@ -210,7 +210,7 @@ function resetear() {
             //VALIDO
             if (responseText === "0")
             {
-              alert("¡Contrase\u00f1a reestablecida! Nueva contrase\u00f1a: 12345");
+              alert("Contrase\u00f1a reestablecida. Nueva contrase\u00f1a: 12345");
               location.reload();
             }
             //INVALIDO

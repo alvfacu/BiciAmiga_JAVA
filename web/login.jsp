@@ -48,7 +48,7 @@
           <label>&nbsp;Contraseña</label>
           <div class="password">
             <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Contraseña" required>
-            <span class="fa fa-eye"></span>
+            <span class="fa fa-eye" ></span>
           </div>            
         </div>
         <div class="col-sm-12" align="center">          

@@ -817,4 +817,60 @@ public class CatalogoReservas {
     }
   }
 
+  public void eliminarReservasXBici(int id) {
+    PreparedStatement sentencia = null;
+    String sql = "update reservas set estado=?, fecha_inicio_real=?, fecha_fin_real=?, importe=?, km_totales=?, obs=? where id_bici=? and estado!=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, EstadosReserva.ELIMINADA.getId());
+      sentencia.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+      sentencia.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
+      sentencia.setDouble(4, 0);
+      sentencia.setDouble(5, 0);
+      sentencia.setString(6, "RESERVA ELIMINADA POR ELIMINAR BICICLETA");
+      sentencia.setInt(7, id);
+      sentencia.setInt(8, EstadosReserva.ELIMINADA.getId());
+      sentencia.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null && !sentencia.isClosed()) {
+          sentencia.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+  }
+
+  void eliminarReservasXUsr(int id) {
+    PreparedStatement sentencia = null;
+    String sql = "update reservas set estado=?, fecha_inicio_real=?, fecha_fin_real=?, importe=?, km_totales=?, obs=? where id_usr=? and estado!=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, EstadosReserva.ELIMINADA.getId());
+      sentencia.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+      sentencia.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
+      sentencia.setDouble(4, 0);
+      sentencia.setDouble(5, 0);
+      sentencia.setString(6, "RESERVA ELIMINADA POR ELIMINAR USUARIO");
+      sentencia.setInt(7, id);
+      sentencia.setInt(8, EstadosReserva.ELIMINADA.getId());
+      sentencia.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null && !sentencia.isClosed()) {
+          sentencia.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+  }
+
 }

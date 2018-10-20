@@ -30,42 +30,59 @@ public class AltaUsuario extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    try {
-      String apenom = request.getParameter("apenom");
-      String domi = request.getParameter("domicilio");
+    try {      
       String usuario = request.getParameter("usuario");
-      String documento = request.getParameter("documento");
-      String clave = new Seguridad().md5(request.getParameter("pass"));
-      String telefono = request.getParameter("telefono");
-      String mail = request.getParameter("email");
+      //RE VALIDO que el usuario no exista
+      if(new ControladorUsuarios().existeUsuario(usuario)==0)
+      {
+        //RE VALIDO que las contraseñas sean iguales
+        //String a = request.getParameter("pass");
+        //a = request.getParameter("repass");
+        
+        if(request.getParameter("pass").compareTo(request.getParameter("repass")) == 0)
+        {
+          String apenom = request.getParameter("apenom");
+          String domi = request.getParameter("domicilio");
+          String documento = request.getParameter("documento");
+          String clave = new Seguridad().md5(request.getParameter("pass"));
+          String telefono = request.getParameter("telefono");
+          String mail = request.getParameter("email");
 
-      boolean admin = false;
-      if (Boolean.valueOf(request.getParameter("admin"))) {
-        admin = true;
+          boolean admin = false;
+          if (Boolean.valueOf(request.getParameter("admin"))) {
+            admin = true;
+          }
+
+          boolean meca = false;
+          if (Boolean.valueOf(request.getParameter("meca"))) {
+            meca = true;
+          }
+
+          boolean habilitado = false;
+
+          if (Boolean.valueOf(request.getParameter("habilitado"))) {
+            habilitado = true;
+          }
+
+          Usuarios u = new Usuarios(apenom, usuario, clave, mail, domi, telefono, documento, admin, habilitado, meca);
+          ControladorUsuarios cu = new ControladorUsuarios();
+          cu.altaUsuario(u);
+
+          HttpSession session = request.getSession(true);
+          Usuarios usrActual = (Usuarios) session.getAttribute("Usuario");
+          if (usrActual != null && usrActual.isAdm()) {
+            response.sendRedirect("admusr.jsp");
+          } else {
+            response.sendRedirect("registro_exitoso.jsp");
+          }
+        }
+        else{
+          response.sendRedirect("error.jsp");
+        }      
       }
-
-      boolean meca = false;
-      if (Boolean.valueOf(request.getParameter("meca"))) {
-        meca = true;
-      }
-
-      boolean habilitado = false;
-
-      if (Boolean.valueOf(request.getParameter("habilitado"))) {
-        habilitado = true;
-      }
-
-      Usuarios u = new Usuarios(apenom, usuario, clave, mail, domi, telefono, documento, admin, habilitado, meca);
-      ControladorUsuarios cu = new ControladorUsuarios();
-      cu.altaUsuario(u);
-
-      HttpSession session = request.getSession(true);
-      Usuarios usrActual = (Usuarios) session.getAttribute("Usuario");
-      if (usrActual != null && usrActual.isAdm()) {
-        response.sendRedirect("admusr.jsp");
-      } else {
-        response.sendRedirect("registro_exitoso.jsp");
-      }
+      else{
+        response.sendRedirect("error.jsp");
+      } 
     } catch (NoSuchAlgorithmException ex) {
       response.sendRedirect("error.jsp");
     } catch (IOException ex) {

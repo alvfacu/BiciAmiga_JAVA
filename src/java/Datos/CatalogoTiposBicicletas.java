@@ -1,5 +1,6 @@
 package Datos;
 
+import Entidades.Modelos;
 import Entidades.TiposBicicleta;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ public class CatalogoTiposBicicletas {
     ArrayList<TiposBicicleta> tipos = new ArrayList<>();
     Statement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from tipos_bicicleta";
+    String sql = "select * from tipos_bicicleta where baja=0";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -100,11 +101,14 @@ public class CatalogoTiposBicicletas {
 
   public void bajaTipoBicicleta(TiposBicicleta tb) {
     PreparedStatement sentencia = null;
-    String sql = "delete from tipos_bicicleta where id=?";
+    String sql = "update tipos_bicicleta set baja=1 where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setInt(1, tb.getId());
       sentencia.execute();
+      
+      for(Modelos m : new CatalogoModelos().getModelosXTipo2(tb.getId()))
+        new CatalogoModelos().bajaModelo(m);      
 
     } catch (SQLException e) {
       e.printStackTrace();

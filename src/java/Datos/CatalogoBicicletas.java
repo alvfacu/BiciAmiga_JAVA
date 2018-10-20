@@ -3,6 +3,7 @@ package Datos;
 import Entidades.Bicicletas;
 import Entidades.EstadosReserva;
 import Entidades.Modelos;
+import Entidades.Reservas;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ public class CatalogoBicicletas {
     ArrayList<Bicicletas> bicicletas = new ArrayList<>();
     Statement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from bicicletas";
+    String sql = "select * from bicicletas where baja=0";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -114,12 +115,13 @@ public class CatalogoBicicletas {
 
   public void bajaBicicleta(Bicicletas b) {
     PreparedStatement sentencia = null;
-    String sql = "delete from bicicletas where id=?";
+    String sql = "update bicicletas set baja=1, disponible=0 where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setInt(1, b.getId());
       sentencia.execute();
-
+      
+      new CatalogoReservas().eliminarReservasXBici(b.getId());
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -168,7 +170,7 @@ public class CatalogoBicicletas {
     PreparedStatement sentencia;
     ResultSet rs;
     
-    String sql = "select count(*) from bicicletas where patente=?";
+    String sql = "select count(*) from bicicletas where patente=? and baja=0";
     int cont = 0;
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
@@ -189,7 +191,7 @@ public class CatalogoBicicletas {
     PreparedStatement sentencia;
     ResultSet rs;
     
-    String sql = "select count(*) from bicicletas where id_modelo=?";
+    String sql = "select count(*) from bicicletas where id_modelo=? and baja=0";
     int cont = 0;
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
@@ -210,7 +212,7 @@ public class CatalogoBicicletas {
     ArrayList<Bicicletas> bicicletas = new ArrayList<>();
     Statement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from bicicletas where disponible=true";
+    String sql = "select * from bicicletas where disponible=true and baja=0";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -271,7 +273,7 @@ public class CatalogoBicicletas {
     PreparedStatement sentencia;
     ResultSet rs;
     Bicicletas b = null;
-    String sql = "select * from bicicletas where id=? and disponible=true";
+    String sql = "select * from bicicletas where id=? and disponible=true and baja=0";
     
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
@@ -300,7 +302,7 @@ public class CatalogoBicicletas {
     PreparedStatement sentencia;
     ResultSet rs;
     ArrayList<Bicicletas> bicicletas = null;
-    String sql = "select * from bicicletas where id_modelo=? and disponible=true order by km_dsd_mantenimiento asc";
+    String sql = "select * from bicicletas where id_modelo=? and disponible=true and baja=0 order by km_dsd_mantenimiento asc";
     
     try {
       
@@ -331,7 +333,7 @@ public class CatalogoBicicletas {
     PreparedStatement sentencia;
     ResultSet rs;
     
-    String sql = "select * from reservas WHERE id_bici=? AND fecha_fin_pactada>=? AND fecha_inicio_pactada<=? AND estado IN (?,?)";
+    String sql = "select * from reservas WHERE id_bici=? and baja=0 AND fecha_fin_pactada>=? AND fecha_inicio_pactada<=? AND estado IN (?,?)";
     boolean bnd = true;
     
     try {
@@ -354,4 +356,35 @@ public class CatalogoBicicletas {
     return bnd;
   }
 
+  Iterable<Bicicletas> getBicicletasXModelo(int id) {
+    ArrayList<Bicicletas> bicis = new ArrayList<>();
+    PreparedStatement sentencia;
+    ResultSet rs;
+    String sql = "select * from bicicletas WHERE id_modelo=?";
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, id);
+      rs = sentencia.executeQuery();
+
+      while (rs.next()) {
+        Bicicletas b = new Bicicletas();
+        b.setId(rs.getInt("id"));
+        b.setDescripcion(rs.getString("descripcion"));
+        b.setPatente(rs.getString("patente"));
+        b.setDisponible(rs.getBoolean("disponible"));
+        b.setKmDsdMantenimiento(rs.getDouble("km_dsd_mantenimiento"));
+        b.setKmEnViaje(rs.getDouble("km_viaje"));
+        Modelos modelo = new CatalogoModelos().getModelo(rs.getInt("id_modelo"));
+        b.setModelo(modelo);
+        bicis.add(b);
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    } finally {
+      ConexionBD.getInstancia().CloseConn();
+    }
+    return bicis;
+  }
+
+  
 }

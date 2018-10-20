@@ -32,14 +32,14 @@
       <span class="site-heading-upper text-primary mb-3">Formulario de registro</span>
     </h1> 
     <div class="container text-center">
-      <form class="form-text" method="POST" action="AltaUsuario">
+      <form class="form-text" method="POST" action="AltaUsuario" id="frmAltaUsr">
         <div class="col-lg-7 col-centered well">
           <div class="row">
             <div class="col-sm-12" align="left">
               <input type="hidden" name="admin" value="false">
               <input type="hidden" name="meca" value="false">
               <input type="hidden" name="cliente" value="true">
-              <input type="hidden" name="habilitado" value="true">
+              <input type="hidden" name="habilitado" value="true">              
               <div class="form-group">
                 <label>&nbsp;Nombre de usuario</label>
                 <input type="text" name="usuario" id="usuario" placeholder="Usuario" title="Ingrese nombre de usuario" class="form-control" autofocus="true" required="true">
@@ -48,12 +48,12 @@
                 <div class="password col-sm-6 form-group">
                   <label>&nbsp;Contraseña</label>
                   <input type="password" name="pass" id="pass" placeholder="Contraseña" title="Ingrese una contraseña" class="form-control" autofocus="true" required="true">
-                  <span id="ojopas" class="fa fa-eye" style="right: 23px"></span>
+                  <span id="ojopas" class="fa fa-eye" style="right: 25px;top: 42px;"></span>
                 </div>	
                 <div class="password col-sm-6 form-group">
                   <label>&nbsp;Repita contraseña</label>
-                  <input type="password" id="repass" placeholder="Repita Contraseña" title="Repita contraseña" class="form-control" autofocus="true" required="true">
-                  <span id="ojore" class="fa fa-eye" style="right: 23px"></span>
+                  <input type="password" name="repass" id="repass" placeholder="Repita Contraseña" title="Repita contraseña" class="form-control" autofocus="true" required="true">
+                  <span id="ojore" class="fa fa-eye" style="right: 25px;top: 42px;"></span>
                 </div>
               </div>
               <div class="form-group">
@@ -76,7 +76,8 @@
                 <label>&nbsp;Email</label>
                 <input type="email" name="email" id="email" placeholder="Email de contacto" title="Ingrese su email" class="form-control" autofocus="true" required="true">
               </div>
-              <button type="submit" id="enviar" class="btn btn-lg btn-primary btn-block margin1top" >Registrarse a BiciAmiga</button>
+              <!--button type="submit" id="enviar" class="btn btn-lg btn-primary btn-block margin1top" >Registrarse en BiciAmiga</button-->
+              <input type="button" id="enviar" value="Registrarse en BiciAmiga" onclick="validar()" class="btn btn-lg btn-primary btn-block margin1top" />
             </div>              
           </div>
         </div>
@@ -93,4 +94,47 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/existeUsuario.js"></script>
     <script src="js/registroNuevoUsr.js"></script>
+    
+    <script language="javascript" type="text/javascript">
+    function validar(){
+      //alert("entered function");
+      
+      var pass1 = document.getElementById("pass").value;
+      var pass2 = document.getElementById("repass").value;
+      
+      if(pass1 !== pass2)
+      {
+        //alert("contraseñas distintas");
+        document.getElementById("enviar").disabled = true;
+        document.getElementById("repass").style.backgroundColor = "#ff6666";
+        document.getElementById("repass").focus();
+      }
+      else
+      {
+        //#66cc66
+        //alert(document.getElementById("usuario").style.backgroundColor);  
+        var rgb = "rgb("+hexToRgb("#66cc66").r+", "+hexToRgb("#66cc66").g+", "+hexToRgb("#66cc66").b+")";
+        //alert(rgb);
+        if(document.getElementById("usuario").style.backgroundColor !== rgb)
+        {
+          document.getElementById("enviar").disabled = true;
+          document.getElementById("usuario").style.backgroundColor = "#ff6666";
+          document.getElementById("usuario").focus();
+        }
+        else
+          document.getElementById("frmAltaUsr").submit();
+      }
+    }
+    
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+  
+    </script>
+    
   </body>

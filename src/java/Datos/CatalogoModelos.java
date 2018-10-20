@@ -1,5 +1,6 @@
 package Datos;
 
+import Entidades.Bicicletas;
 import Entidades.EstadosReserva;
 import Entidades.Modelos;
 import Entidades.TiposBicicleta;
@@ -16,7 +17,7 @@ public class CatalogoModelos {
     ArrayList<Modelos> modelos = new ArrayList<>();
     Statement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from modelos";
+    String sql = "select * from modelos where baja=0";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -119,12 +120,16 @@ public class CatalogoModelos {
   }
 
   public void bajaModelo(Modelos m) {
-    PreparedStatement sentencia = null;
-    String sql = "delete from modelos where id=?";
+    PreparedStatement sentencia = null;    
     try {
+      
+      String sql = "update modelos set baja=1 where id=?";
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setInt(1, m.getId());
       sentencia.execute();
+      
+      for(Bicicletas b : new CatalogoBicicletas().getBicicletasXModelo(m.getId()))
+        new CatalogoBicicletas().bajaBicicleta(b);
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -176,7 +181,7 @@ public class CatalogoModelos {
     PreparedStatement sentencia;
     ResultSet rs;
     
-    String sql = "select count(*) from modelos where id_tipo=?";
+    String sql = "select count(*) from modelos where id_tipo=? and baja=0";
     int cont = 0;
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
@@ -229,7 +234,7 @@ public class CatalogoModelos {
             + "r.estado="+EstadosReserva.PENDIENTE.getId()+" GROUP BY m.id";
     
     String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
-            + "ON b.id_modelo=m.id WHERE b.disponible=true GROUP BY m.id";
+            + "ON b.id_modelo=m.id WHERE b.disponible=true AND b.baja=0 AND m.baja=0 GROUP BY m.id";
     
     try {      
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
@@ -310,7 +315,7 @@ public class CatalogoModelos {
             + "r.estado="+EstadosReserva.PENDIENTE.getId()+" GROUP BY m.id";
     
     String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
-            + "ON b.id_modelo=m.id WHERE b.disponible=true AND m.id_tipo="+tipo+" GROUP BY m.id";
+            + "ON b.id_modelo=m.id WHERE b.disponible=true AND m.id_tipo="+tipo+" AND b.baja=0 AND m.baja=0 GROUP BY m.id";
     
     try {      
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
@@ -391,7 +396,7 @@ public class CatalogoModelos {
             + "r.estado="+EstadosReserva.PENDIENTE.getId()+" GROUP BY m.id";
     
     String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
-            + "ON b.id_modelo=m.id WHERE b.disponible=true AND m.id="+modelo+" AND m.id_tipo="+tipo+" GROUP BY m.id";
+            + "ON b.id_modelo=m.id WHERE b.disponible=true AND m.id="+modelo+" AND m.id_tipo="+tipo+" AND m.baja=0 AND b.baja=0 GROUP BY m.id";
     
     try {      
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
@@ -462,7 +467,7 @@ public class CatalogoModelos {
     Statement sentencia = null;
     ResultSet rs = null;
     String sql = "select m.* from modelos m inner join bicicletas b "
-            + "on b.id_modelo=m.id WHERE b.disponible=true GROUP BY m.id";
+            + "on b.id_modelo=m.id WHERE b.disponible=true and m.baja=0 and b.baja=0 GROUP BY m.id";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -503,7 +508,7 @@ public class CatalogoModelos {
     ArrayList<Modelos> modelos = new ArrayList<>();
     Statement sentencia;
     ResultSet rs;
-    String sql = "select m.* from modelos m inner join bicicletas b on b.id_modelo=m.id WHERE b.disponible=true AND m.id="+modelo+" GROUP BY m.id";
+    String sql = "select m.* from modelos m inner join bicicletas b on b.id_modelo=m.id WHERE b.disponible=true and b.baja=0 and m.baja=0 AND m.id="+modelo+" GROUP BY m.id";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -574,7 +579,7 @@ public class CatalogoModelos {
             + "WHERE fecha_fin_pactada>=? AND fecha_inicio_pactada<=? AND r.estado=? GROUP BY m.id";
     
     String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
-            + "ON b.id_modelo=m.id WHERE b.disponible=true GROUP BY m.id";
+            + "ON b.id_modelo=m.id WHERE b.disponible=true and b.baja=0 and m.baja=0 GROUP BY m.id";
     
     try {      
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql1);
@@ -655,7 +660,7 @@ public class CatalogoModelos {
             + "INNER JOIN modelos m ON m.id=b.id_modelo INNER JOIN tipos_bicicleta tp ON m.id_tipo=tp.id "
             + "WHERE m.id_tipo=? AND fecha_fin_pactada>=? AND fecha_inicio_pactada<=? AND r.estado=? GROUP BY m.id";
     
-    String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b ON b.id_modelo=m.id WHERE b.disponible=true AND m.id_tipo=? GROUP BY m.id";
+    String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b ON b.id_modelo=m.id WHERE b.disponible=true AND b.baja=0 AND m.baja=0 AND m.id_tipo=? GROUP BY m.id";
     
     try {      
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql1);
@@ -739,7 +744,7 @@ public class CatalogoModelos {
             + "WHERE m.id_tipo=? AND m.id=? AND fecha_fin_pactada>=? AND fecha_inicio_pactada<=? AND r.estado=? GROUP BY m.id";
     
     String sql2 = "SELECT m.*, count(*) as cant FROM modelos m INNER JOIN bicicletas b "
-            + "ON b.id_modelo=m.id WHERE b.disponible=true AND m.id=? AND m.id_tipo=? GROUP BY m.id";
+            + "ON b.id_modelo=m.id WHERE b.disponible=true AND b.baja=0 AND m.baja=0 AND m.id=? AND m.id_tipo=? GROUP BY m.id";
     
     try {      
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql1);
@@ -818,7 +823,7 @@ public class CatalogoModelos {
     ArrayList<Modelos> modelos = new ArrayList<>();
     PreparedStatement sentencia;
     ResultSet rs;
-    String sql = "select m.* from modelos m inner join bicicletas b on b.id_modelo=m.id WHERE b.disponible=true AND m.id=? GROUP BY m.id";
+    String sql = "select m.* from modelos m inner join bicicletas b on b.id_modelo=m.id WHERE b.disponible=true AND b.baja=0 AND m.baja=0 AND m.id=? GROUP BY m.id";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setInt(1, modelo);
