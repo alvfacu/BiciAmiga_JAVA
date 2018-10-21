@@ -1,6 +1,8 @@
 package Datos;
 
+import Entidades.DetallesMantenimiento;
 import Entidades.Mantenimientos;
+import Entidades.Modelos;
 import Entidades.TiposMantenimiento;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -111,11 +113,40 @@ public class CatalogoTiposMantenimiento {
       sentencia.setInt(1, tm.getId());
       sentencia.execute();
       
-      sql  = "update detalle_mantenimiento set completado=1 where id_tipom=?";
+      sql = "update detalle_mantenimiento set completado=1 where id_tipom=?";
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setInt(1, tm.getId());
       sentencia.execute();
       
+      ArrayList<Integer> id_detalles = new ArrayList<>();
+      PreparedStatement sentencia1 = null;
+      ResultSet rs,rs2 = null;
+      
+      sql = "select * from detalle_mantenimiento where id_tipom=?";
+      sentencia1 = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia1.setInt(1, tm.getId());
+      rs = sentencia1.executeQuery();
+
+      while (rs.next()) 
+        id_detalles.add(rs.getInt("id"));
+      
+      for(Integer id : id_detalles){
+        sql = "select count(*) as cant from detalle_mantenimiento where id=?";
+        sentencia1 = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+        sentencia1.setInt(1, id);
+        rs2 = sentencia1.executeQuery(); 
+        
+        if (rs2.next())
+        {
+          if(rs2.getInt("cant")==1)
+          {
+            Mantenimientos m = new CatalogoMantenimientos().getMantenimiento(id);
+            if(m.getFechaEgreso()==null)
+              new CatalogoMantenimientos().bajaMantenimientosXTipoMantenimiento(m.getId());
+          }
+        }
+        
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {

@@ -563,11 +563,34 @@ public class CatalogoMantenimientos {
 
   void eliminarMantenimientosXBici(int id) {
     PreparedStatement sentencia = null;
-    String sql = "update mantenimientos set baja=1, obs=?, fecha_egreso=now() where id_bici=?";
+    String sql = "update mantenimientos set baja=1, obs=?, fecha_egreso=now() where id_bici=? and fecha_egreso is null and baja=0";
     
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setString(1, "MANTENIMIENTO ELIMINADO POR ELIMINAR BICICLETA");
+      sentencia.setInt(2, id);      
+      sentencia.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null && !sentencia.isClosed()) {
+          sentencia.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
+  }
+
+  void bajaMantenimientosXTipoMantenimiento(int id) {
+    PreparedStatement sentencia = null;
+    String sql = "update mantenimientos set baja=1, obs=?, fecha_egreso=now() where id=?";
+    
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setString(1, "MANTENIMIENTO ELIMINADO POR ELIMINAR TIPO MANTENIMIENTO");
       sentencia.setInt(2, id);      
       sentencia.executeUpdate();
     } catch (SQLException e) {
