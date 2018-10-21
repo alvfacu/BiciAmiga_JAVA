@@ -122,6 +122,9 @@ public class CatalogoBicicletas {
       sentencia.execute();
       
       new CatalogoReservas().eliminarReservasXBici(b.getId());
+      
+      new CatalogoMantenimientos().eliminarMantenimientosXBici(b.getId());
+      
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {

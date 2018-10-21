@@ -144,10 +144,12 @@ public class CatalogoMantenimientos {
 
   public void bajaMantenimientos(Mantenimientos m) {
     PreparedStatement sentencia = null;
-    String sql = "delete from mantenimientos where id=?";
+    //String sql = "delete from mantenimientos where id=?";
+    String sql = "update mantenimientos set baja=1, obs=?, fecha_egreso=now() where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
-      sentencia.setInt(1, m.getId());
+      sentencia.setString(1, "MANTENIMIENTO ELIMINADO");
+      sentencia.setInt(2, m.getId());
       sentencia.execute();
 
     } catch (SQLException e) {
@@ -199,7 +201,7 @@ public class CatalogoMantenimientos {
     ArrayList<Mantenimientos> mantenimientos = new ArrayList<>();
     Statement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from mantenimientos where fecha_egreso is null";
+    String sql = "select * from mantenimientos where fecha_egreso is null and baja=0";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -260,7 +262,7 @@ public class CatalogoMantenimientos {
     PreparedStatement sentencia;
     ResultSet rs;
     Mantenimientos m = null;
-    String sql = "select * from mantenimientos where id=? and fecha_egreso is null";
+    String sql = "select * from mantenimientos where id=? and fecha_egreso is null and baja=0";
     
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
@@ -289,7 +291,7 @@ public class CatalogoMantenimientos {
         ArrayList<Mantenimientos> mantenimientos = new ArrayList<>();
     Statement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from mantenimientos where fecha_egreso is not null";
+    String sql = "select * from mantenimientos where fecha_egreso is not null or baja=1";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -472,7 +474,7 @@ public class CatalogoMantenimientos {
         PreparedStatement sentencia;
     ResultSet rs;
     Mantenimientos m = null;
-    String sql = "select * from mantenimientos where id=? and fecha_egreso is not null";
+    String sql = "select * from mantenimientos where id=? and fecha_egreso is not null or baja=1";
     
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
@@ -557,6 +559,29 @@ public class CatalogoMantenimientos {
       }
     }
     return mantenimientos;
+  }
+
+  void eliminarMantenimientosXBici(int id) {
+    PreparedStatement sentencia = null;
+    String sql = "update mantenimientos set baja=1, obs=?, fecha_egreso=now() where id_bici=?";
+    
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setString(1, "MANTENIMIENTO ELIMINADO POR ELIMINAR BICICLETA");
+      sentencia.setInt(2, id);      
+      sentencia.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (sentencia != null && !sentencia.isClosed()) {
+          sentencia.close();
+        }
+        ConexionBD.getInstancia().CloseConn();
+      } catch (SQLException e2) {
+        e2.printStackTrace();
+      }
+    }
   }
   
   

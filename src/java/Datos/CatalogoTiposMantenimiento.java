@@ -1,5 +1,6 @@
 package Datos;
 
+import Entidades.Mantenimientos;
 import Entidades.TiposMantenimiento;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ public class CatalogoTiposMantenimiento {
     ArrayList<TiposMantenimiento> tipos = new ArrayList<>();
     Statement sentencia = null;
     ResultSet rs = null;
-    String sql = "select * from tipos_mantenimiento order by nombre";
+    String sql = "select * from tipos_mantenimiento where baja=0 order by nombre";
     try {
       sentencia = ConexionBD.getInstancia().getconn().createStatement();
       rs = sentencia.executeQuery(sql);
@@ -103,12 +104,18 @@ public class CatalogoTiposMantenimiento {
 
   public void bajaTipoMantenimiento(TiposMantenimiento tm) {
     PreparedStatement sentencia = null;
-    String sql = "delete from tipos_mantenimiento where id=?";
+    //String sql = "delete from tipos_mantenimiento where id=?";
+    String sql = "update tipos_mantenimiento set baja=1 where id=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setInt(1, tm.getId());
       sentencia.execute();
-
+      
+      sql  = "update detalle_mantenimiento set completado=1 where id_tipom=?";
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1, tm.getId());
+      sentencia.execute();
+      
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -176,7 +183,7 @@ public class CatalogoTiposMantenimiento {
     PreparedStatement sentencia;
     ResultSet rs;
     boolean estado = true;
-    String sql = "select count(*) from tipos_mantenimiento where obligatorio=true and km<=?";
+    String sql = "select count(*) from tipos_mantenimiento where obligatorio=true and baja=0 and km<=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setDouble(1, km);
@@ -197,7 +204,7 @@ public class CatalogoTiposMantenimiento {
     PreparedStatement sentencia;
     ResultSet rs;
     ArrayList<TiposMantenimiento> obligatorios = new ArrayList<>();
-    String sql = "select * from tipos_mantenimiento where obligatorio=true and km<=?";
+    String sql = "select * from tipos_mantenimiento where obligatorio=true and baja=0 and km<=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
       sentencia.setDouble(1, km);
