@@ -76,8 +76,8 @@
             <%}%>
           </select>
         </div>
-        <div class="col-lg-3 col-sm-3">                        
-          <div class="form-check form-check-inline"> 
+        <div class="col-lg-3 col-sm-3" align="center">                        
+          <div class="form-check form-check-inline" style="margin-top: 1rem;">            
               <label class="form-check-label label-consulta label-success">
                 <input class="form-check-input" id="chkCompletados" name="chkCompletados" type="checkbox" onclick="checkCompleto()">
                 SOLO COMPLETADOS

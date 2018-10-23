@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Datos/CatalogoTiposMantenimiento.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Datos/CatalogoMantenimientos.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Servlets/EliminarBicicleta.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/admbici.jsp</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/verMantenimiento.jsp</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/mantxbici.jsp</file>
         </group>
     </open-files>
 </project-private>

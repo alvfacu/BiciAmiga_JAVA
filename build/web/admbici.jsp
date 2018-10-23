@@ -214,7 +214,7 @@
               <div class="form-group">
                 <label class="error" id="msj1" style="display: none"></label>
                 <input type="hidden" name="idtb" id="idtb">
-                <label>&nbsp;Tipo de Bicicleta</label>
+                <label>&nbsp;Tipo de Bicicleta / Título a mostrar</label>
                 <input name="nombretb" id="nombretb" maxlength="50" placeholder="Nombre del Tipo de Bicicleta" title="Nombre del Tipo de Bicicleta"  class="form-control" autofocus="true" required="true">
               </div>
               <div class="form-group">
