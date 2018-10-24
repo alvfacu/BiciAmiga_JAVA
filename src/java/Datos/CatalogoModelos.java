@@ -277,7 +277,7 @@ public class CatalogoModelos {
         }
         if(mAct!=null){
           int cantR = mAct.getCant();
-          if(cantR!=cant)
+          if(cantR<cant)
             modelos_listado.add(m);
         } else
           modelos_listado.add(m);
@@ -358,7 +358,7 @@ public class CatalogoModelos {
         }
         if(mAct!=null){
           int cantR = mAct.getCant();
-          if(cantR!=cant)
+          if(cantR<cant)
             modelos_listado.add(m);
         } else
           modelos_listado.add(m);
@@ -439,7 +439,7 @@ public class CatalogoModelos {
         }
         if(mAct!=null){
           int cantR = mAct.getCant();
-          if(cantR!=cant)
+          if(cantR<cant)
             modelos_listado.add(m);
         } else
           modelos_listado.add(m);
@@ -625,7 +625,7 @@ public class CatalogoModelos {
         }
         if(mAct!=null){
           int cantR = mAct.getCant();
-          if(cantR!=cant)
+          if(cantR<cant)
             modelos_listado.add(m);
         } else
           modelos_listado.add(m);
@@ -708,7 +708,7 @@ public class CatalogoModelos {
         }
         if(mAct!=null){
           int cantR = mAct.getCant();
-          if(cantR!=cant)
+          if(cantR<cant)
             modelos_listado.add(m);
         } else
           modelos_listado.add(m);
@@ -796,7 +796,7 @@ public class CatalogoModelos {
         }
         if(mAct!=null){
           int cantR = mAct.getCant();
-          if(cantR!=cant)
+          if(cantR<cant)
             modelos_listado.add(m);
         } else
           modelos_listado.add(m);

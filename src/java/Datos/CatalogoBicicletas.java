@@ -336,7 +336,7 @@ public class CatalogoBicicletas {
     PreparedStatement sentencia;
     ResultSet rs;
     
-    String sql = "select * from reservas WHERE id_bici=? and baja=0 AND fecha_fin_pactada>=? AND fecha_inicio_pactada<=? AND estado IN (?,?)";
+    String sql = "select * from reservas WHERE id_bici=? AND fecha_fin_pactada>=? AND fecha_inicio_pactada<=? AND estado IN (?,?)";
     boolean bnd = true;
     
     try {
