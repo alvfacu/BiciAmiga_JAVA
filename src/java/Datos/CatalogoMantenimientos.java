@@ -474,7 +474,7 @@ public class CatalogoMantenimientos {
         PreparedStatement sentencia;
     ResultSet rs;
     Mantenimientos m = null;
-    String sql = "select * from mantenimientos where id=? and fecha_egreso is not null or baja=1";
+    String sql = "select * from mantenimientos where id=? and (fecha_egreso is not null or baja=1)";
     
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);

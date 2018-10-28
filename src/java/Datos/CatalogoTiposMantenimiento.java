@@ -1,8 +1,6 @@
 package Datos;
 
-import Entidades.DetallesMantenimiento;
 import Entidades.Mantenimientos;
-import Entidades.Modelos;
 import Entidades.TiposMantenimiento;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
