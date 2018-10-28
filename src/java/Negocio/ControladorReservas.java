@@ -81,5 +81,12 @@ public class ControladorReservas {
   public void fallasReserva(Reservas reservaActual) {
     cr.fallasReserva(reservaActual);
   }
+
+  public boolean estaDisponible(int idR) {
+    Reservas reservaActual = cr.getReserva(idR);
+    
+    return (reservaActual.getBici().isDisponible());
+            
+  }
   
 }

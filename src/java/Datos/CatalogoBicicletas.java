@@ -221,15 +221,18 @@ public class CatalogoBicicletas {
 
       while (rs.next()) {
         Bicicletas b = new Bicicletas();
-        b.setId(rs.getInt("id"));
-        b.setDescripcion(rs.getString("descripcion"));
-        b.setPatente(rs.getString("patente"));
-        b.setDisponible(rs.getBoolean("disponible"));
-        b.setKmDsdMantenimiento(rs.getDouble("km_dsd_mantenimiento"));
-        b.setKmEnViaje(rs.getDouble("km_viaje"));
-        Modelos modelo = new CatalogoModelos().getModelo(rs.getInt("id_modelo"));
-        b.setModelo(modelo);
-        bicicletas.add(b);
+        if(!tieneReservasEnCurso(rs.getInt("id")))
+        {
+          b.setId(rs.getInt("id"));
+          b.setDescripcion(rs.getString("descripcion"));
+          b.setPatente(rs.getString("patente"));
+          b.setDisponible(rs.getBoolean("disponible"));
+          b.setKmDsdMantenimiento(rs.getDouble("km_dsd_mantenimiento"));
+          b.setKmEnViaje(rs.getDouble("km_viaje"));
+          Modelos modelo = new CatalogoModelos().getModelo(rs.getInt("id_modelo"));
+          b.setModelo(modelo);
+          bicicletas.add(b);
+        }
       }
     } catch (SQLException e1) {
       e1.printStackTrace();
@@ -386,6 +389,30 @@ public class CatalogoBicicletas {
       ConexionBD.getInstancia().CloseConn();
     }
     return bicis;
+  }
+  
+  public boolean tieneReservasEnCurso(int idbici) {
+    PreparedStatement sentencia;
+    ResultSet rs;
+    
+    String sql = "select * from reservas WHERE id_bici=? AND estado IN (?)";
+    boolean bnd = false;
+    
+    try {
+      sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
+      sentencia.setInt(1,idbici);
+      sentencia.setInt(2, EstadosReserva.ENCURSO.getId());     
+      rs = sentencia.executeQuery();
+      
+      if (rs.next()) {
+        bnd=true;
+        return bnd;
+      }
+
+    } catch (SQLException sqle) {
+      sqle.printStackTrace();
+    }
+    return bnd;
   }
 
   

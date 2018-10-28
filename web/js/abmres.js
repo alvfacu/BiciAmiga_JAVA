@@ -16,7 +16,7 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "order": [[ 4, "asc" ]],
     "columns": [
@@ -48,7 +48,7 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"}
     },
-    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
     "pagingType": "simple_numbers",
     "order": [[ 3, "asc" ]],
     "columns": [
@@ -222,6 +222,12 @@ function iniciarReserva(estado, idEstado, id, usr, idReserva, bicicleta, url, in
             {
               document.getElementById('iniciarR').style.display = "none";
               document.getElementById("msj").innerHTML ="<b>\u00a1Atenci\u00f3n!</b> No se puede iniciar una reserva que no se encuentre entre la fecha/hora pactada.";
+              document.getElementById('msj').style.display = "block";
+            }
+            else if(responseText==="2")
+            {
+              document.getElementById('iniciarR').style.display = "none";
+              document.getElementById("msj").innerHTML ="<b>\u00a1Atenci\u00f3n!</b> No se puede iniciar la reserva porque la bicicleta se encuentra en Mantenimiento.";
               document.getElementById('msj').style.display = "block";
             }
             //INVALIDO

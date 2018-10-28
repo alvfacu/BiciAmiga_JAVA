@@ -54,6 +54,7 @@ public class CatalogoMantenimientos {
         
         m.setKmIngreso(rs.getDouble("km_ingreso"));
         m.setKmEgreso(rs.getDouble("km_egreso"));
+        m.setKmParciales(rs.getDouble("km_parciales"));
         m.setObservacion(rs.getString("obs"));
         mantenimientos.add(m);
       }
@@ -95,6 +96,7 @@ public class CatalogoMantenimientos {
         m.setFechaEgreso(rs.getTimestamp("fecha_egreso"));
         m.setKmIngreso(rs.getDouble("km_ingreso"));
         m.setKmEgreso(rs.getDouble("km_egreso"));
+        m.setKmParciales(rs.getDouble("km_parciales"));
         m.setObservacion(rs.getString("obs"));
       }
 
@@ -107,8 +109,8 @@ public class CatalogoMantenimientos {
   public void altaMantenimiento(Mantenimientos m) {
     PreparedStatement sentencia = null;
     ResultSet rs;
-    String sql = "insert into mantenimientos(id_bici,fecha_ingreso,km_ingreso,fecha_egreso,km_egreso,obs) "
-            + "values(?,?,?,?,?,?)";
+    String sql = "insert into mantenimientos(id_bici,fecha_ingreso,km_ingreso,fecha_egreso,km_egreso,obs,km_parciales) "
+            + "values(?,?,?,?,?,?,?)";
     try {
       sentencia=ConexionBD.getInstancia().getconn().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
       sentencia.setInt(1,m.getBici().getId());      
@@ -123,6 +125,7 @@ public class CatalogoMantenimientos {
       
       sentencia.setDouble(5, m.getKmEgreso());
       sentencia.setString(6, m.getObservacion());
+      sentencia.setDouble(7, m.getKmIngreso());
       sentencia.execute();
       rs=sentencia.getGeneratedKeys();
       if(rs!=null && rs.next()){
@@ -170,7 +173,7 @@ public class CatalogoMantenimientos {
 
   public void modificarMantenimiento(Mantenimientos m) {
     PreparedStatement sentencia = null;
-    String sql = "update mantenimientos set fecha_egreso=?, km_egreso=?, obs=? "
+    String sql = "update mantenimientos set fecha_egreso=?, km_egreso=?, km_parciales=?, obs=? "
             +" where id=? and id_bici=?";
     try {
       sentencia = ConexionBD.getInstancia().getconn().prepareStatement(sql);
@@ -179,9 +182,10 @@ public class CatalogoMantenimientos {
       else
         sentencia.setTimestamp(1, null);      
       sentencia.setDouble(2, m.getKmEgreso());
-      sentencia.setString(3, m.getObservacion());
-      sentencia.setInt(4,m.getId());
-      sentencia.setInt(5,m.getBici().getId());
+      sentencia.setDouble(3, m.getKmParciales());
+      sentencia.setString(4, m.getObservacion());
+      sentencia.setInt(5,m.getId());
+      sentencia.setInt(6,m.getBici().getId());
       sentencia.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -237,6 +241,7 @@ public class CatalogoMantenimientos {
         
         m.setKmIngreso(rs.getDouble("km_ingreso"));
         m.setKmEgreso(rs.getDouble("km_egreso"));
+        m.setKmParciales(rs.getDouble("km_parciales"));
         m.setObservacion(rs.getString("obs"));
         mantenimientos.add(m);
       }
@@ -278,6 +283,7 @@ public class CatalogoMantenimientos {
         m.setFechaEgreso(rs.getTimestamp("fecha_egreso"));
         m.setKmIngreso(rs.getDouble("km_ingreso"));
         m.setKmEgreso(rs.getDouble("km_egreso"));
+        m.setKmParciales(rs.getDouble("km_parciales"));
         m.setObservacion(rs.getString("obs"));
       }
 
@@ -490,6 +496,7 @@ public class CatalogoMantenimientos {
         m.setFechaEgreso(rs.getTimestamp("fecha_egreso"));
         m.setKmIngreso(rs.getDouble("km_ingreso"));
         m.setKmEgreso(rs.getDouble("km_egreso"));
+        m.setKmParciales(rs.getDouble("km_parciales"));
         m.setObservacion(rs.getString("obs"));
       }
 
@@ -540,6 +547,7 @@ public class CatalogoMantenimientos {
         
         m.setKmIngreso(rs.getDouble("km_ingreso"));
         m.setKmEgreso(rs.getDouble("km_egreso"));
+        m.setKmParciales(rs.getDouble("km_parciales"));
         m.setObservacion(rs.getString("obs"));
         mantenimientos.add(m);
       }

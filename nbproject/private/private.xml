@@ -4,7 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Datos/CatalogoBicicletas.java</file>
-            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Datos/CatalogoModelos.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/src/java/Negocio/ControladorBicicletas.java</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/admbici.jsp</file>
+            <file>file:/C:/Users/Facundo/Documents/JAVA/BiciAmiga/web/nuevoMantenimiento.jsp</file>
         </group>
     </open-files>
 </project-private>

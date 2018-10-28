@@ -4,6 +4,7 @@ import Entidades.DetallesMantenimiento;
 import Entidades.Mantenimientos;
 import Negocio.ControladorBicicletas;
 import Negocio.ControladorMantenimientos;
+import com.mysql.jdbc.StringUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 @WebServlet(name = "ModificarMantenimiento", urlPatterns = {"/ModificarMantenimiento"})
 public class ModificarMantenimiento extends HttpServlet {
@@ -49,8 +51,12 @@ public class ModificarMantenimiento extends HttpServlet {
         new ControladorMantenimientos().modificarDetalle(detalles.get(i));
       }
 
-      if (values.length == cantReq) {
-        kme = Double.valueOf(request.getParameter("km_egreso"));
+      if(!StringUtils.isNullOrEmpty(request.getParameter("km_egreso")))
+        kme = Double.valueOf(request.getParameter("km_egreso").replace(",", "."));
+      else
+        kme = Double.valueOf(request.getParameter("kmParc").replace(",", "."));
+      
+      if (values.length == cantReq) {        
         String[] fechae = request.getParameter("fec_egreso").split("\\/");
         String[] horae = request.getParameter("hr_egreso").split("\\:");
         int hora = Integer.valueOf(horae[0]);
@@ -64,6 +70,8 @@ public class ModificarMantenimiento extends HttpServlet {
         m.setFechaEgreso(fecha.getTime());
         m.setKmEgreso(kme);
       }
+      else
+        m.setKmParciales(kme);
 
       new ControladorMantenimientos().modificarMantenimiento(m);
 

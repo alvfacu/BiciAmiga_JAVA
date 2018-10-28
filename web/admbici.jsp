@@ -87,7 +87,7 @@
                   <% }%>
                 </td> 
                 <td class="vertical">
-                  <% if (b.isDisponible()) {%>
+                  <% if (b.isDisponible() && !(new ControladorBicicletas().tieneReservasEnCurso(b))) {%>
                   <button class="btn btn-detener" title="Enviar a mantenimiento"
                           onclick='window.open("nuevoMantenimiento.jsp?idBici="+<%= b.getId()%>,"_self")'>
                     <span class="fa fa-wrench"></span>
@@ -387,5 +387,6 @@
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="js/existePatente.js"></script>
     <script src="js/abmbici.js"></script>
+    
    
   </body>

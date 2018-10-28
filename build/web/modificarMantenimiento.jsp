@@ -125,8 +125,9 @@
                 <input type="text" name="hr_egreso" id="hr_egreso" placeholder="Hora Egreso" title="Hora Egreso" class="form-control" autofocus="true" readonly="true">
               </div>
               <div class="col-sm-4 form-group">
-                <label>&nbsp;Km Egreso</label>
-                <input type="number" step="any" min="<%= manteActual.getKmIngreso() %>" name="km_egreso" id="km_egreso" placeholder="KM Egreso" title="KM Egreso" class="form-control" onchange='validar()'>
+                <label>&nbsp;Km Parciales (<%= df2.format(manteActual.getKmParciales()) %>)</label>
+                <input hidden="true" id="kmParc" name="kmParc" value='<%= df2.format(manteActual.getKmParciales()) %>'>
+                <input type="number" step="any" min="<%= manteActual.getKmParciales()%>"  name="km_egreso" id="km_egreso" placeholder="KM Parciales" title="KM Parciales" class="form-control" onchange='validar()'>
               </div>
             </div>
             <div class="form-group">
@@ -202,7 +203,7 @@
                   anio = d.getFullYear();
           
           document.getElementById('fec_egreso').value = String(dia).padStart(2, "0") + '/' + String(mes).padStart(2, "0") + '/' + anio;
-          document.getElementById('km_egreso').value = parseFloat(document.getElementById('km_ingreso').value.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
+          document.getElementById('km_egreso').value = parseFloat(document.getElementById('kmParc').value.replace(' ', '').replace('.', '').replace(',', '.')).toFixed(2);
           document.getElementById('km_egreso').disabled = false;
         }
         else
@@ -210,12 +211,13 @@
           document.getElementById('hr_egreso').value = '';
           document.getElementById('fec_egreso').value = '';
           document.getElementById('km_egreso').value = '';
-          document.getElementById('km_egreso').disabled = true;
+          document.getElementById('km_egreso').disabled = false;
         }
       }
       else
       {
         document.getElementById("guardarm").disabled=true;
+        document.getElementById('km_egreso').disabled = true;
       }
     }
       

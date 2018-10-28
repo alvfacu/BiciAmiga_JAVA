@@ -10,6 +10,7 @@ public class Mantenimientos {
   private double kmIngreso;
   private double kmEgreso;
   private int id;
+  private double kmParciales;
 
   public int getId() {
     return id;
@@ -65,6 +66,14 @@ public class Mantenimientos {
 
   public void setKmEgreso(double kmEgreso) {
     this.kmEgreso = kmEgreso;
+  }
+  
+  public double getKmParciales() {
+    return kmParciales;
+  }
+
+  public void setKmParciales(double kmParciales) {
+    this.kmParciales = kmParciales;
   }
   
   public Mantenimientos() {

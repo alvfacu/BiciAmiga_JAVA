@@ -51,6 +51,9 @@ public class PuedeIniciarReserva extends HttpServlet {
         if (!new ControladorReservas().puedeIniciar(idR)) {
           rdo = "1";
         }
+        else if(!new ControladorReservas().estaDisponible(idR)){
+          rdo = "2";
+        }
       }
       response.setContentType("text/plain");
       response.getWriter().write(rdo);

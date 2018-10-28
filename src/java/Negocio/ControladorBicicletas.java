@@ -140,5 +140,9 @@ public class ControladorBicicletas {
   public boolean estaDisponibleParaReserva(Bicicletas b, Calendar desde, Calendar hasta) {
     return cb.estaDisponibleParaReserva(b,desde,hasta);
   }
+  
+  public boolean tieneReservasEnCurso(Bicicletas b){
+    return cb.tieneReservasEnCurso(b.getId());
+  }
 
 }
